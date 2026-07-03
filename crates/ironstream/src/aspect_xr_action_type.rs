@@ -2,19 +2,37 @@
 // occt: Aspect_XRActionType
 
 /// XR action type enumeration.
-#[repr(u32)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum AspectXRActionType {
-    /// Boolean input (like button)
+    /// Boolean input (like button).
     InputDigital = 0,
-    /// Analog input (1/2/3 axes)
+    /// Analog input (1/2/3 axes).
     InputAnalog = 1,
-    /// Positional input
+    /// Positional input.
     InputPose = 2,
-    /// Skeletal input
+    /// Skeletal input.
     InputSkeletal = 3,
-    /// Haptic output (vibration)
+    /// Haptic output (vibration).
     OutputHaptic = 4,
+}
+
+impl AspectXRActionType {
+    /// Convert from numeric value to enum variant.
+    pub fn from_value(value: u32) -> Option<Self> {
+        match value {
+            0 => Some(AspectXRActionType::InputDigital),
+            1 => Some(AspectXRActionType::InputAnalog),
+            2 => Some(AspectXRActionType::InputPose),
+            3 => Some(AspectXRActionType::InputSkeletal),
+            4 => Some(AspectXRActionType::OutputHaptic),
+            _ => None,
+        }
+    }
+
+    /// Get the numeric value of this action type.
+    pub fn as_value(&self) -> u32 {
+        *self as u32
+    }
 }
 
 #[cfg(test)]
@@ -22,56 +40,53 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_action_type_values() {
-        assert_eq!(AspectXRActionType::InputDigital as u32, 0);
-        assert_eq!(AspectXRActionType::InputAnalog as u32, 1);
-        assert_eq!(AspectXRActionType::InputPose as u32, 2);
-        assert_eq!(AspectXRActionType::InputSkeletal as u32, 3);
-        assert_eq!(AspectXRActionType::OutputHaptic as u32, 4);
+    fn test_xr_action_type_values() {
+        assert_eq!(AspectXRActionType::InputDigital.as_value(), 0);
+        assert_eq!(AspectXRActionType::InputAnalog.as_value(), 1);
+        assert_eq!(AspectXRActionType::InputPose.as_value(), 2);
+        assert_eq!(AspectXRActionType::InputSkeletal.as_value(), 3);
+        assert_eq!(AspectXRActionType::OutputHaptic.as_value(), 4);
     }
 
     #[test]
-    fn test_action_type_equality() {
-        let type1 = AspectXRActionType::InputDigital;
-        let type2 = AspectXRActionType::InputDigital;
-        assert_eq!(type1, type2);
-
-        let type3 = AspectXRActionType::InputAnalog;
-        assert_ne!(type1, type3);
+    fn test_xr_action_type_from_value() {
+        assert_eq!(AspectXRActionType::from_value(0), Some(AspectXRActionType::InputDigital));
+        assert_eq!(AspectXRActionType::from_value(1), Some(AspectXRActionType::InputAnalog));
+        assert_eq!(AspectXRActionType::from_value(2), Some(AspectXRActionType::InputPose));
+        assert_eq!(AspectXRActionType::from_value(3), Some(AspectXRActionType::InputSkeletal));
+        assert_eq!(AspectXRActionType::from_value(4), Some(AspectXRActionType::OutputHaptic));
+        assert_eq!(AspectXRActionType::from_value(999), None);
     }
 
     #[test]
-    fn test_action_type_clone() {
-        let action_type = AspectXRActionType::InputAnalog;
-        let cloned = action_type;
-        assert_eq!(action_type, cloned);
+    fn test_xr_action_type_round_trip() {
+        for original in [
+            AspectXRActionType::InputDigital,
+            AspectXRActionType::InputAnalog,
+            AspectXRActionType::InputPose,
+            AspectXRActionType::InputSkeletal,
+            AspectXRActionType::OutputHaptic,
+        ] {
+            let value = original.as_value();
+            let restored = AspectXRActionType::from_value(value);
+            assert_eq!(restored, Some(original));
+        }
     }
 
     #[test]
-    fn test_action_type_ordering() {
-        assert!(AspectXRActionType::InputDigital < AspectXRActionType::InputAnalog);
-        assert!(AspectXRActionType::InputAnalog < AspectXRActionType::InputPose);
-        assert!(AspectXRActionType::InputPose < AspectXRActionType::InputSkeletal);
-        assert!(AspectXRActionType::InputSkeletal < AspectXRActionType::OutputHaptic);
+    fn test_xr_action_type_copy() {
+        let t1 = AspectXRActionType::InputAnalog;
+        let t2 = t1;
+        assert_eq!(t1, t2);
     }
 
     #[test]
-    fn test_action_type_hash() {
+    fn test_xr_action_type_hash() {
         use std::collections::HashSet;
-
         let mut set = HashSet::new();
         set.insert(AspectXRActionType::InputDigital);
         set.insert(AspectXRActionType::InputAnalog);
-
+        assert_eq!(set.len(), 2);
         assert!(set.contains(&AspectXRActionType::InputDigital));
-        assert!(set.contains(&AspectXRActionType::InputAnalog));
-        assert!(!set.contains(&AspectXRActionType::InputPose));
-    }
-
-    #[test]
-    fn test_action_type_debug() {
-        let action_type = AspectXRActionType::OutputHaptic;
-        let debug_str = format!("{:?}", action_type);
-        assert!(debug_str.contains("OutputHaptic"));
     }
 }

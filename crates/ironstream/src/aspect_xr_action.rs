@@ -1,77 +1,109 @@
 // FILE: aspect_xr_action.rs
 // occt: Aspect_XRAction
+// occt: Aspect_XRActionType
 
-use crate::aspect_xr_action_type::AspectXRActionType;
+use std::sync::Arc;
+
+/// XR action type enumeration.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum AspectXRActionType {
+    /// Boolean input (like button).
+    InputDigital = 0,
+    /// Analog input (1/2/3 axes).
+    InputAnalog = 1,
+    /// Positional input.
+    InputPose = 2,
+    /// Skeletal input.
+    InputSkeletal = 3,
+    /// Haptic output (vibration).
+    OutputHaptic = 4,
+}
+
+impl AspectXRActionType {
+    /// Convert from numeric value to enum variant.
+    pub fn from_value(value: u32) -> Option<Self> {
+        match value {
+            0 => Some(AspectXRActionType::InputDigital),
+            1 => Some(AspectXRActionType::InputAnalog),
+            2 => Some(AspectXRActionType::InputPose),
+            3 => Some(AspectXRActionType::InputSkeletal),
+            4 => Some(AspectXRActionType::OutputHaptic),
+            _ => None,
+        }
+    }
+}
 
 /// XR action definition.
-#[derive(Debug, Clone)]
 pub struct AspectXRAction {
-    /// Action ID
     id: String,
-    /// Action handle
-    raw_handle: u64,
-    /// Action type
     action_type: AspectXRActionType,
+    raw_handle: u64,
 }
 
 impl AspectXRAction {
-    /// Create a new XR action.
-    /// @param id action identifier
-    /// @param action_type action type
-    pub fn new(id: String, action_type: AspectXRActionType) -> Self {
+    /// Create a new XR action with the given id and type.
+    pub fn new(id: impl Into<String>, action_type: AspectXRActionType) -> Self {
         AspectXRAction {
-            id,
-            raw_handle: 0,
+            id: id.into(),
             action_type,
+            raw_handle: 0,
         }
     }
 
-    /// Return action ID.
+    /// Return the action id.
     pub fn id(&self) -> &str {
         &self.id
     }
 
-    /// Return action type.
+    /// Return the action type.
     pub fn action_type(&self) -> AspectXRActionType {
         self.action_type
     }
 
-    /// Return TRUE if action is defined (has non-zero handle).
+    /// Return TRUE if action is defined (has a valid handle).
     pub fn is_valid(&self) -> bool {
         self.raw_handle != 0
     }
 
-    /// Return action handle.
+    /// Return the action handle.
     pub fn raw_handle(&self) -> u64 {
         self.raw_handle
     }
 
-    /// Set action handle.
+    /// Set the action handle.
     pub fn set_raw_handle(&mut self, handle: u64) {
         self.raw_handle = handle;
     }
 }
+
+/// Type alias for a reference-counted XR action.
+pub type AspectXRActionHandle = Arc<AspectXRAction>;
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn test_create_action() {
-        let action = AspectXRAction::new(
-            "test_action".to_string(),
-            AspectXRActionType::InputDigital,
-        );
+    fn test_xr_action_creation() {
+        let action = AspectXRAction::new("test_action", AspectXRActionType::InputDigital);
         assert_eq!(action.id(), "test_action");
         assert_eq!(action.action_type(), AspectXRActionType::InputDigital);
+        assert!(!action.is_valid());
     }
 
     #[test]
-    fn test_action_validity() {
-        let mut action = AspectXRAction::new(
-            "test_action".to_string(),
-            AspectXRActionType::InputAnalog,
-        );
+    fn test_xr_action_type_from_value() {
+        assert_eq!(AspectXRActionType::from_value(0), Some(AspectXRActionType::InputDigital));
+        assert_eq!(AspectXRActionType::from_value(1), Some(AspectXRActionType::InputAnalog));
+        assert_eq!(AspectXRActionType::from_value(2), Some(AspectXRActionType::InputPose));
+        assert_eq!(AspectXRActionType::from_value(3), Some(AspectXRActionType::InputSkeletal));
+        assert_eq!(AspectXRActionType::from_value(4), Some(AspectXRActionType::OutputHaptic));
+        assert_eq!(AspectXRActionType::from_value(999), None);
+    }
+
+    #[test]
+    fn test_xr_action_handle_operations() {
+        let mut action = AspectXRAction::new("pose_action", AspectXRActionType::InputPose);
         assert!(!action.is_valid());
 
         action.set_raw_handle(12345);
@@ -80,60 +112,11 @@ mod tests {
     }
 
     #[test]
-    fn test_action_id() {
-        let action = AspectXRAction::new(
-            "my_grip_action".to_string(),
-            AspectXRActionType::InputPose,
+    fn test_xr_action_handle_wrapper() {
+        let action = AspectXRActionHandle::new(
+            AspectXRAction::new("haptic_action", AspectXRActionType::OutputHaptic)
         );
-        assert_eq!(action.id(), "my_grip_action");
-    }
-
-    #[test]
-    fn test_action_types() {
-        let digital = AspectXRAction::new(
-            "digital".to_string(),
-            AspectXRActionType::InputDigital,
-        );
-        assert_eq!(digital.action_type(), AspectXRActionType::InputDigital);
-
-        let analog = AspectXRAction::new("analog".to_string(), AspectXRActionType::InputAnalog);
-        assert_eq!(analog.action_type(), AspectXRActionType::InputAnalog);
-
-        let pose = AspectXRAction::new("pose".to_string(), AspectXRActionType::InputPose);
-        assert_eq!(pose.action_type(), AspectXRActionType::InputPose);
-
-        let haptic =
-            AspectXRAction::new("haptic".to_string(), AspectXRActionType::OutputHaptic);
-        assert_eq!(haptic.action_type(), AspectXRActionType::OutputHaptic);
-    }
-
-    #[test]
-    fn test_action_handle_lifecycle() {
-        let mut action = AspectXRAction::new(
-            "lifecycle_test".to_string(),
-            AspectXRActionType::InputSkeletal,
-        );
-
-        assert!(!action.is_valid());
-        assert_eq!(action.raw_handle(), 0);
-
-        action.set_raw_handle(99999);
-        assert!(action.is_valid());
-        assert_eq!(action.raw_handle(), 99999);
-    }
-
-    #[test]
-    fn test_action_clone() {
-        let mut action = AspectXRAction::new(
-            "clone_test".to_string(),
-            AspectXRActionType::InputDigital,
-        );
-        action.set_raw_handle(54321);
-
-        let cloned = action.clone();
-        assert_eq!(cloned.id(), action.id());
-        assert_eq!(cloned.action_type(), action.action_type());
-        assert_eq!(cloned.raw_handle(), action.raw_handle());
-        assert_eq!(cloned.is_valid(), action.is_valid());
+        assert_eq!(action.id(), "haptic_action");
+        assert_eq!(action.action_type(), AspectXRActionType::OutputHaptic);
     }
 }
