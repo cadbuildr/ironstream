@@ -163,36 +163,87 @@ impl MathBrentMinimum {
         Self { a, b, tolerance, max_iter: 100, result: 0.0, value: 0.0, is_done: false }
     }
 
+    /// Brent's method with parabolic interpolation, mirroring
+    /// math_BrentMinimum::Perform (Numerical Recipes "brent").
+    /// The interior starting point is taken at the golden section of [a, b].
     pub fn perform<F>(&mut self, f: &F)
     where F: MathFunction,
     {
-        let mut lo = self.a;
-        let mut hi = self.b;
-        let golden = 0.381966011250105; // 1 - phi
-        let mut x = lo + golden * (hi - lo);
-        let mut fx = match f.value(x) { Some(v) => v, None => { return; } };
+        const CGOLD: f64 = 0.3819660; // 0.5*(3 - sqrt(5)), as in OCCT
+        const ZEPS: f64 = 1.0e-12;    // OCCT default theZEPS
+
         self.is_done = false;
-        for _ in 0..self.max_iter {
-            let mid = (lo + hi) / 2.0;
-            if (hi - lo) < self.tolerance {
+        let ax = self.a.min(self.b);
+        let cx = self.a.max(self.b);
+        let bx = ax + CGOLD * (cx - ax);
+
+        let mut a = ax;
+        let mut b = cx;
+        let mut x = bx;
+        let mut w = bx;
+        let mut v = bx;
+        let mut fx = match f.value(x) { Some(val) => val, None => { return; } };
+        let mut fw = fx;
+        let mut fv = fx;
+        let mut e: f64 = 0.0;
+        let mut d: f64 = f64::MAX;
+
+        for _iter in 1..=self.max_iter {
+            let xm = 0.5 * (a + b);
+            let tol1 = self.tolerance * x.abs() + ZEPS;
+            let tol2 = 2.0 * tol1;
+            // math_BrentMinimum::IsSolutionReached
+            if (x - xm).abs() <= tol2 - 0.5 * (b - a) {
                 self.result = x;
                 self.value = fx;
                 self.is_done = true;
                 return;
             }
-            let x_new = if x < mid { lo + golden * (hi - lo) } else { hi - golden * (hi - lo) };
-            let fx_new = match f.value(x_new) { Some(v) => v, None => { return; } };
-            if fx_new < fx {
-                if x_new < x { hi = x; } else { lo = x; }
-                x = x_new;
-                fx = fx_new;
+            if e.abs() > tol1 {
+                // Trial parabolic fit through x, w, v.
+                let r = (x - w) * (fx - fv);
+                let mut q = (x - v) * (fx - fw);
+                let mut p = (x - v) * q - (x - w) * r;
+                q = 2.0 * (q - r);
+                if q > 0.0 { p = -p; }
+                q = q.abs();
+                let etemp = e;
+                e = d;
+                if p.abs() >= (0.5 * q * etemp).abs() || p <= q * (a - x) || p >= q * (b - x) {
+                    // Parabolic step rejected: golden section into the larger segment.
+                    e = if x >= xm { a - x } else { b - x };
+                    d = CGOLD * e;
+                } else {
+                    d = p / q;
+                    let u = x + d;
+                    if u - a < tol2 || b - u < tol2 {
+                        d = tol1.copysign(xm - x);
+                    }
+                }
             } else {
-                if x_new < x { lo = x_new; } else { hi = x_new; }
+                e = if x >= xm { a - x } else { b - x };
+                d = CGOLD * e;
+            }
+            let u = if d.abs() >= tol1 { x + d } else { x + tol1.copysign(d) };
+            let fu = match f.value(u) { Some(val) => val, None => { return; } };
+            if fu <= fx {
+                if u >= x { a = x; } else { b = x; }
+                v = w; w = x; x = u;
+                fv = fw; fw = fx; fx = fu;
+            } else {
+                if u < x { a = u; } else { b = u; }
+                if fu <= fw || w == x {
+                    v = w; w = u;
+                    fv = fw; fw = fu;
+                } else if fu <= fv || v == x || v == w {
+                    v = u;
+                    fv = fu;
+                }
             }
         }
+        // Itermax exceeded: not done (as in OCCT), but keep best point found.
         self.result = x;
         self.value = fx;
-        self.is_done = true;
     }
 
     pub fn is_done(&self) -> bool { self.is_done }

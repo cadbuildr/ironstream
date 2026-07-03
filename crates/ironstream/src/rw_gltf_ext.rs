@@ -169,11 +169,15 @@ impl RWGltfWriter {
     pub fn set_force_uvs(&mut self, v: bool) { self.force_uvs = v; }
 
     pub fn write(&mut self, _path: &str, primitives: &[GltfPrimitive]) -> GltfStatus {
-        if primitives.is_empty() {
+        // occt: RWGltf_CafWriter::toSkipShape() — empty shapes are skipped,
+        // since glTF disallows empty primitive arrays. If nothing remains,
+        // there is no mesh content to write.
+        let nb_non_empty = primitives.iter().filter(|p| !p.is_empty()).count();
+        if nb_non_empty == 0 {
             self.status = GltfStatus::NoMesh;
             return GltfStatus::NoMesh;
         }
-        self.nb_nodes_written = primitives.len();
+        self.nb_nodes_written = nb_non_empty;
         self.status = GltfStatus::Ok;
         GltfStatus::Ok
     }

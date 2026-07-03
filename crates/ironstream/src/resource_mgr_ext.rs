@@ -164,7 +164,8 @@ mod tests {
     fn stream_buffer() {
         let mut sb = ResourceStreamBuffer::new();
         sb.write_bytes(b"line1\nline2\nline3");
-        assert_eq!(sb.size(), 18);
+        // "line1\nline2\nline3" is 17 bytes: 3 x 5 chars + 2 newlines.
+        assert_eq!(sb.size(), 17);
         let line1 = sb.read_line();
         assert_eq!(line1, Some("line1".to_string()));
         let line2 = sb.read_line();

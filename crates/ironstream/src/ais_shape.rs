@@ -93,7 +93,20 @@ fn face_key(face: &str) -> [f64; 3] {
             _ => h2 = h2.wrapping_mul(0xbf58476d1ce4e5b9).wrapping_add(b as u64),
         }
     }
-    [h0 as f64, h1 as f64, h2 as f64]
+    [finalize_key(h0), finalize_key(h1), finalize_key(h2)]
+}
+
+/// Avalanche the hash bits then keep 53 of them so the conversion to f64 is
+/// exact. Casting a raw ~2^63 u64 to f64 rounds away the low bits, which made
+/// names differing only in their last byte collide to the same key.
+fn finalize_key(mut h: u64) -> f64 {
+    // splitmix64 finalizer
+    h ^= h >> 30;
+    h = h.wrapping_mul(0xbf58476d1ce4e5b9);
+    h ^= h >> 27;
+    h = h.wrapping_mul(0x94d049bb133111eb);
+    h ^= h >> 31;
+    (h >> 11) as f64
 }
 
 #[cfg(test)]
