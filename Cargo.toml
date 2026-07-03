@@ -1,0 +1,35 @@
+# IronStream — a from-scratch CAD geometry kernel in Rust.
+#
+# An original, dependency-free re-implementation of an OpenCascade-style B-rep
+# kernel. The public module layout mirrors OCCT's packages (gp, Geom, TopoDS,
+# BRepBuilderAPI, BRepPrimAPI, BRepAlgoAPI, BRepMesh), while the implementation
+# — linear algebra, topology, a BSP-tree CSG boolean engine, tessellation, and
+# STL/STEP writers — is entirely new Rust with no third-party dependencies.
+#
+# See README.md and ARCHITECTURE.md.
+
+[workspace]
+resolver = "2"
+members = ["crates/ironstream"]
+
+[workspace.package]
+edition = "2021"
+rust-version = "1.75"
+license = "MIT"
+repository = "https://github.com/cadbuildr/ironstream"
+authors = ["IronStream contributors"]
+publish = false
+
+[profile.release]
+opt-level = 3
+debug = "line-tables-only"
+
+# The kernel crate has hundreds of integration-test binaries (tests/occt_*.rs)
+# that each link the full kernel rlib. Dropping debuginfo keeps each link's peak
+# memory and on-disk size down so a bounded set of parallel links (see
+# .cargo/config.toml) does not exhaust memory.
+[profile.test]
+debug = 0
+
+[profile.dev]
+debug = "line-tables-only"

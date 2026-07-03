@@ -1,0 +1,24 @@
+[package]
+autotests = false
+name = "ironstream"
+version = "0.1.0"
+description = "IronStream — a from-scratch OpenCascade-style CAD geometry kernel in pure Rust (zero third-party deps)."
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+authors.workspace = true
+
+[lib]
+# Library only; the kernel exposes an OCCT-shaped API surface.
+name = "ironstream"
+path = "src/lib.rs"
+
+# NOTE: zero third-party dependencies on purpose. Everything (linear algebra,
+# topology, the BSP CSG boolean engine, tessellation, STL/STEP writers) is
+# implemented from scratch in this crate.
+[dependencies]
+
+[[test]]
+name = "occt_suite"
+path = "tests/occt_suite.rs"

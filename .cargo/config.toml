@@ -1,0 +1,15 @@
+# Build tuning for the IronStream workspace.
+#
+# The `ironstream` crate declares hundreds of integration-test binaries
+# (tests/occt_*.rs), each of which statically links the full ~2,767-module
+# kernel rlib. A bare `cargo test` links all of them, and doing so with
+# unbounded parallelism exhausts memory on a dev laptop.
+#
+# Two mitigations here:
+#   * cap concurrent codegen/link jobs so peak memory stays bounded;
+#   * the canonical fast loop is `cargo test -p ironstream --lib`, which runs the
+#     inline #[cfg(test)] unit tests and never builds the integration-test
+#     binaries at all.
+[build]
+jobs = 6
+incremental = true

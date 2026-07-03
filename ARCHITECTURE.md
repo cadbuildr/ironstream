@@ -1,0 +1,65 @@
+# IronStream architecture
+
+## Design goals
+
+1. **From scratch, zero-dependency.** No code is shared with OpenCascade/OCCT or
+   any other kernel; the crate has no third-party dependencies.
+2. **OpenCascade-shaped boundary.** A reader who knows OCCT should recognize the
+   module layout (`gp`, `Geom`, `TopoDS`, `BRepBuilderAPI`, `BRepPrimAPI`,
+   `BRepAlgoAPI`, `BRepMesh`).
+3. **Verifiable.** Correctness is anchored on OCCT's own unit tests (ported to
+   Rust) and on closed-form checks (a box reads exactly 8000; a cylinder's
+   volume matches π·r²·h).
+
+## Internal representation: a tessellating B-rep
+
+OpenCascade is an exact NURBS B-rep kernel; a faithful exact re-implementation is
+a multi-year effort. IronStream is today a **tessellating** B-rep:
+
+- A `TopoDS::Solid` carries a watertight `TriMesh` (its boundary).
+- Primitives (`BRepPrimAPI`) tessellate analytic surfaces at a deterministic
+  resolution (`MeshParams`).
+- Planar profiles become `TopoDS::Face`s, triangulated by ear clipping, then
+  swept into prisms (extrude) or revolutions (lathe).
+- Booleans (`BRepAlgoAPI`) run a from-scratch **BSP-tree CSG** engine (`bsp`).
+- `geom` retains the analytic surface/curve kind as metadata, leaving the door
+  open to an exact-geometry path (tracked in `OPENCASCADE_PARITY.md`).
+
+### Why volumes come out exact
+
+`TriMesh::signed_volume` integrates via the divergence theorem (∑ a·(b×c) / 6).
+For a closed, consistently-oriented mesh this is the **exact** enclosed volume
+regardless of triangle count — so a box reads 8000.000, not 7999.x. CSG output
+can carry T-junctions where faces coincide; those are immaterial to volume,
+bounding box, and voxelized overlap.
+
+## The BSP CSG engine (`bsp.rs`)
+
+A from-scratch implementation of Naylor–Amanatides–Thibault ("Merging BSP trees
+yields polyhedral set operations", SIGGRAPH 1990):
+
+- Solids enter as triangle soups → convex `Polygon`s with a supporting `Plane`.
+- A `Node` partitions polygons by a plane into front/back subtrees plus coplanar
+  faces; `split_polygon` cuts spanning polygons.
+- `clip_to`, `invert`, `build` and `all_polygons` implement the set operations:
+  `fuse` (∪), `cut` (\\), `common` (∩).
+- The recursion runs on a large-stack thread so big tessellations can't overflow
+  the default stack.
+
+## Testing
+
+- **Ported OCCT unit tests** — OCCT's GoogleTest suites reproduced faithfully in
+  Rust under `crates/ironstream/tests/` (same inputs, expected values,
+  tolerances). They are consolidated into a single `occt_suite` integration
+  binary so the full suite links once rather than as hundreds of binaries.
+- **Inline unit tests** — per-module `#[cfg(test)]` tests for volumes, booleans,
+  and triangulation. `cargo test -p ironstream --lib` runs these quickly.
+
+## Future work
+
+- An exact-geometry path driven by the retained `geom` metadata: real `Geom`
+  curves/surfaces with closed-form evaluation, de Boor B-spline evaluation, and
+  analytic surface–surface intersections feeding a real B-rep boolean (face
+  splitting + classification + sewing). Progress is tracked in
+  `OPENCASCADE_PARITY.md`.
+- Fillet / chamfer / shell / draft, and the lofting/sweeping surface families.

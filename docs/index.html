@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IronStream — a from-scratch CAD kernel in pure Rust</title>
+<meta name="description" content="IronStream is an original, zero-dependency re-implementation of an OpenCascade-style B-rep CAD kernel in pure Rust. Every model on this page was computed by IronStream itself." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0c0a08;
+    --bg-2: #14100c;
+    --panel: #191410;
+    --line: #2b221a;
+    --text: #e8ddd2;
+    --muted: #9b8b7a;
+    --ember: #ff7a2f;
+    --copper: #c47a3d;
+    --copper-dim: #8a5527;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    line-height: 1.6;
+  }
+  code, pre, .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+  a { color: var(--ember); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* nav */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.9rem 2rem;
+    background: linear-gradient(rgba(12,10,8,.92), rgba(12,10,8,.75));
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .brand { font-weight: 700; letter-spacing: .14em; font-size: .95rem; color: var(--text); }
+  nav .brand span { color: var(--ember); }
+  nav .links { display: flex; gap: 1.4rem; font-size: .85rem; }
+  nav .links a { color: var(--muted); }
+  nav .links a:hover { color: var(--ember); text-decoration: none; }
+
+  /* hero */
+  header {
+    position: relative;
+    min-height: 78vh;
+    display: flex; align-items: flex-end;
+    background: url("assets/hero-wide.jpg") center 30% / cover no-repeat;
+  }
+  header::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(12,10,8,.55) 0%, rgba(12,10,8,.25) 45%, rgba(12,10,8,.96) 92%, var(--bg) 100%);
+  }
+  .hero-inner { position: relative; z-index: 1; padding: 4rem 2rem 4.5rem; max-width: 1080px; margin: 0 auto; width: 100%; }
+  h1 {
+    font-size: clamp(2.6rem, 7vw, 4.6rem);
+    letter-spacing: .06em; font-weight: 700; line-height: 1.05;
+    text-shadow: 0 2px 30px rgba(0,0,0,.7);
+  }
+  h1 .flow { color: var(--ember); }
+  .tagline { margin-top: 1rem; font-size: clamp(1rem, 2.2vw, 1.25rem); color: #d9c9b8; max-width: 46rem; text-shadow: 0 1px 16px rgba(0,0,0,.8); }
+  .badges { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.4rem; }
+  .badge {
+    font-family: "IBM Plex Mono", monospace; font-size: .74rem;
+    border: 1px solid var(--copper-dim); color: #e7b98a;
+    padding: .28rem .7rem; border-radius: 999px;
+    background: rgba(20,14,9,.55);
+  }
+  .cta { display: flex; gap: .9rem; margin-top: 1.8rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: .68rem 1.3rem; border-radius: 8px;
+    font-weight: 500; font-size: .95rem; transition: transform .12s ease;
+  }
+  .btn:hover { text-decoration: none; transform: translateY(-1px); }
+  .btn.primary { background: var(--ember); color: #180d05; }
+  .btn.ghost { border: 1px solid var(--copper-dim); color: var(--text); background: rgba(20,14,9,.5); }
+
+  section { max-width: 1080px; margin: 0 auto; padding: 5rem 2rem 1rem; }
+  .kicker { font-family: "IBM Plex Mono", monospace; color: var(--ember); font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; }
+  h2 { font-size: clamp(1.6rem, 3.6vw, 2.3rem); margin: .5rem 0 1rem; letter-spacing: .01em; }
+  .lead { color: var(--muted); max-width: 46rem; }
+
+  /* viewer */
+  .viewer-wrap {
+    margin-top: 2rem; border: 1px solid var(--line); border-radius: 14px;
+    overflow: hidden; background: radial-gradient(120% 100% at 50% 0%, #171210 0%, #0d0b09 70%);
+  }
+  #viewer { width: 100%; height: 520px; display: block; touch-action: none; cursor: grab; }
+  #viewer:active { cursor: grabbing; }
+  .viewer-bar {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: .7rem 1rem; border-top: 1px solid var(--line);
+    background: rgba(16,12,9,.85); flex-wrap: wrap;
+  }
+  .chips { display: flex; gap: .45rem; flex-wrap: wrap; }
+  .chip {
+    font-family: "IBM Plex Mono", monospace; font-size: .74rem;
+    padding: .32rem .72rem; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--line); color: var(--muted); background: transparent;
+    transition: all .12s ease;
+  }
+  .chip:hover { border-color: var(--copper-dim); color: var(--text); }
+  .chip.active { background: var(--ember); border-color: var(--ember); color: #180d05; font-weight: 500; }
+  .viewer-meta { font-family: "IBM Plex Mono", monospace; font-size: .72rem; color: var(--muted); white-space: nowrap; }
+  .viewer-meta b { color: #e7b98a; font-weight: 500; }
+  .model-caption { padding: .8rem 1rem 1rem; font-size: .86rem; color: var(--muted); border-top: 1px solid var(--line); }
+  .wire-toggle { margin-left: auto; }
+
+  /* stats strip */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin-top: 2.5rem; }
+  .stat { background: var(--bg-2); padding: 1.3rem 1.4rem; }
+  .stat .n { font-size: 1.7rem; font-weight: 700; color: var(--ember); font-family: "IBM Plex Mono", monospace; }
+  .stat .l { font-size: .8rem; color: var(--muted); margin-top: .15rem; }
+
+  /* code */
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; margin-top: 2rem; }
+  @media (max-width: 860px) { .cols { grid-template-columns: 1fr; } }
+  .codecard { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--bg-2); }
+  .codecard .head { font-family: "IBM Plex Mono", monospace; font-size: .74rem; color: var(--muted); padding: .55rem 1rem; border-bottom: 1px solid var(--line); display:flex; justify-content: space-between; }
+  .codecard .head .lang { color: var(--ember); }
+  pre { padding: 1.1rem 1.2rem; overflow-x: auto; font-size: .8rem; line-height: 1.65; color: #dccfbf; }
+  .c-kw { color: #ff8f4d; } .c-fn { color: #f0c987; } .c-str { color: #a8c98a; } .c-cm { color: #7a6a5a; } .c-num { color: #d4a5ff; }
+
+  /* live playground */
+  #pycode {
+    width: 100%; min-height: 230px; resize: vertical; border: none; outline: none;
+    background: transparent; color: #dccfbf; padding: 1.1rem 1.2rem;
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .8rem; line-height: 1.65;
+  }
+  .runbar { display: flex; align-items: center; gap: 1rem; padding: .7rem 1rem; border-top: 1px solid var(--line); }
+  .runbar .btn { cursor: pointer; border: none; font-family: inherit; font-size: .88rem; }
+  .runbar .btn:disabled { opacity: .55; cursor: wait; transform: none; }
+  .runstatus { font-size: .74rem; color: var(--muted); }
+  .pyout {
+    border-top: 1px solid var(--line); background: #0a0806; color: #a8c98a;
+    white-space: pre-wrap;
+  }
+  .pyout.err { color: #ff8f6b; }
+
+  /* tribute */
+  .tribute { display: grid; grid-template-columns: 3fr 2fr; gap: 2.4rem; align-items: start; margin-top: 2rem; }
+  @media (max-width: 860px) { .tribute { grid-template-columns: 1fr; } }
+  .tribute img { width: 100%; border-radius: 12px; border: 1px solid var(--line); display: block; }
+  .tribute figcaption { font-size: .74rem; color: var(--muted); margin-top: .5rem; font-family: "IBM Plex Mono", monospace; }
+  .tribute p { margin-bottom: 1rem; color: #cbbba9; }
+  .tribute p b { color: var(--text); }
+  blockquote {
+    border-left: 3px solid var(--ember); padding: .2rem 0 .2rem 1.1rem; margin: 1.4rem 0;
+    color: var(--text); font-size: 1.05rem;
+  }
+  .modmap { width: 100%; border-collapse: collapse; font-family: "IBM Plex Mono", monospace; font-size: .76rem; margin-top: 1.2rem; }
+  .modmap th, .modmap td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid var(--line); }
+  .modmap th { color: var(--muted); font-weight: 400; }
+  .modmap td:first-child { color: #e7b98a; }
+  .modmap td:last-child { color: var(--muted); }
+
+  /* python */
+  .py-grid { display: grid; grid-template-columns: 2fr 3fr; gap: 2.4rem; align-items: center; margin-top: 2rem; }
+  @media (max-width: 860px) { .py-grid { grid-template-columns: 1fr; } }
+  .py-grid img { width: 100%; border-radius: 12px; border: 1px solid var(--line); }
+  .repolinks { display: flex; flex-direction: column; gap: .8rem; margin-top: 1.4rem; }
+  .repolink {
+    display: block; border: 1px solid var(--line); border-radius: 10px; padding: .9rem 1.1rem;
+    background: var(--bg-2); transition: border-color .12s ease;
+  }
+  .repolink:hover { border-color: var(--copper-dim); text-decoration: none; }
+  .repolink .rn { font-family: "IBM Plex Mono", monospace; color: var(--ember); font-size: .88rem; }
+  .repolink .rd { color: var(--muted); font-size: .82rem; margin-top: .15rem; }
+
+  footer {
+    margin-top: 6rem; border-top: 1px solid var(--line);
+    padding: 2.2rem; text-align: center; color: var(--muted); font-size: .82rem;
+  }
+  footer .mono { color: var(--copper); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">IRON<span>STREAM</span></div>
+  <div class="links">
+    <a href="#models">Models</a>
+    <a href="#live">Live demo</a>
+    <a href="#code">Code</a>
+    <a href="#occt">OpenCascade</a>
+    <a href="#python">Python</a>
+    <a href="https://github.com/cadbuildr/ironstream">GitHub</a>
+  </div>
+</nav>
+
+<header>
+  <div class="hero-inner">
+    <h1>IRON<span class="flow">STREAM</span></h1>
+    <p class="tagline">A from-scratch, OpenCascade-style CAD geometry kernel in pure Rust.
+    Linear algebra, topology, a BSP-tree CSG boolean engine, tessellation and STL/STEP writers —
+    with <b>zero third-party dependencies</b>.</p>
+    <div class="badges">
+      <span class="badge">pure rust</span>
+      <span class="badge">zero deps</span>
+      <span class="badge">OCCT-shaped API</span>
+      <span class="badge">674 ported OCCT tests</span>
+      <span class="badge">MIT</span>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/cadbuildr/ironstream">View on GitHub</a>
+      <a class="btn ghost" href="#models">See what it forges ↓</a>
+    </div>
+  </div>
+</header>
+
+<section id="models">
+  <div class="kicker">// forged by ironstream</div>
+  <h2>Every model here was computed by IronStream itself</h2>
+  <p class="lead">Booleans from the BSP CSG engine, lathes, lofts, sweeps and sheet-metal flanges —
+  tessellated by the kernel and written out by its own binary-STL writer. Compiled from
+  <a href="https://github.com/cadbuildr">CADbuildr foundation</a> designs via
+  <a href="https://github.com/cadbuildr/castiron">castiron</a>. Drag to orbit, scroll to zoom.</p>
+
+  <div class="viewer-wrap">
+    <canvas id="viewer"></canvas>
+    <div class="viewer-bar">
+      <div class="chips" id="chips"></div>
+      <label class="chip wire-toggle" id="wiretoggle">wireframe</label>
+      <div class="viewer-meta" id="meta"></div>
+    </div>
+    <div class="model-caption" id="caption"></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="n">0</div><div class="l">third-party dependencies</div></div>
+    <div class="stat"><div class="n">3,176</div><div class="l">OCCT classes mirrored (44.8%)</div></div>
+    <div class="stat"><div class="n">92%+</div><div class="l">coverage in core modeling toolkits</div></div>
+    <div class="stat"><div class="n">674</div><div class="l">ported OpenCascade unit tests, all green</div></div>
+  </div>
+</section>
+
+<section id="code">
+  <div class="kicker">// the api</div>
+  <h2>OpenCascade-shaped, Rust-natured</h2>
+  <p class="lead">If you know <code>BRepPrimAPI</code> and <code>BRepAlgoAPI</code>, you already know your way around.
+  The same surface is exposed to Python through the <a href="https://github.com/cadbuildr/ironstream-python">ironstream</a> bindings.</p>
+
+  <div class="cols">
+    <div class="codecard">
+      <div class="head"><span>drilled_block.rs</span><span class="lang">rust</span></div>
+<pre><span class="c-kw">use</span> ironstream::prelude::*;
+
+<span class="c-kw">fn</span> <span class="c-fn">main</span>() {
+    <span class="c-kw">let</span> block = <span class="c-fn">make_box</span>(Pnt::new(<span class="c-num">0.0</span>, <span class="c-num">0.0</span>, <span class="c-num">0.0</span>), <span class="c-num">20.0</span>, <span class="c-num">20.0</span>, <span class="c-num">20.0</span>);
+    <span class="c-kw">let</span> drill = <span class="c-fn">make_cylinder</span>(<span class="c-num">5.0</span>, <span class="c-num">20.0</span>, MeshParams::default());
+    <span class="c-kw">let</span> part  = <span class="c-fn">cut</span>(&amp;block, &amp;drill);   <span class="c-cm">// BSP CSG boolean</span>
+
+    <span class="c-fn">println!</span>(<span class="c-str">"volume = {:.1}"</span>, part.volume());
+    std::fs::write(<span class="c-str">"part.stl"</span>, <span class="c-fn">write_binary_stl</span>(part.mesh())).unwrap();
+}</pre>
+    </div>
+    <div class="codecard">
+      <div class="head"><span>drilled_block.py</span><span class="lang">python</span></div>
+<pre><span class="c-kw">import</span> ironstream <span class="c-kw">as</span> ist
+
+block = ist.<span class="c-fn">make_box</span>(ist.Pnt(<span class="c-num">0</span>, <span class="c-num">0</span>, <span class="c-num">0</span>), <span class="c-num">20</span>, <span class="c-num">20</span>, <span class="c-num">20</span>)
+drill = ist.<span class="c-fn">make_cylinder</span>(<span class="c-num">5</span>, <span class="c-num">20</span>)
+part  = ist.<span class="c-fn">cut</span>(block, drill)   <span class="c-cm"># same kernel, same CSG</span>
+
+<span class="c-fn">print</span>(part.volume())
+<span class="c-kw">with</span> <span class="c-fn">open</span>(<span class="c-str">"part.stl"</span>, <span class="c-str">"wb"</span>) <span class="c-kw">as</span> f:
+    f.write(ist.<span class="c-fn">write_binary_stl</span>(part.mesh()))</pre>
+    </div>
+  </div>
+</section>
+
+<section id="live">
+  <div class="kicker">// live, in your browser</div>
+  <h2>The kernel, running in this page</h2>
+  <p class="lead">This is not a video and not a server: the button below loads
+  <a href="https://pyodide.org">Pyodide</a> and a <b>145&nbsp;KB WebAssembly build of the
+  IronStream Python bindings</b>, then runs real Python against the real kernel — booleans,
+  volumes and STL bytes computed right here. Edit the code and re-run it.</p>
+
+  <div class="codecard" style="margin-top:2rem">
+    <div class="head"><span>playground.py</span><span class="lang">python · pyodide</span></div>
+    <textarea id="pycode" spellcheck="false">import ironstream as ist
+
+block = ist.make_box(ist.Pnt(0, 0, 0), 20, 20, 20)
+drill = ist.make_cylinder(6, 20)
+part  = ist.cut(block, drill)
+
+print(f"block volume : {block.volume():.1f}")
+print(f"part volume  : {part.volume():.1f}")
+print(f"mesh         : {part.mesh()!r}")
+print(f"stl size     : {len(ist.write_binary_stl(part.mesh()))} bytes")</textarea>
+    <div class="runbar">
+      <button class="btn primary" id="runbtn">▶ Run in browser</button>
+      <span class="runstatus mono" id="runstatus"></span>
+    </div>
+    <pre id="pyout" class="pyout" hidden></pre>
+  </div>
+</section>
+
+<section id="occt">
+  <div class="kicker">// standing on the shoulders</div>
+  <h2>A tribute to OpenCascade</h2>
+
+  <div class="tribute">
+    <div>
+      <p><b>IronStream exists because OpenCascade showed the way.</b>
+      For more than three decades, <a href="https://dev.opencascade.org/">Open CASCADE Technology</a>
+      has been the open-source backbone of serious CAD — the geometry kernel beneath FreeCAD,
+      CadQuery, build123d, KiCad's 3D viewer and countless engineering tools. Its architecture is
+      one of the great unsung designs of open-source software.</p>
+
+      <p>IronStream is not a fork and shares no code with OCCT. It is an original, from-scratch
+      re-implementation in pure Rust — but it deliberately keeps OCCT's <i>shape</i>: the same
+      package boundaries, the same class names, the same way of thinking about points, topology
+      and boolean operations. Where behaviour matters, IronStream is checked against
+      <b>674 unit tests ported from the OCCT test suite</b>, and a
+      <a href="https://github.com/cadbuildr/ironstream/blob/main/OPENCASCADE_PARITY.md">parity tracker</a>
+      audits all 7,084 OCCT classes, one <code>// occt:</code> marker at a time.</p>
+
+      <blockquote>The highest compliment you can pay an architecture is to rebuild it
+      from nothing, in a new language, and find that its boundaries were right all along.</blockquote>
+
+      <table class="modmap">
+        <tr><th>OCCT toolkit</th><th>IronStream module</th><th>coverage</th></tr>
+        <tr><td>gp — points, axes, transforms</td><td>gp.rs</td><td>92.0%</td></tr>
+        <tr><td>Geom — curves &amp; surfaces</td><td>geom.rs</td><td>92.2%</td></tr>
+        <tr><td>TopoDS — topology</td><td>topods.rs</td><td>94.8%</td></tr>
+        <tr><td>BRepPrimAPI — primitives &amp; sweeps</td><td>brep_prim_api.rs</td><td>ported</td></tr>
+        <tr><td>BRepAlgoAPI — booleans</td><td>brep_algo_api.rs</td><td>BSP CSG</td></tr>
+        <tr><td>BRepMesh — tessellation</td><td>brep_mesh.rs</td><td>ported</td></tr>
+      </table>
+    </div>
+    <figure>
+      <img src="assets/tower.jpg" alt="A triangulated iron tower with a molten core — a structure built from simple, honest elements." />
+      <figcaption>simple elements, honest structure — the OCCT way</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="python">
+  <div class="kicker">// beyond rust</div>
+  <h2>Python bindings &amp; the CADbuildr toolchain</h2>
+
+  <div class="py-grid">
+    <figure>
+      <img src="assets/forge.jpg" alt="Molten iron flowing through a triangulated mesh — geometry being forged." />
+    </figure>
+    <div>
+      <p class="lead">The whole kernel is exposed to Python via PyO3 as
+      <code>import ironstream</code> — same prelude, pyOCCT-style namespaces
+      (<code>ironstream.gp</code>, <code>.prim</code>, <code>.algo</code>, <code>.io</code>).
+      On top of it, <code>castiron</code> compiles CADbuildr foundation designs
+      (Python CAD-as-code) straight to STL/STEP, fully offline — no server, no broker.</p>
+      <div class="repolinks">
+        <a class="repolink" href="https://github.com/cadbuildr/ironstream">
+          <div class="rn">cadbuildr/ironstream</div>
+          <div class="rd">the kernel — pure Rust, zero dependencies, MIT</div>
+        </a>
+        <a class="repolink" href="https://github.com/cadbuildr/ironstream-python">
+          <div class="rn">cadbuildr/ironstream-python</div>
+          <div class="rd">PyO3 bindings — the full prelude as `import ironstream`</div>
+        </a>
+        <a class="repolink" href="https://github.com/cadbuildr/castiron">
+          <div class="rn">cadbuildr/castiron</div>
+          <div class="rd">foundation-DAG compiler — `compile(part, format="stl")` on IronStream</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div><span class="mono">ironstream</span> · MIT · built by <a href="https://github.com/cadbuildr">CADbuildr</a></div>
+  <div style="margin-top:.4rem">with admiration for <a href="https://dev.opencascade.org/">Open CASCADE Technology</a> and the people who built it</div>
+</footer>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { STLLoader } from "three/addons/loaders/STLLoader.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+
+const MODELS = {
+  queen:   { file: "models/queen.stl",   label: "chess queen",   tris: 19200, caption: "Chess queen — an arc-and-line profile revolved with make_revol (lathe), crown cut by BSP CSG booleans." },
+  pawn:    { file: "models/pawn.stl",    label: "chess pawn",    tris: 15744, caption: "Chess pawn — a single lathe: the 2D profile is discretized and revolved 360° about the sketch axis." },
+  bishop:  { file: "models/bishop.stl",  label: "chess bishop",  tris: 18816, caption: "Chess bishop — lathe plus an angled boolean cut for the mitre slot." },
+  torus:   { file: "models/torus.stl",   label: "torus",         tris: 8192,  caption: "Torus — a circle profile revolved about an external axis. Exact volume via the divergence theorem." },
+  boolean: { file: "models/boolean.stl", label: "boolean union", tris: 1212,  caption: "Box ∪ two cylinders — the BSP-tree CSG engine (Naylor–Amanatides–Thibault '90) at work." },
+  loft:    { file: "models/loft.stl",    label: "loft",          tris: 384,   caption: "Loft — sections resampled by arc length and skinned into a closed solid." },
+  sweep:   { file: "models/sweep.stl",   label: "swept tube",    tris: 512,   caption: "Sweep — a profile carried along a 3D spline with rotation-minimizing frames." },
+  bracket: { file: "models/bracket.stl", label: "sheet metal",   tris: 23,    caption: "Sheet-metal L-bracket — base flange extrusion fused with an edge flange." },
+  star:    { file: "models/star.stl",    label: "star",          tris: 36,    caption: "Star — a custom closed polygon extruded with make_prism." },
+};
+
+const canvas = document.getElementById("viewer");
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const scene = new THREE.Scene();
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+
+const camera = new THREE.PerspectiveCamera(40, 2, 0.1, 5000);
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 1.4;
+
+scene.add(new THREE.HemisphereLight(0xffe0c0, 0x1a120c, 0.5));
+const key = new THREE.DirectionalLight(0xffb37a, 1.6); key.position.set(4, 6, 5); scene.add(key);
+const rim = new THREE.DirectionalLight(0xff5a1f, 0.9); rim.position.set(-5, 2, -4); scene.add(rim);
+
+const material = new THREE.MeshPhysicalMaterial({
+  color: 0xb46a32, metalness: 0.9, roughness: 0.36,
+  clearcoat: 0.15, clearcoatRoughness: 0.5, side: THREE.DoubleSide,
+});
+const wireMaterial = new THREE.MeshBasicMaterial({ color: 0xff7a2f, wireframe: true, transparent: true, opacity: 0.65 });
+
+const loader = new STLLoader();
+let current = null;
+let wireframe = false;
+const cache = {};
+
+function resize() {
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  if (canvas.width !== w * renderer.getPixelRatio() || canvas.height !== h * renderer.getPixelRatio()) {
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+}
+
+function fit(mesh) {
+  const box = new THREE.Box3().setFromObject(mesh);
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+  mesh.position.sub(center);
+  const radius = size.length() / 2;
+  camera.position.set(radius * 1.9, radius * 1.15, radius * 1.9);
+  camera.near = radius / 100; camera.far = radius * 40;
+  camera.updateProjectionMatrix();
+  controls.target.set(0, 0, 0);
+  controls.update();
+}
+
+async function show(key) {
+  document.querySelectorAll(".chip[data-key]").forEach(c => c.classList.toggle("active", c.dataset.key === key));
+  const m = MODELS[key];
+  document.getElementById("caption").textContent = m.caption;
+  document.getElementById("meta").innerHTML = `<b>${m.label}</b> · ${m.tris.toLocaleString()} triangles · binary STL by ironstream::mesh_io`;
+  if (!cache[key]) {
+    cache[key] = await loader.loadAsync(m.file);
+    cache[key].computeVertexNormals();
+    cache[key].rotateX(-Math.PI / 2); // STL z-up -> three y-up
+  }
+  if (current) scene.remove(current);
+  current = new THREE.Group();
+  current.add(new THREE.Mesh(cache[key], material));
+  if (wireframe) current.add(new THREE.Mesh(cache[key], wireMaterial));
+  scene.add(current);
+  fit(current);
+}
+
+const chips = document.getElementById("chips");
+for (const [key, m] of Object.entries(MODELS)) {
+  const b = document.createElement("button");
+  b.className = "chip"; b.dataset.key = key; b.textContent = m.label;
+  b.onclick = () => show(key);
+  chips.appendChild(b);
+}
+document.getElementById("wiretoggle").onclick = (e) => {
+  wireframe = !wireframe;
+  e.target.classList.toggle("active", wireframe);
+  const active = document.querySelector(".chip.active[data-key]");
+  if (active) show(active.dataset.key);
+};
+
+show("queen");
+
+renderer.setAnimationLoop(() => {
+  resize();
+  controls.update();
+  renderer.render(scene, camera);
+});
+
+// ---- live pyodide playground ----
+const WHEEL = "wheels/cadbuildr_ironstream-0.1.0-cp39-abi3-pyemscripten_2025_0_wasm32.whl";
+const runbtn = document.getElementById("runbtn");
+const status = document.getElementById("runstatus");
+const out = document.getElementById("pyout");
+let pyodideReady = null;
+
+async function ensurePyodide() {
+  if (!pyodideReady) {
+    pyodideReady = (async () => {
+      status.textContent = "loading pyodide runtime…";
+      const { loadPyodide } = await import("https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.mjs");
+      const py = await loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.29.4/full/" });
+      status.textContent = "installing ironstream wheel (145 KB)…";
+      await py.loadPackage(new URL(WHEEL, location.href).href);
+      return py;
+    })();
+  }
+  return pyodideReady;
+}
+
+runbtn.onclick = async () => {
+  runbtn.disabled = true;
+  out.hidden = true;
+  try {
+    const py = await ensurePyodide();
+    status.textContent = "running…";
+    py.setStdout({ batched: (s) => { out.textContent += s + "\n"; } });
+    py.setStderr({ batched: (s) => { out.textContent += s + "\n"; } });
+    out.textContent = "";
+    out.classList.remove("err");
+    out.hidden = false;
+    const t0 = performance.now();
+    await py.runPythonAsync(document.getElementById("pycode").value);
+    status.textContent = `done in ${(performance.now() - t0).toFixed(0)} ms — IronStream, compiled to WebAssembly`;
+  } catch (e) {
+    out.textContent = String(e);
+    out.classList.add("err");
+    out.hidden = false;
+    status.textContent = "error";
+  } finally {
+    runbtn.disabled = false;
+  }
+};
+</script>
+</body>
+</html>
