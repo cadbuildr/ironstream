@@ -12,10 +12,10 @@ This is the working checklist; it is updated as modules land. Honesty rule: a
 node/operation is only marked ✅ when it is implemented with real geometry and
 covered by a test — never by a stub or a swallowed error.
 
-Class-inventory snapshot (`parity/parity.py`, OCCT @ 4f95ecaa3b): **3306 / 7084
-classes mirrored (46.7%)** — FoundationClasses 92.0%, ModelingAlgorithms 92.5%,
-ModelingData 94.8%, Visualization 72.5%, ApplicationFramework 18.5%,
-DataExchange 5.5%, Deprecated 4.6%, Draw 0.0%. Modules that fail their ported
+Class-inventory snapshot (`parity/parity.py`, OCCT @ 4f95ecaa3b): **3638 / 7084
+classes mirrored (51.4%)** — FoundationClasses 92.0%, ModelingAlgorithms 92.5%,
+ModelingData 94.8%, Visualization 72.6%, ApplicationFramework 49.0%,
+DataExchange 15.0%, Deprecated 4.6%, Draw 0.0%. Modules that fail their ported
 tests are quarantined under `parity/quarantine/` (see `parity/quarantine.txt`),
 not counted, and queued for honest fixes.
 
