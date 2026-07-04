@@ -186,13 +186,12 @@
 <nav>
   <div class="brand">IRON<span>STREAM</span></div>
   <div class="links">
+    <a href="playground.html">Playground</a>
     <a href="#models">Models</a>
     <a href="#live">Live demo</a>
     <a href="#code">Code</a>
     <a href="#occt">OpenCascade</a>
     <a href="#python">Python</a>
-    <a href="https://cadbuildr.com">CADbuildr</a>
-    <a href="https://github.com/cadbuildr/foundation">foundation</a>
     <a href="https://github.com/cadbuildr/ironstream">GitHub</a>
   </div>
 </nav>
@@ -211,8 +210,8 @@
       <span class="badge">MIT</span>
     </div>
     <div class="cta">
-      <a class="btn primary" href="https://github.com/cadbuildr/ironstream">View on GitHub</a>
-      <a class="btn ghost" href="#models">See what it forges ↓</a>
+      <a class="btn primary" href="playground.html">Open the playground</a>
+      <a class="btn ghost" href="https://github.com/cadbuildr/ironstream">View on GitHub</a>
     </div>
   </div>
 </header>
@@ -434,12 +433,6 @@ const material = new THREE.MeshPhysicalMaterial({
 const wireMaterial = new THREE.MeshBasicMaterial({ color: 0xff7a2f, wireframe: true, transparent: true, opacity: 0.65 });
 
 const loader = new STLLoader();
-// Resolve asset paths against the document base; some embedded/preview
-// contexts have location values that URL() rejects — fall back to the raw
-// relative path there.
-function resolveAsset(p) {
-  try { return new URL(p, document.baseURI).href; } catch (_) { return p; }
-}
 let current = null;
 let wireframe = false;
 const cache = {};
@@ -472,7 +465,7 @@ async function show(key) {
   document.getElementById("caption").textContent = m.caption;
   document.getElementById("meta").innerHTML = `<b>${m.label}</b> · ${m.tris.toLocaleString()} triangles · binary STL by ironstream::mesh_io`;
   if (!cache[key]) {
-    cache[key] = await loader.loadAsync(resolveAsset(m.file));
+    cache[key] = await loader.loadAsync(m.file);
     cache[key].computeVertexNormals();
     cache[key].rotateX(-Math.PI / 2); // STL z-up -> three y-up
   }
@@ -520,10 +513,7 @@ async function ensurePyodide() {
       const { loadPyodide } = await import("https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.mjs");
       const py = await loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.29.4/full/" });
       status.textContent = "installing ironstream wheel (145 KB)…";
-      // Resolve the wheel relative to this document; some embedded/preview
-      // contexts have a location.href that URL() rejects, so fall back to the
-      // raw relative path (loadPackage accepts it).
-      await py.loadPackage(resolveAsset(WHEEL));
+      await py.loadPackage(new URL(WHEEL, location.href).href);
       return py;
     })();
   }
