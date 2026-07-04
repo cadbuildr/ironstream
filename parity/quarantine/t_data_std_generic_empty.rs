@@ -4,9 +4,17 @@
 /// A base attribute for all attributes which have no fields.
 /// This is an ancestor attribute type used for marker or empty attributes.
 /// Attributes inheriting from this should not have persistence drivers.
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct TDataStd_GenericEmpty {
     id: [u8; 16],
+}
+
+impl Default for TDataStd_GenericEmpty {
+    /// A default-constructed attribute carries its class GUID, matching
+    /// OCCT where `ID()` always returns the class GUID.
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl TDataStd_GenericEmpty {

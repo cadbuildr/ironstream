@@ -57,10 +57,13 @@ impl IfGraphSubPartsIterator {
     }
 
     /// Adds an empty part and sets it to receive entities
+    /// (OCCT: AddPart sets thepart to the new part number, so following
+    /// GetFromEntity/GetFromIter calls feed this part, not the load status)
     pub fn add_part(&mut self) {
         self.parts.push(vec![]);
         self.part_num += 1;
         self.current_part = self.part_num;
+        self.load_mode = false;
     }
 
     /// Returns count of registered parts

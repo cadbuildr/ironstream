@@ -93,7 +93,8 @@ mod tests {
     fn test_default_protocol() {
         let protocol = DefaultProtocol;
         assert_eq!(protocol.nb_resources(), 0);
-        assert!(protocol.is_suitable_model(&Arc::new(())));
+        let model: Arc<dyn std::any::Any> = Arc::new(());
+        assert!(protocol.is_suitable_model(&model));
     }
 
     #[test]

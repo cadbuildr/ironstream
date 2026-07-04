@@ -43,16 +43,16 @@ mod tests {
     #[test]
     fn test_case_num() {
         let module = DefaultReaderModule;
-        let data = Arc::new(());
+        let data: FileReaderDataHandle = Arc::new(());
         assert_eq!(module.case_num(&data, 0), 0);
     }
 
     #[test]
     fn test_new_read() {
         let module = DefaultReaderModule;
-        let data = Arc::new(());
-        let mut ach = Arc::new(());
-        let mut ent = Arc::new(());
+        let data: FileReaderDataHandle = Arc::new(());
+        let mut ach: CheckHandle = Arc::new(());
+        let mut ent: TransientHandle = Arc::new(());
         assert!(!module.new_read(0, &data, 0, &mut ach, &mut ent));
     }
 }

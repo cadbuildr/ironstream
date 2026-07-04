@@ -72,7 +72,7 @@ mod tests {
     #[test]
     fn test_create_context() {
         let context = TDocStd_Context::new();
-        assert_eq!(context.get_id(), &TDocStd_Context::get_id());
+        assert_eq!(context.id(), &TDocStd_Context::get_id());
     }
 
     #[test]

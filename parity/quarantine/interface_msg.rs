@@ -97,18 +97,108 @@ impl InterfaceMsg {
         0 // TODO: Implement file reading
     }
 
-    /// Returns the item for a key
+    /// Returns an "intervalled" value from a starting real:
+    /// the terms of the interval are the powers of ten multiplied by
+    /// values depending on <order>, the returned value is the nearest
+    /// term which is lower (upper=false) or greater (upper=true) than val.
+    /// Faithful port of Interface_MSG::Intervalled.
     pub fn intervalled(val: f64, order: i32, upper: bool) -> f64 {
-        // Default intervals
-        match order {
-            0 | 1 => {
-                if upper {
-                    (val * 10.0).ceil() / 10.0
-                } else {
-                    (val / 10.0).floor() * 10.0
+        let vl = if val > 0.0 { val } else { -val };
+        let mut bl = 1.0_f64;
+        let mut bu = 1.0_f64;
+        if vl >= 1.0 {
+            bu = 10.0;
+            for _ in 0..200 {
+                if vl < bu {
+                    break;
                 }
+                bl = bu;
+                bu *= 10.0;
             }
-            _ => val,
+        } else {
+            bl = 0.1;
+            for _ in 0..200 {
+                if vl >= bl {
+                    break;
+                }
+                bu = bl;
+                bl /= 10.0;
+            }
+            let _ = bu;
+            if vl == 0.0 {
+                return 0.0;
+            }
+        }
+
+        let mut rst = vl / bl;
+        if order <= 1 {
+            rst = if upper { 10.0 } else { 1.0 };
+        } else if order == 2 {
+            if rst <= 3.0 {
+                rst = if upper { 3.0 } else { 1.0 };
+            } else {
+                rst = if upper { 10.0 } else { 3.0 };
+            }
+        } else if order == 3 {
+            if rst <= 2.0 {
+                rst = if upper { 2.0 } else { 1.0 };
+            } else if rst <= 5.0 {
+                rst = if upper { 5.0 } else { 2.0 };
+            } else {
+                rst = if upper { 10.0 } else { 5.0 };
+            }
+        } else if order == 4 {
+            if rst <= 2.0 {
+                rst = if upper { 2.0 } else { 1.0 };
+            } else if rst <= 3.0 {
+                rst = if upper { 3.0 } else { 2.0 };
+            } else if rst <= 6.0 {
+                rst = if upper { 6.0 } else { 3.0 };
+            } else {
+                rst = if upper { 10.0 } else { 6.0 };
+            }
+        } else if order <= 6 {
+            if rst <= 1.5 {
+                rst = if upper { 1.5 } else { 1.0 };
+            } else if rst <= 2.0 {
+                rst = if upper { 2.0 } else { 1.5 };
+            } else if rst <= 3.0 {
+                rst = if upper { 3.0 } else { 2.0 };
+            } else if rst <= 5.0 {
+                rst = if upper { 5.0 } else { 3.0 };
+            } else if rst <= 7.0 {
+                rst = if upper { 7.0 } else { 5.0 };
+            } else {
+                rst = if upper { 10.0 } else { 7.0 };
+            }
+        } else {
+            // only makes sense up to 10 ...
+            if rst <= 1.2 {
+                rst = if upper { 1.2 } else { 1.0 };
+            } else if rst <= 1.5 {
+                rst = if upper { 1.5 } else { 1.2 };
+            } else if rst <= 2.0 {
+                rst = if upper { 2.0 } else { 1.5 };
+            } else if rst <= 2.5 {
+                rst = if upper { 2.5 } else { 2.0 };
+            } else if rst <= 3.0 {
+                rst = if upper { 3.0 } else { 2.5 };
+            } else if rst <= 4.0 {
+                rst = if upper { 4.0 } else { 3.0 };
+            } else if rst <= 5.0 {
+                rst = if upper { 5.0 } else { 4.0 };
+            } else if rst <= 6.0 {
+                rst = if upper { 6.0 } else { 5.0 };
+            } else if rst <= 8.0 {
+                rst = if upper { 8.0 } else { 6.0 };
+            } else {
+                rst = if upper { 10.0 } else { 8.0 };
+            }
+        }
+        if val < 0.0 {
+            -(bl * rst)
+        } else {
+            bl * rst
         }
     }
 }

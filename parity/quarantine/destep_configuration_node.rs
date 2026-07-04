@@ -1,7 +1,60 @@
 // FILE: destep_configuration_node.rs
 // occt: DESTEP_ConfigurationNode
 
-use crate::destep_parameters::DESTEP_Parameters;
+/// Minimal self-contained subset of DESTEP_Parameters (occt: DESTEP_Parameters)
+/// holding the transfer settings used by the configuration node.
+/// Defaults mirror DESTEP_Parameters.hxx.
+#[derive(Debug, Clone, PartialEq)]
+#[allow(non_camel_case_types)]
+pub struct DESTEP_Parameters {
+    /// ReadMode_Precision for shape construction (if enabled user mode)
+    pub read_precision_val: f64,
+    /// Defines the maximum allowable tolerance
+    pub read_max_precision_val: f64,
+    /// Defines the using of BRepLib::SameParameter
+    pub read_same_param_mode: bool,
+    /// Continuity which two faces are connected with at an edge
+    pub encode_reg_angle: f64,
+    /// Defines the approach used for selection of top-level STEP entities
+    pub read_product_mode: bool,
+    /// Defines whether relationship shapes should be translated
+    pub read_relationship: bool,
+    /// Defines whether shape-aspect shapes should be translated
+    pub read_shape_aspect: bool,
+    /// Flag regulating translation of constructive geometry relationships
+    pub read_constr_relation: bool,
+    /// Indicates whether to read sub-shape names
+    pub read_subshape_names: bool,
+    /// Defines non-manifold topology reading
+    pub read_nonmanifold: bool,
+    /// Defines I-Deas-like STEP processing
+    pub read_ideas: bool,
+}
+
+impl DESTEP_Parameters {
+    /// Creates parameters with OCCT default values
+    pub fn new() -> Self {
+        DESTEP_Parameters {
+            read_precision_val: 0.0001,
+            read_max_precision_val: 1.0,
+            read_same_param_mode: false,
+            encode_reg_angle: 0.57295779513,
+            read_product_mode: true,
+            read_relationship: true,
+            read_shape_aspect: true,
+            read_constr_relation: false,
+            read_subshape_names: false,
+            read_nonmanifold: false,
+            read_ideas: false,
+        }
+    }
+}
+
+impl Default for DESTEP_Parameters {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 
 /// Configuration node for STEP format transfer.
 /// Stores necessary settings for DESTEP_Provider.
