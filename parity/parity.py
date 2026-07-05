@@ -32,7 +32,7 @@ OCCT_TREE_API = (
     "https://api.github.com/repos/Open-Cascade-SAS/OCCT/git/trees/master?recursive=1"
 )
 
-MARKER = re.compile(r"//\s*occt:\s*([A-Za-z0-9_,\s]+)")
+MARKER = re.compile(r"//\s*occt:\s*([A-Za-z0-9_.,\s]+)")
 
 
 def refresh_manifest() -> None:
