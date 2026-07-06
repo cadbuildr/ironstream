@@ -6403,6 +6403,7 @@ pub mod math_opt_frpr;
 pub mod math_bracketed_root;
 pub mod mesh;
 pub mod mesh_data;
+pub mod analytic_step;
 pub mod mesh_io;
 pub mod mesh_smooth;
 pub mod model_data;
@@ -6746,6 +6747,7 @@ pub mod prelude {
     };
     pub use crate::gp::{Ax1, Pnt, Point3, Trsf, Vec3};
     pub use crate::mesh::{BBox, TriMesh};
+    pub use crate::analytic_step::write_step_analytic;
     pub use crate::mesh_io::{write_ascii_stl, write_binary_stl, write_step};
     pub use crate::topods::{Compound, Face, Solid, Vertex, Wire};
 }

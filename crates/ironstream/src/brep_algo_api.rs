@@ -17,7 +17,10 @@ pub fn fuse(a: &Solid, b: &Solid) -> Solid {
         return a.clone();
     }
     let m = bsp::union(a.mesh(), b.mesh());
-    Solid::from_mesh(m.welded(WELD_TOL))
+    let mut out = Solid::from_mesh(m.welded(WELD_TOL));
+    out.merge_hints_from(a);
+    out.merge_hints_from(b);
+    out
 }
 
 /// A \ B (`BRepAlgoAPI_Cut`).
@@ -27,7 +30,10 @@ pub fn cut(a: &Solid, b: &Solid) -> Solid {
         return a.clone();
     }
     let m = bsp::subtract(a.mesh(), b.mesh());
-    Solid::from_mesh(m.welded(WELD_TOL))
+    let mut out = Solid::from_mesh(m.welded(WELD_TOL));
+    out.merge_hints_from(a);
+    out.merge_hints_from(b);
+    out
 }
 
 /// A ∩ B (`BRepAlgoAPI_Common`).
@@ -37,7 +43,10 @@ pub fn common(a: &Solid, b: &Solid) -> Solid {
         return Solid::empty();
     }
     let m = bsp::intersect(a.mesh(), b.mesh());
-    Solid::from_mesh(m.welded(WELD_TOL))
+    let mut out = Solid::from_mesh(m.welded(WELD_TOL));
+    out.merge_hints_from(a);
+    out.merge_hints_from(b);
+    out
 }
 
 /// Fuse a list of solids into one (left fold). Returns empty for an empty list.

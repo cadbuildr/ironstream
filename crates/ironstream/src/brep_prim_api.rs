@@ -8,7 +8,8 @@
 //! resolution through [`MeshParams`]. Orientation is normalized so signed
 //! volume is positive (outward normals).
 
-use crate::gp::{Ax1, Pnt, Trsf};
+use crate::geom::Surface;
+use crate::gp::{Ax1, Ax3, Pnt, Trsf};
 use crate::mesh::TriMesh;
 use crate::topods::{Face, Solid, Wire};
 use std::f64::consts::PI;
@@ -91,7 +92,12 @@ fn ring(center: Pnt, radius: f64, z: f64, segs: usize) -> Vec<Pnt> {
 /// `BRepPrimAPI_MakeCylinder` — radius `r`, height `h`, axis +Z from origin.
 // occt: BRepPrimAPI_MakeCylinder
 pub fn make_cylinder(r: f64, h: f64, mp: MeshParams) -> Solid {
-    make_cone(r, r, h, mp)
+    let mut s = make_cone(r, r, h, mp);
+    s.add_hint(Surface::Cylinder {
+        placement: Ax3::identity(),
+        radius: r,
+    });
+    s
 }
 
 /// `BRepPrimAPI_MakeCone` — base radius `r1`, top radius `r2`, height `h`,
@@ -155,7 +161,12 @@ pub fn make_sphere(r: f64, mp: MeshParams) -> Solid {
             }
         }
     }
-    finalize(m)
+    let mut s = finalize(m);
+    s.add_hint(Surface::Sphere {
+        placement: Ax3::identity(),
+        radius: r,
+    });
+    s
 }
 
 /// `BRepPrimAPI_MakeTorus` — major radius `major` (ring), minor radius `minor`
@@ -183,7 +194,13 @@ pub fn make_torus(major: f64, minor: f64, mp: MeshParams) -> Solid {
             m.push_triangle(a, c, d);
         }
     }
-    finalize(m)
+    let mut s = finalize(m);
+    s.add_hint(Surface::Torus {
+        placement: Ax3::identity(),
+        major,
+        minor,
+    });
+    s
 }
 
 /// `BRepPrimAPI_MakePrism` — linear extrude of a planar `face` along `vec`.

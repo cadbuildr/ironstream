@@ -225,6 +225,59 @@ fn rotate_about(p: Pnt, origin: Pnt, dir: Pnt, angle: f64) -> Pnt {
     origin + parallel + perp * c + w * s
 }
 
+/// Map analytic surface hints through a transform.
+///
+/// Rigid motions and uniform scaling map the simple analytic kinds exactly
+/// (placement transformed, radii scaled). Non-uniform scaling would turn a
+/// cylinder into an elliptic cylinder we cannot represent, so those hints are
+/// dropped; hints are advisory, so dropping only degrades STEP output to the
+/// faceted fallback for the affected faces.
+pub fn transform_hints(hints: &[Surface], t: &crate::gp::Trsf) -> Vec<Surface> {
+    let det = t.linear_det().abs();
+    let s = t.scale_factor();
+    // uniform iff |det| == s^3 (within tolerance)
+    let uniform = (det - s * s * s).abs() <= 1e-9 * det.max(1.0);
+    if !uniform || s <= 0.0 {
+        return Vec::new();
+    }
+    hints
+        .iter()
+        .filter_map(|h| match h {
+            Surface::Plane { placement } => Some(Surface::Plane {
+                placement: placement.transformed(t),
+            }),
+            Surface::Cylinder { placement, radius } => Some(Surface::Cylinder {
+                placement: placement.transformed(t),
+                radius: radius * s,
+            }),
+            Surface::Cone {
+                placement,
+                radius,
+                half_angle,
+            } => Some(Surface::Cone {
+                placement: placement.transformed(t),
+                radius: radius * s,
+                half_angle: *half_angle,
+            }),
+            Surface::Sphere { placement, radius } => Some(Surface::Sphere {
+                placement: placement.transformed(t),
+                radius: radius * s,
+            }),
+            Surface::Torus {
+                placement,
+                major,
+                minor,
+            } => Some(Surface::Torus {
+                placement: placement.transformed(t),
+                major: major * s,
+                minor: minor * s,
+            }),
+            // Curve-backed and freeform kinds: not worth mapping for now.
+            Surface::Revolution { .. } | Surface::Extrusion { .. } | Surface::BSpline(_) => None,
+        })
+        .collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

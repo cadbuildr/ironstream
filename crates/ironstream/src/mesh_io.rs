@@ -116,27 +116,27 @@ pub fn write_step(mesh: &TriMesh, name: &str) -> String {
 }
 
 /// Tiny incremental ISO-10303-21 entity emitter.
-struct StepEmitter {
+pub(crate) struct StepEmitter {
     lines: Vec<String>,
     next: usize,
 }
 
 impl StepEmitter {
-    fn new() -> Self {
+    pub(crate) fn new() -> Self {
         Self {
             lines: Vec::new(),
             next: 1,
         }
     }
 
-    fn add(&mut self, body: &str) -> usize {
+    pub(crate) fn add(&mut self, body: &str) -> usize {
         let id = self.next;
         self.next += 1;
         self.lines.push(format!("#{id} = {body};"));
         id
     }
 
-    fn finish(self, name: &str) -> String {
+    pub(crate) fn finish(self, name: &str) -> String {
         let mut s = String::new();
         s.push_str("ISO-10303-21;\nHEADER;\n");
         s.push_str("FILE_DESCRIPTION(('IronStream faceted solid'),'2;1');\n");

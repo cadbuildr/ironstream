@@ -104,16 +104,45 @@ impl Face {
 // occt: TopoDS_Solid, TopoDS_Shell
 pub struct Solid {
     mesh: TriMesh,
+    /// Analytic provenance: curved surfaces this solid's boundary is known to
+    /// sample — stamped by the primitive builders and carried through
+    /// booleans/transforms. Consumed by `analytic_step` to emit true B-rep
+    /// STEP faces instead of tessellation. Advisory only: an empty list just
+    /// means every face falls back to planar/faceted output.
+    hints: Vec<crate::geom::Surface>,
 }
 
 impl Solid {
     pub fn from_mesh(mesh: TriMesh) -> Self {
-        Solid { mesh }
+        Solid {
+            mesh,
+            hints: Vec::new(),
+        }
+    }
+
+    /// Attach analytic surface provenance (see the `hints` field docs).
+    pub fn with_hints(mesh: TriMesh, hints: Vec<crate::geom::Surface>) -> Self {
+        Solid { mesh, hints }
+    }
+
+    /// Curved surfaces this solid's boundary is known to sample.
+    pub fn hints(&self) -> &[crate::geom::Surface] {
+        &self.hints
+    }
+
+    pub fn add_hint(&mut self, surface: crate::geom::Surface) {
+        self.hints.push(surface);
+    }
+
+    /// Merge another solid's provenance into this one (used by booleans).
+    pub fn merge_hints_from(&mut self, other: &Solid) {
+        self.hints.extend(other.hints.iter().cloned());
     }
 
     pub fn empty() -> Self {
         Solid {
             mesh: TriMesh::new(),
+            hints: Vec::new(),
         }
     }
 
@@ -148,17 +177,20 @@ impl Solid {
     pub fn transformed(&self, t: &Trsf) -> Solid {
         Solid {
             mesh: self.mesh.transformed(t),
+            hints: crate::geom::transform_hints(&self.hints, t),
         }
     }
 
     pub fn transform(&mut self, t: &Trsf) {
         self.mesh.transform(t);
+        self.hints = crate::geom::transform_hints(&self.hints, t);
     }
 
     /// Weld + clean the boundary (call after booleans / assembly).
     pub fn cleaned(&self, tol: f64) -> Solid {
         Solid {
             mesh: self.mesh.welded(tol),
+            hints: self.hints.clone(),
         }
     }
 }
