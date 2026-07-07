@@ -106,25 +106,61 @@ impl MathFunctionRoots {
         }
     }
 
-    /// Stub: sample linearly and collect sign changes, report midpoint as root.
+    /// Sample linearly; exact-zero samples are roots, and every sign change is
+    /// refined by bisection to `tolerance` (mirrors math_FunctionRoots: sampled
+    /// null values and sign changes solved to a root, duplicates rejected).
     pub fn perform<F: Fn(f64) -> f64>(&mut self, f: F) {
         self.roots.clear();
         let n = self.nb_samples;
         let mut prev_x = self.x_min;
         let mut prev_f = f(prev_x);
+        if prev_f == 0.0 {
+            self.add_root(prev_x);
+        }
         for i in 1..=n {
             let x = self.x_min + (self.x_max - self.x_min) * (i as f64 / n as f64);
             let fx = f(x);
-            if prev_f * fx <= 0.0 && (prev_f != 0.0 || fx != 0.0) {
-                let root = (prev_x + x) * 0.5;
-                if !self.roots.iter().any(|r| (r - root).abs() < self.tolerance * 10.0) {
-                    self.roots.push(root);
-                }
+            if fx == 0.0 {
+                self.add_root(x);
+            } else if prev_f != 0.0 && prev_f * fx < 0.0 {
+                let root = Self::bisect(&f, prev_x, x, prev_f, self.tolerance);
+                self.add_root(root);
             }
             prev_x = x;
             prev_f = fx;
         }
         self.is_done = true;
+    }
+
+    /// Reject a candidate that duplicates an already-found root
+    /// (math_FunctionRoots::AppendRoot rejects |X - t| <= dX).
+    fn add_root(&mut self, root: f64) {
+        if !self.roots.iter().any(|r| (r - root).abs() <= self.tolerance * 10.0) {
+            self.roots.push(root);
+        }
+    }
+
+    /// Bisection on a bracketing interval [x1, x2] with f(x1) = f1 != 0 and
+    /// f(x1)*f(x2) < 0, down to interval width `tol`.
+    fn bisect<F: Fn(f64) -> f64>(f: &F, mut x1: f64, mut x2: f64, mut f1: f64, tol: f64) -> f64 {
+        const MAXBIS: usize = 100; // as in math_FunctionRoots.cxx
+        for _ in 0..MAXBIS {
+            let xm = 0.5 * (x1 + x2);
+            if (x2 - x1).abs() <= tol {
+                return xm;
+            }
+            let fm = f(xm);
+            if fm == 0.0 {
+                return xm;
+            }
+            if f1 * fm < 0.0 {
+                x2 = xm;
+            } else {
+                x1 = xm;
+                f1 = fm;
+            }
+        }
+        0.5 * (x1 + x2)
     }
 
     pub fn nb_solutions(&self) -> usize { self.roots.len() }
@@ -148,20 +184,56 @@ impl MathGaussSingleIntegration {
         Self { x_min, x_max, nb_points: nb_points.max(1), result: 0.0, is_done: false }
     }
 
-    /// Stub: Gauss-Legendre 3-point rule for nb_points.
+    /// Gauss-Legendre quadrature of order `nb_points`, mirroring
+    /// math_GaussSingleIntegration::Perform: change of variable
+    /// xm = (Upper+Lower)/2, xr = (Upper-Lower)/2, Val = xr * sum(w_j * f(...)).
     pub fn perform<F: Fn(f64) -> f64>(&mut self, f: F) {
-        let a = self.x_min; let b = self.x_max;
-        let mid = (a + b) / 2.0; let half = (b - a) / 2.0;
-        // 3-point Gauss-Legendre nodes and weights on [-1,1]
-        let nodes = [-0.7745966692, 0.0, 0.7745966692];
-        let weights = [0.5555555556, 0.8888888889, 0.5555555556];
-        let mut sum = 0.0;
-        for k in 0..3 {
-            let x = mid + half * nodes[k];
-            sum += weights[k] * f(x);
+        self.is_done = false;
+        let order = self.nb_points;
+        let (nodes, weights) = Self::gauss_points(order);
+        let xm = 0.5 * (self.x_max + self.x_min);
+        let xr = 0.5 * (self.x_max - self.x_min);
+        let mut val = 0.0;
+        for j in 0..order {
+            val += weights[j] * f(xm + xr * nodes[j]);
         }
-        self.result = half * sum;
+        self.result = val * xr;
         self.is_done = true;
+    }
+
+    /// Gauss-Legendre points/weights on [-1, 1] to machine precision
+    /// (OCCT tabulates these in GaussPoints.cxx; here they are computed by
+    /// Newton iteration on the Legendre polynomial).
+    fn gauss_points(n: usize) -> (Vec<f64>, Vec<f64>) {
+        let mut x = vec![0.0; n];
+        let mut w = vec![0.0; n];
+        let m = (n + 1) / 2;
+        for i in 0..m {
+            // Initial guess for the i-th root of P_n.
+            let mut z = (std::f64::consts::PI * (i as f64 + 0.75) / (n as f64 + 0.5)).cos();
+            let mut pp = 1.0;
+            for _ in 0..100 {
+                // Evaluate P_n(z) via the recurrence, and its derivative.
+                let mut p1 = 1.0;
+                let mut p2 = 0.0;
+                for j in 0..n {
+                    let p3 = p2;
+                    p2 = p1;
+                    p1 = ((2.0 * j as f64 + 1.0) * z * p2 - j as f64 * p3) / (j as f64 + 1.0);
+                }
+                pp = n as f64 * (z * p1 - p2) / (z * z - 1.0);
+                let z1 = z;
+                z = z1 - p1 / pp;
+                if (z - z1).abs() < 1e-15 {
+                    break;
+                }
+            }
+            x[i] = -z;
+            x[n - 1 - i] = z;
+            w[i] = 2.0 / ((1.0 - z * z) * pp * pp);
+            w[n - 1 - i] = w[i];
+        }
+        (x, w)
     }
 
     pub fn is_done(&self) -> bool { self.is_done }

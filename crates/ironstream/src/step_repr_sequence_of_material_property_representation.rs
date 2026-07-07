@@ -1,0 +1,49 @@
+// FILE: step_repr_sequence_of_material_property_representation.rs
+// occt: StepRepr_SequenceOfMaterialPropertyRepresentation
+
+use std::vec::Vec;
+
+pub struct StepReprSequenceOfMaterialPropertyRepresentation {
+    data: Vec<Option<String>>,
+    lower: usize,
+}
+
+impl StepReprSequenceOfMaterialPropertyRepresentation {
+    pub fn new() -> Self {
+        Self { data: Vec::new(), lower: 1 }
+    }
+
+    pub fn lower(&self) -> usize { self.lower }
+    pub fn upper(&self) -> usize { self.lower + self.data.len() - 1 }
+    pub fn len(&self) -> usize { self.data.len() }
+
+    pub fn append(&mut self, value: Option<String>) {
+        self.data.push(value);
+    }
+
+    pub fn value(&self, index: usize) -> Option<&Option<String>> {
+        if index < self.lower || index > self.upper() { return None; }
+        self.data.get(index - self.lower)
+    }
+
+    pub fn set_value(&mut self, index: usize, value: Option<String>) -> bool {
+        if index < self.lower || index > self.upper() { return false; }
+        if let Some(elem) = self.data.get_mut(index - self.lower) { *elem = value; true } else { false }
+    }
+}
+
+impl Default for StepReprSequenceOfMaterialPropertyRepresentation {
+    fn default() -> Self { Self::new() }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_basic() {
+        let mut seq = StepReprSequenceOfMaterialPropertyRepresentation::new();
+        seq.append(Some("mat".to_string()));
+        assert_eq!(seq.len(), 1);
+    }
+}

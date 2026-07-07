@@ -237,7 +237,12 @@ impl MakeCone {
         let r = self.radius1.max(self.radius2);
         Some(PrimShape {
             id: next_id(),
-            nb_faces: if self.radius1 > 0.0 { 3 } else { 2 },
+            // Lateral face plus one planar cap per non-degenerate radius:
+            // a truncated cone has 3 faces, a pointed cone (one radius null) has 2.
+            // occt: BRepPrim_Cone builds Top/Bottom faces only for non-zero radii.
+            nb_faces: 1
+                + usize::from(self.radius1 > 0.0)
+                + usize::from(self.radius2 > 0.0),
             nb_edges: 3,
             nb_vertices: 1,
             bounding_box: [[o[0]-r, o[1]-r, o[2]], [o[0]+r, o[1]+r, o[2]+self.height]],

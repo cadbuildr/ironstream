@@ -13,7 +13,7 @@ pub enum ProjectionType {
 /// A projector definition (camera transform) for HLR.
 #[derive(Clone, Debug)]
 pub struct HlrProjector {
-    pub view_dir: [f64; 3],    // direction from eye to scene (normalized)
+    pub view_dir: [f64; 3],    // projection direction, towards the observer (normalized)
     pub up_dir: [f64; 3],
     pub focal: f64,            // for perspective (0 = orthographic)
     pub proj_type: ProjectionType,
@@ -29,16 +29,21 @@ impl HlrProjector {
     }
 
     /// Project a 3D point to 2D screen coordinates.
+    ///
+    /// occt: HLRAlgo_Projector — the viewing coordinate system (gp_Ax2) has
+    /// its main (Z) direction pointing towards the observer; the screen axes
+    /// are X = Up ^ Z and Y = Z ^ X. Perspective divides by R = 1 - Z/focus.
     pub fn project(&self, p: [f64; 3]) -> [f64; 2] {
-        let right = normalize(cross(self.view_dir, self.up_dir));
-        let up = normalize(cross(right, self.view_dir));
+        let right = normalize(cross(self.up_dir, self.view_dir));
+        let up = normalize(cross(self.view_dir, right));
         let x = dot(p, right);
         let y = dot(p, up);
         match self.proj_type {
             ProjectionType::Orthographic => [x, y],
             ProjectionType::Perspective => {
-                let depth = dot(p, self.view_dir).max(0.001);
-                [x * self.focal / depth, y * self.focal / depth]
+                let z = dot(p, self.view_dir);
+                let r = 1.0 - z / self.focal;
+                [x / r, y / r]
             }
         }
     }

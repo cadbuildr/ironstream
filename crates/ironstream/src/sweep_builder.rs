@@ -114,6 +114,22 @@ impl SweepWithScale {
     }
 
     pub fn perform(&mut self) -> bool {
+        if self.scale_function.is_empty() {
+            return false;
+        }
+        // occt: BRepFill_Sweep::Build generates the intermediate sections
+        // internally from the section (scale) law — the caller never supplies
+        // them. Mirror that: when no sectors were added explicitly, derive one
+        // sector per scale-function interval along the spine.
+        if self.base_sweep.sectors.is_empty() {
+            let nb_samples = self.scale_function.len().max(2);
+            for i in 0..(nb_samples - 1) {
+                let mut sector =
+                    SweepSector::new(i as u32 + 1, self.base_sweep.profile_id);
+                sector.set_spine_interval(i as u32, i as u32 + 1);
+                self.base_sweep.add_sector(sector);
+            }
+        }
         self.base_sweep.perform()
     }
 

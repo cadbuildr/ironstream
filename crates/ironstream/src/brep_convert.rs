@@ -126,7 +126,11 @@ impl ApproxSurface {
     pub fn with_parametrization(mut self, p: u32) -> Self { self.parametrization = p; self }
 
     pub fn build(&mut self) {
-        let r = BSplineSurfaceResult::new(self.u_deg.min(8), self.v_deg.min(8), 5, 5);
+        // A B-spline of degree d needs at least d+1 poles (occt: single-span
+        // result of GeomConvert_ApproxSurface has NbPoles = Degree + 1).
+        let deg_u = self.u_deg.min(8);
+        let deg_v = self.v_deg.min(8);
+        let r = BSplineSurfaceResult::new(deg_u, deg_v, deg_u as usize + 1, deg_v as usize + 1);
         self.max_error = self.tolerance * 0.1;
         self.result = Some(r);
         self.is_done = true;

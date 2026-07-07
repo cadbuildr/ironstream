@@ -150,8 +150,11 @@ mod tests {
         a.unite(&b);
         assert_eq!(a.extent(), 4);
         a.intersect(&b);
-        assert_eq!(a.extent(), 1);
+        // occt: NCollection_Map::Intersect keeps exactly the common elements;
+        // after unite, a = {1,2,3,4} and a ∩ {2,4} = {2,4}.
+        assert_eq!(a.extent(), 2);
         assert!(a.contains(2));
+        assert!(a.contains(4));
     }
 
     #[test]

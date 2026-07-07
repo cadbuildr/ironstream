@@ -61,6 +61,8 @@ impl StandardMMgrOpt {
 
     /// Allocate aSize bytes.
     /// The allocated space is rounded up to 16 bytes with 8-byte header.
+    /// As in OCCT, the header in front of the returned block stores the
+    /// rounded block size, which Free/Reallocate read back.
     pub fn allocate(&self, size: usize) -> *mut u8 {
         if size == 0 {
             return std::ptr::null_mut();
@@ -71,14 +73,23 @@ impl StandardMMgrOpt {
         let total_size = rounded_size + 8;
 
         unsafe {
-            let layout = Layout::from_size_align_unchecked(total_size, 16);
-            let ptr = if self.clear {
+            let layout = Layout::from_size_align(total_size, 16).expect("layout");
+            let base = if self.clear {
                 std::alloc::alloc_zeroed(layout)
             } else {
                 alloc(layout)
             };
-            ptr
+            if base.is_null() {
+                return std::ptr::null_mut();
+            }
+            (base as *mut usize).write(rounded_size);
+            base.add(8)
         }
+    }
+
+    /// Rounded user size stored in the block header.
+    unsafe fn block_size(ptr: *mut u8) -> usize {
+        (ptr.sub(8) as *const usize).read()
     }
 
     /// Reallocate previously allocated memory to new size.
@@ -94,11 +105,13 @@ impl StandardMMgrOpt {
             return self.allocate(size);
         }
 
-        // For simplicity, allocate new block and copy data
+        // As in OCCT: allocate a new block and copy the old contents over,
+        // bounded by the old block's stored size.
         let new_ptr = self.allocate(size);
-        if !new_ptr.is_null() && !ptr.is_null() {
+        if !new_ptr.is_null() {
             unsafe {
-                std::ptr::copy_nonoverlapping(ptr, new_ptr, size.min(256));
+                let old_size = Self::block_size(ptr);
+                std::ptr::copy_nonoverlapping(ptr, new_ptr, size.min(old_size));
             }
             self.free(ptr);
         }
@@ -110,9 +123,10 @@ impl StandardMMgrOpt {
     pub fn free(&self, ptr: *mut u8) {
         if !ptr.is_null() {
             unsafe {
-                // Assume 16-byte alignment with minimal block size
-                let layout = Layout::from_size_align_unchecked(256, 16);
-                dealloc(ptr, layout);
+                let rounded_size = Self::block_size(ptr);
+                let layout =
+                    Layout::from_size_align(rounded_size + 8, 16).expect("layout");
+                dealloc(ptr.sub(8), layout);
             }
         }
     }
