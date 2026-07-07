@@ -132,35 +132,49 @@ impl Default for TessParams {
 // primitive builders
 // ---------------------------------------------------------------------------
 
-/// Axis-aligned box `[corner, corner + (dx,dy,dz)]` as six planar faces.
-pub fn box_brep(corner: Pnt, dx: f64, dy: f64, dz: f64) -> BSolid {
+/// A planar face from four 3D corners wound CCW about the intended outward
+/// normal. The normal, in-plane frame and uv loop are all derived from the
+/// corners, so the face covers exactly the quad given — no implicit frame
+/// surprises.
+fn planar_face_from_corners(c: [Pnt; 4]) -> BFace {
     use crate::gp::Ax3;
+    let normal = (c[1] - c[0]).cross(c[2] - c[0]).normalized();
+    let placement = Ax3::from_origin_normal(c[0], normal, c[1] - c[0]);
+    let uv: UvLoop = c
+        .iter()
+        .map(|p| {
+            let d = *p - c[0];
+            (d.dot(placement.x_dir), d.dot(placement.y_dir))
+        })
+        .collect();
+    BFace::new(Surface::Plane { placement }, uv, true)
+}
+
+/// Axis-aligned box `[corner, corner + (dx,dy,dz)]` as six planar faces. Each
+/// face's corners are listed CCW about its outward normal, so the surface is a
+/// correctly-oriented, watertight box.
+pub fn box_brep(corner: Pnt, dx: f64, dy: f64, dz: f64) -> BSolid {
     let (dx, dy, dz) = (dx.abs(), dy.abs(), dz.abs());
     let x0 = corner.x;
     let y0 = corner.y;
     let z0 = corner.z;
+    let (x1, y1, z1) = (x0 + dx, y0 + dy, z0 + dz);
+    let p = |x, y, z| Pnt::new(x, y, z);
 
-    // Each face: an origin, a plane placement (so uv maps to the face), and the
-    // rectangle extents in uv. `sense` is true when the plane normal points out.
-    let mut faces = Vec::with_capacity(6);
-    let mut planar = |origin: Pnt, normal: Pnt, xdir: Pnt, w: f64, h: f64| {
-        let placement = Ax3::from_origin_normal(origin, normal, xdir);
-        let outer = vec![(0.0, 0.0), (w, 0.0), (w, h), (0.0, h)];
-        faces.push(BFace::new(Surface::Plane { placement }, outer, true));
-    };
-    // -Z (bottom): normal -z, at z0
-    planar(Pnt::new(x0, y0, z0), Pnt::new(0.0, 0.0, -1.0), Pnt::new(0.0, 1.0, 0.0), dy, dx);
-    // +Z (top): normal +z, at z0+dz
-    planar(Pnt::new(x0, y0, z0 + dz), Pnt::new(0.0, 0.0, 1.0), Pnt::new(1.0, 0.0, 0.0), dx, dy);
-    // -Y: normal -y
-    planar(Pnt::new(x0, y0, z0), Pnt::new(0.0, -1.0, 0.0), Pnt::new(0.0, 0.0, 1.0), dz, dx);
-    // +Y: normal +y
-    planar(Pnt::new(x0, y0 + dy, z0), Pnt::new(0.0, 1.0, 0.0), Pnt::new(1.0, 0.0, 0.0), dx, dz);
-    // -X: normal -x
-    planar(Pnt::new(x0, y0, z0), Pnt::new(-1.0, 0.0, 0.0), Pnt::new(0.0, 1.0, 0.0), dy, dz);
-    // +X: normal +x
-    planar(Pnt::new(x0 + dx, y0, z0), Pnt::new(1.0, 0.0, 0.0), Pnt::new(0.0, 0.0, 1.0), dz, dy);
-
+    let faces = vec![
+        // -Z bottom
+        planar_face_from_corners([p(x0, y0, z0), p(x0, y1, z0), p(x1, y1, z0), p(x1, y0, z0)]),
+        // +Z top
+        planar_face_from_corners([p(x0, y0, z1), p(x1, y0, z1), p(x1, y1, z1), p(x0, y1, z1)]),
+        // -Y front
+        planar_face_from_corners([p(x0, y0, z0), p(x1, y0, z0), p(x1, y0, z1), p(x0, y0, z1)]),
+        // +Y back
+        planar_face_from_corners([p(x0, y1, z0), p(x0, y1, z1), p(x1, y1, z1), p(x1, y1, z0)]),
+        // -X left
+        planar_face_from_corners([p(x0, y0, z0), p(x0, y0, z1), p(x0, y1, z1), p(x0, y1, z0)]),
+        // +X right
+        planar_face_from_corners([p(x1, y0, z0), p(x1, y1, z0), p(x1, y1, z1), p(x1, y0, z1)]),
+    ];
     BSolid::new(faces)
 }
 
@@ -382,6 +396,158 @@ fn quadrature_volume(f: &BFace) -> f64 {
     acc * hu * hv / 3.0
 }
 
+// ---------------------------------------------------------------------------
+// Stage 2: exact planar boolean via half-space clipping
+// ---------------------------------------------------------------------------
+//
+// The building block of a planar boolean is clipping a solid by a plane —
+// keeping the half behind a normal and capping the opening. Because every
+// operation here is on planar faces, the intersection of two faces is a line
+// and the clip is exact: no tessellation, and the result's volume is exact.
+//
+// `intersect_convex` composes clips: a convex solid B is the intersection of
+// the half-spaces behind its faces, so `A ∩ B` is `A` clipped by each face of
+// `B`. General (non-convex) booleans — where a cap can split into several loops
+// and faces turn non-convex — are Stage 3, together with the curved surfaces.
+
+/// A planar facet: outward unit normal `n` and a polygon wound CCW about `n`.
+struct Facet {
+    n: Pnt,
+    poly: Vec<Pnt>,
+}
+
+const WELD: f64 = 1e-9;
+
+impl BSolid {
+    /// The planar faces as outward-oriented facets (non-planar faces are
+    /// skipped — Stage 2 is planar-only).
+    fn to_facets(&self) -> Vec<Facet> {
+        self.faces
+            .iter()
+            .filter_map(|f| {
+                let Surface::Plane { placement } = &f.surface else {
+                    return None;
+                };
+                let n = if f.sense { placement.z_dir } else { -placement.z_dir };
+                let mut poly: Vec<Pnt> =
+                    f.loops[0].iter().map(|&(u, v)| f.surface.value(u, v)).collect();
+                // The stored loop is CCW about the natural normal (z_dir); when
+                // the outward normal is flipped, reverse so it is CCW about `n`.
+                if !f.sense {
+                    poly.reverse();
+                }
+                Some(Facet { n, poly })
+            })
+            .collect()
+    }
+
+    /// Clip to the half-space *behind* `n` (keep points with `(p - pt)·n ≤ 0`)
+    /// and cap the opening. Assumes a convex cut (one cap loop) — the Stage-2
+    /// scope. Faces fully outside drop; faces straddling the plane are trimmed.
+    pub fn clip_by_plane(&self, pt: Pnt, n: Pnt) -> BSolid {
+        let n = n.normalized();
+        let s = |p: Pnt| (p - pt).dot(n);
+        let mut facets: Vec<Facet> = Vec::new();
+        let mut cut_pts: Vec<Pnt> = Vec::new();
+
+        for f in self.to_facets() {
+            let (clipped, cuts) = clip_polygon(&f.poly, &s);
+            if clipped.len() >= 3 {
+                facets.push(Facet { n: f.n, poly: clipped });
+            }
+            cut_pts.extend(cuts);
+        }
+        if let Some(cap) = build_convex_cap(&cut_pts, n) {
+            facets.push(cap);
+        }
+        BSolid::new(facets.into_iter().map(facet_to_bface).collect())
+    }
+}
+
+/// `A ∩ B` for convex `A`, `B`: clip `A` by every face-plane of `B`.
+pub fn intersect_convex(a: &BSolid, b: &BSolid) -> BSolid {
+    let mut result = a.clone();
+    for f in b.to_facets() {
+        // A point on the face and its outward normal define the half-space.
+        let pt = f.poly[0];
+        result = result.clip_by_plane(pt, f.n);
+        if result.faces.is_empty() {
+            break; // fully clipped away — no overlap
+        }
+    }
+    result
+}
+
+/// Sutherland–Hodgman clip of `poly` to `{ p : s(p) ≤ 0 }`. Returns the clipped
+/// polygon and the intersection points introduced on the cutting plane.
+fn clip_polygon(poly: &[Pnt], s: &dyn Fn(Pnt) -> f64) -> (Vec<Pnt>, Vec<Pnt>) {
+    let m = poly.len();
+    let mut out: Vec<Pnt> = Vec::with_capacity(m + 2);
+    let mut cuts: Vec<Pnt> = Vec::new();
+    for i in 0..m {
+        let a = poly[i];
+        let b = poly[(i + 1) % m];
+        let sa = s(a);
+        let sb = s(b);
+        let a_in = sa <= WELD;
+        let b_in = sb <= WELD;
+        if a_in {
+            out.push(a);
+        }
+        if a_in != b_in {
+            let t = sa / (sa - sb);
+            let ip = a + (b - a) * t;
+            out.push(ip);
+            cuts.push(ip);
+        }
+    }
+    (out, cuts)
+}
+
+/// Assemble the cap face closing a convex cut: weld the shared cut points,
+/// order them CCW about `n`, and orient the facet outward (`+n`).
+fn build_convex_cap(cut_pts: &[Pnt], n: Pnt) -> Option<Facet> {
+    // Weld duplicates (each cap vertex arrives once per adjacent clipped face).
+    let mut uniq: Vec<Pnt> = Vec::new();
+    for &p in cut_pts {
+        if !uniq.iter().any(|q| (*q - p).norm() < 1e-7) {
+            uniq.push(p);
+        }
+    }
+    if uniq.len() < 3 {
+        return None;
+    }
+    let c = uniq.iter().fold(Pnt::origin(), |acc, &p| acc + p) * (1.0 / uniq.len() as f64);
+    // In-plane frame for angular sort.
+    let x = (uniq[0] - c).normalized();
+    let y = n.cross(x).normalized();
+    uniq.sort_by(|a, b| {
+        let aa = (*a - c).dot(y).atan2((*a - c).dot(x));
+        let ab = (*b - c).dot(y).atan2((*b - c).dot(x));
+        aa.partial_cmp(&ab).unwrap()
+    });
+    Some(Facet { n, poly: uniq })
+}
+
+/// Rebuild a [`BFace`] from a facet: a plane with `z_dir = n`, its loop mapped
+/// into that plane's `(u, v)`. The polygon is CCW about `n = z_dir`, so `sense`
+/// is `true` (natural normal is outward).
+fn facet_to_bface(f: Facet) -> BFace {
+    use crate::gp::Ax3;
+    let origin = f.poly[0];
+    let x_hint = f.poly[1] - f.poly[0];
+    let placement = Ax3::from_origin_normal(origin, f.n, x_hint);
+    let uv: UvLoop = f
+        .poly
+        .iter()
+        .map(|p| {
+            let d = *p - origin;
+            (d.dot(placement.x_dir), d.dot(placement.y_dir))
+        })
+        .collect();
+    BFace::new(Surface::Plane { placement }, uv, true)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -424,5 +590,50 @@ mod tests {
         let expect = PI * 25.0 * 8.0;
         // tessellated volume undershoots slightly; within 0.1% at 256 segments
         assert!((m.volume() - expect).abs() / expect < 1e-3, "mesh vol={}", m.volume());
+    }
+
+    // ---- Stage 2: exact planar boolean ----
+
+    #[test]
+    fn clip_box_by_axis_plane_halves_volume() {
+        // [0,10]^3 clipped to z <= 5 is a 10x10x5 box.
+        let b = box_brep(Pnt::origin(), 10.0, 10.0, 10.0);
+        let half = b.clip_by_plane(Pnt::new(0.0, 0.0, 5.0), Pnt::new(0.0, 0.0, 1.0));
+        assert!((half.volume() - 500.0).abs() < 1e-9, "vol={}", half.volume());
+        // and it is watertight: the cap closes the opening exactly.
+        let m = half.tessellate(&TessParams::default());
+        assert!((m.volume() - 500.0).abs() < 1e-9, "mesh vol={}", m.volume());
+    }
+
+    #[test]
+    fn clip_box_by_angled_plane_exact_wedge() {
+        // Cut the unit cube by the plane x + z = 1 (normal (1,0,1)), keeping the
+        // side x + z <= 1. The removed corner is a tetra-ish wedge; the kept
+        // volume is 1 - 1/2*(1*1)/1... compute directly: region of unit cube with
+        // x+z<=1 has volume 1 - 1/2 = 0.5 (prism split of the cube diagonally).
+        let b = box_brep(Pnt::origin(), 1.0, 1.0, 1.0);
+        let kept = b.clip_by_plane(Pnt::new(1.0, 0.0, 0.0), Pnt::new(1.0, 0.0, 1.0));
+        assert!((kept.volume() - 0.5).abs() < 1e-9, "vol={}", kept.volume());
+        let m = kept.tessellate(&TessParams::default());
+        assert!((m.volume() - 0.5).abs() < 1e-9, "mesh vol={}", m.volume());
+    }
+
+    #[test]
+    fn intersect_two_boxes_exact() {
+        // [0,10]^3 ∩ [5,15]^3 = [5,10]^3, volume 125.
+        let a = box_brep(Pnt::origin(), 10.0, 10.0, 10.0);
+        let b = box_brep(Pnt::new(5.0, 5.0, 5.0), 10.0, 10.0, 10.0);
+        let x = intersect_convex(&a, &b);
+        assert!((x.volume() - 125.0).abs() < 1e-9, "vol={}", x.volume());
+        let m = x.tessellate(&TessParams::default());
+        assert!((m.volume() - 125.0).abs() < 1e-9, "mesh vol={}", m.volume());
+    }
+
+    #[test]
+    fn intersect_disjoint_boxes_is_empty() {
+        let a = box_brep(Pnt::origin(), 10.0, 10.0, 10.0);
+        let b = box_brep(Pnt::new(20.0, 0.0, 0.0), 5.0, 5.0, 5.0);
+        let x = intersect_convex(&a, &b);
+        assert!(x.volume().abs() < 1e-9, "expected empty, vol={}", x.volume());
     }
 }
