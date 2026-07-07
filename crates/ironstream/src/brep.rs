@@ -236,17 +236,45 @@ fn tessellate_face(f: &BFace, mp: &TessParams, out: &mut TriMesh) {
     }
 }
 
-/// Planar face: fan-triangulate its (convex, hole-free — Stage 1) uv loop and
-/// map back to 3D. Winding follows `sense`.
+/// Planar face: triangulate its uv region (outer loop plus any hole loops via
+/// bridge seams + ear clipping) and map back to 3D. Winding follows `sense`.
 fn tessellate_planar(f: &BFace, out: &mut TriMesh) {
-    let loop_uv = &f.loops[0];
-    if loop_uv.len() < 3 {
+    let outer = &f.loops[0];
+    if outer.len() < 3 {
         return;
     }
-    let p3d: Vec<Pnt> = loop_uv.iter().map(|&(u, v)| f.surface.value(u, v)).collect();
-    let n = p3d.len();
-    for i in 1..n - 1 {
-        push_tri(out, p3d[0], p3d[i], p3d[i + 1], f.sense);
+    if f.loops.len() == 1 {
+        // convex, hole-free fast path (all Stage-1/2 faces): fan.
+        let p3d: Vec<Pnt> = outer.iter().map(|&(u, v)| f.surface.value(u, v)).collect();
+        for i in 1..p3d.len() - 1 {
+            push_tri(out, p3d[0], p3d[i], p3d[i + 1], f.sense);
+        }
+        return;
+    }
+    // Holes: work in a CCW-normalized copy so bridging/ear-clipping see the
+    // expected orientations, then restore the original winding on emit.
+    let flip = area2_uv(outer) < 0.0;
+    let norm = |l: &UvLoop| -> Vec<(f64, f64)> {
+        if flip {
+            l.iter().rev().cloned().collect()
+        } else {
+            l.clone()
+        }
+    };
+    let outer_ccw = norm(outer);
+    let holes: Vec<Vec<(f64, f64)>> = f.loops[1..].iter().map(|h| norm(h)).collect();
+    let bridged = bridge_holes_uv(&outer_ccw, &holes);
+    let tris = ear_clip_uv(&bridged);
+    for t in tris {
+        let p: Vec<Pnt> = t
+            .iter()
+            .map(|&i| {
+                let (u, v) = bridged[i];
+                f.surface.value(u, v)
+            })
+            .collect();
+        // ear_clip emits CCW in the normalized frame; `flip` restores parity.
+        push_tri(out, p[0], p[1], p[2], f.sense ^ flip);
     }
 }
 
@@ -320,15 +348,61 @@ fn push_tri(out: &mut TriMesh, a: Pnt, b: Pnt, c: Pnt, sense: bool) {
 // exact volume
 // ---------------------------------------------------------------------------
 
+/// If `pts` all lie on one circle (as drill/cap loops do by construction),
+/// return its `(center, radius)` — the loop then stands for the *exact* disk.
+fn fit_circle_3d(pts: &[Pnt]) -> Option<(Pnt, f64)> {
+    if pts.len() < 8 {
+        return None;
+    }
+    let c = pts.iter().fold(Pnt::origin(), |a, &p| a + p) * (1.0 / pts.len() as f64);
+    let r = pts.iter().map(|&p| (p - c).norm()).sum::<f64>() / pts.len() as f64;
+    if r < 1e-12 {
+        return None;
+    }
+    let ok = pts.iter().all(|&p| ((p - c).norm() - r).abs() < 1e-7 * r);
+    ok.then_some((c, r))
+}
+
 /// One face's contribution to `(1/3) ∮ (r · n) dA`.
+///
+/// Exactness: planar polygon loops are closed-form; a loop whose vertices sit
+/// on a circle is integrated as the exact disk (`πr²` — the polyline is only
+/// the discretized trim of a true circular edge); cylinder barrels over a uv
+/// rectangle have a closed form. What remains (sphere/torus patches) falls to
+/// quadrature.
 fn face_volume_contribution(f: &BFace) -> f64 {
     match &f.surface {
         Surface::Plane { placement } => {
-            // r · n is the constant plane offset over the whole face.
+            // r · n is the constant plane offset over the whole face. Hole
+            // loops oppose the outer loop's orientation, so their signed areas
+            // subtract naturally.
             let n = if f.sense { placement.z_dir } else { -placement.z_dir };
-            let p3d: Vec<Pnt> = f.loops[0].iter().map(|&(u, v)| f.surface.value(u, v)).collect();
-            let (area, centroid) = polygon_area_centroid(&p3d, n);
-            n.dot(centroid) * area / 3.0
+            f.loops
+                .iter()
+                .map(|l| {
+                    let p3d: Vec<Pnt> = l.iter().map(|&(u, v)| f.surface.value(u, v)).collect();
+                    let (area, centroid) = polygon_area_centroid(&p3d, n);
+                    if let Some((c, r)) = fit_circle_3d(&p3d) {
+                        // exact disk, signed like the polygon it discretizes
+                        let disk = PI * r * r * area.signum();
+                        n.dot(c) * disk / 3.0
+                    } else {
+                        n.dot(centroid) * area / 3.0
+                    }
+                })
+                .sum()
+        }
+        Surface::Cylinder { placement, radius } if f.loops[0].len() == 4 => {
+            // closed form over the uv rectangle:
+            //   p·n = ±(o·n̂(u) + R),  dA = R du dv,  n̂(u) = x̂ cos u + ŷ sin u
+            let (u0, u1, v0, v1) = uv_bounds(&f.loops[0]);
+            let s = if f.sense { 1.0 } else { -1.0 };
+            let (du, dv) = (u1 - u0, v1 - v0);
+            let int_cos = u1.sin() - u0.sin();
+            let int_sin = u0.cos() - u1.cos();
+            let o = placement.location;
+            let o_term = o.dot(placement.x_dir) * int_cos + o.dot(placement.y_dir) * int_sin;
+            s * radius * (radius * du * dv + dv * o_term) / 3.0
         }
         _ => quadrature_volume(f),
     }
@@ -831,6 +905,301 @@ pub fn boolean(a: &BSolid, b: &BSolid, op: BoolOp) -> BSolid {
     BSolid::new(faces)
 }
 
+// ---------------------------------------------------------------------------
+// Stage 3b: cylinder through-cut (the drilled hole) on planar solids
+// ---------------------------------------------------------------------------
+//
+// `drill_through` subtracts an infinite cylinder from a planar-faced solid:
+// faces perpendicular to the drill axis gain a circular *hole loop* (multi-loop
+// faces), and the bore wall becomes a trimmed `Surface::Cylinder` face with
+// inward sense. The barrel is analytic — STEP gets a real CYLINDRICAL_SURFACE
+// — and the result is watertight by construction.
+//
+// Scope guard: the cut must be clean — the circle fully inside or fully
+// outside every perpendicular face, every other face clear of the bore.
+// Anything partial returns `None` so callers can fall back to the mesh path.
+
+/// Signed doubled area of a uv polygon (positive = CCW).
+fn area2_uv(pts: &[(f64, f64)]) -> f64 {
+    let n = pts.len();
+    let mut a = 0.0;
+    for i in 0..n {
+        let (x0, y0) = pts[i];
+        let (x1, y1) = pts[(i + 1) % n];
+        a += x0 * y1 - x1 * y0;
+    }
+    a
+}
+
+/// Even-odd point-in-polygon in uv.
+fn point_in_loop_uv(p: (f64, f64), poly: &[(f64, f64)]) -> bool {
+    let n = poly.len();
+    let mut inside = false;
+    let mut j = n - 1;
+    for i in 0..n {
+        let (xi, yi) = poly[i];
+        let (xj, yj) = poly[j];
+        if ((yi > p.1) != (yj > p.1))
+            && (p.0 < (xj - xi) * (p.1 - yi) / (yj - yi) + xi)
+        {
+            inside = !inside;
+        }
+        j = i;
+    }
+    inside
+}
+
+/// Distance from a uv point to the closest edge of a uv polygon.
+fn dist_to_loop_uv(p: (f64, f64), poly: &[(f64, f64)]) -> f64 {
+    let n = poly.len();
+    let mut best = f64::INFINITY;
+    for i in 0..n {
+        let (ax, ay) = poly[i];
+        let (bx, by) = poly[(i + 1) % n];
+        let (dx, dy) = (bx - ax, by - ay);
+        let len2 = dx * dx + dy * dy;
+        let t = if len2 > 0.0 {
+            (((p.0 - ax) * dx + (p.1 - ay) * dy) / len2).clamp(0.0, 1.0)
+        } else {
+            0.0
+        };
+        let (cx, cy) = (ax + t * dx, ay + t * dy);
+        best = best.min(((p.0 - cx).powi(2) + (p.1 - cy).powi(2)).sqrt());
+    }
+    best
+}
+
+/// Do the open segments (a,b) and (c,d) properly intersect (interiors cross)?
+fn segments_cross(a: (f64, f64), b: (f64, f64), c: (f64, f64), d: (f64, f64)) -> bool {
+    let orient = |p: (f64, f64), q: (f64, f64), r: (f64, f64)| {
+        (q.0 - p.0) * (r.1 - p.1) - (q.1 - p.1) * (r.0 - p.0)
+    };
+    let eps = 1e-12;
+    let (o1, o2) = (orient(a, b, c), orient(a, b, d));
+    let (o3, o4) = (orient(c, d, a), orient(c, d, b));
+    o1 * o2 < -eps && o3 * o4 < -eps
+}
+
+/// Merge hole loops into the outer loop with bridge seams, producing one
+/// simple (seam-degenerate) polygon that ear clipping can triangulate.
+/// `outer` must be CCW and each hole CW, all in the same uv frame.
+fn bridge_holes_uv(outer: &[(f64, f64)], holes: &[Vec<(f64, f64)>]) -> Vec<(f64, f64)> {
+    let mut poly: Vec<(f64, f64)> = outer.to_vec();
+    let mut hs: Vec<&Vec<(f64, f64)>> = holes.iter().collect();
+    // bridge right-most holes first so seams never cross later bridges
+    hs.sort_by(|a, b| {
+        let ma = a.iter().map(|p| p.0).fold(f64::NEG_INFINITY, f64::max);
+        let mb = b.iter().map(|p| p.0).fold(f64::NEG_INFINITY, f64::max);
+        mb.partial_cmp(&ma).unwrap()
+    });
+    for h in hs {
+        let (mi, &m) = h
+            .iter()
+            .enumerate()
+            .max_by(|(_, a), (_, b)| a.0.partial_cmp(&b.0).unwrap())
+            .unwrap();
+        // nearest polygon vertex visible from m (bridge must cross nothing)
+        let mut best: Option<(usize, f64)> = None;
+        for (j, &p) in poly.iter().enumerate() {
+            let d2 = (p.0 - m.0).powi(2) + (p.1 - m.1).powi(2);
+            if best.is_some_and(|(_, bd)| d2 >= bd) {
+                continue;
+            }
+            let crosses = |loop_pts: &[(f64, f64)]| {
+                let n = loop_pts.len();
+                (0..n).any(|k| segments_cross(m, p, loop_pts[k], loop_pts[(k + 1) % n]))
+            };
+            if !crosses(&poly) && !crosses(h) {
+                best = Some((j, d2));
+            }
+        }
+        let Some((j, _)) = best else { continue };
+        let mut newp = Vec::with_capacity(poly.len() + h.len() + 2);
+        newp.extend_from_slice(&poly[..=j]);
+        for k in 0..=h.len() {
+            newp.push(h[(mi + k) % h.len()]);
+        }
+        newp.push(poly[j]);
+        newp.extend_from_slice(&poly[j + 1..]);
+        poly = newp;
+    }
+    poly
+}
+
+/// Ear-clip a (possibly seam-degenerate) CCW uv polygon into triangles.
+fn ear_clip_uv(poly: &[(f64, f64)]) -> Vec<[usize; 3]> {
+    let n = poly.len();
+    let mut idx: Vec<usize> = (0..n).collect();
+    let mut tris = Vec::new();
+    let tri_area2 = |a: (f64, f64), b: (f64, f64), c: (f64, f64)| {
+        (b.0 - a.0) * (c.1 - a.1) - (b.1 - a.1) * (c.0 - a.0)
+    };
+    let mut stuck = 0usize;
+    while idx.len() > 3 {
+        let m = idx.len();
+        let mut clipped = false;
+        for i in 0..m {
+            let (pi, ci, ni) = (idx[(i + m - 1) % m], idx[i], idx[(i + 1) % m]);
+            let (a, b, c) = (poly[pi], poly[ci], poly[ni]);
+            if tri_area2(a, b, c) <= 1e-12 {
+                continue; // reflex or degenerate corner
+            }
+            let mut ear = true;
+            for &j in &idx {
+                if j == pi || j == ci || j == ni {
+                    continue;
+                }
+                let p = poly[j];
+                if tri_area2(a, b, p) > 1e-12
+                    && tri_area2(b, c, p) > 1e-12
+                    && tri_area2(c, a, p) > 1e-12
+                {
+                    ear = false;
+                    break;
+                }
+            }
+            if ear {
+                tris.push([pi, ci, ni]);
+                idx.remove(i);
+                clipped = true;
+                break;
+            }
+        }
+        if !clipped {
+            stuck += 1;
+            if stuck > 1 {
+                break; // numerical dead end: emit what we have
+            }
+        }
+    }
+    if idx.len() == 3 {
+        tris.push([idx[0], idx[1], idx[2]]);
+    }
+    tris
+}
+
+/// Subtract an infinite cylinder (axis through `origin` along `dir`, radius
+/// `radius`) from a planar-faced solid. Returns `None` when the configuration
+/// is outside the clean-cut scope (partial overlaps, non-perpendicular
+/// crossings) — callers should fall back to the mesh boolean.
+pub fn drill_through(a: &BSolid, origin: Pnt, dir: Pnt, radius: f64) -> Option<BSolid> {
+    use crate::gp::Ax3;
+    let dir = dir.normalized();
+    let n_seg = 64usize;
+    let eps = 1e-9;
+
+    // (face index, axis parameter t of the crossing) for punched faces
+    let mut punches: Vec<(usize, f64)> = Vec::new();
+
+    for (fi, f) in a.faces.iter().enumerate() {
+        match &f.surface {
+            Surface::Plane { placement } => {
+                let zn = placement.z_dir;
+                let along = zn.dot(dir);
+                if along.abs() > 1.0 - 1e-9 {
+                    // perpendicular candidate: where does the axis pierce?
+                    let t = zn.dot(placement.location - origin) / along;
+                    let hit = origin + dir * t;
+                    let d = hit - placement.location;
+                    let uv_c = (d.dot(placement.x_dir), d.dot(placement.y_dir));
+                    let outer = &f.loops[0];
+                    if point_in_loop_uv(uv_c, outer) {
+                        if dist_to_loop_uv(uv_c, outer) < radius + eps {
+                            return None; // circle clips the face boundary
+                        }
+                        for h in &f.loops[1..] {
+                            if point_in_loop_uv(uv_c, h)
+                                || dist_to_loop_uv(uv_c, h) < radius + eps
+                            {
+                                return None; // overlaps an existing hole
+                            }
+                        }
+                        punches.push((fi, t));
+                    } else if dist_to_loop_uv(uv_c, outer) < radius + eps {
+                        return None; // partial: circle straddles the boundary
+                    }
+                } else {
+                    // face not perpendicular to the drill: the axis must not
+                    // pierce it, and the whole polygon must clear the bore.
+                    if along.abs() > 1e-9 {
+                        let t = zn.dot(placement.location - origin) / along;
+                        let hit = origin + dir * t;
+                        let d = hit - placement.location;
+                        let uv_c = (d.dot(placement.x_dir), d.dot(placement.y_dir));
+                        if point_in_loop_uv(uv_c, &f.loops[0]) {
+                            return None; // pierces a tilted face
+                        }
+                    }
+                    let clear = f.loops[0].iter().all(|&(u, v)| {
+                        let p = f.surface.value(u, v);
+                        let rel = p - origin;
+                        let ax = rel.dot(dir);
+                        (rel - dir * ax).norm() > radius + eps
+                    });
+                    if !clear {
+                        return None;
+                    }
+                }
+            }
+            Surface::Cylinder { placement, radius: r2 } => {
+                // an earlier bore: allow if parallel and non-overlapping
+                if placement.z_dir.cross(dir).norm() > 1e-9 {
+                    return None;
+                }
+                let rel = placement.location - origin;
+                let dist = (rel - dir * rel.dot(dir)).norm();
+                if dist < radius + r2 + eps {
+                    return None;
+                }
+            }
+            _ => return None,
+        }
+    }
+
+    if punches.is_empty() {
+        return Some(a.clone()); // clean miss: unchanged
+    }
+    if punches.len() % 2 != 0 {
+        return None; // open crossing — not a through cut
+    }
+    punches.sort_by(|x, y| x.1.partial_cmp(&y.1).unwrap());
+
+    // rebuild: punched faces gain a hole loop; barrels span crossing pairs
+    let mut faces: Vec<BFace> = Vec::new();
+    for (fi, f) in a.faces.iter().enumerate() {
+        if let Some(&(_, t)) = punches.iter().find(|&&(pfi, _)| pfi == fi) {
+            let Surface::Plane { placement } = &f.surface else { unreachable!() };
+            let hit = origin + dir * t;
+            let d = hit - placement.location;
+            let (cu, cv) = (d.dot(placement.x_dir), d.dot(placement.y_dir));
+            // hole opposes the outer loop's orientation in uv
+            let outer_ccw = area2_uv(&f.loops[0]) > 0.0;
+            let sign = if outer_ccw { -1.0 } else { 1.0 };
+            let hole: UvLoop = (0..n_seg)
+                .map(|i| {
+                    let th = sign * 2.0 * PI * i as f64 / n_seg as f64;
+                    (cu + radius * th.cos(), cv + radius * th.sin())
+                })
+                .collect();
+            let mut nf = f.clone();
+            nf.loops.push(hole);
+            faces.push(nf);
+        } else {
+            faces.push(f.clone());
+        }
+    }
+    let axis = Ax3::from_origin_normal(origin, dir, dir.any_perpendicular());
+    for pair in punches.chunks(2) {
+        let (t0, t1) = (pair[0].1, pair[1].1);
+        faces.push(BFace::new(
+            Surface::Cylinder { placement: axis, radius },
+            vec![(0.0, t0), (2.0 * PI, t0), (2.0 * PI, t1), (0.0, t1)],
+            false, // bore wall: outward normal points toward the axis
+        ));
+    }
+    Some(BSolid::new(faces))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -850,16 +1219,13 @@ mod tests {
     }
 
     #[test]
-    fn cylinder_brep_volume() {
+    fn cylinder_brep_volume_exact() {
         let c = cylinder_brep(10.0, 20.0);
         let expect = PI * 100.0 * 20.0;
         assert_eq!(c.faces.len(), 3);
-        // The barrel contribution is exact (analytic quadrature); the caps are
-        // bounded by 64-point loops in Stage 1, so their area is a 64-gon —
-        // ~5e-4 low. Exact circular areas arrive with analytic edges (Stage 2,
-        // where the same edges become the BOP intersection curves).
+        // exact: cap loops integrate as true disks, barrel is closed-form.
         assert!(
-            (c.volume() - expect).abs() / expect < 2e-3,
+            (c.volume() - expect).abs() < 1e-9,
             "vol={} expect={}",
             c.volume(),
             expect
@@ -983,6 +1349,132 @@ mod tests {
         let a = box_brep(Pnt::origin(), 10.0, 10.0, 10.0);
         let b = box_brep(Pnt::new(30.0, 0.0, 0.0), 5.0, 5.0, 5.0);
         assert_solid(&boolean(&a, &b, BoolOp::Subtract), 1000.0, "disjoint cut");
+    }
+
+    // ---- Stage 3b: drilled holes ----
+
+    /// 64-gon area of the discretized hole (loop area, not πr²).
+    fn hole_area(r: f64) -> f64 {
+        0.5 * 64.0 * r * r * (2.0 * PI / 64.0).sin()
+    }
+
+    #[test]
+    fn drill_through_plate() {
+        // 20x20x5 plate (off origin to catch winding bugs), r=3 bore.
+        let plate = box_brep(Pnt::new(0.0, 0.0, 1.0), 20.0, 20.0, 5.0);
+        let out = drill_through(&plate, Pnt::new(10.0, 10.0, 0.0), Pnt::new(0.0, 0.0, 1.0), 3.0)
+            .expect("clean through cut");
+        // the analytic volume is EXACT: circle loops integrate as true disks
+        // and the barrel has a closed form.
+        let exact = 2000.0 - PI * 9.0 * 5.0;
+        assert!(
+            (out.volume() - exact).abs() < 1e-9,
+            "vol={} exact={exact}",
+            out.volume()
+        );
+        // the tessellation is the 64-gon version of the same solid — watertight
+        let m = out.tessellate(&TessParams::default());
+        let mesh_expect = 2000.0 - hole_area(3.0) * 5.0;
+        assert!(
+            (m.volume() - mesh_expect).abs() < 1e-6,
+            "mesh vol={} expect={mesh_expect}",
+            m.volume()
+        );
+        // topology: 6 box faces + 1 barrel; top & bottom carry a hole loop
+        assert_eq!(out.faces.len(), 7);
+        let barrels: Vec<_> = out
+            .faces
+            .iter()
+            .filter(|f| matches!(f.surface, Surface::Cylinder { .. }))
+            .collect();
+        assert_eq!(barrels.len(), 1);
+        assert!(!barrels[0].sense, "bore wall faces inward");
+        assert_eq!(out.faces.iter().filter(|f| f.loops.len() == 2).count(), 2);
+    }
+
+    #[test]
+    fn drill_two_holes_same_plate() {
+        let plate = box_brep(Pnt::new(0.0, 0.0, 1.0), 20.0, 20.0, 5.0);
+        let d = Pnt::new(0.0, 0.0, 1.0);
+        let one = drill_through(&plate, Pnt::new(6.0, 10.0, 0.0), d, 2.0).unwrap();
+        let two = drill_through(&one, Pnt::new(14.0, 10.0, 0.0), d, 2.0).unwrap();
+        let exact = 2000.0 - 2.0 * PI * 4.0 * 5.0;
+        assert!(
+            (two.volume() - exact).abs() < 1e-9,
+            "vol={} exact={exact}",
+            two.volume()
+        );
+        let m = two.tessellate(&TessParams::default());
+        let mesh_expect = 2000.0 - 2.0 * hole_area(2.0) * 5.0;
+        assert!(
+            (m.volume() - mesh_expect).abs() < 1e-6,
+            "mesh vol={} expect={mesh_expect}",
+            m.volume()
+        );
+        // top face now has outer + 2 hole loops
+        assert!(two.faces.iter().any(|f| f.loops.len() == 3));
+        assert_eq!(
+            two.faces
+                .iter()
+                .filter(|f| matches!(f.surface, Surface::Cylinder { .. }))
+                .count(),
+            2
+        );
+    }
+
+    #[test]
+    fn drill_through_two_stacked_plates() {
+        // one solid made of two disjoint plates: 4 crossings -> 2 barrels
+        let mut faces = box_brep(Pnt::new(0.0, 0.0, 0.0), 20.0, 20.0, 4.0).faces;
+        faces.extend(box_brep(Pnt::new(0.0, 0.0, 10.0), 20.0, 20.0, 4.0).faces);
+        let stack = BSolid::new(faces);
+        let out = drill_through(&stack, Pnt::new(10.0, 10.0, 0.0), Pnt::new(0.0, 0.0, 1.0), 3.0)
+            .expect("clean double through cut");
+        let exact = 2.0 * (1600.0 - PI * 9.0 * 4.0);
+        assert!(
+            (out.volume() - exact).abs() < 1e-9,
+            "vol={} exact={exact}",
+            out.volume()
+        );
+        let m = out.tessellate(&TessParams::default());
+        let mesh_expect = 2.0 * (1600.0 - hole_area(3.0) * 4.0);
+        assert!(
+            (m.volume() - mesh_expect).abs() < 1e-6,
+            "mesh vol={} expect={mesh_expect}",
+            m.volume()
+        );
+        assert_eq!(
+            out.faces
+                .iter()
+                .filter(|f| matches!(f.surface, Surface::Cylinder { .. }))
+                .count(),
+            2
+        );
+    }
+
+    #[test]
+    fn drill_miss_returns_identity() {
+        let plate = box_brep(Pnt::origin(), 20.0, 20.0, 5.0);
+        let out = drill_through(&plate, Pnt::new(40.0, 40.0, 0.0), Pnt::new(0.0, 0.0, 1.0), 3.0)
+            .expect("clean miss");
+        assert_solid(&out, 2000.0, "missed drill");
+    }
+
+    #[test]
+    fn drill_partial_overlap_falls_back() {
+        // bore straddles the plate edge -> outside the clean-cut scope
+        let plate = box_brep(Pnt::origin(), 20.0, 20.0, 5.0);
+        assert!(
+            drill_through(&plate, Pnt::new(20.0, 10.0, 0.0), Pnt::new(0.0, 0.0, 1.0), 3.0)
+                .is_none()
+        );
+        // and overlapping an existing bore falls back too
+        let one = drill_through(&plate, Pnt::new(10.0, 10.0, 0.0), Pnt::new(0.0, 0.0, 1.0), 3.0)
+            .unwrap();
+        assert!(
+            drill_through(&one, Pnt::new(12.0, 10.0, 0.0), Pnt::new(0.0, 0.0, 1.0), 3.0)
+                .is_none()
+        );
     }
 
     #[test]
