@@ -5817,6 +5817,7 @@ pub mod brep_prim_api;
 pub mod brep_prim_builder;
 pub mod brep_prim_ext;
 pub mod brep_prim_maker;
+pub mod brep;
 pub mod bsp;
 pub mod bsplclib;
 pub mod bsplclib_ext;
