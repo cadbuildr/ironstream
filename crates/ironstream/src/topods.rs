@@ -110,6 +110,10 @@ pub struct Solid {
     /// STEP faces instead of tessellation. Advisory only: an empty list just
     /// means every face falls back to planar/faceted output.
     hints: Vec<crate::geom::Surface>,
+    /// Exact boundary representation, when the construction path could build
+    /// one (see [`crate::brep`]). Preferred for volume; booleans use it for
+    /// the exact drill path and drop it when they can't carry it.
+    brep: Option<crate::brep::BSolid>,
 }
 
 impl Solid {
@@ -117,12 +121,22 @@ impl Solid {
         Solid {
             mesh,
             hints: Vec::new(),
+            brep: None,
         }
     }
 
     /// Attach analytic surface provenance (see the `hints` field docs).
     pub fn with_hints(mesh: TriMesh, hints: Vec<crate::geom::Surface>) -> Self {
-        Solid { mesh, hints }
+        Solid { mesh, hints, brep: None }
+    }
+
+    /// Exact boundary representation, when one was carried through.
+    pub fn brep(&self) -> Option<&crate::brep::BSolid> {
+        self.brep.as_ref()
+    }
+
+    pub fn set_brep(&mut self, brep: Option<crate::brep::BSolid>) {
+        self.brep = brep;
     }
 
     /// Curved surfaces this solid's boundary is known to sample.
@@ -143,6 +157,7 @@ impl Solid {
         Solid {
             mesh: TriMesh::new(),
             hints: Vec::new(),
+            brep: None,
         }
     }
 
@@ -163,7 +178,12 @@ impl Solid {
     }
 
     pub fn volume(&self) -> f64 {
-        self.mesh.volume()
+        // the exact B-rep integrates circles as true disks; the mesh is its
+        // tessellation, so prefer the exact value when we have it.
+        match &self.brep {
+            Some(b) => b.volume(),
+            None => self.mesh.volume(),
+        }
     }
 
     pub fn surface_area(&self) -> f64 {
@@ -178,12 +198,14 @@ impl Solid {
         Solid {
             mesh: self.mesh.transformed(t),
             hints: crate::geom::transform_hints(&self.hints, t),
+            brep: self.brep.as_ref().and_then(|b| b.rigid_transformed(t)),
         }
     }
 
     pub fn transform(&mut self, t: &Trsf) {
         self.mesh.transform(t);
         self.hints = crate::geom::transform_hints(&self.hints, t);
+        self.brep = self.brep.as_ref().and_then(|b| b.rigid_transformed(t));
     }
 
     /// Weld + clean the boundary (call after booleans / assembly).
@@ -191,6 +213,7 @@ impl Solid {
         Solid {
             mesh: self.mesh.welded(tol),
             hints: self.hints.clone(),
+            brep: self.brep.clone(),
         }
     }
 }

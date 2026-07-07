@@ -1200,6 +1200,166 @@ pub fn drill_through(a: &BSolid, origin: Pnt, dir: Pnt, radius: f64) -> Option<B
     Some(BSolid::new(faces))
 }
 
+// ---------------------------------------------------------------------------
+// Solid integration: prisms at birth, tool decomposition, rigid transforms
+// ---------------------------------------------------------------------------
+
+impl BSolid {
+    /// The solid under a rigid transform (rotation + translation). Returns
+    /// `None` for scaling transforms — planar uv loops hold world-unit
+    /// lengths, so only isometries carry the trim loops unchanged.
+    pub fn rigid_transformed(&self, t: &crate::gp::Trsf) -> Option<BSolid> {
+        if (t.scale_factor() - 1.0).abs() > 1e-9 || (t.linear_det().abs() - 1.0).abs() > 1e-9 {
+            return None;
+        }
+        let faces = self
+            .faces
+            .iter()
+            .map(|f| {
+                let surface = match &f.surface {
+                    Surface::Plane { placement } => Surface::Plane {
+                        placement: placement.transformed(t),
+                    },
+                    Surface::Cylinder { placement, radius } => Surface::Cylinder {
+                        placement: placement.transformed(t),
+                        radius: *radius,
+                    },
+                    _ => return None,
+                };
+                Some(BFace { surface, loops: f.loops.clone(), sense: f.sense })
+            })
+            .collect::<Option<Vec<_>>>()?;
+        Some(BSolid::new(faces))
+    }
+}
+
+/// Map 3D loop points into a plane's uv frame.
+fn loop_to_uv(pts: &[Pnt], placement: &crate::gp::Ax3) -> UvLoop {
+    pts.iter()
+        .map(|&p| {
+            let d = p - placement.location;
+            (d.dot(placement.x_dir), d.dot(placement.y_dir))
+        })
+        .collect()
+}
+
+/// Exact B-rep for a right prism: a planar profile (outer loop + hole loops)
+/// swept along `dir`. Circle-shaped loops become true cylinder barrels (a
+/// circular boss or bore is analytic from birth); other loops become planar
+/// wall quads. Returns `None` when the profile isn't planar-perpendicular to
+/// `dir` or is degenerate.
+pub fn prism_brep(outer: &[Pnt], holes: &[Vec<Pnt>], dir: Pnt) -> Option<BSolid> {
+    use crate::gp::Ax3;
+    let h = dir.norm();
+    if h < 1e-12 || outer.len() < 3 {
+        return None;
+    }
+    let dz = dir * (1.0 / h);
+
+    // every loop must lie in one plane perpendicular to dir
+    let t0 = outer[0].dot(dz);
+    let planar = |pts: &[Pnt]| pts.iter().all(|p| (p.dot(dz) - t0).abs() < 1e-7 * h.max(1.0));
+    if !planar(outer) || !holes.iter().all(|hl| planar(hl)) {
+        return None;
+    }
+
+    // orient in a shared frame: outer CCW about dz, holes CW about dz
+    let frame = Ax3::from_origin_normal(outer[0], dz, dz.any_perpendicular());
+    let oriented = |pts: &[Pnt], want_ccw: bool| -> Vec<Pnt> {
+        let uv = loop_to_uv(pts, &frame);
+        if (area2_uv(&uv) > 0.0) == want_ccw {
+            pts.to_vec()
+        } else {
+            pts.iter().rev().cloned().collect()
+        }
+    };
+    let outer = oriented(outer, true);
+    let holes: Vec<Vec<Pnt>> = holes.iter().map(|hl| oriented(hl, false)).collect();
+
+    let mut faces: Vec<BFace> = Vec::new();
+
+    // caps: bottom (outward -dz) and top (outward +dz), holes included
+    let mut cap = |origin: Pnt, normal: Pnt, offset: Pnt| {
+        let placement = Ax3::from_origin_normal(origin + offset, normal, normal.any_perpendicular());
+        let map = |pts: &[Pnt], want_ccw: bool| -> UvLoop {
+            let moved: Vec<Pnt> = pts.iter().map(|&p| p + offset).collect();
+            let uv = loop_to_uv(&moved, &placement);
+            if (area2_uv(&uv) > 0.0) == want_ccw {
+                uv
+            } else {
+                uv.into_iter().rev().collect()
+            }
+        };
+        // outer CCW in the cap's own uv (positive area about its normal),
+        // holes CW — the convention the volume/tessellation paths expect.
+        let mut loops = vec![map(&outer, true)];
+        for hl in &holes {
+            loops.push(map(hl, false));
+        }
+        faces.push(BFace { surface: Surface::Plane { placement }, loops, sense: true });
+    };
+    cap(outer[0], -dz, Pnt::origin());
+    cap(outer[0], dz, dir);
+
+    // side walls per loop: an exact barrel for circles, planar quads otherwise
+    let mut walls = |pts: &[Pnt], is_hole: bool| {
+        if let Some((c, r)) = fit_circle_3d(pts) {
+            let axis = Ax3::from_origin_normal(c, dz, dz.any_perpendicular());
+            faces.push(BFace::new(
+                Surface::Cylinder { placement: axis, radius: r },
+                vec![(0.0, 0.0), (2.0 * PI, 0.0), (2.0 * PI, h), (0.0, h)],
+                !is_hole, // boss wall faces out, bore wall faces in
+            ));
+            return;
+        }
+        let k = pts.len();
+        for i in 0..k {
+            let (a, b) = (pts[i], pts[(i + 1) % k]);
+            if (b - a).norm() < 1e-12 {
+                continue;
+            }
+            // outer CCW about dz / holes CW about dz both make this outward
+            faces.push(planar_face_from_corners([a, b, b + dir, a + dir]));
+        }
+    };
+    walls(&outer, false);
+    for hl in &holes {
+        walls(hl, true);
+    }
+
+    Some(BSolid::new(faces))
+}
+
+/// Decompose a boolean *tool* into cylinder specs: the solid must consist of
+/// full-period barrels plus two perpendicular planar caps each (what a
+/// circular cut extrusion or fused set of them looks like). Returns
+/// `(axis placement, radius, v0, v1)` per bore, or `None` if anything else is
+/// in there.
+pub fn as_cylinder_tools(s: &BSolid) -> Option<Vec<(crate::gp::Ax3, f64, f64, f64)>> {
+    let mut barrels = Vec::new();
+    let mut planes = 0usize;
+    for f in &s.faces {
+        match &f.surface {
+            Surface::Cylinder { placement, radius } => {
+                if f.loops.len() != 1 || f.loops[0].len() != 4 {
+                    return None;
+                }
+                let (u0, u1, v0, v1) = uv_bounds(&f.loops[0]);
+                if (u1 - u0 - 2.0 * PI).abs() > 1e-9 {
+                    return None; // partial barrel — not a plain bore
+                }
+                barrels.push((*placement, *radius, v0, v1));
+            }
+            Surface::Plane { .. } => planes += 1,
+            _ => return None,
+        }
+    }
+    if barrels.is_empty() || planes != 2 * barrels.len() {
+        return None;
+    }
+    Some(barrels)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
