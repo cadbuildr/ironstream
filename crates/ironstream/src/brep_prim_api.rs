@@ -70,7 +70,9 @@ pub fn make_box(corner: Pnt, dx: f64, dy: f64, dz: f64) -> Solid {
     quad(p(1, 0, 0), p(1, 1, 0), p(1, 1, 1), p(1, 0, 1)); // x=dx (+X)
     quad(p(1, 1, 0), p(0, 1, 0), p(0, 1, 1), p(1, 1, 1)); // y=dy (+Y)
     quad(p(0, 1, 0), p(0, 0, 0), p(0, 0, 1), p(0, 1, 1)); // x=0  (-X)
-    finalize(m)
+    let mut s = finalize(m);
+    s.set_brep(Some(crate::brep::box_brep(corner, dx, dy, dz)));
+    s
 }
 
 /// Box centered on `center` in X/Y and growing in +Z (a convenience next to the
@@ -266,7 +268,10 @@ pub fn make_prism(face: &Face, vec: Pnt) -> Solid {
     for h in &face.holes {
         walls(&h.pts);
     }
-    finalize(m)
+    let mut s = finalize(m);
+    let hole_loops: Vec<Vec<Pnt>> = face.holes.iter().map(|h| h.pts.clone()).collect();
+    s.set_brep(crate::brep::prism_brep(&face.outer.pts, &hole_loops, dir));
+    s
 }
 
 /// `BRepPrimAPI_MakeRevol` — revolve a closed planar profile `wire` about
