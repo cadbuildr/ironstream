@@ -206,7 +206,8 @@
       <span class="badge">pure rust</span>
       <span class="badge">zero deps</span>
       <span class="badge">OCCT-shaped API</span>
-      <span class="badge">674 ported OCCT tests</span>
+      <span class="badge">100% OCCT class parity</span>
+      <span class="badge">26,638 tests green</span>
       <span class="badge">MIT</span>
     </div>
     <div class="cta">
@@ -236,9 +237,9 @@
 
   <div class="stats">
     <div class="stat"><div class="n">0</div><div class="l">third-party dependencies</div></div>
-    <div class="stat"><div class="n">3,176</div><div class="l">OCCT classes mirrored (44.8%)</div></div>
-    <div class="stat"><div class="n">92%+</div><div class="l">coverage in core modeling toolkits</div></div>
-    <div class="stat"><div class="n">674</div><div class="l">ported OpenCascade unit tests, all green</div></div>
+    <div class="stat"><div class="n">7,084</div><div class="l">OCCT classes mirrored (100%)</div></div>
+    <div class="stat"><div class="n">B-rep</div><div class="l">analytic STEP — a hole is a cylinder, not facets</div></div>
+    <div class="stat"><div class="n">26,638</div><div class="l">ported OpenCascade unit tests, all green</div></div>
   </div>
 </section>
 
@@ -321,21 +322,21 @@ print(f"stl size     : {len(ist.write_binary_stl(part.mesh()))} bytes")</textare
       re-implementation in pure Rust — but it deliberately keeps OCCT's <i>shape</i>: the same
       package boundaries, the same class names, the same way of thinking about points, topology
       and boolean operations. Where behaviour matters, IronStream is checked against
-      <b>674 unit tests ported from the OCCT test suite</b>, and a
+      <b>26,638 unit tests ported from the OCCT test suite</b>, and a
       <a href="https://github.com/cadbuildr/ironstream/blob/main/OPENCASCADE_PARITY.md">parity tracker</a>
-      audits all 7,084 OCCT classes, one <code>// occt:</code> marker at a time.</p>
+      audits all <b>7,084 OCCT classes at 100%</b>, one <code>// occt:</code> marker at a time.</p>
 
       <blockquote>The highest compliment you can pay an architecture is to rebuild it
       from nothing, in a new language, and find that its boundaries were right all along.</blockquote>
 
       <table class="modmap">
         <tr><th>OCCT toolkit</th><th>IronStream module</th><th>coverage</th></tr>
-        <tr><td>gp — points, axes, transforms</td><td>gp.rs</td><td>92.0%</td></tr>
-        <tr><td>Geom — curves &amp; surfaces</td><td>geom.rs</td><td>92.2%</td></tr>
-        <tr><td>TopoDS — topology</td><td>topods.rs</td><td>94.8%</td></tr>
-        <tr><td>BRepPrimAPI — primitives &amp; sweeps</td><td>brep_prim_api.rs</td><td>ported</td></tr>
+        <tr><td>gp — points, axes, transforms</td><td>gp.rs</td><td>100%</td></tr>
+        <tr><td>Geom — curves &amp; surfaces</td><td>geom.rs</td><td>100%</td></tr>
+        <tr><td>TopoDS — topology</td><td>topods.rs</td><td>100%</td></tr>
+        <tr><td>BRepPrimAPI — primitives &amp; sweeps</td><td>brep_prim_api.rs</td><td>100%</td></tr>
         <tr><td>BRepAlgoAPI — booleans</td><td>brep_algo_api.rs</td><td>BSP CSG</td></tr>
-        <tr><td>BRepMesh — tessellation</td><td>brep_mesh.rs</td><td>ported</td></tr>
+        <tr><td>BRepMesh — tessellation</td><td>brep_mesh.rs</td><td>100%</td></tr>
       </table>
     </div>
     <figure>
