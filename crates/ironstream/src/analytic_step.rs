@@ -25,6 +25,7 @@
 
 use crate::geom::Surface;
 use crate::gp::Pnt;
+use crate::mesh::TriMesh;
 use crate::mesh_io::StepEmitter;
 use crate::topods::Solid;
 use std::collections::HashMap;
@@ -82,14 +83,44 @@ fn surf_distance(s: &Surface, p: Pnt) -> Option<f64> {
             let radial = (rel - placement.z_dir * along).norm();
             Some((((radial - major).powi(2) + along * along).sqrt() - minor).abs())
         }
+        Surface::Cone {
+            placement,
+            radius,
+            half_angle,
+        } => {
+            // half_angle is stored so radius grows along +z_dir.
+            let rel = p - placement.location;
+            let along = rel.dot(placement.z_dir);
+            let radial = (rel - placement.z_dir * along).norm();
+            let expected = radius + along * half_angle.tan();
+            if expected < -ABS_TOL {
+                return Some(f64::INFINITY); // beyond the apex
+            }
+            // perpendicular distance to the slant ≈ radial error · cos(half_angle)
+            Some((radial - expected).abs() * half_angle.cos())
+        }
         _ => None,
     }
+}
+
+/// True for the analytic kinds the classifier can claim triangles onto.
+fn is_classifiable(s: &Surface) -> bool {
+    matches!(
+        s,
+        Surface::Cylinder { .. }
+            | Surface::Sphere { .. }
+            | Surface::Torus { .. }
+            | Surface::Cone { .. }
+    )
 }
 
 fn surf_scale(s: &Surface) -> f64 {
     match s {
         Surface::Cylinder { radius, .. } | Surface::Sphere { radius, .. } => *radius,
         Surface::Torus { minor, .. } => *minor,
+        // reference radius is the wider end (stamped as `radius`); keep a floor
+        // so a near-apex cone still gets a usable tolerance.
+        Surface::Cone { radius, .. } => radius.max(1.0),
         _ => 1.0,
     }
 }
@@ -111,6 +142,17 @@ fn surf_normal(s: &Surface, p: Pnt) -> Option<Pnt> {
             let radial = rel - placement.z_dir * along;
             let ring = placement.location + radial.normalized() * *major;
             Some((p - ring).normalized())
+        }
+        Surface::Cone {
+            placement,
+            half_angle,
+            ..
+        } => {
+            let rel = p - placement.location;
+            let along = rel.dot(placement.z_dir);
+            let radial = (rel - placement.z_dir * along).normalized();
+            // outward normal: radial·cos(a) − axis·sin(a) (a=0 -> cylinder normal)
+            Some(radial * half_angle.cos() - placement.z_dir * half_angle.sin())
         }
         _ => None,
     }
@@ -428,6 +470,300 @@ impl<'a> Emit<'a> {
     }
 }
 
+// ---------------------------------------------------------------------------
+// shared-edge topology
+// ---------------------------------------------------------------------------
+
+/// Corner threshold for node detection: cos of the turn angle. Tessellation
+/// chords of a 64-segment circle bend ~5.6 degrees (cos 0.995); a real C0
+/// corner is far sharper, so 0.90 (~25 degrees) separates them cleanly.
+const NODE_CORNER_COS: f64 = 0.90;
+
+fn fe_endpoints(fe: &FittedEdge) -> (usize, usize) {
+    match *fe {
+        FittedEdge::Line { a, b } => (a, b),
+        FittedEdge::Arc { a, b, .. } => (a, b),
+        FittedEdge::FullCircle { at, .. } => (at, at),
+    }
+}
+
+/// Resolve BSP T-junctions in the mesh: whenever a mesh vertex lies on another
+/// triangle's edge (but isn't one of its corners), re-triangulate that triangle
+/// so the vertex is shared. The result is a *conforming* mesh — every edge is
+/// shared by exactly two triangles — which is what makes group-boundary
+/// extraction clean and lets faces share edges.
+///
+/// Re-triangulation fans the subdivided triangle from its centroid. On a
+/// planar face the centroid stays on the plane; on a tessellated curved face it
+/// sags by the chord depth (~1.2e-3·r at 64 segments), well inside the
+/// on-surface tolerance, so classification is unaffected — and these interior
+/// vertices never reach a boundary loop.
+fn resolve_t_junctions(m: &TriMesh) -> TriMesh {
+    const ON_EDGE: f64 = 1e-6;
+    let verts = &m.verts;
+    let cell = 1.0_f64;
+    let key = |p: Pnt| {
+        (
+            (p.x / cell).floor() as i64,
+            (p.y / cell).floor() as i64,
+            (p.z / cell).floor() as i64,
+        )
+    };
+    let mut grid: HashMap<(i64, i64, i64), Vec<usize>> = HashMap::new();
+    for (i, &p) in verts.iter().enumerate() {
+        grid.entry(key(p)).or_default().push(i);
+    }
+
+    let on_edge = |a: usize, b: usize| -> Vec<usize> {
+        let (pa, pb) = (verts[a], verts[b]);
+        let ab = pb - pa;
+        let len2 = ab.dot(ab);
+        if len2 < ON_EDGE * ON_EDGE {
+            return Vec::new();
+        }
+        let (mn, mx) = (
+            Pnt::new(pa.x.min(pb.x), pa.y.min(pb.y), pa.z.min(pb.z)),
+            Pnt::new(pa.x.max(pb.x), pa.y.max(pb.y), pa.z.max(pb.z)),
+        );
+        let (k0, k1) = (key(mn), key(mx));
+        let mut mids: Vec<(f64, usize)> = Vec::new();
+        for cx in k0.0 - 1..=k1.0 + 1 {
+            for cy in k0.1 - 1..=k1.1 + 1 {
+                for cz in k0.2 - 1..=k1.2 + 1 {
+                    let Some(cands) = grid.get(&(cx, cy, cz)) else {
+                        continue;
+                    };
+                    for &w in cands {
+                        if w == a || w == b {
+                            continue;
+                        }
+                        let pw = verts[w];
+                        let t = (pw - pa).dot(ab) / len2;
+                        if !(ON_EDGE..=1.0 - ON_EDGE).contains(&t) {
+                            continue;
+                        }
+                        if (pw - (pa + ab * t)).norm() <= ON_EDGE {
+                            mids.push((t, w));
+                        }
+                    }
+                }
+            }
+        }
+        mids.sort_by(|x, y| x.0.partial_cmp(&y.0).unwrap());
+        mids.dedup_by_key(|x| x.1);
+        mids.into_iter().map(|(_, w)| w).collect()
+    };
+
+    let mut out = TriMesh {
+        verts: verts.clone(),
+        tris: Vec::with_capacity(m.tris.len()),
+    };
+    for t in &m.tris {
+        let [a, b, c] = *t;
+        let (e0, e1, e2) = (on_edge(a, b), on_edge(b, c), on_edge(c, a));
+        if e0.is_empty() && e1.is_empty() && e2.is_empty() {
+            out.tris.push(*t);
+            continue;
+        }
+        // ordered boundary polygon of the (convex) subdivided triangle
+        let mut poly = vec![a];
+        poly.extend(e0);
+        poly.push(b);
+        poly.extend(e1);
+        poly.push(c);
+        poly.extend(e2);
+        // fan from the centroid (preserves winding, avoids collinear slivers)
+        let cen = (verts[a] + verts[b] + verts[c]) * (1.0 / 3.0);
+        let ci = out.verts.len();
+        out.verts.push(cen);
+        let np = poly.len();
+        for i in 0..np {
+            out.tris.push([ci, poly[i], poly[(i + 1) % np]]);
+        }
+    }
+    out
+}
+
+/// Loop vertices that are C0 corners or junctions where the neighbouring face
+/// changes. Splitting every loop at the same global node set makes the two
+/// sides of a shared boundary produce identical vertex chains.
+fn detect_nodes(
+    group_loops: &[Vec<Vec<usize>>],
+    he_owner: &HashMap<(usize, usize), usize>,
+    verts: &[Pnt],
+) -> std::collections::HashSet<usize> {
+    use std::collections::HashSet;
+    let mut nodes = HashSet::new();
+    for loops in group_loops {
+        for lp in loops {
+            let n = lp.len();
+            if n < 3 {
+                nodes.extend(lp.iter().copied());
+                continue;
+            }
+            for i in 0..n {
+                let prev = lp[(i + n - 1) % n];
+                let cur = lp[i];
+                let nxt = lp[(i + 1) % n];
+                let d0 = (verts[cur] - verts[prev]).normalized();
+                let d1 = (verts[nxt] - verts[cur]).normalized();
+                if d0.dot(d1) < NODE_CORNER_COS {
+                    nodes.insert(cur);
+                    continue;
+                }
+                // junction: the neighbouring face changes here. Only split when
+                // both neighbours are known and differ — a missing neighbour is
+                // a BSP T-junction artefact, not a real junction, and splitting
+                // on it would shatter smooth rims into line segments.
+                if let (Some(a), Some(b)) = (he_owner.get(&(cur, prev)), he_owner.get(&(nxt, cur)))
+                {
+                    if a != b {
+                        nodes.insert(cur);
+                    }
+                }
+            }
+        }
+    }
+
+    // Every loop needs >= 2 nodes. A fully-smooth loop (a circular rim) would
+    // otherwise become one closed EDGE_CURVE with a coincident start/end
+    // vertex, which crashes some STEP readers. Give it a canonical 2-point
+    // seam — lowest vertex id + the loop vertex farthest from it — so it
+    // exports as two arcs. The choice is geometry-deterministic, so the two
+    // faces sharing the rim pick the same seam and still share the edges.
+    for loops in group_loops {
+        for lp in loops {
+            if lp.iter().any(|v| nodes.contains(v)) {
+                continue;
+            }
+            let v0 = *lp.iter().min().unwrap();
+            let p0 = verts[v0];
+            // Farthest vertex, ties broken by id so the two faces sharing this
+            // rim pick the SAME seam regardless of loop enumeration order.
+            let v1 = *lp
+                .iter()
+                .max_by(|&&x, &&y| {
+                    verts[x]
+                        .distance(p0)
+                        .partial_cmp(&verts[y].distance(p0))
+                        .unwrap()
+                        .then(x.cmp(&y))
+                })
+                .unwrap();
+            nodes.insert(v0);
+            nodes.insert(v1);
+        }
+    }
+    nodes
+}
+
+/// Split a loop at node vertices into node-to-node chains (each includes both
+/// endpoint nodes). Empty result => the loop has no nodes (fully smooth).
+fn segment_loop(lp: &[usize], nodes: &std::collections::HashSet<usize>) -> Vec<Vec<usize>> {
+    let n = lp.len();
+    let positions: Vec<usize> = (0..n).filter(|&i| nodes.contains(&lp[i])).collect();
+    if positions.is_empty() {
+        return Vec::new();
+    }
+    let k = positions.len();
+    let mut chains = Vec::with_capacity(k);
+    for a in 0..k {
+        let start = positions[a];
+        let end = positions[(a + 1) % k];
+        let len = if a + 1 < k { end - start } else { n - start + end };
+        chains.push((0..=len).map(|o| lp[(start + o) % n]).collect());
+    }
+    chains
+}
+
+/// Fit a closed (node-free) loop as one full circle, else a polyline of lines.
+fn fit_closed(lp: &[usize], verts: &[Pnt]) -> Vec<FittedEdge> {
+    let pts: Vec<Pnt> = lp.iter().map(|&i| verts[i]).collect();
+    if pts.len() >= 3 {
+        if let Some((c, ax, r, resid)) = fit_circle(&pts) {
+            if resid <= REL_CIRCLE_TOL * r {
+                let swept = (pts[0] - c).cross(pts[1] - c);
+                let axis = if swept.dot(ax) >= 0.0 { ax } else { ax * -1.0 };
+                return vec![FittedEdge::FullCircle {
+                    at: lp[0],
+                    center: c,
+                    axis,
+                    radius: r,
+                }];
+            }
+        }
+    }
+    (0..lp.len())
+        .map(|i| FittedEdge::Line { a: lp[i], b: lp[(i + 1) % lp.len()] })
+        .collect()
+}
+
+/// Oriented-edge references for one chain, creating the shared `EDGE_CURVE`s on
+/// first encounter and reusing them (reversed) on the second face.
+fn chain_oriented_edges(
+    chain: &[usize],
+    closed: bool,
+    edge_table: &mut HashMap<Vec<usize>, Vec<usize>>,
+    emit: &mut Emit,
+    verts: &[Pnt],
+) -> Vec<String> {
+    let mut key: Vec<usize> = chain.to_vec();
+    key.sort_unstable();
+    key.dedup();
+    if let Some(ids) = edge_table.get(&key) {
+        // The other face of a consistently-wound manifold traverses this
+        // boundary in the opposite direction: reverse order, flip sense.
+        return ids
+            .iter()
+            .rev()
+            .map(|&id| {
+                let oe = emit.e.add(&format!("ORIENTED_EDGE('',*,*,#{id},.F.)"));
+                format!("#{oe}")
+            })
+            .collect();
+    }
+    let fitted = if closed {
+        fit_closed(chain, verts)
+    } else {
+        fit_chain(chain, verts)
+    };
+    let mut ids = Vec::new();
+    let mut refs = Vec::new();
+    for fe in &fitted {
+        // drop degenerate (zero-length) edges — they add free edges that stop
+        // a shell from sewing without contributing any geometry
+        let (s, en) = fe_endpoints(fe);
+        if !matches!(fe, FittedEdge::FullCircle { .. }) && verts[s].distance(verts[en]) < ABS_TOL {
+            continue;
+        }
+        let ec = emit.edge(fe, verts);
+        ids.push(ec);
+        let oe = emit.e.add(&format!("ORIENTED_EDGE('',*,*,#{ec},.T.)"));
+        refs.push(format!("#{oe}"));
+    }
+    edge_table.insert(key, ids);
+    refs
+}
+
+/// Oriented-edge references for a whole boundary loop.
+fn loop_oriented_edges(
+    lp: &[usize],
+    nodes: &std::collections::HashSet<usize>,
+    edge_table: &mut HashMap<Vec<usize>, Vec<usize>>,
+    emit: &mut Emit,
+    verts: &[Pnt],
+) -> Vec<String> {
+    let chains = segment_loop(lp, nodes);
+    if chains.is_empty() {
+        return chain_oriented_edges(lp, true, edge_table, emit, verts);
+    }
+    let mut out = Vec::new();
+    for ch in &chains {
+        out.extend(chain_oriented_edges(ch, false, edge_table, emit, verts));
+    }
+    out
+}
+
 /// Signed area magnitude of a 3D polygon (Newell) — used to pick outer loops.
 fn loop_area(loop_verts: &[usize], verts: &[Pnt]) -> f64 {
     let mut n = Pnt::origin();
@@ -443,7 +779,7 @@ fn loop_area(loop_verts: &[usize], verts: &[Pnt]) -> f64 {
 /// Serialize a solid to STEP with analytic faces where provenance allows.
 // occt: STEPControl_Writer
 pub fn write_step_analytic(solid: &Solid, name: &str) -> String {
-    let m = solid.mesh().welded(1e-7);
+    let m = resolve_t_junctions(&solid.mesh().welded(1e-7));
     let hints = solid.hints();
 
     // -- classify ----------------------------------------------------------
@@ -451,7 +787,7 @@ pub fn write_step_analytic(solid: &Solid, name: &str) -> String {
     let mut groups: Vec<FaceGroup> = Vec::new();
 
     for (hi, h) in hints.iter().enumerate() {
-        if surf_distance(h, Pnt::origin()).is_none() && !matches!(h, Surface::Cylinder { .. }) {
+        if !is_classifiable(h) {
             continue;
         }
         let tol = REL_ON_SURF * surf_scale(h) + ABS_TOL;
@@ -535,44 +871,62 @@ pub fn write_step_analytic(solid: &Solid, name: &str) -> String {
         "(GEOMETRIC_REPRESENTATION_CONTEXT(3)GLOBAL_UNCERTAINTY_ASSIGNED_CONTEXT((#{uncert}))GLOBAL_UNIT_ASSIGNED_CONTEXT((#{dim},#{angle},#{solid_angle}))REPRESENTATION_CONTEXT('Context','3D'))"
     ));
 
+    // --- shared-edge topology --------------------------------------------
+    let group_loops: Vec<Vec<Vec<usize>>> = groups
+        .iter()
+        .map(|g| {
+            if g.tris.is_empty() {
+                Vec::new()
+            } else {
+                boundary_loops(&m.tris, &g.tris)
+            }
+        })
+        .collect();
+
+    // which group owns each directed boundary half-edge
+    let mut he_owner: HashMap<(usize, usize), usize> = HashMap::new();
+    for (gi, loops) in group_loops.iter().enumerate() {
+        for lp in loops {
+            let n = lp.len();
+            for i in 0..n {
+                he_owner.insert((lp[i], lp[(i + 1) % n]), gi);
+            }
+        }
+    }
+    let nodes = detect_nodes(&group_loops, &he_owner, &m.verts);
+
     let mut emit = Emit {
         e: &mut e,
         vertex_ids: HashMap::new(),
     };
+    let mut edge_table: HashMap<Vec<usize>, Vec<usize>> = HashMap::new();
     let mut face_ids = Vec::new();
 
-    for g in &groups {
+    for (gi, g) in groups.iter().enumerate() {
         if g.tris.is_empty() {
             continue;
         }
-        let loops = boundary_loops(&m.tris, &g.tris);
+        let loops = &group_loops[gi];
         if loops.is_empty() {
-            // closed surface with no boundary (full sphere/torus/cylinder
-            // barrel fused shut): STEP still wants a bound — fall back to
-            // faceted for this group.
+            // closed surface with no boundary (e.g. a lone full sphere): STEP
+            // still wants a bound — fall back to faceted for this group.
             for &ti in &g.tris {
                 face_ids.push(emit_faceted_triangle(&mut emit, &m.verts, m.tris[ti]));
             }
             continue;
         }
 
-        // fit boundary edges
-        let mut bound_ids = Vec::new();
-        // largest loop is the outer bound
+        // outer bound = largest loop; the rest are holes
         let mut order: Vec<usize> = (0..loops.len()).collect();
         order.sort_by(|&i, &j| {
             loop_area(&loops[j], &m.verts)
                 .partial_cmp(&loop_area(&loops[i], &m.verts))
                 .unwrap()
         });
+        let mut bound_ids = Vec::new();
         for (rank, &li) in order.iter().enumerate() {
-            let fitted = fit_loop(&loops[li], &m.verts);
-            let mut oriented = Vec::new();
-            for fe in &fitted {
-                let ec = emit.edge(fe, &m.verts);
-                let oe = emit.e.add(&format!("ORIENTED_EDGE('',*,*,#{ec},.T.)"));
-                oriented.push(format!("#{oe}"));
-            }
+            let oriented =
+                loop_oriented_edges(&loops[li], &nodes, &mut edge_table, &mut emit, &m.verts);
             let el = emit
                 .e
                 .add(&format!("EDGE_LOOP('',({}))", oriented.join(",")));
@@ -606,6 +960,14 @@ pub fn write_step_analytic(solid: &Solid, name: &str) -> String {
                     } => (
                         placement,
                         format!("TOROIDAL_SURFACE('',@,{major:.9},{minor:.9})"),
+                    ),
+                    Surface::Cone {
+                        placement,
+                        radius,
+                        half_angle,
+                    } => (
+                        placement,
+                        format!("CONICAL_SURFACE('',@,{radius:.9},{half_angle:.9})"),
                     ),
                     _ => unreachable!("only curved hints are classified"),
                 };
@@ -728,6 +1090,38 @@ mod tests {
         assert!(step.contains("CYLINDRICAL_SURFACE"));
         // both rims fit as full circles
         assert!(step.matches("CIRCLE").count() >= 2);
+    }
+
+    #[test]
+    fn cone_and_frustum_export_conical_surface() {
+        use crate::brep_prim_api::make_cone;
+        let cone = make_cone(8.0, 0.0, 15.0, MeshParams::default()); // true cone
+        let step = write_step_analytic(&cone, "cone");
+        assert_eq!(step.matches("CONICAL_SURFACE").count(), 1, "one conical face");
+        assert!(!step.contains("CYLINDRICAL_SURFACE"));
+
+        let frustum = make_cone(10.0, 5.0, 12.0, MeshParams::default());
+        let step2 = write_step_analytic(&frustum, "frustum");
+        assert_eq!(step2.matches("CONICAL_SURFACE").count(), 1);
+    }
+
+    #[test]
+    fn through_hole_is_clean_analytic_topology() {
+        // A drilled box: T-junction resolution must yield exactly 6 planes + 1
+        // cylinder with a clean boundary (a handful of inner bounds), not the
+        // dozens of spurious loops a non-conforming BSP mesh produces.
+        let block = make_box(Pnt::new(0.0, 0.0, 0.0), 40.0, 40.0, 5.0);
+        let hole = make_cylinder(8.0, 5.0, MeshParams::default());
+        let hole = hole.transformed(&crate::gp::Trsf::translation(Pnt::new(20.0, 20.0, 0.0)));
+        let part = cut(&block, &hole);
+        let step = write_step_analytic(&part, "drilled");
+        assert_eq!(step.matches("CYLINDRICAL_SURFACE").count(), 1);
+        assert_eq!(step.matches("ADVANCED_FACE").count(), 7, "6 planes + 1 cylinder");
+        // inner bounds: the two hole rims (top & bottom) — not dozens
+        assert!(
+            step.matches("FACE_BOUND('").count() <= 4,
+            "clean boundary after T-junction resolution"
+        );
     }
 
     #[test]

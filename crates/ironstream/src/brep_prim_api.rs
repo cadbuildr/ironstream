@@ -126,7 +126,28 @@ pub fn make_cone(r1: f64, r2: f64, h: f64, mp: MeshParams) -> Solid {
             m.push_triangle(c_top, top[i], top[j]);
         }
     }
-    finalize(m)
+    let mut s = finalize(m);
+    // Stamp a conical-surface hint for genuine frustums/cones (a straight
+    // cylinder — r1 == r2 — is handled by make_cylinder). The placement is
+    // oriented so the radius grows along +z_dir, as CONICAL_SURFACE expects.
+    if (r1 - r2).abs() > 1e-9 && h.abs() > 1e-9 {
+        let (loc, axis, r_ref, half_angle) = if r2 > r1 {
+            (Pnt::origin(), Pnt::new(0.0, 0.0, 1.0), r1, ((r2 - r1) / h).atan())
+        } else {
+            (
+                Pnt::new(0.0, 0.0, h),
+                Pnt::new(0.0, 0.0, -1.0),
+                r2,
+                ((r1 - r2) / h).atan(),
+            )
+        };
+        s.add_hint(Surface::Cone {
+            placement: Ax3::from_origin_normal(loc, axis, Pnt::new(1.0, 0.0, 0.0)),
+            radius: r_ref,
+            half_angle,
+        });
+    }
+    s
 }
 
 /// `BRepPrimAPI_MakeSphere` — radius `r` centered at origin (UV sphere).
