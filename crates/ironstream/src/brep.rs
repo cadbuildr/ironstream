@@ -548,6 +548,289 @@ fn facet_to_bface(f: Facet) -> BFace {
     BFace::new(Surface::Plane { placement }, uv, true)
 }
 
+// ---------------------------------------------------------------------------
+// Stage 3a: general planar boolean (polygon-level BSP)
+// ---------------------------------------------------------------------------
+//
+// Union / subtract / intersect for arbitrary (non-convex) solids bounded by
+// planar faces. The engine is the classic BSP clipping dance, but on *whole
+// B-rep faces with their exact surface planes* — not triangle soup. That is
+// what removes the mesh-BSP fragility: a box contributes 6 splitting planes
+// (each taken verbatim from its `Surface::Plane`), not hundreds of near-
+// coplanar triangle planes with re-derived normals, so coplanar faces of the
+// two solids land on *identical* planes and are handled by the explicit
+// coplanar branch instead of epsilon luck. Splitting a convex face by planes
+// yields convex fragments, so fan tessellation stays valid throughout.
+
+const BSP_EPS: f64 = 1e-9;
+
+/// A polygon riding through the BSP: its exact plane and its CCW boundary.
+#[derive(Clone)]
+struct Poly {
+    n: Pnt,
+    d: f64, // n · p = d
+    pts: Vec<Pnt>,
+}
+
+impl Poly {
+    fn from_facet(f: &Facet) -> Self {
+        let d = f.n.dot(f.poly[0]);
+        Poly { n: f.n, d, pts: f.poly.clone() }
+    }
+
+    fn flip(&mut self) {
+        self.n = -self.n;
+        self.d = -self.d;
+        self.pts.reverse();
+    }
+}
+
+/// Split `p` by the plane `(n, d)` into the four csg classes.
+fn split_poly(
+    p: &Poly,
+    n: Pnt,
+    d: f64,
+    co_front: &mut Vec<Poly>,
+    co_back: &mut Vec<Poly>,
+    front: &mut Vec<Poly>,
+    back: &mut Vec<Poly>,
+) {
+    const COPLANAR: u8 = 0;
+    const FRONT: u8 = 1;
+    const BACK: u8 = 2;
+
+    let mut poly_type = 0u8;
+    let types: Vec<u8> = p
+        .pts
+        .iter()
+        .map(|&v| {
+            let t = n.dot(v) - d;
+            let ty = if t < -BSP_EPS {
+                BACK
+            } else if t > BSP_EPS {
+                FRONT
+            } else {
+                COPLANAR
+            };
+            poly_type |= ty;
+            ty
+        })
+        .collect();
+
+    match poly_type {
+        0 => {
+            // coplanar: facing decides which side of the dance owns it
+            if n.dot(p.n) > 0.0 {
+                co_front.push(p.clone());
+            } else {
+                co_back.push(p.clone());
+            }
+        }
+        1 => front.push(p.clone()),
+        2 => back.push(p.clone()),
+        _ => {
+            // spanning: walk the boundary, emitting to both sides
+            let m = p.pts.len();
+            let mut f_pts: Vec<Pnt> = Vec::with_capacity(m + 2);
+            let mut b_pts: Vec<Pnt> = Vec::with_capacity(m + 2);
+            for i in 0..m {
+                let j = (i + 1) % m;
+                let (ti, tj) = (types[i], types[j]);
+                let (vi, vj) = (p.pts[i], p.pts[j]);
+                if ti != BACK {
+                    f_pts.push(vi);
+                }
+                if ti != FRONT {
+                    b_pts.push(vi);
+                }
+                if (ti | tj) == (FRONT | BACK) {
+                    let t = (d - n.dot(vi)) / n.dot(vj - vi);
+                    let v = vi + (vj - vi) * t;
+                    f_pts.push(v);
+                    b_pts.push(v);
+                }
+            }
+            if f_pts.len() >= 3 {
+                front.push(Poly { n: p.n, d: p.d, pts: f_pts });
+            }
+            if b_pts.len() >= 3 {
+                back.push(Poly { n: p.n, d: p.d, pts: b_pts });
+            }
+        }
+    }
+}
+
+/// A BSP node over exact face planes.
+#[derive(Default)]
+struct BspNode {
+    plane: Option<(Pnt, f64)>,
+    front: Option<Box<BspNode>>,
+    back: Option<Box<BspNode>>,
+    polys: Vec<Poly>,
+}
+
+impl BspNode {
+    fn from_polys(polys: Vec<Poly>) -> Self {
+        let mut n = BspNode::default();
+        n.build(polys);
+        n
+    }
+
+    fn build(&mut self, polys: Vec<Poly>) {
+        if polys.is_empty() {
+            return;
+        }
+        let (pn, pd) = *self.plane.get_or_insert((polys[0].n, polys[0].d));
+        let mut front = Vec::new();
+        let mut back = Vec::new();
+        let mut co_f = Vec::new();
+        let mut co_b = Vec::new();
+        for p in &polys {
+            split_poly(p, pn, pd, &mut co_f, &mut co_b, &mut front, &mut back);
+        }
+        // coplanar polygons live at this node regardless of facing
+        self.polys.extend(co_f);
+        self.polys.extend(co_b);
+        if !front.is_empty() {
+            self.front.get_or_insert_with(Default::default).build(front);
+        }
+        if !back.is_empty() {
+            self.back.get_or_insert_with(Default::default).build(back);
+        }
+    }
+
+    fn invert(&mut self) {
+        for p in &mut self.polys {
+            p.flip();
+        }
+        if let Some((n, d)) = self.plane {
+            self.plane = Some((-n, -d));
+        }
+        if let Some(f) = &mut self.front {
+            f.invert();
+        }
+        if let Some(b) = &mut self.back {
+            b.invert();
+        }
+        std::mem::swap(&mut self.front, &mut self.back);
+    }
+
+    /// Remove the parts of `polys` inside this BSP's solid.
+    fn clip_polys(&self, polys: Vec<Poly>) -> Vec<Poly> {
+        let Some((pn, pd)) = self.plane else {
+            return polys;
+        };
+        let mut front = Vec::new();
+        let mut back = Vec::new();
+        let mut co_f = Vec::new();
+        let mut co_b = Vec::new();
+        for p in &polys {
+            split_poly(p, pn, pd, &mut co_f, &mut co_b, &mut front, &mut back);
+        }
+        // coplanar-front goes with front, coplanar-back with back
+        front.extend(co_f);
+        back.extend(co_b);
+        let mut front = match &self.front {
+            Some(f) => f.clip_polys(front),
+            None => front,
+        };
+        let back = match &self.back {
+            Some(b) => b.clip_polys(back),
+            None => Vec::new(), // no back subtree: inside the solid — dropped
+        };
+        front.extend(back);
+        front
+    }
+
+    fn clip_to(&mut self, bsp: &BspNode) {
+        self.polys = bsp.clip_polys(std::mem::take(&mut self.polys));
+        if let Some(f) = &mut self.front {
+            f.clip_to(bsp);
+        }
+        if let Some(b) = &mut self.back {
+            b.clip_to(bsp);
+        }
+    }
+
+    fn all_polys(&self, out: &mut Vec<Poly>) {
+        out.extend(self.polys.iter().cloned());
+        if let Some(f) = &self.front {
+            f.all_polys(out);
+        }
+        if let Some(b) = &self.back {
+            b.all_polys(out);
+        }
+    }
+}
+
+/// Boolean operation selector for [`boolean`].
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum BoolOp {
+    Union,
+    Subtract,
+    Intersect,
+}
+
+/// General boolean between two planar-faced solids (either may be non-convex).
+/// Curved faces are not yet carried through this path (Stage 3b).
+///
+/// The clipping dance is csg.js's, verbatim: the mutual `clip_to` passes trim
+/// each solid's faces to the other's exterior (with an inversion pass that
+/// removes coplanar duplicates), `b`'s survivors are folded into `a`'s tree,
+/// and for subtract/intersect the final `invert` flips the whole result back
+/// outward.
+pub fn boolean(a: &BSolid, b: &BSolid, op: BoolOp) -> BSolid {
+    let a_polys: Vec<Poly> = a.to_facets().iter().map(Poly::from_facet).collect();
+    let b_polys: Vec<Poly> = b.to_facets().iter().map(Poly::from_facet).collect();
+    let mut ta = BspNode::from_polys(a_polys);
+    let mut tb = BspNode::from_polys(b_polys);
+
+    match op {
+        BoolOp::Union => {
+            ta.clip_to(&tb);
+            tb.clip_to(&ta);
+            tb.invert();
+            tb.clip_to(&ta);
+            tb.invert();
+            let mut bp = Vec::new();
+            tb.all_polys(&mut bp);
+            ta.build(bp);
+        }
+        BoolOp::Subtract => {
+            ta.invert();
+            ta.clip_to(&tb);
+            tb.clip_to(&ta);
+            tb.invert();
+            tb.clip_to(&ta);
+            tb.invert();
+            let mut bp = Vec::new();
+            tb.all_polys(&mut bp);
+            ta.build(bp);
+            ta.invert();
+        }
+        BoolOp::Intersect => {
+            ta.invert();
+            tb.clip_to(&ta);
+            tb.invert();
+            ta.clip_to(&tb);
+            tb.clip_to(&ta);
+            let mut bp = Vec::new();
+            tb.all_polys(&mut bp);
+            ta.build(bp);
+            ta.invert();
+        }
+    }
+
+    let mut merged = Vec::new();
+    ta.all_polys(&mut merged);
+    let faces = merged
+        .into_iter()
+        .filter(|p| p.pts.len() >= 3)
+        .map(|p| facet_to_bface(Facet { n: p.n, poly: p.pts }))
+        .collect();
+    BSolid::new(faces)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -635,5 +918,84 @@ mod tests {
         let b = box_brep(Pnt::new(20.0, 0.0, 0.0), 5.0, 5.0, 5.0);
         let x = intersect_convex(&a, &b);
         assert!(x.volume().abs() < 1e-9, "expected empty, vol={}", x.volume());
+    }
+
+    // ---- Stage 3a: general planar boolean ----
+
+    /// analytic volume AND tessellated mesh volume must both match `expect`
+    /// (the mesh check proves the result is watertight & correctly oriented).
+    fn assert_solid(s: &BSolid, expect: f64, label: &str) {
+        let v = s.volume();
+        assert!(
+            (v - expect).abs() < 1e-6,
+            "{label}: analytic vol={v} expect={expect}"
+        );
+        let m = s.tessellate(&TessParams::default());
+        assert!(
+            (m.volume() - expect).abs() < 1e-6,
+            "{label}: mesh vol={} expect={expect} (not watertight?)",
+            m.volume()
+        );
+    }
+
+    #[test]
+    fn boolean_subtract_corner() {
+        // [0,10]^3 minus [5,15]^3 removes the shared 5^3 corner: 1000 - 125.
+        let a = box_brep(Pnt::origin(), 10.0, 10.0, 10.0);
+        let b = box_brep(Pnt::new(5.0, 5.0, 5.0), 10.0, 10.0, 10.0);
+        assert_solid(&boolean(&a, &b, BoolOp::Subtract), 875.0, "subtract corner");
+    }
+
+    #[test]
+    fn boolean_union_overlap() {
+        let a = box_brep(Pnt::origin(), 10.0, 10.0, 10.0);
+        let b = box_brep(Pnt::new(5.0, 5.0, 5.0), 10.0, 10.0, 10.0);
+        assert_solid(&boolean(&a, &b, BoolOp::Union), 1875.0, "union overlap");
+    }
+
+    #[test]
+    fn boolean_intersect_matches_convex_path() {
+        let a = box_brep(Pnt::origin(), 10.0, 10.0, 10.0);
+        let b = box_brep(Pnt::new(5.0, 5.0, 5.0), 10.0, 10.0, 10.0);
+        assert_solid(&boolean(&a, &b, BoolOp::Intersect), 125.0, "intersect");
+    }
+
+    #[test]
+    fn boolean_through_hole_is_nonconvex() {
+        // A square tunnel through the middle: the result is genuinely
+        // non-convex — the case the convex clipper cannot do.
+        let a = box_brep(Pnt::origin(), 10.0, 10.0, 10.0);
+        let b = box_brep(Pnt::new(4.0, 4.0, -1.0), 2.0, 2.0, 12.0);
+        assert_solid(&boolean(&a, &b, BoolOp::Subtract), 960.0, "through hole");
+    }
+
+    #[test]
+    fn boolean_union_coplanar_faces() {
+        // Two boxes sharing the z=5 plane: the classic coplanar case that
+        // breaks epsilon-based mesh BSPs. Exact face planes make it exact.
+        let a = box_brep(Pnt::origin(), 10.0, 10.0, 5.0);
+        let b = box_brep(Pnt::new(0.0, 0.0, 5.0), 5.0, 10.0, 5.0);
+        assert_solid(&boolean(&a, &b, BoolOp::Union), 750.0, "L union");
+    }
+
+    #[test]
+    fn boolean_subtract_disjoint_is_identity() {
+        let a = box_brep(Pnt::origin(), 10.0, 10.0, 10.0);
+        let b = box_brep(Pnt::new(30.0, 0.0, 0.0), 5.0, 5.0, 5.0);
+        assert_solid(&boolean(&a, &b, BoolOp::Subtract), 1000.0, "disjoint cut");
+    }
+
+    #[test]
+    fn boolean_stacked_coplanar_cuts() {
+        // Two cuts whose walls are coplanar with each other AND with the box
+        // face — the stacked-coplanar fragility case from the corpus. Each cut
+        // removes a 2x10x2 notch from the top; the second notch shares the
+        // x=2 wall plane with the first's x=2 wall.
+        let a = box_brep(Pnt::origin(), 10.0, 10.0, 10.0);
+        let c1 = box_brep(Pnt::new(0.0, 0.0, 8.0), 2.0, 10.0, 2.0);
+        let c2 = box_brep(Pnt::new(2.0, 0.0, 8.0), 2.0, 10.0, 2.0);
+        let cut1 = boolean(&a, &c1, BoolOp::Subtract);
+        let cut2 = boolean(&cut1, &c2, BoolOp::Subtract);
+        assert_solid(&cut2, 1000.0 - 40.0 - 40.0, "stacked coplanar cuts");
     }
 }
