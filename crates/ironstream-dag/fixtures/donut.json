@@ -1,0 +1,265 @@
+{
+  "DAG": {
+    "1839": {
+      "deps": {},
+      "params": {
+        "value": 0.0
+      },
+      "type": 8
+    },
+    "34f2": {
+      "deps": {},
+      "params": {
+        "value": false
+      },
+      "type": 10
+    },
+    "3adf": {
+      "deps": {},
+      "params": {
+        "name": "Material_1",
+        "options": {
+          "diffuse_color": [
+            0.96,
+            0.96,
+            0.86
+          ]
+        },
+        "painted_node_ids": []
+      },
+      "type": 20
+    },
+    "446a": {
+      "deps": {},
+      "params": {
+        "value": "component_root_origin"
+      },
+      "type": 11
+    },
+    "4e43": {
+      "deps": {
+        "display": "34f2",
+        "frame": "5b2a",
+        "name": "eb25"
+      },
+      "params": {},
+      "type": 5
+    },
+    "5b2a": {
+      "deps": {
+        "display": "34f2",
+        "name": "8bcb",
+        "top_frame": "ccf3"
+      },
+      "params": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "quaternion": [
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "type": 6
+    },
+    "661c": {
+      "deps": {},
+      "params": {
+        "value": 40.0
+      },
+      "type": 8
+    },
+    "6ec7": {
+      "deps": {},
+      "params": {
+        "value": "donut"
+      },
+      "type": 11
+    },
+    "6f8a": {
+      "deps": {
+        "center": "8108",
+        "radius": "70b4"
+      },
+      "params": {},
+      "type": 15
+    },
+    "70b4": {
+      "deps": {},
+      "params": {
+        "value": 20.0
+      },
+      "type": 8
+    },
+    "72e7": {
+      "deps": {
+        "p1": "a487",
+        "p2": "73c7"
+      },
+      "params": {},
+      "type": 7
+    },
+    "73c7": {
+      "deps": {
+        "x": "1839",
+        "y": "9e82"
+      },
+      "params": {},
+      "type": 4
+    },
+    "8108": {
+      "deps": {
+        "x": "661c",
+        "y": "1839"
+      },
+      "params": {},
+      "type": 4
+    },
+    "8bcb": {
+      "deps": {},
+      "params": {
+        "value": "yz_frame"
+      },
+      "type": 11
+    },
+    "96da": {
+      "deps": {
+        "elements": [
+          "8108",
+          "6f8a",
+          "a487",
+          "73c7",
+          "72e7"
+        ],
+        "origin": "a487",
+        "plane": "4e43"
+      },
+      "params": {},
+      "type": 3
+    },
+    "9e82": {
+      "deps": {},
+      "params": {
+        "value": 10.0
+      },
+      "type": 8
+    },
+    "9f73": {
+      "deps": {
+        "frame": "5b2a",
+        "line": "72e7",
+        "sketch": "96da"
+      },
+      "params": {},
+      "type": 23
+    },
+    "a487": {
+      "deps": {
+        "x": "1839",
+        "y": "1839"
+      },
+      "params": {},
+      "type": 4
+    },
+    "a7cf": {
+      "deps": {
+        "axis": "9f73",
+        "cut": "34f2",
+        "shape": "6f8a",
+        "sketch": "96da"
+      },
+      "params": {},
+      "type": 22
+    },
+    "ccf3": {
+      "deps": {
+        "display": "34f2",
+        "name": "446a"
+      },
+      "params": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "type": 6
+    },
+    "cda6": {
+      "deps": {
+        "frame": "ccf3",
+        "material": "3adf",
+        "name": "6ec7",
+        "operations": [
+          "a7cf"
+        ],
+        "planes": [
+          "4e43"
+        ]
+      },
+      "params": {},
+      "type": 13
+    },
+    "eb25": {
+      "deps": {},
+      "params": {
+        "value": "yz"
+      },
+      "type": 11
+    }
+  },
+  "rootNodeId": "cda6",
+  "serializableNodes": {
+    "Arc": 30,
+    "Assembly": 1,
+    "AssemblyInterface": 39,
+    "AssemblyRoot": 14,
+    "Axis": 23,
+    "BoolParameter": 10,
+    "Chamfer": 26,
+    "Circle": 15,
+    "CustomClosedShape": 29,
+    "Ellipse": 21,
+    "EllipseArc": 31,
+    "Extrusion": 2,
+    "Fillet": 25,
+    "FixedTranslationConstraint": 37,
+    "FloatParameter": 8,
+    "Frame": 6,
+    "Helix3D": 34,
+    "Hexagon": 24,
+    "Hole": 19,
+    "IntParameter": 9,
+    "InterfaceGridSpec": 38,
+    "Lathe": 22,
+    "Line": 7,
+    "Loft": 27,
+    "Material": 20,
+    "Part": 0,
+    "PartRoot": 13,
+    "Plane": 5,
+    "Point": 4,
+    "Point3D": 36,
+    "Polygon": 18,
+    "Rectangle": 16,
+    "SVGShape": 33,
+    "Shell": 28,
+    "Sketch": 3,
+    "SketchOrigin": 12,
+    "Spline": 32,
+    "Square": 17,
+    "StringParameter": 11,
+    "Sweep": 35
+  },
+  "version": "2.0"
+}

@@ -1,0 +1,25 @@
+[package]
+name = "ironstream-wasm"
+version = "0.1.0"
+edition = "2021"
+description = "wasm-bindgen surface for the IronStream foundation-DAG compiler: DAG JSON in, triangle meshes out."
+license = "MIT"
+
+# Standalone package: kept out of the kernel workspace so wasm-bindgen and its
+# transitive deps never enter the kernel's dependency-free lockfile. Built with
+# `wasm-pack build --target web --release` from this directory.
+[workspace]
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+ironstream-dag = { path = "../ironstream-dag" }
+wasm-bindgen = "0.2"
+serde = { version = "1", features = ["derive"] }
+serde-wasm-bindgen = "0.6"
+console_error_panic_hook = "0.1"
+
+[profile.release]
+opt-level = "s"
+lto = true

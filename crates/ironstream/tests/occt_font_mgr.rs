@@ -20,8 +20,11 @@ fn test_font_mgr_basic() {
     assert!(found.is_some());
     assert_eq!(found.unwrap().name, "Arial");
 
-    let not_found = mgr.find_font("Arial", FontAspect::Bold);
-    assert!(not_found.is_none());
+    // No Bold registered: FindFont falls back to the closest name match
+    // (occt: Font_FontMgr::FindFont aspect fallback).
+    let fallback = mgr.find_font("Arial", FontAspect::Bold);
+    assert!(fallback.is_some());
+    assert_eq!(fallback.unwrap().aspect, FontAspect::Regular);
 
     let available = mgr.available_fonts();
     assert!(available.contains(&"Arial"));

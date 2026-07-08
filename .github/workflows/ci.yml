@@ -1,0 +1,50 @@
+# Kernel + DAG-evaluator tests and the wasm build.
+#
+# The kernel workspace is dependency-free; the DAG evaluator's fixture corpus
+# is vendored in-crate, so everything here runs hermetically.
+
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Kernel + DAG tests
+        run: cargo test --workspace --lib --tests
+
+  wasm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: crates/ironstream-wasm
+      - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+      - name: Build ironstream-wasm
+        working-directory: crates/ironstream-wasm
+        run: wasm-pack build --target web --release
+      - name: Upload wasm artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ironstream-wasm-pkg
+          path: |
+            crates/ironstream-wasm/pkg/ironstream_wasm.js
+            crates/ironstream-wasm/pkg/ironstream_wasm.d.ts
+            crates/ironstream-wasm/pkg/ironstream_wasm_bg.wasm

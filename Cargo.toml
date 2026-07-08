@@ -10,7 +10,18 @@
 
 [workspace]
 resolver = "2"
-members = ["crates/ironstream"]
+members = ["crates/ironstream", "crates/ironstream-dag"]
+# The wasm-bindgen wrapper is a standalone package (own workspace + lockfile)
+# so the kernel workspace stays free of third-party build deps.
+exclude = ["crates/ironstream-wasm"]
+
+[workspace.dependencies]
+# The kernel crate (crates/ironstream) has ZERO third-party dependencies.
+ironstream = { path = "crates/ironstream" }
+ironstream-dag = { path = "crates/ironstream-dag" }
+# Only the DAG-integration layer needs JSON; the kernel itself does not.
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
 
 [workspace.package]
 edition = "2021"

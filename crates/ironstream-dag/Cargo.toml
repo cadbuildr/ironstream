@@ -1,0 +1,21 @@
+[package]
+name = "ironstream-dag"
+version = "0.1.0"
+description = "DAG → IronStream integration: walks a CADbuildr foundation DAG node-by-node and compiles it to IronStream solids."
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+authors.workspace = true
+
+[lib]
+name = "ironstream_dag"
+path = "src/lib.rs"
+
+[dependencies]
+ironstream = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+[dev-dependencies]
+# Tests load the real CADbuildr fixtures and compute IOU.

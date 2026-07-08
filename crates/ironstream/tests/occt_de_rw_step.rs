@@ -25,13 +25,16 @@ fn test_de_rw_step_basic() {
     assert!(info.product_names.is_empty());
 
     // Write then read round-trip via a temp file.
-    let tmp = format!(
-        "/tmp/claude-0/-home-user-monorepo/b60bdbe4-d1e6-56f8-a9f2-77e50fd99f03/scratchpad/test_step_{}.step",
-        std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .map(|d| d.subsec_nanos())
-            .unwrap_or(42)
-    );
+    let tmp = std::env::temp_dir()
+        .join(format!(
+            "ironstream_test_step_{}.step",
+            std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .map(|d| d.subsec_nanos())
+                .unwrap_or(42)
+        ))
+        .to_string_lossy()
+        .into_owned();
     let shapes = vec!["PartA".to_string(), "PartB".to_string()];
     provider.write(&shapes, &tmp).expect("write failed");
 

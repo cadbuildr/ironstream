@@ -68,8 +68,10 @@ pub fn cut(a: &Solid, b: &Solid) -> Solid {
     // Exact drill fast path: when the target carries a B-rep and the tool is
     // (a fused set of) plain cylinders that pass fully through, punch exact
     // bores instead of running the mesh BSP — analytic barrels, exact volume.
-    if let Some(out) = try_exact_drill(a, b) {
-        return out;
+    if std::env::var("IRONSTREAM_NO_EXACT_DRILL").is_err() {
+        if let Some(out) = try_exact_drill(a, b) {
+            return out;
+        }
     }
     let m = bsp::subtract(a.mesh(), b.mesh());
     let mut out = Solid::from_mesh(m.welded(WELD_TOL));

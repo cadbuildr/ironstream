@@ -127,8 +127,8 @@ fn gltf_writer_write_and_no_mesh() {
     let p1 = GltfPrimitive::new();
     let mut p2 = GltfPrimitive::new();
     p2.positions.push([1.0, 0.0, 0.0]);
-    // empty primitive counts as node in stub
+    // empty primitives are skipped (occt: RWGltf_CafWriter::toSkipShape)
     let st3 = w.write("out2.glb", &[p1, p2]);
     assert!(st3.is_ok());
-    assert_eq!(w.nb_nodes_written(), 2);
+    assert_eq!(w.nb_nodes_written(), 1);
 }

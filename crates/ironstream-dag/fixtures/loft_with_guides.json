@@ -1,0 +1,331 @@
+{
+  "DAG": {
+    "0416": {
+      "deps": {
+        "x": "70b4",
+        "y": "1839",
+        "z": "bfde"
+      },
+      "params": {},
+      "type": 36
+    },
+    "14b0": {
+      "deps": {},
+      "params": {
+        "value": "xy_frame"
+      },
+      "type": 11
+    },
+    "1839": {
+      "deps": {},
+      "params": {
+        "value": 0.0
+      },
+      "type": 8
+    },
+    "1a0c": {
+      "deps": {},
+      "params": {
+        "value": "loft_with_guides"
+      },
+      "type": 11
+    },
+    "31a9": {
+      "deps": {
+        "points": [
+          "cea3",
+          "4993",
+          "0416"
+        ]
+      },
+      "params": {},
+      "type": 40
+    },
+    "32b4": {
+      "deps": {
+        "elements": [
+          "a487",
+          "ad7b"
+        ],
+        "origin": "a487",
+        "plane": "568e"
+      },
+      "params": {},
+      "type": 3
+    },
+    "34f2": {
+      "deps": {},
+      "params": {
+        "value": false
+      },
+      "type": 10
+    },
+    "3a06": {
+      "deps": {},
+      "params": {
+        "value": "xy"
+      },
+      "type": 11
+    },
+    "3dd0": {
+      "deps": {
+        "elements": [
+          "a487",
+          "ad7b"
+        ],
+        "origin": "a487",
+        "plane": "c895"
+      },
+      "params": {},
+      "type": 3
+    },
+    "446a": {
+      "deps": {},
+      "params": {
+        "value": "component_root_origin"
+      },
+      "type": 11
+    },
+    "4993": {
+      "deps": {
+        "x": "5959",
+        "y": "ba38",
+        "z": "fd35"
+      },
+      "params": {},
+      "type": 36
+    },
+    "568e": {
+      "deps": {
+        "display": "34f2",
+        "frame": "94f1",
+        "name": "860c"
+      },
+      "params": {},
+      "type": 5
+    },
+    "5959": {
+      "deps": {},
+      "params": {
+        "value": 35.0
+      },
+      "type": 8
+    },
+    "6eab": {
+      "deps": {
+        "frame": "ccf3",
+        "name": "1a0c",
+        "operations": [
+          "d4e3"
+        ],
+        "planes": [
+          "c895"
+        ]
+      },
+      "params": {},
+      "type": 13
+    },
+    "70b4": {
+      "deps": {},
+      "params": {
+        "value": 20.0
+      },
+      "type": 8
+    },
+    "860c": {
+      "deps": {},
+      "params": {
+        "value": "plane_0"
+      },
+      "type": 11
+    },
+    "94f1": {
+      "deps": {
+        "display": "34f2",
+        "name": "eb86",
+        "top_frame": "c32c"
+      },
+      "params": {
+        "position": [
+          0.0,
+          0.0,
+          50.0
+        ],
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "type": 6
+    },
+    "a487": {
+      "deps": {
+        "x": "1839",
+        "y": "1839"
+      },
+      "params": {},
+      "type": 4
+    },
+    "ad7b": {
+      "deps": {
+        "center": "a487",
+        "radius": "70b4"
+      },
+      "params": {},
+      "type": 15
+    },
+    "ba38": {
+      "deps": {},
+      "params": {
+        "value": 5.0
+      },
+      "type": 8
+    },
+    "bfde": {
+      "deps": {},
+      "params": {
+        "value": 50.0
+      },
+      "type": 8
+    },
+    "c32c": {
+      "deps": {
+        "display": "34f2",
+        "name": "14b0",
+        "top_frame": "ccf3"
+      },
+      "params": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "type": 6
+    },
+    "c895": {
+      "deps": {
+        "display": "34f2",
+        "frame": "c32c",
+        "name": "3a06"
+      },
+      "params": {},
+      "type": 5
+    },
+    "ccf3": {
+      "deps": {
+        "display": "34f2",
+        "name": "446a"
+      },
+      "params": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "type": 6
+    },
+    "cea3": {
+      "deps": {
+        "x": "70b4",
+        "y": "1839",
+        "z": "1839"
+      },
+      "params": {},
+      "type": 36
+    },
+    "d4e3": {
+      "deps": {
+        "closed": "34f2",
+        "guides": [
+          "31a9"
+        ],
+        "ruled": "34f2",
+        "shapes": [
+          "ad7b",
+          "ad7b"
+        ],
+        "sketchs": [
+          "3dd0",
+          "32b4"
+        ]
+      },
+      "params": {},
+      "type": 27
+    },
+    "eb86": {
+      "deps": {},
+      "params": {
+        "value": "frame_plane_0"
+      },
+      "type": 11
+    },
+    "fd35": {
+      "deps": {},
+      "params": {
+        "value": 25.0
+      },
+      "type": 8
+    }
+  },
+  "rootNodeId": "6eab",
+  "serializableNodes": {
+    "Arc": 30,
+    "Assembly": 1,
+    "AssemblyInterface": 39,
+    "AssemblyRoot": 14,
+    "Axis": 23,
+    "BoolParameter": 10,
+    "Chamfer": 26,
+    "Circle": 15,
+    "CustomClosedShape": 29,
+    "Ellipse": 21,
+    "EllipseArc": 31,
+    "Extrusion": 2,
+    "Fillet": 25,
+    "FixedTranslationConstraint": 37,
+    "FloatParameter": 8,
+    "Frame": 6,
+    "Helix3D": 34,
+    "Hexagon": 24,
+    "Hole": 19,
+    "IntParameter": 9,
+    "InterfaceGridSpec": 38,
+    "Lathe": 22,
+    "Line": 7,
+    "Loft": 27,
+    "Material": 20,
+    "Part": 0,
+    "PartRoot": 13,
+    "Plane": 5,
+    "Point": 4,
+    "Point3D": 36,
+    "Polygon": 18,
+    "Rectangle": 16,
+    "SVGShape": 33,
+    "Shell": 28,
+    "Sketch": 3,
+    "SketchOrigin": 12,
+    "Spline": 32,
+    "Spline3D": 40,
+    "Square": 17,
+    "StringParameter": 11,
+    "Sweep": 35
+  },
+  "version": "2.0"
+}
