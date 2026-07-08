@@ -1,0 +1,351 @@
+{
+  "DAG": {
+    "03af": {
+      "deps": {
+        "center": "a487",
+        "radius": "fd35"
+      },
+      "params": {},
+      "type": 15
+    },
+    "14b0": {
+      "deps": {},
+      "params": {
+        "value": "xy_frame"
+      },
+      "type": 11
+    },
+    "1839": {
+      "deps": {},
+      "params": {
+        "value": 0.0
+      },
+      "type": 8
+    },
+    "2844": {
+      "deps": {
+        "display": "34f2",
+        "frame": "5716",
+        "name": "3f0a"
+      },
+      "params": {},
+      "type": 5
+    },
+    "2862": {
+      "deps": {},
+      "params": {
+        "value": "frame_plane_1"
+      },
+      "type": 11
+    },
+    "3473": {
+      "deps": {
+        "elements": [
+          "a487",
+          "ee31"
+        ],
+        "origin": "a487",
+        "plane": "e6a5"
+      },
+      "params": {},
+      "type": 3
+    },
+    "34f2": {
+      "deps": {},
+      "params": {
+        "value": false
+      },
+      "type": 10
+    },
+    "3a06": {
+      "deps": {},
+      "params": {
+        "value": "xy"
+      },
+      "type": 11
+    },
+    "3dd0": {
+      "deps": {
+        "elements": [
+          "a487",
+          "ad7b"
+        ],
+        "origin": "a487",
+        "plane": "c895"
+      },
+      "params": {},
+      "type": 3
+    },
+    "3f0a": {
+      "deps": {},
+      "params": {
+        "value": "plane_1"
+      },
+      "type": 11
+    },
+    "446a": {
+      "deps": {},
+      "params": {
+        "value": "component_root_origin"
+      },
+      "type": 11
+    },
+    "45ee": {
+      "deps": {
+        "closed": "34f2",
+        "ruled": "34f2",
+        "shapes": [
+          "ad7b",
+          "ee31",
+          "03af"
+        ],
+        "sketchs": [
+          "3dd0",
+          "3473",
+          "e6c9"
+        ]
+      },
+      "params": {
+        "guides": []
+      },
+      "type": 27
+    },
+    "5716": {
+      "deps": {
+        "display": "34f2",
+        "name": "2862",
+        "top_frame": "c32c"
+      },
+      "params": {
+        "position": [
+          0.0,
+          0.0,
+          60.0
+        ],
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "type": 6
+    },
+    "6710": {
+      "deps": {
+        "frame": "ccf3",
+        "name": "8cec",
+        "operations": [
+          "45ee"
+        ],
+        "planes": [
+          "c895"
+        ]
+      },
+      "params": {},
+      "type": 13
+    },
+    "70b4": {
+      "deps": {},
+      "params": {
+        "value": 20.0
+      },
+      "type": 8
+    },
+    "860c": {
+      "deps": {},
+      "params": {
+        "value": "plane_0"
+      },
+      "type": 11
+    },
+    "8cec": {
+      "deps": {},
+      "params": {
+        "value": "loft_basic"
+      },
+      "type": 11
+    },
+    "9e82": {
+      "deps": {},
+      "params": {
+        "value": 10.0
+      },
+      "type": 8
+    },
+    "a487": {
+      "deps": {
+        "x": "1839",
+        "y": "1839"
+      },
+      "params": {},
+      "type": 4
+    },
+    "ad7b": {
+      "deps": {
+        "center": "a487",
+        "radius": "70b4"
+      },
+      "params": {},
+      "type": 15
+    },
+    "b123": {
+      "deps": {
+        "display": "34f2",
+        "name": "eb86",
+        "top_frame": "c32c"
+      },
+      "params": {
+        "position": [
+          0.0,
+          0.0,
+          30.0
+        ],
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "type": 6
+    },
+    "c32c": {
+      "deps": {
+        "display": "34f2",
+        "name": "14b0",
+        "top_frame": "ccf3"
+      },
+      "params": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "type": 6
+    },
+    "c895": {
+      "deps": {
+        "display": "34f2",
+        "frame": "c32c",
+        "name": "3a06"
+      },
+      "params": {},
+      "type": 5
+    },
+    "ccf3": {
+      "deps": {
+        "display": "34f2",
+        "name": "446a"
+      },
+      "params": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "type": 6
+    },
+    "e6a5": {
+      "deps": {
+        "display": "34f2",
+        "frame": "b123",
+        "name": "860c"
+      },
+      "params": {},
+      "type": 5
+    },
+    "e6c9": {
+      "deps": {
+        "elements": [
+          "a487",
+          "03af"
+        ],
+        "origin": "a487",
+        "plane": "2844"
+      },
+      "params": {},
+      "type": 3
+    },
+    "eb86": {
+      "deps": {},
+      "params": {
+        "value": "frame_plane_0"
+      },
+      "type": 11
+    },
+    "ee31": {
+      "deps": {
+        "center": "a487",
+        "radius": "9e82"
+      },
+      "params": {},
+      "type": 15
+    },
+    "fd35": {
+      "deps": {},
+      "params": {
+        "value": 25.0
+      },
+      "type": 8
+    }
+  },
+  "rootNodeId": "6710",
+  "serializableNodes": {
+    "Arc": 30,
+    "Assembly": 1,
+    "AssemblyInterface": 39,
+    "AssemblyRoot": 14,
+    "Axis": 23,
+    "BoolParameter": 10,
+    "Chamfer": 26,
+    "Circle": 15,
+    "CustomClosedShape": 29,
+    "Ellipse": 21,
+    "EllipseArc": 31,
+    "Extrusion": 2,
+    "Fillet": 25,
+    "FixedTranslationConstraint": 37,
+    "FloatParameter": 8,
+    "Frame": 6,
+    "Helix3D": 34,
+    "Hexagon": 24,
+    "Hole": 19,
+    "IntParameter": 9,
+    "InterfaceGridSpec": 38,
+    "Lathe": 22,
+    "Line": 7,
+    "Loft": 27,
+    "Material": 20,
+    "Part": 0,
+    "PartRoot": 13,
+    "Plane": 5,
+    "Point": 4,
+    "Point3D": 36,
+    "Polygon": 18,
+    "Rectangle": 16,
+    "SVGShape": 33,
+    "Shell": 28,
+    "Sketch": 3,
+    "SketchOrigin": 12,
+    "Spline": 32,
+    "Square": 17,
+    "StringParameter": 11,
+    "Sweep": 35
+  },
+  "version": "2.0"
+}

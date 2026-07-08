@@ -1,0 +1,383 @@
+{
+  "DAG": {
+    "14b0": {
+      "deps": {},
+      "params": {
+        "value": "xy_frame"
+      },
+      "type": 11
+    },
+    "1594": {
+      "deps": {
+        "x": "c558",
+        "y": "2912"
+      },
+      "params": {},
+      "type": 4
+    },
+    "1839": {
+      "deps": {},
+      "params": {
+        "value": 0.0
+      },
+      "type": 8
+    },
+    "1f4f": {
+      "deps": {},
+      "params": {
+        "value": 30.0
+      },
+      "type": 8
+    },
+    "2912": {
+      "deps": {},
+      "params": {
+        "value": -20.0
+      },
+      "type": 8
+    },
+    "3102": {
+      "deps": {},
+      "params": {
+        "value": 1.0
+      },
+      "type": 8
+    },
+    "34f2": {
+      "deps": {},
+      "params": {
+        "value": false
+      },
+      "type": 10
+    },
+    "3a06": {
+      "deps": {},
+      "params": {
+        "value": "xy"
+      },
+      "type": 11
+    },
+    "4191": {
+      "deps": {
+        "p1": "45dc",
+        "p2": "1594"
+      },
+      "params": {},
+      "type": 7
+    },
+    "43cd": {
+      "deps": {},
+      "params": {
+        "value": 0.4
+      },
+      "type": 8
+    },
+    "446a": {
+      "deps": {},
+      "params": {
+        "value": "component_root_origin"
+      },
+      "type": 11
+    },
+    "45dc": {
+      "deps": {
+        "x": "c558",
+        "y": "70b4"
+      },
+      "params": {},
+      "type": 4
+    },
+    "4775": {
+      "deps": {},
+      "params": {
+        "value": "centered"
+      },
+      "type": 11
+    },
+    "5c40": {
+      "deps": {
+        "p1": "1594",
+        "p2": "b285"
+      },
+      "params": {},
+      "type": 7
+    },
+    "5d22": {
+      "deps": {
+        "rule": "b3da"
+      },
+      "params": {},
+      "type": 42
+    },
+    "5d84": {
+      "deps": {
+        "elements": [
+          "a487",
+          "ee71",
+          "1594",
+          "b285",
+          "e7f1",
+          "45dc",
+          "ee71",
+          "5c40",
+          "74b8",
+          "a23b",
+          "4191",
+          "ee71"
+        ],
+        "origin": "a487",
+        "plane": "c895"
+      },
+      "params": {},
+      "type": 3
+    },
+    "5db7": {
+      "deps": {
+        "angle": "1f4f",
+        "bend_line": "5d22",
+        "bend_position": "4775",
+        "body": "6b28"
+      },
+      "params": {},
+      "type": 43
+    },
+    "6b28": {
+      "deps": {
+        "default_bend_radius": "3102",
+        "default_k_factor": "43cd",
+        "direction": "bb9d",
+        "profile": "ee71",
+        "sketch": "5d84",
+        "thickness": "fd8e"
+      },
+      "params": {},
+      "type": 40
+    },
+    "70b4": {
+      "deps": {},
+      "params": {
+        "value": 20.0
+      },
+      "type": 8
+    },
+    "74b8": {
+      "deps": {
+        "p1": "b285",
+        "p2": "e7f1"
+      },
+      "params": {},
+      "type": 7
+    },
+    "7ae0": {
+      "deps": {},
+      "params": {
+        "value": 60.0
+      },
+      "type": 8
+    },
+    "a23b": {
+      "deps": {
+        "p1": "e7f1",
+        "p2": "45dc"
+      },
+      "params": {},
+      "type": 7
+    },
+    "a487": {
+      "deps": {
+        "x": "1839",
+        "y": "1839"
+      },
+      "params": {},
+      "type": 4
+    },
+    "b285": {
+      "deps": {
+        "x": "7ae0",
+        "y": "2912"
+      },
+      "params": {},
+      "type": 4
+    },
+    "b3da": {
+      "deps": {
+        "distance": "1839",
+        "plane": "c895"
+      },
+      "params": {},
+      "type": 41
+    },
+    "ba13": {
+      "deps": {
+        "body": "5db7"
+      },
+      "params": {},
+      "type": 44
+    },
+    "bb9d": {
+      "deps": {},
+      "params": {
+        "value": "positive"
+      },
+      "type": 11
+    },
+    "c32c": {
+      "deps": {
+        "display": "34f2",
+        "name": "14b0",
+        "top_frame": "ccf3"
+      },
+      "params": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "type": 6
+    },
+    "c558": {
+      "deps": {},
+      "params": {
+        "value": -60.0
+      },
+      "type": 8
+    },
+    "c895": {
+      "deps": {
+        "display": "34f2",
+        "frame": "c32c",
+        "name": "3a06"
+      },
+      "params": {},
+      "type": 5
+    },
+    "ccf3": {
+      "deps": {
+        "display": "34f2",
+        "name": "446a"
+      },
+      "params": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "type": 6
+    },
+    "e453": {
+      "deps": {
+        "frame": "ccf3",
+        "name": "f78d",
+        "operations": [
+          "ba13"
+        ],
+        "planes": [
+          "c895"
+        ]
+      },
+      "params": {},
+      "type": 13
+    },
+    "e7f1": {
+      "deps": {
+        "x": "7ae0",
+        "y": "70b4"
+      },
+      "params": {},
+      "type": 4
+    },
+    "ee71": {
+      "deps": {
+        "lines": [
+          "5c40",
+          "74b8",
+          "a23b",
+          "4191"
+        ],
+        "p1": "1594",
+        "p2": "b285",
+        "p3": "e7f1",
+        "p4": "45dc"
+      },
+      "params": {},
+      "type": 16
+    },
+    "f78d": {
+      "deps": {},
+      "params": {
+        "value": "sheet_metal_inline_bend"
+      },
+      "type": 11
+    },
+    "fd8e": {
+      "deps": {},
+      "params": {
+        "value": 2.0
+      },
+      "type": 8
+    }
+  },
+  "rootNodeId": "e453",
+  "serializableNodes": {
+    "Arc": 30,
+    "Assembly": 1,
+    "AssemblyInterface": 39,
+    "AssemblyRoot": 14,
+    "Axis": 23,
+    "BoolParameter": 10,
+    "Chamfer": 26,
+    "Circle": 15,
+    "CustomClosedShape": 29,
+    "EdgeFinder": 42,
+    "Ellipse": 21,
+    "EllipseArc": 31,
+    "Extrusion": 2,
+    "Fillet": 25,
+    "FixedTranslationConstraint": 37,
+    "FloatParameter": 8,
+    "Frame": 6,
+    "Helix3D": 34,
+    "Hexagon": 24,
+    "Hole": 19,
+    "InPlaneFinderRule": 41,
+    "IntParameter": 9,
+    "InterfaceGridSpec": 38,
+    "Lathe": 22,
+    "Line": 7,
+    "Loft": 27,
+    "Material": 20,
+    "Part": 0,
+    "PartRoot": 13,
+    "Plane": 5,
+    "Point": 4,
+    "Point3D": 36,
+    "Polygon": 18,
+    "Rectangle": 16,
+    "SVGShape": 33,
+    "SheetMetalBaseFlange": 40,
+    "SheetMetalBend": 43,
+    "SheetMetalToSolid": 44,
+    "Shell": 28,
+    "Sketch": 3,
+    "SketchOrigin": 12,
+    "Spline": 32,
+    "Square": 17,
+    "StringParameter": 11,
+    "Sweep": 35
+  },
+  "version": "2.0"
+}

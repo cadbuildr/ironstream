@@ -1,0 +1,304 @@
+{
+  "DAG": {
+    "04c0": {
+      "deps": {},
+      "params": {
+        "name": "Material_15",
+        "options": {
+          "diffuse_color": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        "painted_node_ids": []
+      },
+      "type": 20
+    },
+    "14b0": {
+      "deps": {},
+      "params": {
+        "value": "xy_frame"
+      },
+      "type": 11
+    },
+    "1839": {
+      "deps": {},
+      "params": {
+        "value": 0.0
+      },
+      "type": 8
+    },
+    "2aaf": {
+      "deps": {
+        "x": "9b29",
+        "y": "1839"
+      },
+      "params": {},
+      "type": 4
+    },
+    "3102": {
+      "deps": {},
+      "params": {
+        "value": 1.0
+      },
+      "type": 8
+    },
+    "3479": {
+      "deps": {
+        "frame": "ccf3",
+        "material": "04c0",
+        "name": "7ba8",
+        "operations": [
+          "f1e7"
+        ],
+        "planes": [
+          "c895"
+        ]
+      },
+      "params": {},
+      "type": 13
+    },
+    "34f2": {
+      "deps": {},
+      "params": {
+        "value": false
+      },
+      "type": 10
+    },
+    "3932": {
+      "deps": {
+        "x": "1839",
+        "y": "fd8e"
+      },
+      "params": {},
+      "type": 4
+    },
+    "3a06": {
+      "deps": {},
+      "params": {
+        "value": "xy"
+      },
+      "type": 11
+    },
+    "42e1": {
+      "deps": {
+        "frame": "c32c",
+        "line": "dc7b",
+        "sketch": "ebfd"
+      },
+      "params": {},
+      "type": 23
+    },
+    "446a": {
+      "deps": {},
+      "params": {
+        "value": "component_root_origin"
+      },
+      "type": 11
+    },
+    "6df5": {
+      "deps": {
+        "x": "1839",
+        "y": "9b29"
+      },
+      "params": {},
+      "type": 4
+    },
+    "7a43": {
+      "deps": {
+        "primitives": [
+          "c5db",
+          "d717"
+        ]
+      },
+      "params": {},
+      "type": 29
+    },
+    "7ba8": {
+      "deps": {},
+      "params": {
+        "value": "sphere"
+      },
+      "type": 11
+    },
+    "9b29": {
+      "deps": {},
+      "params": {
+        "value": -2.0
+      },
+      "type": 8
+    },
+    "a487": {
+      "deps": {
+        "x": "1839",
+        "y": "1839"
+      },
+      "params": {},
+      "type": 4
+    },
+    "b645": {
+      "deps": {
+        "x": "1839",
+        "y": "3102"
+      },
+      "params": {},
+      "type": 4
+    },
+    "c32c": {
+      "deps": {
+        "display": "34f2",
+        "name": "14b0",
+        "top_frame": "ccf3"
+      },
+      "params": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "type": 6
+    },
+    "c5db": {
+      "deps": {
+        "p1": "6df5",
+        "p2": "2aaf",
+        "p3": "3932"
+      },
+      "params": {},
+      "type": 30
+    },
+    "c895": {
+      "deps": {
+        "display": "34f2",
+        "frame": "c32c",
+        "name": "3a06"
+      },
+      "params": {},
+      "type": 5
+    },
+    "ccf3": {
+      "deps": {
+        "display": "34f2",
+        "name": "446a"
+      },
+      "params": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "type": 6
+    },
+    "d717": {
+      "deps": {
+        "p1": "3932",
+        "p2": "6df5"
+      },
+      "params": {},
+      "type": 7
+    },
+    "dc7b": {
+      "deps": {
+        "p1": "a487",
+        "p2": "b645"
+      },
+      "params": {},
+      "type": 7
+    },
+    "ebfd": {
+      "deps": {
+        "elements": [
+          "6df5",
+          "3932",
+          "2aaf",
+          "c5db",
+          "d717",
+          "7a43",
+          "a487",
+          "b645",
+          "dc7b"
+        ],
+        "origin": "a487",
+        "plane": "c895"
+      },
+      "params": {},
+      "type": 3
+    },
+    "f1e7": {
+      "deps": {
+        "axis": "42e1",
+        "cut": "34f2",
+        "shape": "7a43",
+        "sketch": "ebfd"
+      },
+      "params": {},
+      "type": 22
+    },
+    "fd8e": {
+      "deps": {},
+      "params": {
+        "value": 2.0
+      },
+      "type": 8
+    }
+  },
+  "rootNodeId": "3479",
+  "serializableNodes": {
+    "Arc": 30,
+    "Assembly": 1,
+    "AssemblyInterface": 39,
+    "AssemblyRoot": 14,
+    "Axis": 23,
+    "BoolParameter": 10,
+    "Chamfer": 26,
+    "Circle": 15,
+    "CustomClosedShape": 29,
+    "Ellipse": 21,
+    "EllipseArc": 31,
+    "Extrusion": 2,
+    "Fillet": 25,
+    "FixedTranslationConstraint": 37,
+    "FloatParameter": 8,
+    "Frame": 6,
+    "Helix3D": 34,
+    "Hexagon": 24,
+    "Hole": 19,
+    "IntParameter": 9,
+    "InterfaceGridSpec": 38,
+    "Lathe": 22,
+    "Line": 7,
+    "Loft": 27,
+    "Material": 20,
+    "Part": 0,
+    "PartRoot": 13,
+    "Plane": 5,
+    "Point": 4,
+    "Point3D": 36,
+    "Polygon": 18,
+    "Rectangle": 16,
+    "SVGShape": 33,
+    "Shell": 28,
+    "Sketch": 3,
+    "SketchOrigin": 12,
+    "Spline": 32,
+    "Square": 17,
+    "StringParameter": 11,
+    "Sweep": 35
+  },
+  "version": "2.0"
+}

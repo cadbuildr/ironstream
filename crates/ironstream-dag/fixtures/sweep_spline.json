@@ -1,0 +1,312 @@
+{
+  "DAG": {
+    "069f": {
+      "deps": {},
+      "params": {
+        "value": 15.0
+      },
+      "type": 8
+    },
+    "0a2b": {
+      "deps": {},
+      "params": {
+        "value": 3.0
+      },
+      "type": 8
+    },
+    "11a4": {
+      "deps": {},
+      "params": {
+        "value": 90.0
+      },
+      "type": 8
+    },
+    "14b0": {
+      "deps": {},
+      "params": {
+        "value": "xy_frame"
+      },
+      "type": 11
+    },
+    "1839": {
+      "deps": {},
+      "params": {
+        "value": 0.0
+      },
+      "type": 8
+    },
+    "18ff": {
+      "deps": {
+        "frenet": "84fe",
+        "path": "32ea",
+        "profile": "6340",
+        "sketch": "22c5",
+        "twist": "1839"
+      },
+      "params": {},
+      "type": 35
+    },
+    "1f4f": {
+      "deps": {},
+      "params": {
+        "value": 30.0
+      },
+      "type": 8
+    },
+    "22c5": {
+      "deps": {
+        "elements": [
+          "a487",
+          "6340"
+        ],
+        "origin": "a487",
+        "plane": "c895"
+      },
+      "params": {},
+      "type": 3
+    },
+    "32ea": {
+      "deps": {
+        "points": [
+          "8ce9",
+          "562d",
+          "eba0",
+          "ad07"
+        ]
+      },
+      "params": {},
+      "type": 40
+    },
+    "346c": {
+      "deps": {
+        "frame": "ccf3",
+        "name": "9d90",
+        "operations": [
+          "18ff"
+        ],
+        "planes": [
+          "c895"
+        ]
+      },
+      "params": {},
+      "type": 13
+    },
+    "34f2": {
+      "deps": {},
+      "params": {
+        "value": false
+      },
+      "type": 10
+    },
+    "3a06": {
+      "deps": {},
+      "params": {
+        "value": "xy"
+      },
+      "type": 11
+    },
+    "446a": {
+      "deps": {},
+      "params": {
+        "value": "component_root_origin"
+      },
+      "type": 11
+    },
+    "4f04": {
+      "deps": {},
+      "params": {
+        "value": -5.0
+      },
+      "type": 8
+    },
+    "562d": {
+      "deps": {
+        "x": "70b4",
+        "y": "9e82",
+        "z": "1f4f"
+      },
+      "params": {},
+      "type": 36
+    },
+    "6340": {
+      "deps": {
+        "center": "a487",
+        "radius": "0a2b"
+      },
+      "params": {},
+      "type": 15
+    },
+    "661c": {
+      "deps": {},
+      "params": {
+        "value": 40.0
+      },
+      "type": 8
+    },
+    "70b4": {
+      "deps": {},
+      "params": {
+        "value": 20.0
+      },
+      "type": 8
+    },
+    "7ae0": {
+      "deps": {},
+      "params": {
+        "value": 60.0
+      },
+      "type": 8
+    },
+    "84fe": {
+      "deps": {},
+      "params": {
+        "value": true
+      },
+      "type": 10
+    },
+    "8ce9": {
+      "deps": {
+        "x": "1839",
+        "y": "1839",
+        "z": "1839"
+      },
+      "params": {},
+      "type": 36
+    },
+    "9d90": {
+      "deps": {},
+      "params": {
+        "value": "sweep_spline"
+      },
+      "type": 11
+    },
+    "9e82": {
+      "deps": {},
+      "params": {
+        "value": 10.0
+      },
+      "type": 8
+    },
+    "a487": {
+      "deps": {
+        "x": "1839",
+        "y": "1839"
+      },
+      "params": {},
+      "type": 4
+    },
+    "ad07": {
+      "deps": {
+        "x": "7ae0",
+        "y": "069f",
+        "z": "11a4"
+      },
+      "params": {},
+      "type": 36
+    },
+    "c32c": {
+      "deps": {
+        "display": "34f2",
+        "name": "14b0",
+        "top_frame": "ccf3"
+      },
+      "params": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "type": 6
+    },
+    "c895": {
+      "deps": {
+        "display": "34f2",
+        "frame": "c32c",
+        "name": "3a06"
+      },
+      "params": {},
+      "type": 5
+    },
+    "ccf3": {
+      "deps": {
+        "display": "34f2",
+        "name": "446a"
+      },
+      "params": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "type": 6
+    },
+    "eba0": {
+      "deps": {
+        "x": "661c",
+        "y": "4f04",
+        "z": "7ae0"
+      },
+      "params": {},
+      "type": 36
+    }
+  },
+  "rootNodeId": "346c",
+  "serializableNodes": {
+    "Arc": 30,
+    "Assembly": 1,
+    "AssemblyInterface": 39,
+    "AssemblyRoot": 14,
+    "Axis": 23,
+    "BoolParameter": 10,
+    "Chamfer": 26,
+    "Circle": 15,
+    "CustomClosedShape": 29,
+    "Ellipse": 21,
+    "EllipseArc": 31,
+    "Extrusion": 2,
+    "Fillet": 25,
+    "FixedTranslationConstraint": 37,
+    "FloatParameter": 8,
+    "Frame": 6,
+    "Helix3D": 34,
+    "Hexagon": 24,
+    "Hole": 19,
+    "IntParameter": 9,
+    "InterfaceGridSpec": 38,
+    "Lathe": 22,
+    "Line": 7,
+    "Loft": 27,
+    "Material": 20,
+    "Part": 0,
+    "PartRoot": 13,
+    "Plane": 5,
+    "Point": 4,
+    "Point3D": 36,
+    "Polygon": 18,
+    "Rectangle": 16,
+    "SVGShape": 33,
+    "Shell": 28,
+    "Sketch": 3,
+    "SketchOrigin": 12,
+    "Spline": 32,
+    "Spline3D": 40,
+    "Square": 17,
+    "StringParameter": 11,
+    "Sweep": 35
+  },
+  "version": "2.0"
+}
