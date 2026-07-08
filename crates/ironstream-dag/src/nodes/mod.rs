@@ -62,11 +62,18 @@ fn handle(state: &mut State, type_name: &str, id: &str, node: &DagNode) {
             }
         }
         "Arc" | "EllipseArc" => {
-            // Best-effort: p1 -> p2 with an optional sagitta/bulge. The arc
-            // bulge is derived from a mid/through point when present, else 0
-            // (degrades to a chord).
-            if let (Some(p1), Some(p2)) = (dep_id(&node.deps, "p1"), dep_id(&node.deps, "p2")) {
-                let bulge = arc_bulge(state, node, &p1, &p2);
+            // Foundation Arc semantics (schema + reference kernel): p1 = start,
+            // p2 = THROUGH point on the arc, p3 = end — so the chord is p1->p3
+            // and the bulge comes from p2. Nodes without a p3 degrade to the
+            // legacy p1->p2 chord with an optional "mid"/"through" dep; with no
+            // through point at all the arc degrades to a chord (bulge 0).
+            if let (Some(p1), Some(p3)) = (dep_id(&node.deps, "p1"), dep_id(&node.deps, "p3")) {
+                let bulge = arc_bulge(state, node, &p1, &p3, &["p2", "mid", "through"]);
+                state
+                    .curves
+                    .insert(id.to_string(), Curve2::Arc { p1, p2: p3, bulge });
+            } else if let (Some(p1), Some(p2)) = (dep_id(&node.deps, "p1"), dep_id(&node.deps, "p2")) {
+                let bulge = arc_bulge(state, node, &p1, &p2, &["mid", "through"]);
                 state
                     .curves
                     .insert(id.to_string(), Curve2::Arc { p1, p2, bulge });
