@@ -212,8 +212,14 @@ fn difficulty_progression_volumes() {
         ("cylinder", 784.137, 1e-2),
         ("donut", 314813.97, 1e-2),
         ("tree_lathe", 892870.8, 1e-2),
-        ("chess_pawn", 12151.3, 2e-2), // lathe of an arc profile
-        ("tetrahedron_sphere", 19.19, 5e-2),
+        // Lathe of an arc profile. The old 12151.3 anchor captured the arc
+        // through-point bug (p2/p3 swapped + midpoint-projected sagitta);
+        // reference kernels agree here: replicad 14817.6, truck 14841.6.
+        ("chess_pawn", 14817.6, 2e-2),
+        // Sphere-tetrahedron boolean with arc-driven geometry. The old 19.19
+        // anchor captured the arc bugs; replicad reference is 33.45. IronStream
+        // tessellates curved booleans ~5% under until exact-BOP Stage 4.
+        ("tetrahedron_sphere", 33.45, 7e-2),
     ];
     let mut tested = 0;
     for (name, expect, rel) in cases {

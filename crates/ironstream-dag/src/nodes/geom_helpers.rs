@@ -113,10 +113,14 @@ pub fn first_num(state: &State, node: &DagNode, keys: &[&str]) -> Option<f64> {
 /// Arc bulge (signed perpendicular offset of the arc midpoint from the chord),
 /// in sketch-local units. Derived from a through/mid point if the node has one;
 /// otherwise 0 (the arc degrades to a chord).
-pub fn arc_bulge(state: &State, node: &DagNode, p1: &str, p2: &str) -> f64 {
-    let mid_id = dep_id(&node.deps, "p3")
-        .or_else(|| dep_id(&node.deps, "mid"))
-        .or_else(|| dep_id(&node.deps, "through"));
+///
+/// The through point is anywhere ON the arc, not necessarily above the chord
+/// midpoint — so the sagitta comes from the circumcircle of (p1, through, p2):
+/// the circle crosses the chord's perpendicular bisector at `h ± r` (with `h`
+/// the center's signed offset along the chord normal); the arc midpoint is the
+/// crossing on the through point's side.
+pub fn arc_bulge(state: &State, node: &DagNode, p1: &str, p2: &str, mid_keys: &[&str]) -> f64 {
+    let mid_id = mid_keys.iter().find_map(|key| dep_id(&node.deps, key));
     let (a, b) = match (state.points2d.get(p1), state.points2d.get(p2)) {
         (Some(a), Some(b)) => (*a, *b),
         _ => return 0.0,
@@ -142,7 +146,24 @@ pub fn arc_bulge(state: &State, node: &DagNode, p1: &str, p2: &str) -> f64 {
         x: -dir.y / len,
         y: dir.x / len,
     };
-    (mid.x - chord_mid.x) * perp.x + (mid.y - chord_mid.y) * perp.y
+    // Circumcenter of (a, mid, b); collinear degrades to a chord.
+    let d = 2.0 * (a.x * (mid.y - b.y) + mid.x * (b.y - a.y) + b.x * (a.y - mid.y));
+    if d.abs() < 1e-12 {
+        return 0.0;
+    }
+    let a2 = a.x * a.x + a.y * a.y;
+    let m2 = mid.x * mid.x + mid.y * mid.y;
+    let b2 = b.x * b.x + b.y * b.y;
+    let cx = (a2 * (mid.y - b.y) + m2 * (b.y - a.y) + b2 * (a.y - mid.y)) / d;
+    let cy = (a2 * (b.x - mid.x) + m2 * (a.x - b.x) + b2 * (mid.x - a.x)) / d;
+    let r = ((a.x - cx).powi(2) + (a.y - cy).powi(2)).sqrt();
+    let h = (cx - chord_mid.x) * perp.x + (cy - chord_mid.y) * perp.y;
+    let side = (mid.x - chord_mid.x) * perp.x + (mid.y - chord_mid.y) * perp.y;
+    if side >= 0.0 {
+        h + r
+    } else {
+        h - r
+    }
 }
 
 /// Resolve a closed shape (Polygon/CustomClosedShape/Circle) into a world-space
@@ -276,20 +297,23 @@ fn discretize_arc(a: P2, b: P2, bulge: f64) -> Vec<P2> {
     let a0 = ang(a);
     let a1 = ang(b);
     let amid = ang(apex);
-    // Choose sweep direction passing through the apex.
-    let mut start = a0;
-    let mut end = a1;
-    if !angle_between(amid, a0, a1) {
-        // Swap so the swept range contains the apex angle.
-        std::mem::swap(&mut start, &mut end);
-    }
-    let mut sweep = end - start;
-    while sweep <= -PI {
-        sweep += 2.0 * PI;
-    }
-    while sweep > PI {
-        sweep -= 2.0 * PI;
-    }
+    // Sweep from a to b in the direction that passes through the apex. A major
+    // arc legitimately sweeps more than PI — never fold the sweep back into
+    // (-PI, PI], that replaces it with its minor complement.
+    let ccw = |from: f64, to: f64| {
+        let mut d = to - from;
+        while d < 0.0 {
+            d += 2.0 * PI;
+        }
+        d
+    };
+    let sweep_ccw = ccw(a0, a1);
+    let sweep = if ccw(a0, amid) <= sweep_ccw {
+        sweep_ccw
+    } else {
+        sweep_ccw - 2.0 * PI
+    };
+    let start = a0;
     let steps = ((r * sweep.abs()).ceil() as usize).clamp(4, 64);
     (1..steps)
         .map(|i| {
@@ -390,21 +414,3 @@ pub fn clip_profile_to_axis(pts: &[Pnt], axis: &Ax1) -> Vec<Pnt> {
     out
 }
 
-/// Is angle `m` within the shorter arc from `a` to `b`?
-fn angle_between(m: f64, a: f64, b: f64) -> bool {
-    let norm = |mut x: f64| {
-        while x < 0.0 {
-            x += 2.0 * PI;
-        }
-        while x >= 2.0 * PI {
-            x -= 2.0 * PI;
-        }
-        x
-    };
-    let (a, b, m) = (norm(a), norm(b), norm(m));
-    if a <= b {
-        m >= a && m <= b
-    } else {
-        m >= a || m <= b
-    }
-}
