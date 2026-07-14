@@ -12,3 +12,5 @@ topo_explorer.rs  TopExp  top_exp.rs  siloed TopExp re-port; zero dependents
 topo_shape_tools.rs  TopExp  top_exp.rs  siloed TopExp re-port; zero dependents
 bspl_convert.rs  BSplCLib  bspl_clib.rs  siloed B-spline utility duplicate; zero dependents
 geom_b_spline_restrict.rs  BSplCLib  bspl_clib.rs  siloed B-spline utility duplicate; zero dependents
+geom_triangle_mesh.rs  Poly_Triangulation  mesh.rs  siloed triangulation duplicate; zero dependents
+mesh_data.rs  Poly_Triangulation  mesh.rs  siloed triangulation duplicate; zero dependents
