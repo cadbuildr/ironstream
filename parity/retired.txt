@@ -5,3 +5,5 @@
 # (its mirror tests/occt_suite/occt_<stem>.rs test file goes with it).
 # Losers with unique reference value keep their file + occt-ref marker instead.
 gp_quart.rs  gp_Quaternion  gp.rs  misspelled duplicate port; gp_quaternion.rs kept as the richer reference
+geom_cut_tool.rs  BRepAlgoAPI_Cut  brep_algo_api.rs  siloed duplicate of the BSP boolean engine; zero dependents
+geom_fuse.rs  BRepAlgoAPI_Cut  brep_algo_api.rs  siloed duplicate of the BSP boolean engine; zero dependents
