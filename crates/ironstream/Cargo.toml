@@ -1,5 +1,4 @@
 [package]
-autotests = false
 name = "ironstream"
 version = "0.1.0"
 description = "IronStream — a from-scratch OpenCascade-style CAD geometry kernel in pure Rust (zero third-party deps)."
@@ -19,6 +18,6 @@ path = "src/lib.rs"
 # implemented from scratch in this crate.
 [dependencies]
 
-[[test]]
-name = "occt_suite"
-path = "tests/occt_suite.rs"
+# Integration tests are auto-discovered. The ported OCCT test corpus lives in
+# tests/occt_suite/ (one binary; see parity/gen_occt_suite.py) — new top-level
+# tests/*.rs files become their own test targets automatically.
