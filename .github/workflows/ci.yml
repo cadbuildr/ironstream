@@ -16,6 +16,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Fast structural checks — no Rust toolchain, fails in seconds: marker /
+  # parity hygiene, zero-dep kernel, leakage deny-list, filename lint,
+  # src↔lib.rs module bijection, tests layout (see parity/guardrails.py).
+  guardrails:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Structural guardrails + marker hygiene
+        run: python3 parity/guardrails.py
+
   test:
     runs-on: ubuntu-latest
     steps:
@@ -24,6 +34,11 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - name: Kernel + DAG tests
         run: cargo test --workspace --lib --tests
+      - name: Kernel is dependency-free (belt and braces)
+        run: |
+          deps=$(cargo metadata --no-deps --format-version 1 \
+            | python3 -c "import json,sys; d=json.load(sys.stdin); print(sum(len(p['dependencies']) for p in d['packages'] if p['name']=='ironstream'))")
+          test "$deps" = "0" || { echo "ironstream has $deps dependencies"; exit 1; }
 
   wasm:
     runs-on: ubuntu-latest
