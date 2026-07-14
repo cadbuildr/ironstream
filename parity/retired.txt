@@ -14,3 +14,8 @@ bspl_convert.rs  BSplCLib  bspl_clib.rs  siloed B-spline utility duplicate; zero
 geom_b_spline_restrict.rs  BSplCLib  bspl_clib.rs  siloed B-spline utility duplicate; zero dependents
 geom_triangle_mesh.rs  Poly_Triangulation  mesh.rs  siloed triangulation duplicate; zero dependents
 mesh_data.rs  Poly_Triangulation  mesh.rs  siloed triangulation duplicate; zero dependents
+brep_compound_builder.rs  BRep_Builder  rw_brep.rs  siloed BRep_Builder re-port; zero dependents
+brep_make_face.rs  BRep_Builder  rw_brep.rs  siloed BRep_Builder re-port; zero dependents
+brep_topology_builder.rs  BRep_Builder  rw_brep.rs  siloed BRep_Builder re-port; zero dependents
+topo_orient.rs  BRep_Builder  rw_brep.rs  siloed BRep_Builder re-port; zero dependents
+topods_compound_builder.rs  BRep_Builder  rw_brep.rs  siloed BRep_Builder re-port; zero dependents
