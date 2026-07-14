@@ -1,0 +1,7 @@
+# Duplicate-port modules retired during audit remediation P3.
+# Format: <src file>  <OCCT class>  <canonical file>  <reason>
+# A file is retired only when: its class claim was already demoted to
+# occt-ref, it is canonical for no other class, and nothing imports it
+# (its mirror tests/occt_suite/occt_<stem>.rs test file goes with it).
+# Losers with unique reference value keep their file + occt-ref marker instead.
+gp_quart.rs  gp_Quaternion  gp.rs  misspelled duplicate port; gp_quaternion.rs kept as the richer reference

@@ -6292,7 +6292,6 @@ pub mod gp_parab2d;
 pub mod gp_pln;
 pub mod gp_pnt;
 pub mod gp_pnt2d;
-pub mod gp_quart;
 pub mod gp_sph;
 pub mod gp_sphere_torus;
 pub mod gp_tor;

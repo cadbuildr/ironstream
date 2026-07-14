@@ -421,7 +421,6 @@ mod occt_gp_pln;
 mod occt_gp_pnt;
 mod occt_gp_pnt2d;
 mod occt_gp_prim;
-mod occt_gp_quart;
 mod occt_gp_quaternion;
 mod occt_gp_sph;
 mod occt_gp_tor;
