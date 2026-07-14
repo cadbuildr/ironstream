@@ -1,5 +1,6 @@
 // FILE: caf_session.rs
-// occt: CDF_Session, CDF_Application, CDF_Directory, CDM_Document
+// occt: CDF_Application, CDM_Document
+// occt-ref: CDF_Session, CDF_Directory
 
 /// Document state in the application session.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Default)]
@@ -77,7 +78,7 @@ impl CdfDocumentEntry {
 }
 
 /// Directory in the CDF session (a named set of documents).
-/// occt: CDF_Directory
+// occt-ref: CDF_Directory
 #[derive(Clone, Debug, Default)]
 pub struct CdfDirectory {
     pub name: String,
@@ -140,7 +141,7 @@ impl CdfApplication {
 }
 
 /// CDF session: top-level manager for documents and applications.
-/// occt: CDF_Session
+// occt-ref: CDF_Session
 #[derive(Clone, Debug, Default)]
 pub struct CdfSession {
     pub session_id: u32,

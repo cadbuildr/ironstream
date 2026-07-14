@@ -59,7 +59,7 @@ impl BvhBox {
 }
 
 /// A primitive (triangle/sphere/point) in a BVH primitive set.
-/// occt: BVH_PrimitiveSet3d primitive entry
+/// occt: BVH_PrimitiveSet3d // primitive entry
 #[derive(Clone, Debug)]
 pub struct BvhPrimitive {
     pub id: u32,

@@ -49,7 +49,7 @@ const TOL: f64 = 1.0e-9;
 /// towards a fixed apex point (conical).
 ///
 /// Mirrors the two `BRepProj_Projection` constructors in OCCT.
-// occt: BRepProj_Projection (constructor variant)
+// occt: BRepProj_Projection // (constructor variant)
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum ProjectionType {
     /// Project along a fixed direction vector (cylindrical projection).

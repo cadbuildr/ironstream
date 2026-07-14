@@ -1,5 +1,5 @@
 // FILE: msg_format.rs
-// occt: Message_Formatter, Message_Printer, Message_Report, Message_Alert
+// occt-ref: Message_Formatter, Message_Printer, Message_Report, Message_Alert
 
 /// Severity level for a message.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
@@ -28,7 +28,7 @@ impl MessageGravity {
     }
 }
 
-// occt: Message_Alert — a single diagnostic message entry
+// occt-ref: Message_Alert // — a single diagnostic message entry
 #[derive(Clone, Debug)]
 pub struct MessageAlert {
     pub gravity: MessageGravity,
@@ -58,7 +58,7 @@ impl MessageAlert {
     pub fn gravity(&self) -> MessageGravity { self.gravity }
 }
 
-// occt: Message_Formatter — builds a formatted message from a template + arguments
+// occt-note: Message_Formatter — builds a formatted message from a template + arguments
 #[derive(Clone, Debug, Default)]
 pub struct MessageFormatter {
     pub template: String,
@@ -96,7 +96,7 @@ impl MessageFormatter {
     pub fn is_empty(&self) -> bool { self.template.is_empty() }
 }
 
-// occt: Message_Printer — outputs messages (stub: collects in a buffer)
+// occt-ref: Message_Printer // — outputs messages (stub: collects in a buffer)
 #[derive(Clone, Debug)]
 pub struct MessagePrinter {
     pub gravity_threshold: MessageGravity,
@@ -137,7 +137,7 @@ impl MessagePrinter {
     pub fn last_message(&self) -> Option<&str> { self.buffer.last().map(|s| s.as_str()) }
 }
 
-// occt: Message_Report — collects alerts by gravity and reports summary
+// occt-ref: Message_Report // — collects alerts by gravity and reports summary
 #[derive(Clone, Debug, Default)]
 pub struct MessageReport {
     pub alerts: Vec<MessageAlert>,

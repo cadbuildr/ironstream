@@ -1,5 +1,5 @@
 // FILE: b_rep_fill_draft.rs
-// occt: Brepfilldraft
+// occt-ref: Brepfilldraft
 
 #[derive(Clone, Debug)]
 pub struct Brepfilldraft;

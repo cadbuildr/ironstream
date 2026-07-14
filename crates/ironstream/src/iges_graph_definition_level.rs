@@ -1,5 +1,5 @@
 // FILE: iges_graph_definition_level.rs
-// occt: IGESGraph_Udefinitionlevel
+// occt-ref: IGESGraph_Udefinitionlevel
 
 pub struct UdefinitionUlevel {
     entity_type: i32,

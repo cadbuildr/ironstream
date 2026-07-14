@@ -6,7 +6,7 @@
 //! `GeomPlate_BuildPlateSurface`, `GeomPlate_PointConstraint`, and
 //! `GeomPlate_CurveConstraint`.  Zero third-party dependencies; only `std`.
 
-// occt: GeomPlate_BuildPlateSurface constraint type — enum G0 (point on), G1 (tangent), G2 (curvature)
+// occt-ref: GeomPlate_BuildPlateSurface // constraint type — enum G0 (point on), G1 (tangent), G2 (curvature)
 /// Geometric continuity order required at a constraint.
 ///
 /// Mirrors the integer order used by `GeomPlate_BuildPlateSurface`:
@@ -21,7 +21,7 @@ pub enum GeomConstraintType {
     G2 = 2,
 }
 
-// occt: GeomPlate_PointConstraint — a point the surface must pass through
+// occt-ref: GeomPlate_PointConstraint // — a point the surface must pass through
 /// A single-point constraint for surface fitting.
 ///
 /// Stores a 3D point and the required geometric continuity order, together with
@@ -71,7 +71,7 @@ impl GeomPointConstraint {
     }
 }
 
-// occt: GeomPlate_CurveConstraint — a curve the surface must contain
+// occt-ref: GeomPlate_CurveConstraint // — a curve the surface must contain
 /// A curve-based constraint for surface fitting.
 ///
 /// Rather than storing a full curve object (which would require a trait object
@@ -133,7 +133,7 @@ impl GeomCurveConstraint {
     }
 }
 
-// occt: container for constraints
+// occt-note: container for constraints
 /// A container that holds point and curve constraints for a surface solver.
 ///
 /// Mirrors the role of the constraint lists maintained inside

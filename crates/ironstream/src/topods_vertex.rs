@@ -1,9 +1,9 @@
 // FILE: topods_vertex.rs
-// occt: TopoDS_Vertex, TopExp_Vertex, TopoDS_Builder for vertices,
+// occt-note: TopoDS_Vertex, TopExp_Vertex, TopoDS_Builder for vertices,
 //       TopoDsBuilder make_vertex
 
 /// A topological vertex (0-dimensional shape).
-/// occt: TopoDS_Vertex
+// occt-ref: TopoDS_Vertex
 #[derive(Clone, Debug)]
 pub struct TopoDsVertex {
     pub shape_id: u32,
@@ -52,7 +52,7 @@ impl TopoDsVertex {
 }
 
 /// Vertex builder: creates and manages vertices.
-/// occt: TopoDS_Builder / BRepBuilder make_vertex functions
+// occt-ref: TopoDS_Builder // / BRepBuilder make_vertex functions
 #[derive(Clone, Debug, Default)]
 pub struct TopoDsVertexBuilder {
     pub vertices: Vec<TopoDsVertex>,
@@ -101,7 +101,7 @@ impl TopoDsVertexBuilder {
 }
 
 /// Vertex iterator: traverse all vertices.
-/// occt: TopExp_Vertex (simplified)
+/// occt-note: TopExp_Vertex (simplified)
 #[derive(Clone, Debug)]
 pub struct TopoDsVertexIterator {
     vertices: Vec<u32>,

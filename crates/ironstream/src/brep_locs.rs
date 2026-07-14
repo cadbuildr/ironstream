@@ -1,9 +1,9 @@
 // FILE: brep_locs.rs
-// occt: BRepLocs_Displacement, BRepLocs_StackIterator,
+// occt-ref: BRepLocs_Displacement, BRepLocs_StackIterator
 //       BRepGProp_Gauss (solid/surface/curve mass properties)
 
 /// A displacement: a 3D rigid-body motion (rotation + translation).
-/// occt: BRepLocs_Displacement
+// occt-ref: BRepLocs_Displacement
 #[derive(Clone, Copy, Debug)]
 pub struct BrepLocsDisplacement {
     /// Row-major 3×4 matrix: rotation (cols 0-2) + translation (col 3).
@@ -78,7 +78,7 @@ impl BrepLocsDisplacement {
 }
 
 /// Stack of displacements for hierarchical location composition.
-/// occt: BRepLocs_StackIterator (simplified)
+/// occt-note: BRepLocs_StackIterator (simplified)
 #[derive(Clone, Debug, Default)]
 pub struct BrepLocsStack {
     pub displacements: Vec<BrepLocsDisplacement>,
@@ -102,7 +102,7 @@ impl BrepLocsStack {
 }
 
 /// Mass/inertia properties of a shape.
-/// occt: BRepGProp_Gauss (simplified result struct)
+/// occt: BRepGProp_Gauss // (simplified result struct)
 #[derive(Clone, Debug, Default)]
 pub struct BrepGPropResult {
     pub mass: f64,
@@ -126,7 +126,7 @@ impl BrepGPropResult {
 }
 
 /// Computes global properties (volume, surface area, linear length) of shapes.
-/// occt: BRepGProp (global function namespace)
+// occt-ref: BRepGProp // (global function namespace)
 #[derive(Clone, Debug, Default)]
 pub struct BrepGPropSurface {
     pub shape_id: u32,

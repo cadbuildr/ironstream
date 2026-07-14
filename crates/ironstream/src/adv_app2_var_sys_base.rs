@@ -1,5 +1,5 @@
 // FILE: adv_app2_var_sys_base.rs
-// occt: AdvApp2VarSysBase
+// occt-ref: AdvApp2VarSysBase
 
 //! Approximation and constraint handling class.
 pub struct AdvApp2VarSysBase {

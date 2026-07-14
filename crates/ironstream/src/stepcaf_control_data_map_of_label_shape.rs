@@ -1,5 +1,6 @@
 // FILE: stepcaf_control_data_map_of_label_shape.rs
-// occt: STEPCAFControl_DataMapOfLabelShape, STEPCAFControl_DataMapIteratorOfDataMapOfLabelShape
+// occt: STEPCAFControl_DataMapOfLabelShape
+// occt-ref: STEPCAFControl_DataMapIteratorOfDataMapOfLabelShape
 
 use std::collections::BTreeMap;
 

@@ -1,8 +1,8 @@
 // FILE: gp_sphere_torus.rs
-// occt: gp_Sphere, gp_Torus, gp_Cone, gp_Cylinder (analytical surface params)
+// occt-note: gp_Sphere, gp_Torus, gp_Cone, gp_Cylinder (analytical surface params)
 
 /// Axis placement: origin + main direction + reference direction.
-/// occt: gp_Ax3 (minimal)
+// occt-ref: gp_Ax3 // (minimal)
 #[derive(Clone, Debug)]
 pub struct GpAx3 {
     pub location: [f64; 3],
@@ -38,7 +38,7 @@ impl GpAx3 {
 }
 
 /// Analytical sphere: position (Ax3) + radius.
-/// occt: gp_Sphere
+// occt-ref: gp_Sphere
 #[derive(Clone, Debug)]
 pub struct GpSphere {
     pub position: GpAx3,
@@ -90,7 +90,7 @@ impl GpSphere {
 }
 
 /// Analytical torus: position (Ax3) + major radius R + minor radius r.
-/// occt: gp_Torus
+// occt-ref: gp_Torus
 #[derive(Clone, Debug)]
 pub struct GpTorus {
     pub position: GpAx3,
@@ -136,7 +136,7 @@ impl GpTorus {
 }
 
 /// Analytical cylinder: position (Ax3) + radius + height.
-/// occt: gp_Cylinder
+// occt-ref: gp_Cylinder
 #[derive(Clone, Debug)]
 pub struct GpCylinder {
     pub position: GpAx3,
@@ -167,7 +167,7 @@ impl GpCylinder {
 }
 
 /// Analytical cone: position (Ax3) + two radii + half-angle.
-/// occt: gp_Cone
+// occt-ref: gp_Cone
 #[derive(Clone, Debug)]
 pub struct GpCone {
     pub position: GpAx3,

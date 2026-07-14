@@ -15,7 +15,7 @@ use std::collections::HashMap;
 // ---------------------------------------------------------------------------
 
 /// A topological vertex with a stable numeric id and a position.
-// occt: TopoDS_Vertex
+// occt-ref: TopoDS_Vertex
 #[derive(Clone, Debug, PartialEq)]
 pub struct TopoDS_Vertex {
     pub id: u64,
@@ -25,7 +25,7 @@ pub struct TopoDS_Vertex {
 }
 
 /// A topological edge connecting two vertices.
-// occt: TopoDS_Edge
+// occt-ref: TopoDS_Edge
 #[derive(Clone, Debug, PartialEq)]
 pub struct TopoDS_Edge {
     pub id: u64,
@@ -33,7 +33,7 @@ pub struct TopoDS_Edge {
 }
 
 /// A closed loop of edges.
-// occt: TopoDS_Wire
+// occt-ref: TopoDS_Wire
 #[derive(Clone, Debug, PartialEq)]
 pub struct TopoDS_Wire {
     pub id: u64,
@@ -41,7 +41,7 @@ pub struct TopoDS_Wire {
 }
 
 /// A bounded surface region, bounded by one or more wires.
-// occt: TopoDS_Face
+// occt-ref: TopoDS_Face
 #[derive(Clone, Debug, PartialEq)]
 pub struct TopoDS_Face {
     pub id: u64,
@@ -49,7 +49,7 @@ pub struct TopoDS_Face {
 }
 
 /// A connected set of faces.
-// occt: TopoDS_Shell
+// occt-ref: TopoDS_Shell
 #[derive(Clone, Debug, PartialEq)]
 pub struct TopoDS_Shell {
     pub id: u64,
@@ -57,7 +57,7 @@ pub struct TopoDS_Shell {
 }
 
 /// A solid bounded by one or more shells.
-// occt: TopoDS_Solid
+// occt-ref: TopoDS_Solid
 #[derive(Clone, Debug, PartialEq)]
 pub struct TopoDS_Solid {
     pub id: u64,
@@ -73,7 +73,7 @@ pub struct TopoDS_CompSolid {
 }
 
 /// A heterogeneous collection of shapes.
-// occt: TopoDS_Compound
+// occt-ref: TopoDS_Compound
 #[derive(Clone, Debug, PartialEq)]
 pub struct TopoDS_Compound {
     pub id: u64,
@@ -81,7 +81,7 @@ pub struct TopoDS_Compound {
 }
 
 /// A discriminated union over all topology levels.
-// occt: TopoDS_Shape
+// occt-ref: TopoDS_Shape
 #[derive(Clone, Debug, PartialEq)]
 pub enum TopoDS_Shape {
     Vertex(TopoDS_Vertex),

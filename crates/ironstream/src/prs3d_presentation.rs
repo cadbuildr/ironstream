@@ -1,6 +1,6 @@
 // FILE: prs3d_presentation.rs
 
-// occt: Graphic3d_Group
+// occt-ref: Graphic3d_Group
 pub struct PresentationGroup {
     pub primitives: Vec<String>,
     pub is_filled: bool,

@@ -1,5 +1,5 @@
 // FILE: geom_surface_ext2.rs
-// occt: Geom_SurfaceOfLinearExtrusion, Geom_SurfaceOfRevolution,
+// occt-ref: Geom_SurfaceOfLinearExtrusion, Geom_SurfaceOfRevolution
 //       Geom_ConicalSurface, Geom_CylindricalSurface, Geom_SphericalSurface
 
 use std::f64::consts::PI;
@@ -57,7 +57,7 @@ impl SurfaceOfRevolution {
     pub fn nb_u_points(&self) -> usize { self.basis_points.len() }
 }
 
-// occt: Geom_CylindricalSurface
+// occt-ref: Geom_CylindricalSurface
 #[derive(Clone, Debug)]
 pub struct CylindricalSurface {
     pub axis_origin: [f64; 3],
@@ -86,7 +86,7 @@ impl CylindricalSurface {
     }
 }
 
-// occt: Geom_ConicalSurface
+// occt-ref: Geom_ConicalSurface
 #[derive(Clone, Debug)]
 pub struct ConicalSurface {
     pub apex: [f64; 3],
@@ -112,7 +112,7 @@ impl ConicalSurface {
     pub fn apex_angle(&self) -> f64 { 2.0 * self.half_angle }
 }
 
-// occt: Geom_SphericalSurface
+// occt-ref: Geom_SphericalSurface
 #[derive(Clone, Debug)]
 pub struct SphericalSurface {
     pub center: [f64; 3],
@@ -146,7 +146,7 @@ fn dot(a: [f64; 3], b: [f64; 3]) -> f64 { a[0]*b[0]+a[1]*b[1]+a[2]*b[2] }
 fn mag(v: [f64; 3]) -> f64 { (v[0]*v[0]+v[1]*v[1]+v[2]*v[2]).sqrt() }
 fn cross(a: [f64; 3], b: [f64; 3]) -> [f64; 3] { [a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]] }
 fn normalize(v: [f64; 3]) -> [f64; 3] { let m=mag(v); if m>1e-14 {[v[0]/m,v[1]/m,v[2]/m]} else {[0.0,0.0,1.0]} }
-// occt: gp_Ax2(P, V) — automatic "X Direction" for a main direction V.
+// occt-note: gp_Ax2(P, V) — automatic "X Direction" for a main direction V.
 // Picks the smallest component of V and builds an orthogonal direction so
 // that e.g. V = +Z yields X = (1, 0, 0), matching OCCT axis placements.
 fn perp(n: [f64; 3]) -> [f64; 3] {

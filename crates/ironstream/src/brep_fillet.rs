@@ -1,9 +1,9 @@
 // FILE: brep_fillet.rs
 
-// occt: BRepFilletAPI_MakeFillet / BRepFilletAPI_MakeChamfer
+// occt-ref: BRepFilletAPI_MakeFillet // / BRepFilletAPI_MakeChamfer
 
 /// Error codes for fillet and chamfer operations.
-// occt: BRepFilletAPI error codes
+// occt-note: BRepFilletAPI error codes
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FilletError {
     NotDone,
@@ -20,7 +20,7 @@ pub struct FilletEdgeEntry {
 }
 
 /// 3D fillet builder for BRep solids.
-// occt: BRepFilletAPI_MakeFillet
+// occt-ref: BRepFilletAPI_MakeFillet
 pub struct BRepFilletApiMakeFillet {
     edges: Vec<FilletEdgeEntry>,
     is_done: bool,
@@ -75,7 +75,7 @@ impl Default for BRepFilletApiMakeFillet {
 }
 
 /// 3D chamfer builder for BRep solids.
-// occt: BRepFilletAPI_MakeChamfer
+// occt-ref: BRepFilletAPI_MakeChamfer
 pub struct BRepFilletApiMakeChamfer {
     edges: Vec<FilletEdgeEntry>,
     is_done: bool,

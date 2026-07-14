@@ -1,5 +1,6 @@
 // FILE: step_data_ext.rs
-// occt: StepData_StepModel, StepData_Protocol, StepData_SelectMember
+// occt: StepData_Protocol, StepData_SelectMember
+// occt-ref: StepData_StepModel
 
 use std::collections::HashMap;
 
@@ -39,7 +40,7 @@ impl StepEntity {
     pub fn get_attr(&self, key: &str) -> Option<&str> { self.attributes.get(key).map(|s| s.as_str()) }
 }
 
-// occt: StepData_StepModel — the data model for a STEP file
+// occt-ref: StepData_StepModel // — the data model for a STEP file
 #[derive(Clone, Debug, Default)]
 pub struct StepDataStepModel {
     pub entities: Vec<StepEntity>,
@@ -80,7 +81,7 @@ impl StepDataStepModel {
     }
 }
 
-// occt: StepData_Protocol — describes which STEP entities are recognized
+// occt: StepData_Protocol // — describes which STEP entities are recognized
 #[derive(Clone, Debug, Default)]
 pub struct StepDataProtocol {
     pub name: String,
@@ -110,7 +111,7 @@ pub enum SelectValue {
     Enum(String),
 }
 
-// occt: StepData_SelectMember — a typed member of a STEP SELECT value
+// occt: StepData_SelectMember // — a typed member of a STEP SELECT value
 #[derive(Clone, Debug)]
 pub struct StepDataSelectMember {
     pub kind: String,
@@ -147,7 +148,7 @@ impl StepDataSelectMember {
     }
 }
 
-// occt: StepData_EDescr — entity descriptor (type metadata)
+// occt: StepData_EDescr // — entity descriptor (type metadata)
 #[derive(Clone, Debug)]
 pub struct StepDataEDescr {
     pub type_name: String,

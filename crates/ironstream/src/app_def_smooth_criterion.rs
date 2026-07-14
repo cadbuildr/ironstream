@@ -1,5 +1,5 @@
 // FILE: app_def_smooth_criterion.rs
-// occt: AppDefSmoothCriterion
+// occt-ref: AppDefSmoothCriterion
 
 //! Approximation and constraint handling class.
 pub struct AppDefSmoothCriterion {

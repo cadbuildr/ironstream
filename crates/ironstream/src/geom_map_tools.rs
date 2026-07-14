@@ -1,6 +1,6 @@
 // FILE: crates/ironstream/src/geom_map_tools.rs
 
-// occt: TopTools_IndexedDataMapOfShapeListOfShape
+// occt-ref: TopTools_IndexedDataMapOfShapeListOfShape
 /// An ordered map from string keys to lists of strings, with O(1) lookup by
 /// key and O(1) lookup by insertion-order index.  Mirrors the semantics of
 /// TopTools_IndexedDataMapOfShapeListOfShape from Open CASCADE Technology.
@@ -74,7 +74,7 @@ impl Default for IndexedDataMap {
     }
 }
 
-// occt: NCollection_DataMap
+// occt-ref: NCollection_DataMap
 /// A generic unordered key-to-value map.  Mirrors the semantics of
 /// NCollection_DataMap from Open CASCADE Technology.
 pub struct DataMap<K: std::hash::Hash + Eq + Clone, V: Clone> {

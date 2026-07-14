@@ -1,6 +1,6 @@
 // FILE: src/visual3d_context.rs
 
-// occt: display mode — Visual3d_TypeOfSurfaceDetail / V3d_TypeOfVisualization
+// occt-note: display mode — Visual3d_TypeOfSurfaceDetail / V3d_TypeOfVisualization
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Visual3dContextMode {
     WireFrame,
@@ -9,7 +9,7 @@ pub enum Visual3dContextMode {
     FaceBoundary,
 }
 
-// occt: highlight style — Graphic3d_HighlightStyle
+// occt-note: highlight style — Graphic3d_HighlightStyle
 #[derive(Clone, Debug)]
 pub struct Visual3dHighlightStyle {
     color: [f32; 4],
@@ -48,7 +48,7 @@ impl Visual3dHighlightStyle {
     }
 }
 
-// occt: displayed structure record — Visual3d_StructureManager entry
+// occt-note: displayed structure record — Visual3d_StructureManager entry
 #[derive(Clone, Debug)]
 pub struct Visual3dDisplayed {
     structure_id: usize,
@@ -106,7 +106,7 @@ impl Visual3dDisplayed {
     }
 }
 
-// occt: Visual3d_View context stub — manages the set of displayed structures
+// occt-note: Visual3d_View context stub — manages the set of displayed structures
 pub struct Visual3dContext {
     displayed: Vec<Visual3dDisplayed>,
     background_color: [f32; 3],

@@ -1,10 +1,10 @@
 // FILE: ncollection_iter.rs
-// occt: NCollection_Iterator, NCollection_StlIterator,
+// occt: NCollection_Iterator, NCollection_StlIterator
 //       NCollection_IndexedMap, NCollection_IndexedDataMap
 
 use std::collections::HashMap;
 
-// occt: NCollection_IndexedMap<KEY> — bijective map: index (1-based) <-> KEY
+// occt-note: NCollection_IndexedMap<KEY> — bijective map: index (1-based) <-> KEY
 #[derive(Clone, Debug)]
 pub struct IndexedMap<K: Clone + PartialEq + std::hash::Hash + Eq> {
     keys: Vec<K>,
@@ -51,7 +51,7 @@ impl<K: Clone + PartialEq + std::hash::Hash + Eq> IndexedMap<K> {
     }
 }
 
-// occt: NCollection_IndexedDataMap<KEY, VAL> — indexed map with associated data
+// occt-note: NCollection_IndexedDataMap<KEY, VAL> — indexed map with associated data
 #[derive(Clone, Debug)]
 pub struct IndexedDataMap<K, V>
 where K: Clone + PartialEq + std::hash::Hash + Eq, V: Clone,
@@ -117,7 +117,7 @@ where K: Clone + PartialEq + std::hash::Hash + Eq, V: Clone,
     }
 }
 
-// occt: NCollection_List<T> — doubly linked list (Vec-backed)
+// occt-note: NCollection_List<T> — doubly linked list (Vec-backed)
 #[derive(Clone, Debug)]
 pub struct NCollectionList<T: Clone> {
     data: Vec<T>,
@@ -143,7 +143,7 @@ impl<T: Clone> NCollectionList<T> {
     pub fn as_slice(&self) -> &[T] { &self.data }
 }
 
-// occt: NCollection_Sequence<T> — random-access sequence (1-based)
+// occt-note: NCollection_Sequence<T> — random-access sequence (1-based)
 #[derive(Clone, Debug)]
 pub struct NCollectionSequence<T: Clone> {
     data: Vec<T>,

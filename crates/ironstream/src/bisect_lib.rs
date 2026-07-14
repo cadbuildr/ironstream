@@ -46,7 +46,7 @@ pub struct BisecResult {
     pub sense: i8,  // +1 or -1
 }
 
-// occt: Bisector_Bisec — computes bisector between two curves
+// occt: Bisector_Bisec // — computes bisector between two curves
 #[derive(Clone, Debug)]
 pub struct BisectorBisec {
     pub geom1_id: u32,
@@ -107,7 +107,7 @@ impl Default for BisectorBisec {
     fn default() -> Self { Self::new() }
 }
 
-// occt: MAT2d_Circuit — circuit of bisectors for medial-axis transform
+// occt: MAT2d_Circuit // — circuit of bisectors for medial-axis transform
 #[derive(Clone, Debug, Default)]
 pub struct Mat2dCircuit {
     pub geom_ids: Vec<u32>,
@@ -136,7 +136,7 @@ impl Mat2dCircuit {
     pub fn geom_id(&self, i: usize) -> Option<u32> { self.geom_ids.get(i).copied() }
 }
 
-// occt: MAT2d_Connexion — connexion between two primitives for MAT computation
+// occt: MAT2d_Connexion // — connexion between two primitives for MAT computation
 #[derive(Clone, Debug)]
 pub struct Mat2dConnexion {
     pub prim1_idx: usize,

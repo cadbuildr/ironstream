@@ -1,5 +1,5 @@
 // FILE: de_wrapper.rs
-// occt: DE_Wrapper, DE_ShapeFixParameters, DE_PluginHolder,
+// occt: DE_Wrapper, DE_ShapeFixParameters, DE_PluginHolder
 //       DE_ConfigurationNode
 
 use std::collections::HashMap;

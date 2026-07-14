@@ -26,25 +26,25 @@
 ///
 /// Variants are ordered from "nothing to do" to "hard failure" so that simple
 /// comparisons convey severity.
-// occt: ShapeFix status
+// occt-ref: ShapeFix // status
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum RepairStatus {
     /// The sub-shape was already valid; no action was taken.
-    // occt: ShapeFix_Status::FixedNothing / DONE1 absent
+    // occt-note: ShapeFix_Status::FixedNothing / DONE1 absent
     Ok,
     /// A defect was detected and corrected by modifying a *different* shape
     /// (e.g. an adjacent edge was adjusted).
-    // occt: ShapeFix_Status::Fixed (DONE2)
+    // occt-note: ShapeFix_Status::Fixed (DONE2)
     Fixed,
     /// A defect was detected and corrected by modifying the shape itself
     /// in-place.
-    // occt: ShapeFix_Status::FixedSelf (DONE1)
+    // occt-note: ShapeFix_Status::FixedSelf (DONE1)
     FixedSelf,
     /// A repair was attempted but failed; the shape may still be invalid.
-    // occt: ShapeFix_Status::Failed (FAIL1 / FAIL2)
+    // occt-note: ShapeFix_Status::Failed (FAIL1 / FAIL2)
     Failed,
     /// No repair was attempted because the issue type is not handled.
-    // occt: ShapeFix_Status not done (DONE absent)
+    // occt-note: ShapeFix_Status not done (DONE absent)
     NotDone,
 }
 
@@ -57,7 +57,7 @@ pub enum RepairStatus {
 /// Analogous to an entry in the OCCT `ShapeFix_Shape` message list: each issue
 /// records *what* went wrong (`issue_type`), *which* shape it belongs to
 /// (`shape_label`), and *how* the repair turned out (`status`).
-// occt: repair issue record
+// occt-note: repair issue record
 pub struct RepairIssue {
     /// Short identifier for the kind of defect (e.g. `"gap"`, `"degenerate_edge"`).
     issue_type: String,
@@ -112,7 +112,7 @@ impl RepairIssue {
 ///
 /// Mirrors the information that `ShapeFix_Shape` exposes after `Perform()`:
 /// the individual issue list and an overall "was anything changed" flag.
-// occt: ShapeFix result
+// occt-ref: ShapeFix // result
 pub struct ShapeFixResult {
     /// All issues detected during the repair pass.
     issues: Vec<RepairIssue>,
@@ -197,7 +197,7 @@ impl Default for ShapeFixResult {
 /// drives the actual repair logic, then records outcomes through this type.
 /// This mirrors how OCCT's `ShapeFix_Shape` orchestrates sub-fixers while
 /// exposing a unified status API.
-// occt: ShapeFix_Shape — repair a shape
+// occt-ref: ShapeFix_Shape // — repair a shape
 pub struct ShapeRepair {
     /// Working tolerance used during repair.  Corresponds to
     /// `ShapeFix_Shape::SetPrecision`.

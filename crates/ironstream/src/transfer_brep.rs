@@ -1,5 +1,6 @@
 // FILE: transfer_brep.rs
-// occt: TransferBRep_ShapeBinder, TransferBRep_ShapeMapper, Transfer_Binder, Transfer_FinderProcess
+// occt: TransferBRep_ShapeBinder, TransferBRep_ShapeMapper
+// occt-ref: Transfer_Binder, Transfer_FinderProcess
 
 use std::collections::HashMap;
 
@@ -21,7 +22,7 @@ impl TransferStatus {
     pub fn is_done(&self) -> bool { *self == TransferStatus::Done }
 }
 
-// occt: Transfer_Binder — wraps a result entity after transfer
+// occt-ref: Transfer_Binder // — wraps a result entity after transfer
 #[derive(Clone, Debug)]
 pub struct TransferBinder {
     pub status: TransferStatus,
@@ -54,7 +55,7 @@ impl TransferBinder {
     pub fn is_done(&self) -> bool { self.status.is_done() }
 }
 
-// occt: TransferBRep_ShapeBinder — binder that carries a shape (by ID)
+// occt: TransferBRep_ShapeBinder // — binder that carries a shape (by ID)
 #[derive(Clone, Debug, Default)]
 pub struct ShapeBinder {
     pub binder: TransferBinder,
@@ -76,7 +77,7 @@ impl ShapeBinder {
     pub fn is_done(&self) -> bool { self.binder.is_done() }
 }
 
-// occt: TransferBRep_ShapeMapper — maps a source entity to a shape
+// occt: TransferBRep_ShapeMapper // — maps a source entity to a shape
 #[derive(Clone, Debug)]
 pub struct ShapeMapper {
     pub source_id: u32,
@@ -102,7 +103,7 @@ impl ShapeMapper {
     pub fn is_mapped(&self) -> bool { self.is_mapped }
 }
 
-// occt: Transfer_FinderProcess — manages a collection of finders during transfer
+// occt-ref: Transfer_FinderProcess // — manages a collection of finders during transfer
 #[derive(Clone, Debug, Default)]
 pub struct FinderProcess {
     pub binders: HashMap<u32, ShapeBinder>,
@@ -139,7 +140,7 @@ impl FinderProcess {
     }
 }
 
-// occt: TransferBRep — utility functions for BRep transfers
+// occt: TransferBRep // — utility functions for BRep transfers
 pub struct TransferBrep;
 
 impl TransferBrep {

@@ -1,8 +1,8 @@
 // FILE: bsplclib_ext.rs
-// occt: BSplCLib_BuildCache, BSplCLib_KnotAnalyzer, BSplCLib_IntervalGenerator
+// occt-ref: BSplCLib_BuildCache, BSplCLib_KnotAnalyzer, BSplCLib_IntervalGenerator
 
 /// Cache for B-spline curve evaluation.
-/// occt: BSplCLib_BuildCache
+// occt-ref: BSplCLib_BuildCache
 #[derive(Clone, Debug)]
 pub struct BSplClibBuildCache {
     pub degree: usize,
@@ -44,7 +44,7 @@ impl Default for BSplClibBuildCache {
 }
 
 /// Knot vector analyzer.
-/// occt: BSplCLib_KnotAnalyzer
+// occt-ref: BSplCLib_KnotAnalyzer
 #[derive(Clone, Debug)]
 pub struct BSplClibKnotAnalyzer {
     pub knots: Vec<f64>,
@@ -86,7 +86,7 @@ impl Default for BSplClibKnotAnalyzer {
 }
 
 /// Generate evaluation intervals for a B-spline curve.
-/// occt: BSplCLib_IntervalGenerator
+// occt-ref: BSplCLib_IntervalGenerator
 #[derive(Clone, Debug)]
 pub struct BSplClibIntervalGenerator {
     pub start_param: f64,

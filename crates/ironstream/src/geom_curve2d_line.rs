@@ -48,7 +48,7 @@ fn cross2(a: [f64; 2], b: [f64; 2]) -> f64 {
 // Line2d
 // ---------------------------------------------------------------------------
 
-// occt: Geom2d_Line
+// occt-ref: Geom2d_Line
 /// An infinite parameterised line in the 2-D plane.
 ///
 /// The line is represented by an `origin` point and a unit `direction` vector.
@@ -67,7 +67,7 @@ pub struct Line2d {
 }
 
 impl Line2d {
-    // occt: Geom2d_Line::Geom2d_Line(P, V)
+    // occt-ref: Geom2d_Line // ::Geom2d_Line(P, V)
     /// Construct a `Line2d` from an origin point and a direction vector.
     ///
     /// The supplied `dir` is normalised; if it is degenerate the stored
@@ -79,7 +79,7 @@ impl Line2d {
         }
     }
 
-    // occt: Geom2d_Line — constructed through GCE2d_MakeLine(P1, P2)
+    // occt-ref: Geom2d_Line // — constructed through GCE2d_MakeLine(P1, P2)
     /// Construct a `Line2d` passing through two distinct points.
     ///
     /// The direction runs from `p1` to `p2`.  If the two points coincide the
@@ -88,7 +88,7 @@ impl Line2d {
         Line2d::new(p1, sub2(p2, p1))
     }
 
-    // occt: Geom2d_Line::D0 / Value
+    // occt-ref: Geom2d_Line // ::D0 / Value
     /// Evaluate the line at parameter `t`.
     ///
     /// ```text
@@ -101,7 +101,7 @@ impl Line2d {
         ]
     }
 
-    // occt: Geom2d_Line::D1
+    // occt-ref: Geom2d_Line // ::D1
     /// First derivative at parameter `_t`.
     ///
     /// For a line this is constant and equals `direction` regardless of `_t`.
@@ -109,7 +109,7 @@ impl Line2d {
         self.direction
     }
 
-    // occt: Geom2d_Line::D2
+    // occt-ref: Geom2d_Line // ::D2
     /// Second derivative at parameter `_t`.
     ///
     /// For a line this is always the zero vector (zero curvature).
@@ -117,7 +117,7 @@ impl Line2d {
         [0.0, 0.0]
     }
 
-    // occt: Geom2d_Line — parameter of projection, analogous to
+    // occt-ref: Geom2d_Line // — parameter of projection, analogous to
     //       GeomAPI_ProjectPointOnCurve in 2-D
     /// Return the parameter `t` of the foot of the perpendicular from `pt`
     /// onto the line.
@@ -129,7 +129,7 @@ impl Line2d {
         dot2(sub2(pt, self.origin), self.direction)
     }
 
-    // occt: Geom2d_Line::Distance
+    // occt-ref: Geom2d_Line // ::Distance
     /// Signed-free distance from point `pt` to the line.
     ///
     /// Computed as the magnitude of the component of `(pt − origin)`
@@ -144,7 +144,7 @@ impl Line2d {
         norm2(sub2(pt, foot))
     }
 
-    // occt: Geom2d_Line::Reverse
+    // occt-ref: Geom2d_Line // ::Reverse
     /// Reverse the orientation of the line in-place.
     ///
     /// After calling `reverse`, the parametric direction is negated:
@@ -153,7 +153,7 @@ impl Line2d {
         self.direction = [-self.direction[0], -self.direction[1]];
     }
 
-    // occt: Geom2d_Line — signed side test (no direct OCCT counterpart, but
+    // occt-ref: Geom2d_Line // — signed side test (no direct OCCT counterpart, but
     //       commonly derived from Geom2d_Line geometry)
     /// Return a signed value indicating which side of the line `pt` lies on.
     ///
@@ -165,7 +165,7 @@ impl Line2d {
         cross2(self.direction, sub2(pt, self.origin))
     }
 
-    // occt: Geom2d_Line — line/line intersection analogous to
+    // occt-ref: Geom2d_Line // — line/line intersection analogous to
     //       Geom2dAPI_InterCurveCurve for two lines
     /// Compute the parameter `t` on `self` at which `self` and `other`
     /// intersect.

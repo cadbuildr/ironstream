@@ -21,7 +21,7 @@ use crate::gp::Pnt;
 /// Meshing quality / control parameters.
 ///
 /// Mirrors `IMeshData_Parameters` / `BRepMesh_FastDiscret_Params` from OCCT.
-// occt: IMeshData_Parameters
+// occt-ref: IMeshData_Parameters
 #[derive(Clone, Debug)]
 pub struct IMeshData_Parameters {
     /// Maximum chord height deviation (absolute or relative — see `relative`).
@@ -233,7 +233,7 @@ impl Default for IMeshData_Curve {
 // ---------------------------------------------------------------------------
 
 /// Orientation of an edge relative to its parent wire.
-// occt: TopAbs_Orientation (Forward / Reversed)
+// occt: TopAbs_Orientation // (Forward / Reversed)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum EdgeOrientation {
     Forward,
@@ -333,7 +333,7 @@ impl IMeshData_Edge {
 // ---------------------------------------------------------------------------
 
 /// Status of a meshed face.
-// occt: IMeshData_Status (subset)
+// occt: IMeshData_Status // (subset)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FaceStatus {
     /// Not yet processed.

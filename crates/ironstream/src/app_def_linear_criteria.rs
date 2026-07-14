@@ -1,5 +1,5 @@
 // FILE: app_def_linear_criteria.rs
-// occt: AppDefLinearCriteria
+// occt-ref: AppDefLinearCriteria
 
 //! Approximation and constraint handling class.
 pub struct AppDefLinearCriteria {

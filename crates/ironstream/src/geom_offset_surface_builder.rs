@@ -11,7 +11,7 @@
 
 /// Parameters for an offset surface computation.
 ///
-// occt: Geom_OffsetSurface
+// occt-ref: Geom_OffsetSurface
 #[derive(Clone, Debug, PartialEq)]
 pub struct OffsetSurfaceParams {
     offset: f64,
@@ -85,7 +85,7 @@ impl Default for OffsetSurfaceParams {
 
 /// Result of an offset surface build operation.
 ///
-// occt: Geom_OffsetSurface (post-build result)
+// occt-ref: Geom_OffsetSurface // (post-build result)
 #[derive(Clone, Debug, PartialEq)]
 pub struct OffsetSurfaceResult {
     nb_patches: usize,
@@ -142,7 +142,7 @@ impl Default for OffsetSurfaceResult {
 ///
 /// Call `build(nb_patches)` to populate the result.
 ///
-// occt: Geom_OffsetSurface
+// occt-ref: Geom_OffsetSurface
 #[derive(Clone, Debug)]
 pub struct GeomOffsetSurfaceBuilder {
     /// Configuration parameters for this builder.

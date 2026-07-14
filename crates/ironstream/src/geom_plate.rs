@@ -1,6 +1,6 @@
 // FILE: geom_plate.rs
 
-// occt: GeomPlate_BuildPlateSurface continuity
+// occt-ref: GeomPlate_BuildPlateSurface // continuity
 /// Continuity order for plate surface constraints.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub enum PlateContinuity {
@@ -22,7 +22,7 @@ impl PlateCurveConstraint {
     }
 }
 
-// occt: GeomPlate_PointConstraint
+// occt-ref: GeomPlate_PointConstraint
 /// A point constraint for plate surface construction.
 pub struct PlatePointConstraint {
     pub point: [f64; 3],
@@ -56,7 +56,7 @@ impl PlateBuildParams {
     }
 }
 
-// occt: GeomPlate_BuildPlateSurface
+// occt-ref: GeomPlate_BuildPlateSurface
 /// Stub for OCCT's GeomPlate_BuildPlateSurface — constructs a plate surface
 /// from a set of curve and point constraints.
 pub struct GeomPlateBuildPlateSurface {

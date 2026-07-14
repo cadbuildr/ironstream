@@ -1,5 +1,5 @@
 // FILE: brep_prim_ext.rs
-// occt: BRepPrimAPI_MakeBox, BRepPrimAPI_MakeSphere,
+// occt-ref: BRepPrimAPI_MakeBox, BRepPrimAPI_MakeSphere
 //       BRepPrimAPI_MakeCylinder, BRepPrimAPI_MakeCone, BRepPrimAPI_MakeTorus
 
 use std::f64::consts::PI;
@@ -32,7 +32,7 @@ impl PrimCorner {
     pub fn new(x: f64, y: f64, z: f64) -> Self { Self { x, y, z } }
 }
 
-// occt: BRepPrimAPI_MakeBox — axis-aligned box
+// occt-ref: BRepPrimAPI_MakeBox // — axis-aligned box
 #[derive(Clone, Debug)]
 pub struct MakeBox {
     pub corner: PrimCorner,
@@ -74,7 +74,7 @@ impl MakeBox {
     }
 }
 
-// occt: BRepPrimAPI_MakeSphere
+// occt-ref: BRepPrimAPI_MakeSphere
 #[derive(Clone, Debug)]
 pub struct MakeSphere {
     pub center: [f64; 3],
@@ -116,7 +116,7 @@ impl MakeSphere {
     pub fn surface_area(&self) -> f64 { 4.0 * PI * self.radius.powi(2) }
 }
 
-// occt: BRepPrimAPI_MakeCylinder
+// occt-ref: BRepPrimAPI_MakeCylinder
 #[derive(Clone, Debug)]
 pub struct MakeCylinder {
     pub radius: f64,
@@ -149,7 +149,7 @@ impl MakeCylinder {
     pub fn lateral_area(&self) -> f64 { self.radius * self.angle * self.height }
 }
 
-// occt: BRepPrimAPI_MakeCone
+// occt-ref: BRepPrimAPI_MakeCone
 #[derive(Clone, Debug)]
 pub struct MakeCone {
     pub radius1: f64,  // base radius
@@ -183,7 +183,7 @@ impl MakeCone {
     }
 }
 
-// occt: BRepPrimAPI_MakeTorus
+// occt-ref: BRepPrimAPI_MakeTorus
 #[derive(Clone, Debug)]
 pub struct MakeTorus {
     pub r1: f64,  // major radius

@@ -1,5 +1,5 @@
 // FILE: geom_proj.rs
-// occt: GeomAPI_ProjectPointOnCurve, GeomAPI_ProjectPointOnSurface
+// occt-ref: GeomAPI_ProjectPointOnCurve, GeomAPI_ProjectPointOnSurface
 
 /// Status of a projection computation.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -18,7 +18,7 @@ impl ProjStatus {
     pub fn is_done(&self) -> bool { *self == ProjStatus::Done }
 }
 
-// occt: GeomAPI_ProjectPointOnCurve — projects a 3D point onto a curve
+// occt-ref: GeomAPI_ProjectPointOnCurve // — projects a 3D point onto a curve
 #[derive(Clone, Debug)]
 pub struct ProjectPointOnCurve {
     pub point: [f64; 3],
@@ -71,7 +71,7 @@ impl ProjectPointOnCurve {
     pub fn distance(&self, i: usize) -> Option<f64> { self.extrema_distances.get(i).copied() }
 }
 
-// occt: GeomAPI_ProjectPointOnSurface — projects a 3D point onto a surface
+// occt-note: GeomAPI_ProjectPointOnSurface — projects a 3D point onto a surface
 #[derive(Clone, Debug)]
 pub struct ProjectPointOnSurface {
     pub point: [f64; 3],

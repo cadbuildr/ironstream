@@ -1,9 +1,9 @@
 // FILE: ncollection_hash.rs
-// occt: NCollection_Hash, NCollection_Hashing, NCollection_HashSet,
+// occt-ref: NCollection_Hash, NCollection_Hashing, NCollection_HashSet
 //       NCollection_HashMap
 
 /// Hash function trait: abstract.
-/// occt: NCollection_Hash
+// occt-ref: NCollection_Hash
 pub trait NCollectionHashable {
     fn hash(&self) -> u32;
 }
@@ -34,7 +34,7 @@ impl NCollectionHashable for [f64; 3] {
 }
 
 /// Hash set: collision-chained hash table (stub).
-/// occt: NCollection_HashSet
+// occt-ref: NCollection_HashSet
 #[derive(Clone, Debug, Default)]
 pub struct NCollectionHashSet<T: Clone + NCollectionHashable + PartialEq> {
     pub entries: Vec<T>,
@@ -63,7 +63,7 @@ impl<T: Clone + NCollectionHashable + PartialEq> NCollectionHashSet<T> {
 }
 
 /// Hash map: key-value pairs (stub).
-/// occt: NCollection_HashMap
+// occt-ref: NCollection_HashMap
 #[derive(Clone, Debug)]
 pub struct NCollectionHashMap<K: Clone + NCollectionHashable + PartialEq, V: Clone> {
     pub pairs: Vec<(K, V)>,

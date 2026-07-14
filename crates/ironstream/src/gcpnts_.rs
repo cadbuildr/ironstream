@@ -1,5 +1,5 @@
 // FILE: gcpnts_.rs
-// occt: GCPnts_AbscissaPoint, GCPnts_UniformAbscissa,
+// occt-ref: GCPnts_AbscissaPoint, GCPnts_UniformAbscissa
 //       GCPnts_UniformDeflection, GCPnts_TangentialDeflection,
 //       GCPnts_QuasiUniformAbscissa
 
@@ -22,7 +22,7 @@ impl GcpntsStatus {
 }
 
 /// Computes a point at a given arc length from a start point.
-/// occt: GCPnts_AbscissaPoint
+// occt-ref: GCPnts_AbscissaPoint
 #[derive(Clone, Debug)]
 pub struct GcpntsAbscissaPoint {
     pub curve_id: u32,
@@ -60,7 +60,7 @@ impl GcpntsAbscissaPoint {
 }
 
 /// Distributes points uniformly in arc length along a curve.
-/// occt: GCPnts_UniformAbscissa
+// occt-ref: GCPnts_UniformAbscissa
 #[derive(Clone, Debug)]
 pub struct GcpntsUniformAbscissa {
     pub curve_id: u32,
@@ -111,7 +111,7 @@ impl GcpntsUniformAbscissa {
 }
 
 /// Distributes points uniformly by deflection (chord error).
-/// occt: GCPnts_UniformDeflection
+// occt-ref: GCPnts_UniformDeflection
 #[derive(Clone, Debug)]
 pub struct GcpntsUniformDeflection {
     pub curve_id: u32,
@@ -151,7 +151,7 @@ impl GcpntsUniformDeflection {
 }
 
 /// Distributes points using both angular and chordal deflection.
-/// occt: GCPnts_TangentialDeflection
+// occt-ref: GCPnts_TangentialDeflection
 #[derive(Clone, Debug)]
 pub struct GcpntsTangentialDeflection {
     pub curve_id: u32,

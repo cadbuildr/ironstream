@@ -68,7 +68,7 @@ impl MeshDataSource {
     }
 }
 
-// occt: MeshVS_Drawer — visual properties for mesh display
+// occt: MeshVS_Drawer // — visual properties for mesh display
 #[derive(Clone, Debug)]
 pub struct MeshDrawer {
     pub color: [f32; 4],

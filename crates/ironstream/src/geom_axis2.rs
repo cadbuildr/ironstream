@@ -31,7 +31,7 @@ fn dot3(a: [f64; 3], b: [f64; 3]) -> f64 {
 
 // ── Ax2 ──────────────────────────────────────────────────────────────────────
 
-// occt: gp_Ax2
+// occt-ref: gp_Ax2
 /// A right-handed coordinate system defined by an origin, a main Z-direction,
 /// and an X-direction (which must be orthogonal to the Z-direction).
 ///
@@ -114,7 +114,7 @@ impl Ax2 {
 
 // ── Ax3 ──────────────────────────────────────────────────────────────────────
 
-// occt: gp_Ax3
+// occt-ref: gp_Ax3
 /// A general (right- or left-handed) 3D coordinate system.
 ///
 /// Unlike `Ax2`, an `Ax3` can represent both right-handed and left-handed

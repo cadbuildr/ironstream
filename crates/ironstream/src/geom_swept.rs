@@ -1,12 +1,12 @@
 // FILE: geom_swept.rs
-// occt: Geom_SweptSurface, Geom_SurfaceOfLinearExtrusion,
+// occt-ref: Geom_SweptSurface, Geom_SurfaceOfLinearExtrusion
 //       Geom_SurfaceOfRevolution, Geom_RectangularTrimmedSurface,
 //       Geom_OffsetSurface
 
 use std::f64::consts::PI;
 
 /// A linear extrusion surface: S(u, v) = C(u) + v * D.
-/// occt: Geom_SurfaceOfLinearExtrusion
+// occt-ref: Geom_SurfaceOfLinearExtrusion
 #[derive(Clone, Debug)]
 pub struct GeomSurfLinExtrusion {
     pub curve_id: u32,
@@ -54,7 +54,7 @@ impl GeomSurfLinExtrusion {
 }
 
 /// A surface of revolution: rotate a curve around an axis.
-/// occt: Geom_SurfaceOfRevolution
+// occt-ref: Geom_SurfaceOfRevolution
 #[derive(Clone, Debug)]
 pub struct GeomSurfRevolution {
     pub curve_id: u32,
@@ -101,7 +101,7 @@ impl GeomSurfRevolution {
 }
 
 /// A rectangular trimmed surface: restricts S to [u1,u2] × [v1,v2].
-/// occt: Geom_RectangularTrimmedSurface
+// occt-ref: Geom_RectangularTrimmedSurface
 #[derive(Clone, Debug)]
 pub struct GeomRectTrimmedSurface {
     pub basis_surface_id: u32,
@@ -158,7 +158,7 @@ impl GeomRectTrimmedSurface {
 }
 
 /// An offset surface: S_offset(u,v) = S(u,v) + offset * N(u,v).
-/// occt: Geom_OffsetSurface
+// occt-ref: Geom_OffsetSurface
 #[derive(Clone, Debug)]
 pub struct GeomOffsetSurface {
     pub basis_surface_id: u32,

@@ -35,7 +35,7 @@ const TWO_PI: f64 = 2.0 * PI;
 ///
 /// `major_radius` must be greater than or equal to `minor_radius`, and both
 /// must be non-negative.
-// occt: Geom2d_Ellipse
+// occt-ref: Geom2d_Ellipse
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Ellipse2dCurve {
     /// Centre of the ellipse `[cx, cy]`.

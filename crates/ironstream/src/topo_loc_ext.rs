@@ -1,9 +1,10 @@
 // FILE: topo_loc_ext.rs
-// occt: TopLoc_Location, TopLoc_SHasher, TopLoc_IndexedMapOfLocation
+// occt: TopLoc_IndexedMapOfLocation
+// occt-ref: TopLoc_Location, TopLoc_SHasher
 
 /// A composed location: sequence of (displacement_id, power) pairs.
 /// power is typically +1 (forward) or -1 (inverse).
-/// occt: TopLoc_Location
+// occt-ref: TopLoc_Location
 #[derive(Clone, Debug, Default)]
 pub struct TopoLocLocation {
     pub items: Vec<(u32, i32)>,  // (displacement_id, power)
@@ -63,7 +64,7 @@ impl PartialEq for TopoLocLocation {
 }
 
 /// Hash utility for TopLoc_Location.
-/// occt: TopLoc_SHasher
+// occt-ref: TopLoc_SHasher
 pub struct TopoLocSHasher;
 
 impl TopoLocSHasher {

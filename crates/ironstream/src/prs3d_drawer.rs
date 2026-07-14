@@ -8,7 +8,7 @@ pub enum Prs3dTypeOfHLR {
     Algo,
 }
 
-// occt: Prs3d_LineAspect
+// occt-ref: Prs3d_LineAspect
 #[derive(Debug, Clone, PartialEq)]
 pub struct Prs3dLineAspect {
     color: [f32; 4],
@@ -46,7 +46,7 @@ impl Prs3dLineAspect {
     }
 }
 
-// occt: Prs3d_ShadingAspect
+// occt-ref: Prs3d_ShadingAspect
 #[derive(Debug, Clone, PartialEq)]
 pub struct Prs3dShadingAspect {
     color: [f32; 4],

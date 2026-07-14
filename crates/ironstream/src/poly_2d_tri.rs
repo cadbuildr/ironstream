@@ -1,9 +1,9 @@
 // FILE: poly_2d_tri.rs
-// occt: Poly_2DTriangulation, Poly_Triangle, Poly_Array1OfTriangle,
+// occt-ref: Poly_2DTriangulation, Poly_Triangle, Poly_Array1OfTriangle
 //       Poly_MakeLoops, Poly_CoherentTriangle
 
 /// A triangle defined by three node indices (1-based, OCCT convention).
-/// occt: Poly_Triangle
+// occt-ref: Poly_Triangle
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub struct PolyTriangle {
     pub n1: u32,
@@ -24,7 +24,7 @@ impl PolyTriangle {
 }
 
 /// 1-based array of triangles.
-/// occt: Poly_Array1OfTriangle
+// occt-ref: Poly_Array1OfTriangle
 #[derive(Clone, Debug, Default)]
 pub struct PolyArray1OfTriangle {
     pub data: Vec<PolyTriangle>,
@@ -52,7 +52,7 @@ impl PolyArray1OfTriangle {
 }
 
 /// 2D triangulation (UV mesh).
-/// occt: Poly_2DTriangulation
+// occt-ref: Poly_2DTriangulation
 #[derive(Clone, Debug, Default)]
 pub struct Poly2DTriangulation {
     pub nodes: Vec<[f64; 2]>,           // UV coordinates
@@ -129,7 +129,7 @@ impl PolyCoherentTriangle {
 }
 
 /// Loop builder for polygon edge loops.
-/// occt: Poly_MakeLoops (simplified)
+/// occt: Poly_MakeLoops // (simplified)
 #[derive(Clone, Debug, Default)]
 pub struct PolyMakeLoops {
     pub edges: Vec<(u32, u32)>,     // directed edges (from, to)

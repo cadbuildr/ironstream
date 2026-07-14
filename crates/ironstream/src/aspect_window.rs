@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/aspect_window.rs
 
-// occt: Aspect_Window type — enum NativeWindow, OffscreenBuffer, VirtualWindow
+// occt: Aspect_Window // type — enum NativeWindow, OffscreenBuffer, VirtualWindow
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum AspectWindowType {
     NativeWindow,
@@ -8,7 +8,7 @@ pub enum AspectWindowType {
     VirtualWindow,
 }
 
-// occt: window creation params — fields: width u32, height u32, x i32, y i32,
+// occt-note: window creation params — fields: width u32, height u32, x i32, y i32,
 //       title String, background_color [f32; 3]
 #[derive(Debug, Clone)]
 pub struct AspectWindowParams {
@@ -66,7 +66,7 @@ impl AspectWindowParams {
     }
 }
 
-// occt: Aspect_Window stub — fields: params AspectWindowParams,
+// occt: Aspect_Window // stub — fields: params AspectWindowParams,
 //       window_type AspectWindowType, is_mapped bool
 #[derive(Debug, Clone)]
 pub struct AspectWindow {

@@ -1,7 +1,8 @@
 // FILE: geom_poly_surface.rs
-// occt: Geom_PolygonOnSurface, Geom_UndefinedValue, Geom_SequenceOfSurface
+// occt: Geom_UndefinedValue
+// occt-ref: Geom_PolygonOnSurface, Geom_SequenceOfSurface
 
-// occt: Geom_SequenceOfSurface (represented as a parameterized surface list)
+// occt-note: Geom_SequenceOfSurface (represented as a parameterized surface list)
 #[derive(Clone, Debug, Default)]
 pub struct SequenceOfSurface {
     pub surfaces: Vec<SurfaceHandle>,
@@ -21,7 +22,7 @@ impl SequenceOfSurface {
     pub fn clear(&mut self) { self.surfaces.clear(); }
 }
 
-// occt: Geom_PolygonOnSurface
+// occt-ref: Geom_PolygonOnSurface
 /// Represents a polygon embedded on a parametric surface (as UV-polyline).
 #[derive(Clone, Debug)]
 pub struct PolygonOnSurface {
@@ -41,7 +42,7 @@ impl PolygonOnSurface {
     }
 }
 
-// occt: Geom_OffsetSurface (parametric offset)
+// occt-ref: Geom_OffsetSurface // (parametric offset)
 /// Surface offset by a constant distance along its normal.
 #[derive(Clone, Debug)]
 pub struct OffsetSurface {
@@ -58,7 +59,7 @@ impl OffsetSurface {
     pub fn offset_value(&self) -> f64 { self.offset }
 }
 
-// occt: Geom_RectangularTrimmedSurface
+// occt-ref: Geom_RectangularTrimmedSurface
 /// A surface trimmed to a rectangular UV domain.
 #[derive(Clone, Debug)]
 pub struct RectangularTrimmedSurface {
@@ -83,7 +84,7 @@ impl RectangularTrimmedSurface {
     pub fn is_v_periodic(&self) -> bool { false }
 }
 
-// occt: Geom_SweptSurface (abstract base for revolution/extrusion)
+// occt-ref: Geom_SweptSurface // (abstract base for revolution/extrusion)
 #[derive(Clone, Debug)]
 pub struct SweptSurface {
     pub direction: [f64; 3],

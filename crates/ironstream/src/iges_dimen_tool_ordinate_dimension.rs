@@ -1,5 +1,5 @@
 // FILE: iges_dimen_tool_ordinate_dimension.rs
-// occt: IGESDimen_dimentoolordinatedimension
+// occt-ref: IGESDimen_dimentoolordinatedimension
 
 pub struct IGESDimen_dimentoolordinatedimension;
 

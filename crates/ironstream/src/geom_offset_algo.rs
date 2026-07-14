@@ -1,24 +1,24 @@
-// occt: Geom2dOffset_Status, GeomAPI_OffsetCurve, Geom2dAdaptor_Curve offset result
+// occt-note: Geom2dOffset_Status, GeomAPI_OffsetCurve, Geom2dAdaptor_Curve offset result
 
 /// Status codes returned by 2D/3D offset curve algorithms.
 ///
-// occt: Geom2dOffset_Status
+// occt-ref: Geom2dOffset_Status
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum OffsetAlgoStatus {
     /// No error — the offset was computed successfully.
-    // occt: Geom2dOffset_NoError
+    // occt-ref: Geom2dOffset_NoError
     NoError,
     /// The basis curve does not have sufficient continuity.
-    // occt: Geom2dOffset_NotContinuous
+    // occt-ref: Geom2dOffset_NotContinuous
     NotContinuous,
     /// The algorithm could not trim the offset curve.
-    // occt: Geom2dOffset_CannotTrim
+    // occt-ref: Geom2dOffset_CannotTrim
     CannotTrim,
     /// The algorithm could not close the offset curve.
-    // occt: Geom2dOffset_CannotCloseOffset
+    // occt-ref: Geom2dOffset_CannotCloseOffset
     CannotCloseOffset,
     /// The offset distance produces a null (degenerate) offset curve.
-    // occt: Geom2dOffset_NullOffsetCurve
+    // occt-ref: Geom2dOffset_NullOffsetCurve
     NullOffsetCurve,
 }
 
@@ -28,20 +28,20 @@ pub enum OffsetAlgoStatus {
 
 /// Parameters for a 3D offset curve computation.
 ///
-// occt: GeomAPI_OffsetCurve params
+// occt-note: GeomAPI_OffsetCurve params
 #[derive(Clone, Debug)]
 pub struct GeomOffsetCurveParams {
     /// Signed offset distance.
-    // occt: GeomAPI_OffsetCurve::Offset
+    // occt-note: GeomAPI_OffsetCurve::Offset
     offset: f64,
     /// Reference direction used to compute the offset normal: N = normalize(direction × T).
-    // occt: GeomAPI_OffsetCurve::Direction (gp_Dir)
+    // occt-note: GeomAPI_OffsetCurve::Direction (gp_Dir)
     direction: [f64; 3],
     /// Required geometric continuity order (1 = C1, 2 = C2, …).
-    // occt: GeomAPI_OffsetCurve::Continuity (GeomAbs_Shape)
+    // occt-note: GeomAPI_OffsetCurve::Continuity (GeomAbs_Shape)
     continuity: u8,
     /// Tolerance used during the offset computation.
-    // occt: GeomAPI_OffsetCurve::Tolerance
+    // occt-note: GeomAPI_OffsetCurve::Tolerance
     tolerance: f64,
 }
 
@@ -90,11 +90,11 @@ impl GeomOffsetCurveParams {
 
 /// Result of a 3D offset curve computation.
 ///
-// occt: offset result (GeomAPI_OffsetCurve)
+// occt-note: offset result (GeomAPI_OffsetCurve)
 #[derive(Clone, Debug)]
 pub struct GeomOffsetCurveResult {
     /// Current status of the algorithm.
-    // occt: Geom2dOffset_Status
+    // occt-ref: Geom2dOffset_Status
     status: OffsetAlgoStatus,
     /// Whether the computation completed successfully.
     is_done: bool,
@@ -147,17 +147,17 @@ impl Default for GeomOffsetCurveResult {
 
 /// Parameters for a 2D offset curve computation.
 ///
-// occt: Geom2dAdaptor_Curve offset params
+// occt-ref: Geom2dAdaptor_Curve // offset params
 #[derive(Clone, Debug)]
 pub struct Geom2dOffsetCurveParams {
     /// Signed offset distance.
-    // occt: Geom2d_OffsetCurve offset value
+    // occt-ref: Geom2d_OffsetCurve // offset value
     offset: f64,
     /// Tolerance for the offset computation.
-    // occt: Geom2dOffset tolerance
+    // occt-note: Geom2dOffset tolerance
     tolerance: f64,
     /// Join type: `0` = arc join, `1` = tangent (intersection) join.
-    // occt: GeomAbs_JoinType (0=Arc, 1=Tangent)
+    // occt-ref: GeomAbs_JoinType // (0=Arc, 1=Tangent)
     join_type: u8,
 }
 
@@ -200,13 +200,13 @@ impl Geom2dOffsetCurveParams {
 
 /// Result of a 2D offset curve computation.
 ///
-// occt: 2D offset curve result (Geom2dAdaptor / Geom2dOffset)
+// occt-note: 2D offset curve result (Geom2dAdaptor / Geom2dOffset)
 #[derive(Clone, Debug)]
 pub struct Geom2dOffsetResult {
     /// Whether the computation completed successfully.
     is_done: bool,
     /// Current status of the algorithm.
-    // occt: Geom2dOffset_Status
+    // occt-ref: Geom2dOffset_Status
     status: OffsetAlgoStatus,
     /// Number of intervals in the resulting offset curve.
     nb_intervals: usize,

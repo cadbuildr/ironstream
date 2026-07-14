@@ -1,9 +1,9 @@
 // FILE: geom_catenary.rs
-// occt: Geom_Curve (catenary), Law_Interpolate
+// occt-ref: Geom_Curve // (catenary), Law_Interpolate
 
 use std::f64::consts::PI;
 
-// occt: (catenary curve)
+// occt-note: (catenary curve)
 /// Catenary: y = a * cosh(x/a) in 3-D.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Catenary {
@@ -43,7 +43,7 @@ impl Catenary {
     }
 }
 
-// occt: (clothoid / Euler spiral)
+// occt-note: (clothoid / Euler spiral)
 #[derive(Clone, Copy, Debug)]
 pub struct Clothoid {
     pub a: f64,

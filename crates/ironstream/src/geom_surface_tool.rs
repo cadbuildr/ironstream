@@ -17,7 +17,7 @@ pub enum GeomSurfaceType {
     OtherSurface,
 }
 
-// occt: GeomAdaptor_Surface info struct
+// occt-ref: GeomAdaptor_Surface // info struct
 /// Lightweight descriptor of a surface's parametric domain and continuity,
 /// mirroring the bookkeeping portion of `GeomAdaptor_Surface`.
 #[derive(Debug, Clone, Copy)]
@@ -87,32 +87,32 @@ impl GeomSurfaceInfo {
         self.continuity = c;
     }
 
-    // occt: GeomAdaptor_Surface::IsUClosed
+    // occt-ref: GeomAdaptor_Surface // ::IsUClosed
     /// Returns `false` in this stub implementation.
     pub fn is_u_closed(&self) -> bool {
         false
     }
 
-    // occt: GeomAdaptor_Surface::IsVClosed
+    // occt-ref: GeomAdaptor_Surface // ::IsVClosed
     /// Returns `false` in this stub implementation.
     pub fn is_v_closed(&self) -> bool {
         false
     }
 
-    // occt: GeomAdaptor_Surface::IsUPeriodic
+    // occt-ref: GeomAdaptor_Surface // ::IsUPeriodic
     /// Returns `false` in this stub implementation.
     pub fn is_u_periodic(&self) -> bool {
         false
     }
 
-    // occt: GeomAdaptor_Surface::IsVPeriodic
+    // occt-ref: GeomAdaptor_Surface // ::IsVPeriodic
     /// Returns `false` in this stub implementation.
     pub fn is_v_periodic(&self) -> bool {
         false
     }
 }
 
-// occt: surface evaluation at (u,v)
+// occt-note: surface evaluation at (u,v)
 /// Evaluates a surface at parametric coordinates `(u, v)`, mirroring the
 /// evaluation methods of `GeomAdaptor_Surface`.
 ///
@@ -138,7 +138,7 @@ impl GeomSurfaceEvaluator {
         &self.surface_info
     }
 
-    // occt: GeomAdaptor_Surface::Value
+    // occt-ref: GeomAdaptor_Surface // ::Value
     /// Point on the surface at `(u, v)`.
     ///
     /// - Plane    → `[u, v, 0.0]`
@@ -151,7 +151,7 @@ impl GeomSurfaceEvaluator {
         }
     }
 
-    // occt: GeomAdaptor_Surface::D1
+    // occt-ref: GeomAdaptor_Surface // ::D1
     /// Point and first-order partial derivatives at `(u, v)`.
     ///
     /// Returns `(point, d_du, d_dv)`.
@@ -176,7 +176,7 @@ impl GeomSurfaceEvaluator {
         }
     }
 
-    // occt: GeomAdaptor_Surface::Normal
+    // occt-ref: GeomAdaptor_Surface // ::Normal
     /// Unit surface normal at `(u, v)`, computed as the cross product of the
     /// partial derivatives `d_du × d_dv`, normalised to unit length.
     ///

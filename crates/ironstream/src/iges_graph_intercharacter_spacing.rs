@@ -1,5 +1,5 @@
 // FILE: iges_graph_intercharacter_spacing.rs
-// occt: IGESGraph_Uintercharacterspacing
+// occt-ref: IGESGraph_Uintercharacterspacing
 
 pub struct UintercharacterUspacing {
     entity_type: i32,

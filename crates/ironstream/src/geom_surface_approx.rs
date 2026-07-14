@@ -243,7 +243,7 @@ fn fit_row(
 /// The fit always uses `nb_u_poles() == nb_data_rows` and
 /// `nb_v_poles() == nb_data_cols` (interpolating-count heuristic).  The
 /// achieved root-mean-square deviation is accessible via [`SurfaceApprox::error`].
-// occt: GeomApprox_SurFace
+// occt-ref: GeomApprox_SurFace
 #[derive(Clone, Debug)]
 pub struct SurfaceApprox {
     /// Input data: each entry is one U-row of (u, v, w) data points.

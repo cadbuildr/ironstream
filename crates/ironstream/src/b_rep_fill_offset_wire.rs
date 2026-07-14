@@ -1,5 +1,5 @@
 // FILE: b_rep_fill_offset_wire.rs
-// occt: Brepfilloffsetwire
+// occt-ref: Brepfilloffsetwire
 
 #[derive(Clone, Debug)]
 pub struct Brepfilloffsetwire;

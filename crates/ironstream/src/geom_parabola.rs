@@ -514,7 +514,7 @@ impl Parabola3d {
 /// ```text
 /// P(t) = (vx + t² / (4·focal),  vy + t)
 /// ```
-// occt: Geom2d_Parabola
+// occt-ref: Geom2d_Parabola
 #[derive(Clone, Copy, Debug)]
 pub struct Parabola2d {
     /// The vertex of the parabola.

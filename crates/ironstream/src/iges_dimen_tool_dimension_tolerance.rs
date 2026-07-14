@@ -1,5 +1,5 @@
 // FILE: iges_dimen_tool_dimension_tolerance.rs
-// occt: IGESDimen_dimentooldimensiontolerance
+// occt-ref: IGESDimen_dimentooldimensiontolerance
 
 pub struct IGESDimen_dimentooldimensiontolerance;
 

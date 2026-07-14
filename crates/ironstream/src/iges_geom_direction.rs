@@ -1,5 +1,5 @@
 // FILE: iges_geom_direction.rs
-// occt: IGESGeom_Udirection
+// occt-ref: IGESGeom_Udirection
 
 pub struct Udirection {
     entity_type: i32,

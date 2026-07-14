@@ -140,7 +140,7 @@ impl Default for ReShape {
 /// a `TopoDS_Wire` in connectivity order (end of edge N = start of edge N+1).
 /// This string-based stub preserves the same iterator protocol so callers can
 /// be written against the same API shape.
-// occt: BRepTools_WireExplorer
+// occt-ref: BRepTools_WireExplorer
 pub struct WireExplorer {
     /// The ordered sequence of edge names that make up the wire.
     pub wire: Vec<String>,

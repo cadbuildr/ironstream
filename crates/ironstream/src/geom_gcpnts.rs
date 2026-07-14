@@ -19,7 +19,7 @@
 /// The full OCCT implementation integrates the curve speed numerically
 /// (Gauss–Legendre quadrature); this port uses linear interpolation as a
 /// stub suitable for unit-speed parameterizations or testing purposes.
-// occt: GCPnts_AbscissaPoint
+// occt-ref: GCPnts_AbscissaPoint
 #[derive(Clone, Debug)]
 pub struct GcpntsAbscissaPoint {
     /// The found parameter, valid only when `is_done` is true.
@@ -98,7 +98,7 @@ impl Default for GcpntsAbscissaPoint {
 /// the speed of the curve; this port computes evenly spaced parameters as a
 /// stub appropriate for unit-speed or arc-length-parameterized curves and for
 /// testing purposes.
-// occt: GCPnts_UniformAbscissa
+// occt-ref: GCPnts_UniformAbscissa
 #[derive(Clone, Debug)]
 pub struct GcpntsUniformAbscissa {
     /// The distributed parameter values (length `nb_points`).

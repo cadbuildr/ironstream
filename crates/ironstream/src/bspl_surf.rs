@@ -1,5 +1,5 @@
 // FILE: bspl_surf.rs
-// occt: Geom_BSplineSurface, GeomConvert_ApproxSurface,
+// occt-ref: Geom_BSplineSurface, GeomConvert_ApproxSurface
 //       GeomFill_NSections, GeomFill_BSplineCurves
 
 use std::f64::consts::PI;
@@ -16,7 +16,7 @@ impl Default for FillingOrder {
     fn default() -> Self { Self::Curved }
 }
 
-// occt: Geom_BSplineSurface — NURBS/B-spline surface
+// occt-ref: Geom_BSplineSurface // — NURBS/B-spline surface
 #[derive(Clone, Debug)]
 pub struct GeomBSplineSurface {
     pub surface_id: u32,
@@ -111,7 +111,7 @@ impl GeomBSplineSurface {
     }
 }
 
-// occt: GeomConvert_ApproxSurface — approximates an arbitrary surface by a B-spline
+// occt-ref: GeomConvert_ApproxSurface // — approximates an arbitrary surface by a B-spline
 #[derive(Clone, Debug)]
 pub struct GeomConvertApproxSurface {
     pub input_surface_id: u32,
@@ -157,7 +157,7 @@ impl GeomConvertApproxSurface {
     pub fn average_error(&self) -> f64 { self.error / 2.0 }
 }
 
-// occt: GeomFill_NSections — builds a B-spline surface from N section curves
+// occt: GeomFill_NSections // — builds a B-spline surface from N section curves
 #[derive(Clone, Debug, Default)]
 pub struct GeomFillNSections {
     pub section_ids: Vec<u32>,
@@ -187,7 +187,7 @@ impl GeomFillNSections {
     pub fn is_rational(&self) -> bool { self.is_rational }
 }
 
-// occt: GeomFill_BSplineCurves — 4-boundary filling by B-spline
+// occt-ref: GeomFill_BSplineCurves // — 4-boundary filling by B-spline
 #[derive(Clone, Debug)]
 pub struct GeomFillBSplineCurves {
     pub curve_ids: [u32; 4],

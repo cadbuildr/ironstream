@@ -1,9 +1,9 @@
 // FILE: topo_map.rs
-// occt: TopTools_IndexedMapOfShape, TopTools_MapOfShape, TopTools_DataMapOfShapeShape
+// occt-ref: TopTools_IndexedMapOfShape, TopTools_MapOfShape, TopTools_DataMapOfShapeShape
 
 use std::collections::HashMap;
 
-// occt: TopTools_MapOfShape
+// occt-ref: TopTools_MapOfShape
 /// Unordered set of shapes identified by their topology pointer.
 #[derive(Clone, Debug, Default)]
 pub struct MapOfShape {
@@ -34,7 +34,7 @@ impl MapOfShape {
     pub fn clear(&mut self) { self.entries.clear(); }
 }
 
-// occt: TopTools_IndexedMapOfShape
+// occt-ref: TopTools_IndexedMapOfShape
 /// Ordered map from shape to integer index (1-based).
 #[derive(Clone, Debug, Default)]
 pub struct IndexedMapOfShape {
@@ -63,7 +63,7 @@ impl IndexedMapOfShape {
     pub fn clear(&mut self) { self.shapes.clear(); }
 }
 
-// occt: TopTools_DataMapOfShapeShape
+// occt-ref: TopTools_DataMapOfShapeShape
 /// Map from shape to shape.
 #[derive(Clone, Debug, Default)]
 pub struct DataMapOfShapeShape {
@@ -80,7 +80,7 @@ impl DataMapOfShapeShape {
     pub fn clear(&mut self) { self.map.clear(); }
 }
 
-// occt: TopTools_DataMapOfShapeListOfShape
+// occt-ref: TopTools_DataMapOfShapeListOfShape
 /// Map from shape to list of shapes.
 #[derive(Clone, Debug, Default)]
 pub struct DataMapOfShapeListOfShape {

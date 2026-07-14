@@ -1,5 +1,5 @@
 // FILE: iges_graph_drawing_size.rs
-// occt: IGESGraph_Udrawingsize
+// occt-ref: IGESGraph_Udrawingsize
 
 pub struct UdrawingUsize {
     entity_type: i32,

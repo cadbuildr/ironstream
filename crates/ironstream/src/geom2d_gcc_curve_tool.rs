@@ -1,5 +1,5 @@
 // FILE: geom2d_gcc_curve_tool.rs
-// occt: geom2d::gcc::curve::tool
+// occt-note: geom2d::gcc::curve::tool
 
 pub struct Stub;
 

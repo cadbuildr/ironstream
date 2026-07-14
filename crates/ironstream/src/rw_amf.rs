@@ -1,5 +1,5 @@
 // FILE: rw_amf.rs
-// occt: RWAmf (Additive Manufacturing Format reader/writer stubs)
+// occt-note: RWAmf (Additive Manufacturing Format reader/writer stubs)
 
 /// AMF constellation instance (positioned object).
 #[derive(Clone, Debug)]
@@ -80,7 +80,7 @@ impl AmfVolume {
 }
 
 /// An AMF object (mesh + volumes).
-/// occt: RWAmf (object representation)
+/// occt-note: RWAmf (object representation)
 #[derive(Clone, Debug)]
 pub struct AmfObject {
     pub id: u32,
@@ -108,7 +108,7 @@ impl AmfObject {
 }
 
 /// AMF document (top-level container).
-/// occt: RWAmf_Reader / RWAmf_Writer target model
+/// occt-note: RWAmf_Reader / RWAmf_Writer target model
 #[derive(Clone, Debug, Default)]
 pub struct AmfDocument {
     pub unit: String,

@@ -1,9 +1,10 @@
 // FILE: transfer_actor.rs
-// occt: Transfer_Actor, Transfer_ActorOfTransientProcess, Transfer_Binder,
+// occt: Transfer_ActorOfTransientProcess
+// occt-ref: Transfer_Actor, Transfer_Binder
 //       Transfer_SimpleBinderOfTransient
 
 /// Binder: maps entities during transfer (read/write operations).
-/// occt: Transfer_Binder (abstract base)
+// occt-ref: Transfer_Binder // (abstract base)
 #[derive(Clone, Debug)]
 pub struct TransferBinder {
     pub binder_id: u32,
@@ -55,7 +56,7 @@ impl SimpleBinderOfTransient {
 }
 
 /// Actor: converts entities during transfer.
-/// occt: Transfer_Actor (abstract)
+/// occt-note: Transfer_Actor (abstract)
 #[derive(Clone, Debug)]
 pub struct TransferActor {
     pub actor_id: u32,
@@ -90,7 +91,7 @@ impl TransferActor {
 }
 
 /// Process: manages actors and bindings during transfer.
-/// occt: Transfer_ActorOfTransientProcess (simplified)
+/// occt: Transfer_ActorOfTransientProcess // (simplified)
 #[derive(Clone, Debug, Default)]
 pub struct TransferProcess {
     pub actors: Vec<TransferActor>,

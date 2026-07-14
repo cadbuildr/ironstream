@@ -1,5 +1,5 @@
 // FILE: rw_obj_o.rs
-// occt: RWObj
+// occt-ref: RWObj
 
 //! OBJ file format reader and writer.
 

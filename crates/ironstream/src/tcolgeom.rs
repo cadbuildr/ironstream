@@ -1,5 +1,6 @@
 // FILE: tcolgeom.rs
-// occt: TColgp_Array1OfDir, TColgp_Array1OfVec, TColgp_Array1OfPnt2d,
+// occt: TColgp_Array1OfDir
+// occt-ref: TColgp_Array1OfVec, TColgp_Array1OfPnt2d
 //       TColStd_Array1OfInteger, TColStd_SequenceOfInteger,
 //       TColStd_Array1OfReal
 
@@ -36,7 +37,7 @@ impl TColgpArray1OfDir {
 }
 
 /// 1D array of 3D vectors (not necessarily unit).
-/// occt: TColgp_Array1OfVec
+// occt-ref: TColgp_Array1OfVec
 #[derive(Clone, Debug)]
 pub struct TColgpArray1OfVec {
     pub lower: usize,
@@ -66,7 +67,7 @@ impl TColgpArray1OfVec {
 }
 
 /// 1D array of integers.
-/// occt: TColStd_Array1OfInteger
+// occt-ref: TColStd_Array1OfInteger
 #[derive(Clone, Debug)]
 pub struct TColStdArray1OfInt {
     pub lower: usize,
@@ -99,7 +100,7 @@ impl TColStdArray1OfInt {
 }
 
 /// 1D array of real values.
-/// occt: TColStd_Array1OfReal
+// occt-ref: TColStd_Array1OfReal
 #[derive(Clone, Debug)]
 pub struct TColStdArray1OfReal {
     pub lower: usize,
@@ -133,7 +134,7 @@ impl TColStdArray1OfReal {
 }
 
 /// Sequence (growable list) of integers.
-/// occt: TColStd_SequenceOfInteger
+// occt-ref: TColStd_SequenceOfInteger
 #[derive(Clone, Debug, Default)]
 pub struct TColStdSeqOfInt {
     data: Vec<i32>,

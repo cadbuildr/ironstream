@@ -1,5 +1,5 @@
 // FILE: extrema_ext_flag.rs
-// occt: EXTREMAEXT_FLAG
+// occt-ref: EXTREMAEXT_FLAG
 
 pub struct Extremaextflag {
     done: bool,

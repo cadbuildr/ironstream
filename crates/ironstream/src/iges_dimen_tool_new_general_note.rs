@@ -1,5 +1,5 @@
 // FILE: iges_dimen_tool_new_general_note.rs
-// occt: IGESDimen_dimentoolnewgeneralnote
+// occt-ref: IGESDimen_dimentoolnewgeneralnote
 
 pub struct IGESDimen_dimentoolnewgeneralnote;
 

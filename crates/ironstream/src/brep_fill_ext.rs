@@ -1,5 +1,5 @@
 // FILE: brep_fill_ext.rs
-// occt: BRepFill_Filling, BRepFill_CurveConstraint, BRepFill_Generator
+// occt-ref: BRepFill_Filling, BRepFill_CurveConstraint, BRepFill_Generator
 
 /// Status of a BRepFill operation.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -32,7 +32,7 @@ impl Default for FillOrder {
     fn default() -> Self { Self::G0 }
 }
 
-// occt: BRepFill_CurveConstraint — a boundary/edge constraint for filling
+// occt-ref: BRepFill_CurveConstraint // — a boundary/edge constraint for filling
 #[derive(Clone, Debug)]
 pub struct BrepFillCurveConstraint {
     pub edge_id: u32,
@@ -60,7 +60,7 @@ impl BrepFillCurveConstraint {
     pub fn is_inner(&self) -> bool { self.is_inner }
 }
 
-// occt: BRepFill_Filling — fills a surface patch bounded by edges/constraints
+// occt-ref: BRepFill_Filling // — fills a surface patch bounded by edges/constraints
 #[derive(Clone, Debug, Default)]
 pub struct BrepFillFilling {
     pub degree: u32,
@@ -137,7 +137,7 @@ impl BrepFillFilling {
     pub fn nb_edges(&self) -> usize { self.constraints.len() }
 }
 
-// occt: BRepFill_Generator — generates a surface from a set of wires (loft-like)
+// occt-ref: BRepFill_Generator // — generates a surface from a set of wires (loft-like)
 #[derive(Clone, Debug, Default)]
 pub struct BrepFillGenerator {
     pub wires: Vec<u32>,

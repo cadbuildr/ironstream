@@ -1,5 +1,5 @@
 // FILE: ocaf_func.rs
-// occt: TFunction_Function, TFunction_Scope, TFunction_Iterator,
+// occt: TFunction_Function, TFunction_Scope, TFunction_Iterator
 //       TFunction_GraphNode, TFunction_IFunction
 
 /// Execution status of a function.

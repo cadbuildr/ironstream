@@ -1,5 +1,5 @@
 // FILE: rw_gltf_ext.rs
-// occt: RWGltf_CafReader, RWGltf_CafWriter (glTF 2.0 format extended)
+// occt-note: RWGltf_CafReader, RWGltf_CafWriter (glTF 2.0 format extended)
 
 use std::collections::HashMap;
 
@@ -101,7 +101,7 @@ impl GltfMaterial {
     pub fn is_transparent(&self) -> bool { self.alpha_mode != 0 }
 }
 
-// occt: RWGltf_CafReader — reads a glTF 2.0 file
+// occt: RWGltf_CafReader // — reads a glTF 2.0 file
 #[derive(Clone, Debug, Default)]
 pub struct RWGltfReader {
     pub status: GltfStatus,
@@ -152,7 +152,7 @@ impl RWGltfReader {
     pub fn nb_materials(&self) -> usize { self.materials.len() }
 }
 
-// occt: RWGltf_CafWriter — writes a glTF 2.0 file
+// occt-ref: RWGltf_CafWriter // — writes a glTF 2.0 file
 #[derive(Clone, Debug, Default)]
 pub struct RWGltfWriter {
     pub use_binary: bool,
@@ -169,7 +169,7 @@ impl RWGltfWriter {
     pub fn set_force_uvs(&mut self, v: bool) { self.force_uvs = v; }
 
     pub fn write(&mut self, _path: &str, primitives: &[GltfPrimitive]) -> GltfStatus {
-        // occt: RWGltf_CafWriter::toSkipShape() — empty shapes are skipped,
+        // occt-ref: RWGltf_CafWriter // ::toSkipShape() — empty shapes are skipped,
         // since glTF disallows empty primitive arrays. If nothing remains,
         // there is no mesh content to write.
         let nb_non_empty = primitives.iter().filter(|p| !p.is_empty()).count();

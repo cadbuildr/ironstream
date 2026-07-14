@@ -1,5 +1,5 @@
 // FILE: ais_local.rs
-// occt: AIS_LocalContext (deprecated in OCC7+ but widely used),
+// occt-note: AIS_LocalContext (deprecated in OCC7+ but widely used),
 //       AIS_LocalStatus, AIS_Selection
 
 use std::collections::HashMap;
@@ -35,7 +35,7 @@ impl Default for AisLocalState {
     fn default() -> Self { Self::Inactive }
 }
 
-// occt: AIS_LocalStatus — per-object selection status in a local context
+// occt-note: AIS_LocalStatus — per-object selection status in a local context
 #[derive(Clone, Debug)]
 pub struct AisLocalStatus {
     pub is_temporary: bool,
@@ -98,7 +98,7 @@ impl AisPickResult {
     }
 }
 
-// occt: AIS_Selection — a named selection list
+// occt-ref: AIS_Selection // — a named selection list
 #[derive(Clone, Debug)]
 pub struct AisSelection {
     pub name: String,
@@ -127,7 +127,7 @@ impl AisSelection {
     pub fn objects(&self) -> &[u32] { &self.objects }
 }
 
-// occt: AIS_LocalContext — manages local selections on a subset of objects
+// occt-note: AIS_LocalContext — manages local selections on a subset of objects
 #[derive(Clone, Debug, Default)]
 pub struct AisLocalContext {
     pub is_open: bool,

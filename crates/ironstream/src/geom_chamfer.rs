@@ -1,8 +1,8 @@
 // FILE: rust/ironstream/crates/ironstream/src/geom_chamfer.rs
-// occt: ChFi3d_ChBuilder chamfer algorithm types
+// occt-ref: ChFi3d_ChBuilder // chamfer algorithm types
 
 /// Chamfer mode controlling whether both distances are equal or independent.
-// occt: ChFi3d_ChBuilder mode — enum Equal, Unequal
+// occt-ref: ChFi3d_ChBuilder // mode — enum Equal, Unequal
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ChamferMode {
     /// Both chamfer distances are the same (symmetric chamfer).
@@ -12,7 +12,7 @@ pub enum ChamferMode {
 }
 
 /// A single edge tagged for chamfering with one or two distances.
-// occt: chamfer edge spec — holds label, dist1, dist2, and ChamferMode
+// occt-note: chamfer edge spec — holds label, dist1, dist2, and ChamferMode
 #[derive(Clone, Debug)]
 pub struct ChamferEdge {
     edge_label: String,
@@ -64,7 +64,7 @@ impl ChamferEdge {
 }
 
 /// Result of a chamfer build operation.
-// occt: BRepFilletAPI_MakeChamfer result
+// occt-ref: BRepFilletAPI_MakeChamfer // result
 #[derive(Clone, Debug)]
 pub struct ChamferResult {
     nb_contours: usize,
@@ -112,7 +112,7 @@ impl Default for ChamferResult {
 }
 
 /// Applies chamfers to a collection of edges on a solid.
-// occt: BRepFilletAPI_MakeChamfer
+// occt-ref: BRepFilletAPI_MakeChamfer
 pub struct MakeChamfer {
     /// Edges registered for chamfering.
     pub edges: Vec<ChamferEdge>,

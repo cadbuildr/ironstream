@@ -6,13 +6,13 @@
 //! For a rotation of angle `θ` about a unit axis `n`:
 //!   `w = cos(θ/2)`, `(x, y, z) = n · sin(θ/2)`.
 
-// occt: gp_Quaternion
+// occt-ref: gp_Quaternion
 
 /// A quaternion representing a 3D rotation (or a general four-component vector).
 ///
 /// The four components follow the OCCT convention:
 /// `(x, y, z)` is the vector (imaginary) part and `w` is the scalar (real) part.
-// occt: gp_Quaternion
+// occt-ref: gp_Quaternion
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Quaternion {
     pub x: f64,

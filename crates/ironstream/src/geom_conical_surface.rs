@@ -84,7 +84,7 @@ fn build_frame(axis: [f64; 3]) -> ([f64; 3], [f64; 3]) {
 
 // ── main type ────────────────────────────────────────────────────────────────
 
-// occt: Geom_ConicalSurface
+// occt-ref: Geom_ConicalSurface
 /// An analytic conical surface in 3-D space.
 ///
 /// The surface is parameterised as:

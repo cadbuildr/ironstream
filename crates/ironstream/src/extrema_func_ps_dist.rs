@@ -1,5 +1,5 @@
 // FILE: extrema_func_ps_dist.rs
-// occt: EXTREMAFUNC_PS_DIST
+// occt-ref: EXTREMAFUNC_PS_DIST
 
 pub struct Extremafuncpsdist {
     done: bool,

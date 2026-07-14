@@ -1,5 +1,6 @@
 // FILE: step_construct.rs
-// occt: STEPConstruct_Tool, STEPConstruct_Assembly, STEPConstruct_Styles
+// occt: STEPConstruct_Tool, STEPConstruct_Assembly
+// occt-ref: STEPConstruct_Styles
 
 // occt: STEPConstruct_Tool
 /// Base utility for accessing STEP model entities.
@@ -49,7 +50,7 @@ impl StepAssembly {
     }
 }
 
-// occt: STEPConstruct_Styles
+// occt-ref: STEPConstruct_Styles
 /// Reads or writes STEP presentation styles (colours, line widths).
 #[derive(Clone, Debug, Default)]
 pub struct StepStyles {

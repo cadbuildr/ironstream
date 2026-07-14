@@ -36,7 +36,7 @@ use crate::gp::{Ax1, Pnt};
 ///  [ ixy  iyy  iyz ]
 ///  [ ixz  iyz  izz ]
 /// ```
-// occt: gp_Mat (symmetric inertia matrix)
+// occt-ref: gp_Mat // (symmetric inertia matrix)
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct InertiaMatrix {
     pub ixx: f64,
@@ -136,7 +136,7 @@ impl InertiaMatrix {
 ///
 /// Eigenvalues are sorted **ascending** (`i1 ≤ i2 ≤ i3`); the corresponding
 /// unit eigenvectors are `v1`, `v2`, `v3`.
-// occt: GProp_PrincipalProps
+// occt-ref: GProp_PrincipalProps
 #[derive(Clone, Copy, Debug)]
 pub struct GProp_PrincipalProps {
     /// Smallest principal moment.
@@ -155,7 +155,7 @@ pub struct GProp_PrincipalProps {
 
 impl GProp_PrincipalProps {
     /// Radii of gyration `(r1, r2, r3)` = `sqrt(Ii / mass)`.
-    // occt: GProp_PrincipalProps::RadiusOfGyration
+    // occt-ref: GProp_PrincipalProps // ::RadiusOfGyration
     pub fn radius_of_gyration(&self, mass: f64) -> (f64, f64, f64) {
         let r = |i: f64| {
             if mass > 0.0 {
@@ -169,7 +169,7 @@ impl GProp_PrincipalProps {
 
     /// `true` if all three principal moments are distinct (non-degenerate
     /// principal axes).
-    // occt: GProp_PrincipalProps::HasSymmetryPoint
+    // occt-ref: GProp_PrincipalProps // ::HasSymmetryPoint
     pub fn is_non_degenerate(&self, tol: f64) -> bool {
         (self.i1 - self.i2).abs() > tol
             && (self.i2 - self.i3).abs() > tol
@@ -187,7 +187,7 @@ impl GProp_PrincipalProps {
 /// Properties from multiple contributions can be combined with [`add`] /
 /// [`add_scaled`].  The inertia matrix is always stored relative to the
 /// **origin**; `matrix_of_inertia()` shifts it to the CoM on request.
-// occt: GProp_GProps
+// occt-ref: GProp_GProps
 #[derive(Clone, Debug)]
 pub struct GProp_GProps {
     /// Total scalar measure (volume, area, or arc-length).
@@ -212,7 +212,7 @@ impl GProp_GProps {
     // ── constructors ─────────────────────────────────────────────────────────
 
     /// Create an empty accumulator.
-    // occt: GProp_GProps::GProp_GProps()
+    // occt-ref: GProp_GProps // ::GProp_GProps()
     pub fn new() -> Self {
         Self::default()
     }
@@ -221,7 +221,7 @@ impl GProp_GProps {
     ///
     /// Mirrors `GProp_GProps(SystemLocation)` — a single lumped mass at a
     /// given point contributes zero inertia about its own location.
-    // occt: GProp_GProps::GProp_GProps(SystemLocation)
+    // occt-ref: GProp_GProps // ::GProp_GProps(SystemLocation)
     pub fn from_point_mass(location: Pnt, mass: f64) -> Self {
         let mut g = Self::new();
         g.add_point_mass(location, mass);
@@ -231,13 +231,13 @@ impl GProp_GProps {
     // ── query ─────────────────────────────────────────────────────────────────
 
     /// Total scalar measure (volume / area / length).
-    // occt: GProp_GProps::Mass
+    // occt-ref: GProp_GProps // ::Mass
     pub fn mass(&self) -> f64 {
         self.mass
     }
 
     /// Centre of mass (weighted centroid).
-    // occt: GProp_GProps::CentreOfMass
+    // occt-ref: GProp_GProps // ::CentreOfMass
     pub fn centre_of_mass(&self) -> Pnt {
         if self.mass.abs() < 1.0e-15 {
             Pnt::origin()
@@ -250,7 +250,7 @@ impl GProp_GProps {
     ///
     /// The stored matrix is relative to the origin; this method applies the
     /// reverse parallel-axis theorem to obtain the CoM-relative matrix.
-    // occt: GProp_GProps::MatrixOfInertia
+    // occt-ref: GProp_GProps // ::MatrixOfInertia
     pub fn matrix_of_inertia(&self) -> InertiaMatrix {
         if self.mass.abs() < 1.0e-15 {
             return self.inertia_origin;
@@ -269,7 +269,7 @@ impl GProp_GProps {
     }
 
     /// Static moments `(Sx, Sy, Sz)` = `mass * centre_of_mass` components.
-    // occt: GProp_GProps::StaticMoments
+    // occt-ref: GProp_GProps // ::StaticMoments
     pub fn static_moments(&self) -> (f64, f64, f64) {
         (self.moment.x, self.moment.y, self.moment.z)
     }
@@ -278,7 +278,7 @@ impl GProp_GProps {
     ///
     /// The axis is defined as an [`Ax1`] (location + direction).  Uses the
     /// parallel-axis theorem to shift from the CoM.
-    // occt: GProp_GProps::MomentOfInertia
+    // occt-ref: GProp_GProps // ::MomentOfInertia
     pub fn moment_of_inertia(&self, axis: &Ax1) -> f64 {
         let com = self.centre_of_mass();
         let i_com = self.matrix_of_inertia();
@@ -287,7 +287,7 @@ impl GProp_GProps {
     }
 
     /// Radius of gyration about an axis: `sqrt(I / mass)`.
-    // occt: GProp_GProps::RadiusOfGyration
+    // occt-ref: GProp_GProps // ::RadiusOfGyration
     pub fn radius_of_gyration(&self, axis: &Ax1) -> f64 {
         let i = self.moment_of_inertia(axis);
         if self.mass > 0.0 {
@@ -298,7 +298,7 @@ impl GProp_GProps {
     }
 
     /// Compute principal inertia properties by eigendecomposition.
-    // occt: GProp_GProps::PrincipalProperties
+    // occt-ref: GProp_GProps // ::PrincipalProperties
     pub fn principal_properties(&self) -> GProp_PrincipalProps {
         jacobi_eigen(&self.matrix_of_inertia())
     }
@@ -306,13 +306,13 @@ impl GProp_GProps {
     // ── mutation ──────────────────────────────────────────────────────────────
 
     /// Combine another `GProp_GProps` into this one (unscaled).
-    // occt: GProp_GProps::Add
+    // occt-ref: GProp_GProps // ::Add
     pub fn add(&mut self, other: &GProp_GProps) {
         self.add_scaled(other, 1.0);
     }
 
     /// Combine another `GProp_GProps` into this one, scaled by `coeff`.
-    // occt: GProp_GProps::Add (with coefficient)
+    // occt-ref: GProp_GProps // ::Add (with coefficient)
     pub fn add_scaled(&mut self, other: &GProp_GProps, coeff: f64) {
         self.mass += other.mass * coeff;
         self.moment = self.moment + other.moment * coeff;
@@ -324,7 +324,7 @@ impl GProp_GProps {
     /// Deposit a single **point mass** `m` at `pos`.
     ///
     /// A point mass has no self-inertia, only a parallel-axis contribution.
-    // occt: GProp_PGProps::AddPoint (underlying)
+    // occt: GProp_PGProps // ::AddPoint (underlying)
     pub fn add_point_mass(&mut self, pos: Pnt, m: f64) {
         self.mass += m;
         self.moment = self.moment + pos * m;
@@ -359,13 +359,13 @@ impl GProp_PGProps {
     // ── constructors ─────────────────────────────────────────────────────────
 
     /// Create an empty point-mass system.
-    // occt: GProp_PGProps::GProp_PGProps()
+    // occt: GProp_PGProps // ::GProp_PGProps()
     pub fn new() -> Self {
         Self::default()
     }
 
     /// Create from a slice of `(position, mass)` pairs.
-    // occt: GProp_PGProps::GProp_PGProps(Pts, Density)
+    // occt: GProp_PGProps // ::GProp_PGProps(Pts, Density)
     pub fn from_points(points: &[(Pnt, f64)]) -> Self {
         let mut pg = Self::new();
         for &(pos, m) in points {
@@ -375,7 +375,7 @@ impl GProp_PGProps {
     }
 
     /// Create with all points having equal unit mass.
-    // occt: GProp_PGProps::GProp_PGProps(Pts)
+    // occt: GProp_PGProps // ::GProp_PGProps(Pts)
     pub fn from_uniform_points(points: &[Pnt]) -> Self {
         let mut pg = Self::new();
         for &pos in points {
@@ -387,7 +387,7 @@ impl GProp_PGProps {
     // ── mutation ──────────────────────────────────────────────────────────────
 
     /// Add a point with the given mass.
-    // occt: GProp_PGProps::AddPoint
+    // occt: GProp_PGProps // ::AddPoint
     pub fn add_point(&mut self, pos: Pnt, mass: f64) {
         self.inner.add_point_mass(pos, mass);
     }
@@ -395,43 +395,43 @@ impl GProp_PGProps {
     // ── query (delegates to inner GProp_GProps) ───────────────────────────────
 
     /// Total mass (sum of point masses).
-    // occt: GProp_GProps::Mass
+    // occt-ref: GProp_GProps // ::Mass
     pub fn mass(&self) -> f64 {
         self.inner.mass()
     }
 
     /// Centre of mass (mass-weighted centroid).
-    // occt: GProp_GProps::CentreOfMass
+    // occt-ref: GProp_GProps // ::CentreOfMass
     pub fn centre_of_mass(&self) -> Pnt {
         self.inner.centre_of_mass()
     }
 
     /// Inertia matrix relative to the centre of mass.
-    // occt: GProp_GProps::MatrixOfInertia
+    // occt-ref: GProp_GProps // ::MatrixOfInertia
     pub fn matrix_of_inertia(&self) -> InertiaMatrix {
         self.inner.matrix_of_inertia()
     }
 
     /// Static moments `(Sx, Sy, Sz)`.
-    // occt: GProp_GProps::StaticMoments
+    // occt-ref: GProp_GProps // ::StaticMoments
     pub fn static_moments(&self) -> (f64, f64, f64) {
         self.inner.static_moments()
     }
 
     /// Moment of inertia about an arbitrary axis.
-    // occt: GProp_GProps::MomentOfInertia
+    // occt-ref: GProp_GProps // ::MomentOfInertia
     pub fn moment_of_inertia(&self, axis: &Ax1) -> f64 {
         self.inner.moment_of_inertia(axis)
     }
 
     /// Radius of gyration about an axis.
-    // occt: GProp_GProps::RadiusOfGyration
+    // occt-ref: GProp_GProps // ::RadiusOfGyration
     pub fn radius_of_gyration(&self, axis: &Ax1) -> f64 {
         self.inner.radius_of_gyration(axis)
     }
 
     /// Principal inertia properties.
-    // occt: GProp_GProps::PrincipalProperties
+    // occt-ref: GProp_GProps // ::PrincipalProperties
     pub fn principal_properties(&self) -> GProp_PrincipalProps {
         self.inner.principal_properties()
     }

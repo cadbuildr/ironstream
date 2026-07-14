@@ -1,12 +1,12 @@
 // FILE: rust/ironstream/crates/ironstream/src/cdf_app.rs
 
-// occt: CDF — OCAF application framework (document lifecycle management)
+// occt-note: CDF — OCAF application framework (document lifecycle management)
 
 // ---------------------------------------------------------------------------
 // CdfDocumentStatus
 // ---------------------------------------------------------------------------
 
-// occt: CDF_Document status
+// occt-note: CDF_Document status
 /// The lifecycle state of a CDF document.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum CdfDocumentStatus {
@@ -26,7 +26,7 @@ pub enum CdfDocumentStatus {
 // CdfDocument
 // ---------------------------------------------------------------------------
 
-// occt: CDF_Document
+// occt-ref: CDF_Document
 /// A document managed by a `CdfApplication`.
 ///
 /// Tracks identity, format, and modification state analogous to OCCT's
@@ -95,7 +95,7 @@ impl CdfDocument {
 // CdfApplication
 // ---------------------------------------------------------------------------
 
-// occt: CDF_Application
+// occt-ref: CDF_Application
 /// Manages the lifecycle of a set of `CdfDocument` instances.
 ///
 /// Mirrors the role of `CDF_Application` / `TDocStd_Application` in OCCT:

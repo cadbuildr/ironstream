@@ -2,7 +2,7 @@
 // occt: MathUtils_Bracket
 
 // Result structure for root bracketing
-// occt: BracketResult
+// occt-ref: BracketResult
 #[derive(Debug, Clone)]
 pub struct BracketResult {
     pub is_valid: bool,
@@ -31,7 +31,7 @@ impl Default for BracketResult {
 }
 
 // Result structure for minimum bracketing
-// occt: MinBracketResult
+// occt-ref: MinBracketResult
 #[derive(Debug, Clone)]
 pub struct MinBracketResult {
     pub is_valid: bool,
@@ -64,7 +64,7 @@ impl Default for MinBracketResult {
 }
 
 // Options for minimum bracketing
-// occt: MinBracketOptions
+// occt-ref: MinBracketOptions
 #[derive(Debug, Clone)]
 pub struct MinBracketOptions {
     pub max_iterations: usize,
@@ -151,7 +151,7 @@ fn limit_and_maybe_swap(
 }
 
 // Bracket a root by expanding interval until sign change is found
-// occt: BracketRoot
+// occt-ref: BracketRoot
 pub fn bracket_root(
     func: &mut dyn FnMut(f64) -> Option<f64>,
     a: f64,
@@ -203,7 +203,7 @@ pub fn bracket_root(
 }
 
 // Bracket a minimum
-// occt: BracketMinimum
+// occt-ref: BracketMinimum
 pub fn bracket_minimum(
     func: &mut dyn FnMut(f64) -> Option<f64>,
     a: f64,

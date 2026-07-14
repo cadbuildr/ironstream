@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/xcaf_layer.rs
 
-// occt: XCAFDoc_Layer — a single named layer entry with visibility state
+// occt-note: XCAFDoc_Layer — a single named layer entry with visibility state
 #[derive(Clone, Debug)]
 pub struct XcafLayer {
     id: usize,
@@ -44,7 +44,7 @@ impl XcafLayer {
     }
 }
 
-// occt: XCAFDoc_LayerTool — manages a collection of named layers and the
+// occt-ref: XCAFDoc_LayerTool // — manages a collection of named layers and the
 // association between shape labels and layer ids
 pub struct XcafLayerTool {
     layers: Vec<XcafLayer>,

@@ -1,7 +1,7 @@
 // FILE: occt_collect.rs
-// occt: NCollection_Array1, NCollection_Array2, NCollection_List, NCollection_Sequence
+// occt-ref: NCollection_Array1, NCollection_Array2, NCollection_List, NCollection_Sequence
 
-// occt: NCollection_Array1
+// occt-ref: NCollection_Array1
 /// Fixed-size 1-D array with arbitrary lower bound (OCCT style).
 #[derive(Clone, Debug)]
 pub struct Array1<T: Clone> {
@@ -34,7 +34,7 @@ impl<T: Clone + Default> Array1<T> {
     }
 }
 
-// occt: NCollection_Array2
+// occt-ref: NCollection_Array2
 /// Fixed-size 2-D array.
 #[derive(Clone, Debug)]
 pub struct Array2<T: Clone> {
@@ -73,7 +73,7 @@ impl<T: Clone + Default> Array2<T> {
     }
 }
 
-// occt: NCollection_List
+// occt-ref: NCollection_List
 /// Singly-linked list used in OCCT collection APIs.
 #[derive(Clone, Debug)]
 pub struct List<T: Clone> {
@@ -100,7 +100,7 @@ impl<T: Clone> List<T> {
     }
 }
 
-// occt: NCollection_Sequence
+// occt-ref: NCollection_Sequence
 /// Indexed sequence (1-based) backed by a Vec.
 #[derive(Clone, Debug)]
 pub struct Sequence<T: Clone> {

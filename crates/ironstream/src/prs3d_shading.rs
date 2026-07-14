@@ -1,5 +1,5 @@
 // FILE: prs3d_shading.rs
-// occt: Prs3d_ShadingAspect, Prs3d_PlaneAspect, Prs3d_IsoAspect
+// occt-ref: Prs3d_ShadingAspect, Prs3d_PlaneAspect, Prs3d_IsoAspect
 
 use std::collections::HashMap;
 
@@ -93,7 +93,7 @@ impl ShadingMaterial {
     }
 }
 
-// occt: Prs3d_ShadingAspect — shading attributes for faces in a presentation
+// occt-ref: Prs3d_ShadingAspect // — shading attributes for faces in a presentation
 #[derive(Clone, Debug, Default)]
 pub struct Prs3dShadingAspect {
     pub material_front: ShadingMaterial,
@@ -130,7 +130,7 @@ impl Prs3dShadingAspect {
     pub fn is_transparent(&self) -> bool { self.material_front.is_transparent() }
 }
 
-// occt: Prs3d_PlaneAspect — visual attributes for a displayed infinite plane
+// occt-ref: Prs3d_PlaneAspect // — visual attributes for a displayed infinite plane
 #[derive(Clone, Debug)]
 pub struct Prs3dPlaneAspect {
     pub edges_in_axes_length: f64,
@@ -178,7 +178,7 @@ impl Prs3dPlaneAspect {
     pub fn is_display_xy_plane(&self) -> bool { self.is_xy_plane }
 }
 
-// occt: Prs3d_IsoAspect — attributes for drawing isoparametric curves on surfaces
+// occt-ref: Prs3d_IsoAspect // — attributes for drawing isoparametric curves on surfaces
 #[derive(Clone, Debug)]
 pub struct Prs3dIsoAspect {
     pub number: usize,
@@ -201,7 +201,7 @@ impl Prs3dIsoAspect {
     pub fn number(&self) -> usize { self.number }
 }
 
-// occt: Prs3d_Drawer wrapper that collects shading + plane + iso aspects
+// occt-ref: Prs3d_Drawer // wrapper that collects shading + plane + iso aspects
 #[derive(Clone, Debug, Default)]
 pub struct DrawerExt {
     pub shading_aspect: Prs3dShadingAspect,

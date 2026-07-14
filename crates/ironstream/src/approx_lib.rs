@@ -1,5 +1,6 @@
 // FILE: approx_lib.rs
-// occt: Approx_SameParameter, Approx_CurvilinearParameter, Approx_Curve3d
+// occt: Approx_CurvilinearParameter
+// occt-ref: Approx_SameParameter, Approx_Curve3d
 
 /// Status of approximation operations.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -19,7 +20,7 @@ impl ApproxStatus {
     pub fn is_done(&self) -> bool { *self == ApproxStatus::Done }
 }
 
-// occt: Approx_SameParameter — reparametrizes a curve to have arc-length parametrization
+// occt-ref: Approx_SameParameter // — reparametrizes a curve to have arc-length parametrization
 #[derive(Clone, Debug)]
 pub struct ApproxSameParameter {
     pub curve_id: u32,
@@ -61,7 +62,7 @@ impl ApproxSameParameter {
     pub fn is_same_parameter(&self) -> bool { self.is_same_parameter }
 }
 
-// occt: Approx_CurvilinearParameter — reparametrizes 3D/2D curves to arc length
+// occt: Approx_CurvilinearParameter // — reparametrizes 3D/2D curves to arc length
 #[derive(Clone, Debug)]
 pub struct ApproxCurvilinearParameter {
     pub curve_id: u32,
@@ -108,7 +109,7 @@ impl ApproxCurvilinearParameter {
     pub fn max_error_2d(&self) -> f64 { self.max_error_2d }
 }
 
-// occt: Approx_Curve3d — approximates a 3D curve (e.g. adaptator-based) as a BSpline
+// occt-ref: Approx_Curve3d // — approximates a 3D curve (e.g. adaptator-based) as a BSpline
 #[derive(Clone, Debug)]
 pub struct ApproxCurve3d {
     pub curve_id: u32,
@@ -152,7 +153,7 @@ impl ApproxCurve3d {
     pub fn is_tolerance_reached(&self) -> bool { self.max_error <= self.tolerance }
 }
 
-// occt: Approx_Curve2d — approximates a 2D curve on a surface as a BSpline
+// occt-ref: Approx_Curve2d // — approximates a 2D curve on a surface as a BSpline
 #[derive(Clone, Debug)]
 pub struct ApproxCurve2d {
     pub curve2d_id: u32,

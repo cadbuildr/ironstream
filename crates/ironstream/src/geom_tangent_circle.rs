@@ -27,7 +27,7 @@ impl Circle2d {
     pub fn perimeter(&self) -> f64 { 2.0 * PI * self.radius }
 }
 
-/// occt: GccAna_Circ2d3Tan — circle tangent to three other circles/lines/points.
+/// occt: GccAna_Circ2d3Tan // — circle tangent to three other circles/lines/points.
 /// Apollonius circle (CPC case: circle tangent to 3 points = circumcircle).
 pub struct Circ2d3Tan;
 
@@ -47,7 +47,7 @@ impl Circ2d3Tan {
     }
 }
 
-/// occt: GccAna_Circ2dBisec — bisector locus of two circles.
+/// occt: GccAna_Circ2dBisec // — bisector locus of two circles.
 pub struct Circ2dBisec;
 
 impl Circ2dBisec {
@@ -67,7 +67,7 @@ impl Circ2dBisec {
     }
 }
 
-/// occt: GccAna_Lin2d2Tan — line tangent to two circles.
+/// occt: GccAna_Lin2d2Tan // — line tangent to two circles.
 pub struct Lin2d2Tan;
 
 impl Lin2d2Tan {
@@ -100,7 +100,7 @@ impl Lin2d2Tan {
     }
 }
 
-/// occt: GccAna_Lin2dBisec — bisector of two 2D lines/circles
+/// occt: GccAna_Lin2dBisec // — bisector of two 2D lines/circles
 pub struct Lin2dBisec;
 
 impl Lin2dBisec {

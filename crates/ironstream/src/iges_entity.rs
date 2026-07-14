@@ -6,67 +6,67 @@
 //!
 //! Uses only `std`; zero third-party dependencies.
 
-// occt: IGES entity type
+// occt-note: IGES entity type
 /// Discriminant for the IGES entity type code stored in a Directory Entry section.
 /// Only the entity types relevant to IronStream's current scope are named;
 /// everything else falls back to [`IgesEntityType::Unknown`].
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum IgesEntityType {
     /// Entity type 100 — circular arc.
-    // occt: IGESData entity type CircularArc (100)
+    // occt-ref: IGESData // entity type CircularArc (100)
     CircularArc,
     /// Entity type 102 — composite curve.
-    // occt: IGESData entity type CompositeCurve (102)
+    // occt-ref: IGESData // entity type CompositeCurve (102)
     CompositeCurve,
     /// Entity type 104 — conic arc.
-    // occt: IGESData entity type ConicArc (104)
+    // occt-ref: IGESData // entity type ConicArc (104)
     ConicArc,
     /// Entity type 110 — line.
-    // occt: IGESData entity type Line (110)
+    // occt-ref: IGESData // entity type Line (110)
     Line,
     /// Entity type 116 — point.
-    // occt: IGESData entity type Point (116)
+    // occt-ref: IGESData // entity type Point (116)
     Point,
     /// Entity type 126 — rational B-spline curve.
-    // occt: IGESData entity type RationalBSplineCurve (126)
+    // occt-ref: IGESData // entity type RationalBSplineCurve (126)
     RationalBSplineCurve,
     /// Entity type 128 — rational B-spline surface.
-    // occt: IGESData entity type RationalBSplineSurface (128)
+    // occt-ref: IGESData // entity type RationalBSplineSurface (128)
     RationalBSplineSurface,
     /// Entity type 108 — plane.
-    // occt: IGESData entity type Plane (108)
+    // occt-ref: IGESData // entity type Plane (108)
     Plane,
     /// Entity type 144 — trimmed (parametric) surface.
-    // occt: IGESData entity type TrimmedSurface (144)
+    // occt-ref: IGESData // entity type TrimmedSurface (144)
     TrimmedSurface,
     /// Entity type 162 — solid of revolution.
-    // occt: IGESData entity type SolidOfRevolution (162)
+    // occt-ref: IGESData // entity type SolidOfRevolution (162)
     SolidOfRevolution,
     /// Any entity type not explicitly mapped above.
-    // occt: IGESData entity type Unknown
+    // occt-ref: IGESData // entity type Unknown
     Unknown,
 }
 
-// occt: IGESData status
+// occt-ref: IGESData // status
 /// Transfer / read status of an [`IgesEntity`], mirroring OCCT's
 /// `IGESData_DefStatus` / `IGESData_ReadStage` concepts.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum IgesEntityStatus {
     /// Entity has not been read yet.
-    // occt: status NotRead
+    // occt-note: status NotRead
     NotRead,
     /// Entity has been successfully read.
-    // occt: status Read
+    // occt-note: status Read
     Read,
     /// Entity data is structurally invalid.
-    // occt: status Invalid
+    // occt-note: status Invalid
     Invalid,
     /// Entity has been transferred to a shape.
-    // occt: status Transferred
+    // occt-note: status Transferred
     Transferred,
 }
 
-// occt: IGESData_IGESEntity
+// occt-ref: IGESData_IGESEntity
 /// A single entity from an IGES file's Directory Entry and Parameter Data
 /// sections, mirroring `IGESData_IGESEntity`.
 ///
@@ -76,17 +76,17 @@ pub enum IgesEntityStatus {
 /// numeric [`params`](IgesEntity::nb_params) plus optional hollerith
 /// [`string_params`](IgesEntity::add_string_param).
 pub struct IgesEntity {
-    // occt: IGESData_IGESEntity::DENumber
+    // occt-ref: IGESData_IGESEntity // ::DENumber
     de_number: usize,
-    // occt: IGESData_IGESEntity::TypeNumber
+    // occt-ref: IGESData_IGESEntity // ::TypeNumber
     entity_type: IgesEntityType,
-    // occt: IGESData_IGESEntity::FormNumber
+    // occt-ref: IGESData_IGESEntity // ::FormNumber
     form_number: i32,
-    // occt: IGESData_IGESEntity parameter list (numeric)
+    // occt-ref: IGESData_IGESEntity // parameter list (numeric)
     params: Vec<f64>,
-    // occt: IGESData_IGESEntity hollerith / string parameters
+    // occt-ref: IGESData_IGESEntity // hollerith / string parameters
     string_params: Vec<String>,
-    // occt: IGESData_IGESEntity::DefStatus
+    // occt-ref: IGESData_IGESEntity // ::DefStatus
     status: IgesEntityStatus,
 }
 
@@ -110,25 +110,25 @@ impl IgesEntity {
 
     /// Returns the Directory Entry sequence number (1-based odd integer in the
     /// IGES spec).
-    // occt: IGESData_IGESEntity::DENumber
+    // occt-ref: IGESData_IGESEntity // ::DENumber
     pub fn de_number(&self) -> usize {
         self.de_number
     }
 
     /// Returns the entity type discriminant.
-    // occt: IGESData_IGESEntity::TypeNumber → IgesEntityType
+    // occt-ref: IGESData_IGESEntity // ::TypeNumber → IgesEntityType
     pub fn entity_type(&self) -> IgesEntityType {
         self.entity_type
     }
 
     /// Returns the form number (secondary classification within an entity type).
-    // occt: IGESData_IGESEntity::FormNumber
+    // occt-ref: IGESData_IGESEntity // ::FormNumber
     pub fn form_number(&self) -> i32 {
         self.form_number
     }
 
     /// Returns the current read/transfer status.
-    // occt: IGESData_IGESEntity::DefStatus
+    // occt-ref: IGESData_IGESEntity // ::DefStatus
     pub fn status(&self) -> IgesEntityStatus {
         self.status
     }
@@ -136,13 +136,13 @@ impl IgesEntity {
     // ------------------------------- setters -------------------------------
 
     /// Sets the form number.
-    // occt: IGESData_IGESEntity::SetFormNumber
+    // occt-ref: IGESData_IGESEntity // ::SetFormNumber
     pub fn set_form_number(&mut self, n: i32) {
         self.form_number = n;
     }
 
     /// Sets the read/transfer status.
-    // occt: IGESData_IGESEntity::SetStatus
+    // occt-ref: IGESData_IGESEntity // ::SetStatus
     pub fn set_status(&mut self, s: IgesEntityStatus) {
         self.status = s;
     }
@@ -150,13 +150,13 @@ impl IgesEntity {
     // -------------------------- parameter access ---------------------------
 
     /// Appends a numeric parameter value to the parameter list.
-    // occt: IGESData_IGESEntity parameter append
+    // occt-ref: IGESData_IGESEntity // parameter append
     pub fn add_param(&mut self, v: f64) {
         self.params.push(v);
     }
 
     /// Appends a string (hollerith) parameter to the string parameter list.
-    // occt: IGESData_IGESEntity hollerith parameter append
+    // occt-ref: IGESData_IGESEntity // hollerith parameter append
     pub fn add_string_param(&mut self, s: &str) {
         self.string_params.push(s.to_string());
     }
@@ -165,25 +165,25 @@ impl IgesEntity {
     ///
     /// # Panics
     /// Panics if `i >= nb_params()`.
-    // occt: IGESData_IGESEntity::Param
+    // occt-ref: IGESData_IGESEntity // ::Param
     pub fn param(&self, i: usize) -> f64 {
         self.params[i]
     }
 
     /// Returns the total number of numeric parameters.
-    // occt: IGESData_IGESEntity::NbParams
+    // occt-ref: IGESData_IGESEntity // ::NbParams
     pub fn nb_params(&self) -> usize {
         self.params.len()
     }
 }
 
-// occt: IGESData_IGESModel
+// occt-ref: IGESData_IGESModel
 /// An in-memory collection of [`IgesEntity`] values read from (or to be
 /// written to) an IGES file, mirroring `IGESData_IGESModel`.
 pub struct IgesModel {
-    // occt: IGESData_IGESModel entity sequence
+    // occt-ref: IGESData_IGESModel // entity sequence
     entities: Vec<IgesEntity>,
-    // occt: IGESData_IGESModel file name / header
+    // occt-ref: IGESData_IGESModel // file name / header
     file_name: String,
 }
 
@@ -191,7 +191,7 @@ impl IgesModel {
     // ----------------------------- constructors ----------------------------
 
     /// Creates an empty model associated with the given file name.
-    // occt: IGESData_IGESModel constructor
+    // occt-ref: IGESData_IGESModel // constructor
     pub fn new(file_name: &str) -> Self {
         Self {
             entities: Vec::new(),
@@ -202,7 +202,7 @@ impl IgesModel {
     // ------------------------------- mutators ------------------------------
 
     /// Appends an entity to the model and returns its 0-based index.
-    // occt: IGESData_IGESModel::AddEntity
+    // occt-ref: IGESData_IGESModel // ::AddEntity
     pub fn add_entity(&mut self, e: IgesEntity) -> usize {
         let idx = self.entities.len();
         self.entities.push(e);
@@ -215,25 +215,25 @@ impl IgesModel {
     ///
     /// # Panics
     /// Panics if `i >= nb_entities()`.
-    // occt: IGESData_IGESModel::Entity
+    // occt-ref: IGESData_IGESModel // ::Entity
     pub fn entity(&self, i: usize) -> &IgesEntity {
         &self.entities[i]
     }
 
     /// Returns the total number of entities in the model.
-    // occt: IGESData_IGESModel::NbEntities
+    // occt-ref: IGESData_IGESModel // ::NbEntities
     pub fn nb_entities(&self) -> usize {
         self.entities.len()
     }
 
     /// Returns the file name string supplied at construction time.
-    // occt: IGESData_IGESModel file name
+    // occt-ref: IGESData_IGESModel // file name
     pub fn file_name(&self) -> &str {
         &self.file_name
     }
 
     /// Returns the 0-based indices of all entities whose type matches `t`.
-    // occt: IGESData_IGESModel::EntitiesOfType
+    // occt-ref: IGESData_IGESModel // ::EntitiesOfType
     pub fn entities_of_type(&self, t: IgesEntityType) -> Vec<usize> {
         self.entities
             .iter()

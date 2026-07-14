@@ -1,6 +1,6 @@
 // FILE: gcpnts.rs
 
-// occt: GCPnts_AbscissaPoint distribution enum
+// occt-ref: GCPnts_AbscissaPoint // distribution enum
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum GCPntsDistribution {
     Uniform,
@@ -8,7 +8,7 @@ pub enum GCPntsDistribution {
     Combined,
 }
 
-// occt: GCPnts_AbscissaPoint
+// occt-ref: GCPnts_AbscissaPoint
 pub struct GCPntsAbscissaPoint {
     parameter: f64,
     is_done: bool,
@@ -35,7 +35,7 @@ impl GCPntsAbscissaPoint {
     }
 }
 
-// occt: GCPnts_UniformAbscissa
+// occt-ref: GCPnts_UniformAbscissa
 pub struct GCPntsUniformAbscissa {
     params: Vec<f64>,
     is_done: bool,
@@ -75,7 +75,7 @@ impl GCPntsUniformAbscissa {
     }
 }
 
-// occt: GCPnts_UniformDeflection
+// occt-ref: GCPnts_UniformDeflection
 pub struct GCPntsUniformDeflection {
     params: Vec<f64>,
     is_done: bool,
@@ -126,7 +126,7 @@ impl GCPntsUniformDeflection {
     }
 }
 
-// occt: GCPnts_TangentialDeflection
+// occt-ref: GCPnts_TangentialDeflection
 pub struct GCPntsTangentialDeflection {
     params: Vec<f64>,
     is_done: bool,

@@ -1,5 +1,5 @@
 // FILE: graphic3d_render.rs
-// occt: Graphic3d_RenderingParams, Graphic3d_ToneMappingMethod,
+// occt: Graphic3d_RenderingParams, Graphic3d_ToneMappingMethod
 //       Graphic3d_StereoMode, Graphic3d_RenderTransparentMethod,
 //       Graphic3d_BSDF, Graphic3d_PBRMaterial
 
@@ -138,7 +138,7 @@ impl Default for RenderingParams {
     fn default() -> Self { Self::default_rasterization() }
 }
 
-// occt: Graphic3d_BSDF (Bidirectional Scattering Distribution Function)
+// occt: Graphic3d_BSDF // (Bidirectional Scattering Distribution Function)
 #[derive(Clone, Debug)]
 pub struct Bsdf {
     pub kd: [f32; 4],     // diffuse reflection (with fresnel)
@@ -183,7 +183,7 @@ impl Bsdf {
     }
 }
 
-// occt: Graphic3d_PBRMaterial (physically-based rendering)
+// occt: Graphic3d_PBRMaterial // (physically-based rendering)
 #[derive(Clone, Debug)]
 pub struct PbrMaterial {
     pub base_color: [f32; 4],   // RGBA, alpha = opacity

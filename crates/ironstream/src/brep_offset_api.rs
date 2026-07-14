@@ -161,7 +161,7 @@ impl MakePipe {
     /// Construct a pipe by sweeping a circle of `radius` along `spine`.
     ///
     /// Mirrors `BRepOffsetAPI_MakePipe::BRepOffsetAPI_MakePipe(spine, profile)`.
-    // occt: BRepOffsetAPI_MakePipe::BRepOffsetAPI_MakePipe
+    // occt: BRepOffsetAPI_MakePipe // ::BRepOffsetAPI_MakePipe
     pub fn new(spine: Wire, radius: f64) -> Self {
         Self {
             spine,
@@ -188,7 +188,7 @@ impl MakePipe {
     /// Compute (or return cached) result.
     ///
     /// Mirrors `BRepOffsetAPI_MakePipe::Build()` / `Shape()`.
-    // occt: BRepOffsetAPI_MakePipe::Shape
+    // occt: BRepOffsetAPI_MakePipe // ::Shape
     pub fn build(&mut self) -> &Solid {
         if self.result.is_none() {
             self.result = Some(self.compute());
@@ -197,13 +197,13 @@ impl MakePipe {
     }
 
     /// Whether the last `build()` produced a non-empty solid.
-    // occt: BRepOffsetAPI_MakePipe::IsDone
+    // occt: BRepOffsetAPI_MakePipe // ::IsDone
     pub fn is_done(&mut self) -> bool {
         !self.build().is_empty()
     }
 
     /// Consume and return the built solid.
-    // occt: BRepOffsetAPI_MakePipe::Shape (moved)
+    // occt: BRepOffsetAPI_MakePipe // ::Shape (moved)
     pub fn into_solid(self) -> Solid {
         self.compute()
     }
@@ -289,7 +289,7 @@ pub struct MakePipeShell {
 
 impl MakePipeShell {
     /// Create an empty builder.  Call [`add_section`] to add profiles.
-    // occt: BRepOffsetAPI_MakePipeShell::BRepOffsetAPI_MakePipeShell
+    // occt: BRepOffsetAPI_MakePipeShell // ::BRepOffsetAPI_MakePipeShell
     pub fn new(spine: Wire) -> Self {
         Self {
             spine,
@@ -315,7 +315,7 @@ impl MakePipeShell {
     /// Add a section wire at parameter `param` (0..=1).
     ///
     /// Mirrors `BRepOffsetAPI_MakePipeShell::Add(section, param)`.
-    // occt: BRepOffsetAPI_MakePipeShell::Add
+    // occt: BRepOffsetAPI_MakePipeShell // ::Add
     pub fn add_section(&mut self, profile: Wire, param: f64) {
         let param = param.clamp(0.0, 1.0);
         self.sections.push(PipeSection { param, profile });
@@ -324,7 +324,7 @@ impl MakePipeShell {
     }
 
     /// Compute (or return cached) result.
-    // occt: BRepOffsetAPI_MakePipeShell::Build / Shape
+    // occt: BRepOffsetAPI_MakePipeShell // ::Build / Shape
     pub fn build(&mut self) -> &Solid {
         if self.result.is_none() {
             self.result = Some(self.compute());
@@ -333,7 +333,7 @@ impl MakePipeShell {
     }
 
     /// Whether the build succeeded.
-    // occt: BRepOffsetAPI_MakePipeShell::IsDone
+    // occt: BRepOffsetAPI_MakePipeShell // ::IsDone
     pub fn is_done(&mut self) -> bool {
         !self.build().is_empty()
     }
@@ -519,7 +519,7 @@ pub struct MakeOffset {
 
 impl MakeOffset {
     /// Create the offset builder for `wire` at signed `distance`.
-    // occt: BRepOffsetAPI_MakeOffset::BRepOffsetAPI_MakeOffset
+    // occt: BRepOffsetAPI_MakeOffset // ::BRepOffsetAPI_MakeOffset
     pub fn new(wire: Wire, distance: f64) -> Self {
         Self {
             wire,
@@ -529,7 +529,7 @@ impl MakeOffset {
     }
 
     /// Perform the offset computation.
-    // occt: BRepOffsetAPI_MakeOffset::Build
+    // occt: BRepOffsetAPI_MakeOffset // ::Build
     pub fn build(&mut self) -> &Result<Wire, OffsetError> {
         if self.result.is_none() {
             self.result = Some(compute_offset(&self.wire, self.distance));
@@ -538,13 +538,13 @@ impl MakeOffset {
     }
 
     /// Whether the build succeeded (no errors).
-    // occt: BRepOffsetAPI_MakeOffset::IsDone
+    // occt: BRepOffsetAPI_MakeOffset // ::IsDone
     pub fn is_done(&mut self) -> bool {
         self.build().is_ok()
     }
 
     /// Return the offset wire, re-running the build if needed.
-    // occt: BRepOffsetAPI_MakeOffset::Shape
+    // occt: BRepOffsetAPI_MakeOffset // ::Shape
     pub fn wire(&mut self) -> Result<Wire, OffsetError> {
         self.build().clone()
     }

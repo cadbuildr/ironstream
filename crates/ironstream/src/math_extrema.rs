@@ -1,9 +1,9 @@
 // FILE: math_extrema.rs
-// occt: math_ExtremaCurveCurve, math_ExtremaFFE, math_ExtremaCurveSurface,
+// occt-ref: math_ExtremaCurveCurve, math_ExtremaFFE, math_ExtremaCurveSurface
 //       math_FunctionSetRoot
 
 /// Extrema solver: finds min/max distance between two curves.
-/// occt: math_ExtremaCurveCurve
+// occt-ref: math_ExtremaCurveCurve
 #[derive(Clone, Debug)]
 pub struct MathExtremaCurveCurve {
     pub curve_1_id: u32,
@@ -45,7 +45,7 @@ impl MathExtremaCurveCurve {
 }
 
 /// Extrema between two function sets (multidimensional).
-/// occt: math_ExtremaFFE
+// occt-ref: math_ExtremaFFE
 #[derive(Clone, Debug)]
 pub struct MathExtremaFFE {
     pub nb_equations: usize,
@@ -80,7 +80,7 @@ impl MathExtremaFFE {
 }
 
 /// Extrema between a curve and surface.
-/// occt: math_ExtremaCurveSurface
+// occt-ref: math_ExtremaCurveSurface
 #[derive(Clone, Debug)]
 pub struct MathExtremaCurveSurface {
     pub curve_id: u32,
@@ -109,7 +109,7 @@ impl MathExtremaCurveSurface {
 }
 
 /// Solver for function sets (Newton-Raphson style).
-/// occt: math_FunctionSetRoot
+// occt-ref: math_FunctionSetRoot
 #[derive(Clone, Debug)]
 pub struct MathFunctionSetRoot {
     pub max_iterations: usize,

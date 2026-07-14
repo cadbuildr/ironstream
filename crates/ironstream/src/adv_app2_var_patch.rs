@@ -1,5 +1,5 @@
 // FILE: adv_app2_var_patch.rs
-// occt: AdvApp2VarPatch
+// occt-ref: AdvApp2VarPatch
 
 //! Approximation and constraint handling class.
 pub struct AdvApp2VarPatch {

@@ -1,7 +1,7 @@
 // FILE: geom_b_spline_restrict.rs
-// occt: GeomConvert_CompCurvesToBSplineCurve, BSplCLib (knot insertion/removal)
+// occt-note: GeomConvert_CompCurvesToBSplineCurve, BSplCLib (knot insertion/removal)
 
-// occt: BSplCLib knot insertion
+// occt-ref: BSplCLib // knot insertion
 /// Insert a knot into a B-Spline at parameter t, returning the new knot vector.
 pub fn insert_knot(knots: &[f64], mult: &[u32], t: f64, degree: u32) -> (Vec<f64>, Vec<u32>) {
     let mut new_knots = Vec::new();
@@ -45,7 +45,7 @@ pub fn remove_knot(knots: &[f64], mult: &[u32], idx: usize, tolerance: f64) -> O
     Some((new_knots, new_mult))
 }
 
-// occt: GeomConvert_CompCurvesToBSplineCurve (concatenate B-Splines)
+// occt-note: GeomConvert_CompCurvesToBSplineCurve (concatenate B-Splines)
 #[derive(Clone, Debug)]
 pub struct ConcatBSplines {
     pub segments: Vec<BSplineSegment>,
@@ -102,7 +102,7 @@ impl ConcatBSplines {
     pub fn nb_poles(&self) -> usize { self.result_poles.len() }
 }
 
-// occt: GeomConvert_RationalToPoly (convert rational to polynomial)
+// occt-note: GeomConvert_RationalToPoly (convert rational to polynomial)
 #[derive(Clone, Debug)]
 pub struct RationalToPoly {
     pub poles: Vec<[f64; 3]>,

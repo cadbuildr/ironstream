@@ -1,5 +1,5 @@
 // FILE: app_def_gradient_bfgs_of_my_gradientbis_of_b_spline_compute.rs
-// occt: AppDefGradientBFGS2
+// occt-ref: AppDefGradientBFGS2
 
 //! Approximation and constraint handling class.
 pub struct AppDefGradientBFGS2 {

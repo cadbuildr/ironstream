@@ -32,7 +32,7 @@
 /// Semi-open domains (one endpoint set, one missing) are not modelled here
 /// because `Hatch_Hatcher` only creates bounded or fully-open intervals.
 ///
-// occt: HatchGen_Domain
+// occt-ref: HatchGen_Domain
 #[derive(Clone, Debug)]
 pub struct HatchDomain {
     has_first: bool,
@@ -214,7 +214,7 @@ impl HatchLine {
 /// 4. Iterate over [`line`](Self::line) / [`nb_lines`](Self::nb_lines) to read
 ///    back the trimmed pattern.
 ///
-// occt: Hatch_Hatcher
+// occt-ref: Hatch_Hatcher
 #[derive(Clone, Debug)]
 pub struct HatchBuilder {
     lines: Vec<HatchLine>,

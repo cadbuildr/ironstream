@@ -1,9 +1,10 @@
 // FILE: resource_mgr_ext.rs
-// occt: Resource_Manager, Resource_String, Resource_Unicode,
+// occt: Resource_Manager, Resource_Unicode
+// occt-ref: Resource_String
 //       Resource_StreamBuffer
 
 /// String resource: key-value pair.
-/// occt: Resource_String
+// occt-ref: Resource_String
 #[derive(Clone, Debug)]
 pub struct ResourceString {
     pub key: String,
@@ -102,7 +103,7 @@ impl ResourceManager {
 }
 
 /// Stream buffer for reading resource files.
-/// occt: Resource_StreamBuffer
+// occt-ref: Resource_StreamBuffer
 #[derive(Clone, Debug)]
 pub struct ResourceStreamBuffer {
     pub buffer: Vec<u8>,

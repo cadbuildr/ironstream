@@ -1,5 +1,5 @@
 // FILE: sketch_ext.rs
-// occt: Sketcher_Sketch, Sketcher_Constraint, Sketcher_SketchSolver,
+// occt-ref: Sketcher_Sketch, Sketcher_Constraint, Sketcher_SketchSolver
 //       Sketcher_SketchGeometry
 
 /// Constraint type for sketcher (dimensional and geometric).
@@ -30,7 +30,7 @@ impl SketchConstraintType {
 }
 
 /// A constraint in a sketch.
-/// occt: Sketcher_Constraint
+// occt-ref: Sketcher_Constraint
 #[derive(Clone, Debug)]
 pub struct SketchConstraint {
     pub constraint_id: u32,
@@ -64,7 +64,7 @@ impl SketchConstraint {
 }
 
 /// Sketch geometry element (point, line, circle, arc, etc.).
-/// occt: Sketcher_SketchGeometry
+// occt-ref: Sketcher_SketchGeometry
 #[derive(Clone, Debug)]
 pub struct SketchGeometry {
     pub geom_id: u32,
@@ -111,7 +111,7 @@ impl SketchGeometry {
 }
 
 /// Sketch solver and constraint satisfaction.
-/// occt: Sketcher_SketchSolver
+// occt-ref: Sketcher_SketchSolver
 #[derive(Clone, Debug, Default)]
 pub struct SketchSolver {
     pub geometries: Vec<SketchGeometry>,

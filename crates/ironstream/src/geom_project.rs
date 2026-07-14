@@ -1,7 +1,7 @@
 // FILE: geom_project.rs
-// occt: GeomAPI_ProjectPointOnSurf, GeomAPI_ProjectPointOnCurve, ProjLib_ProjectedCurve
+// occt-ref: GeomAPI_ProjectPointOnSurf, GeomAPI_ProjectPointOnCurve, ProjLib_ProjectedCurve
 
-// occt: GeomAPI_ProjectPointOnSurf
+// occt-ref: GeomAPI_ProjectPointOnSurf
 /// Projects a point onto a parametric surface, finding the nearest (U, V) parameter.
 #[derive(Clone, Debug)]
 pub struct ProjectPointOnSurf {
@@ -55,7 +55,7 @@ impl ProjectPointOnSurf {
     }
 }
 
-// occt: GeomAPI_ProjectPointOnCurve
+// occt-ref: GeomAPI_ProjectPointOnCurve
 /// Projects a point onto a curve, finding the nearest parameter t.
 #[derive(Clone, Debug)]
 pub struct ProjectPointOnCurve {
@@ -106,7 +106,7 @@ impl ProjectPointOnCurve {
     }
 }
 
-// occt: ProjLib_ProjectedCurve
+// occt-ref: ProjLib_ProjectedCurve
 /// A 2D curve resulting from projecting a 3D curve onto a surface.
 #[derive(Clone, Debug)]
 pub struct ProjectedCurve {

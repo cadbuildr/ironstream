@@ -115,7 +115,7 @@ fn polyline_length(pts: &[[f64; 3]]) -> f64 {
 /// let result = f.build();
 /// assert_eq!(result.len(), 2);
 /// ```
-// occt: BRepFill_Filling
+// occt-ref: BRepFill_Filling
 #[derive(Clone, Debug)]
 pub struct WireFilling {
     /// The boundary wire polylines collected so far.
@@ -138,7 +138,7 @@ impl WireFilling {
     /// * `degree`       — polynomial degree used by the filling approximation.
     /// * `nb_pts_on_cur`— number of sample points per boundary curve.
     /// * `nb_iter`      — maximum number of refinement iterations.
-    // occt: BRepFill_Filling::BRepFill_Filling(Degree, NbPtsOnCur, NbIter, …)
+    // occt-ref: BRepFill_Filling // ::BRepFill_Filling(Degree, NbPtsOnCur, NbIter, …)
     pub fn new(degree: u32, nb_pts_on_cur: u32, nb_iter: u32) -> Self {
         Self {
             wires: Vec::new(),
@@ -153,7 +153,7 @@ impl WireFilling {
     ///
     /// `order` follows the `GeomAbs_Shape` convention: 0 = G0/C0 (positional),
     /// 1 = G1 (tangent), 2 = G2 (curvature).
-    // occt: BRepFill_Filling::Add(Wire, GeomAbs_Shape)
+    // occt-ref: BRepFill_Filling // ::Add(Wire, GeomAbs_Shape)
     pub fn add_wire(&mut self, pts: Vec<[f64; 3]>, order: u32) {
         self.wires.push(pts);
         self.orders.push(order);
@@ -165,7 +165,7 @@ impl WireFilling {
     /// Each output polyline contains `nb_pts_on_cur` points sampled at uniform
     /// parameter steps along the corresponding input wire.  Returns an empty
     /// `Vec` when [`is_done`] is `false`.
-    // occt: BRepFill_Filling::Build()
+    // occt-ref: BRepFill_Filling // ::Build()
     pub fn build(&self) -> Vec<Vec<[f64; 3]>> {
         if !self.is_done() {
             return Vec::new();
@@ -192,7 +192,7 @@ impl WireFilling {
 
     /// Return `true` when at least one wire with two or more points has been
     /// added.
-    // occt: BRepFill_Filling::IsDone()
+    // occt-ref: BRepFill_Filling // ::IsDone()
     pub fn is_done(&self) -> bool {
         !self.wires.is_empty() && self.wires.iter().any(|w| w.len() >= 2)
     }
@@ -236,7 +236,7 @@ impl PipeShell {
     /// Construct a new `PipeShell` with the given `spine` polyline.
     ///
     /// No profiles are attached at construction time.
-    // occt: BRepFill_PipeShell::BRepFill_PipeShell(Spine)
+    // occt: BRepFill_PipeShell // ::BRepFill_PipeShell(Spine)
     pub fn new(spine: Vec<[f64; 3]>) -> Self {
         Self {
             spine,
@@ -249,7 +249,7 @@ impl PipeShell {
     ///
     /// Profiles are placed in order along the spine.  When two or more profiles
     /// exist they are linearly interpolated by [`build`].
-    // occt: BRepFill_PipeShell::Add(Profile)
+    // occt: BRepFill_PipeShell // ::Add(Profile)
     pub fn add_profile(&mut self, pts: Vec<[f64; 3]>) {
         self.profiles.push(pts);
     }
@@ -266,7 +266,7 @@ impl PipeShell {
     /// - the cumulative cross-section perimeter at the first and last station.
     ///
     /// Returns an empty string when [`is_ready`] is `false`.
-    // occt: BRepFill_PipeShell::Build()
+    // occt: BRepFill_PipeShell // ::Build()
     pub fn build(&mut self) -> String {
         if !self.is_ready() {
             return String::new();
@@ -304,14 +304,14 @@ impl PipeShell {
     }
 
     /// Return `true` after a successful call to [`build`].
-    // occt: BRepFill_PipeShell::IsDone()
+    // occt: BRepFill_PipeShell // ::IsDone()
     pub fn is_done(&self) -> bool {
         self.done
     }
 
     /// Return `true` when the `PipeShell` has a valid spine (at least 2 points)
     /// and at least one profile (at least 2 points).
-    // occt: BRepFill_PipeShell::IsReady()
+    // occt: BRepFill_PipeShell // ::IsReady()
     pub fn is_ready(&self) -> bool {
         self.spine.len() >= 2
             && !self.profiles.is_empty()
@@ -332,7 +332,7 @@ impl PipeShell {
 ///
 /// Returns an empty `Vec` when `wires` is empty or all wires have fewer than
 /// two points.
-// occt: BRepFill_Filling (free-function convenience wrapper)
+// occt-ref: BRepFill_Filling // (free-function convenience wrapper)
 pub fn fill_wire_boundary(wires: &[Vec<[f64; 3]>]) -> Vec<Vec<[f64; 3]>> {
     if wires.is_empty() {
         return Vec::new();

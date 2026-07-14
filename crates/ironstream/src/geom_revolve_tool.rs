@@ -22,7 +22,7 @@ use std::f64::consts::PI;
 
 // ─────────────────────────────── RevolTool ──────────────────────────────────
 
-// occt: BRepPrimAPI_MakeRevol
+// occt-ref: BRepPrimAPI_MakeRevol
 /// Builder for a solid of revolution created from a named profile shape.
 ///
 /// Mirrors the constructor and query surface of `BRepPrimAPI_MakeRevol`:
@@ -64,7 +64,7 @@ impl RevolTool {
     /// * `shape` — identifier of the source profile shape.
     /// * `axis`  — direction of the revolution axis (stored as-is).
     /// * `angle` — sweep angle in radians.
-    // occt: BRepPrimAPI_MakeRevol::BRepPrimAPI_MakeRevol
+    // occt-ref: BRepPrimAPI_MakeRevol // ::BRepPrimAPI_MakeRevol
     pub fn new(shape: &str, axis: [f64; 3], angle: f64) -> Self {
         Self {
             shape: shape.to_owned(),
@@ -82,7 +82,7 @@ impl RevolTool {
     ///
     /// # Arguments
     /// * `pt` — point through which the revolution axis passes.
-    // occt: BRepPrimAPI_MakeRevol (gp_Ax1 axis-point overload)
+    // occt-ref: BRepPrimAPI_MakeRevol // (gp_Ax1 axis-point overload)
     pub fn at(mut self, pt: [f64; 3]) -> Self {
         self.axis_pt = pt;
         self
@@ -95,7 +95,7 @@ impl RevolTool {
     ///
     /// Mirrors `BRepPrimAPI_MakeRevol::Build()` followed by
     /// `BRepPrimAPI_MakeRevol::Shape()`.
-    // occt: BRepPrimAPI_MakeRevol::Shape
+    // occt-ref: BRepPrimAPI_MakeRevol // ::Shape
     pub fn build(&self) -> String {
         if self.shape.is_empty() || self.angle.abs() < 1e-12 {
             return String::new();
@@ -117,7 +117,7 @@ impl RevolTool {
     ///
     /// Mirrors `BRepPrimAPI_MakeRevol::IsDone()`: the shape identifier must be
     /// non-empty and the sweep angle must be non-zero.
-    // occt: BRepPrimAPI_MakeRevol::IsDone
+    // occt-ref: BRepPrimAPI_MakeRevol // ::IsDone
     pub fn is_done(&self) -> bool {
         !self.shape.is_empty() && self.angle.abs() >= 1e-12
     }
@@ -134,7 +134,7 @@ impl RevolTool {
     ///
     /// This is a stub approximation; a real implementation would integrate the
     /// actual cross-sectional area from the BRep topology.
-    // occt: BRepPrimAPI_MakeRevol (volume query, no direct OCCT equivalent —
+    // occt-ref: BRepPrimAPI_MakeRevol // (volume query, no direct OCCT equivalent —
     //       actual volumes come from BRepGProp_VolumeProperties)
     pub fn volume(&self) -> f64 {
         if !self.is_done() {
@@ -149,7 +149,7 @@ impl RevolTool {
 
 // ─────────────────────────────── FeatRevol ──────────────────────────────────
 
-// occt: BRepFeat_MakeRevol
+// occt-ref: BRepFeat_MakeRevol
 /// Feature-level revolution builder operating on an existing solid face.
 ///
 /// Mirrors `BRepFeat_MakeRevol`: takes a face identifier and an axis direction,
@@ -189,7 +189,7 @@ impl FeatRevol {
     /// * `axis` — revolution axis direction (stored as-is).
     ///
     /// `direction` defaults to `true` (fuse / add material).
-    // occt: BRepFeat_MakeRevol::BRepFeat_MakeRevol
+    // occt-ref: BRepFeat_MakeRevol // ::BRepFeat_MakeRevol
     pub fn new(face: &str, axis: [f64; 3]) -> Self {
         Self {
             face: face.to_owned(),
@@ -204,7 +204,7 @@ impl FeatRevol {
     ///
     /// Mirrors `BRepFeat_MakeRevol::Perform()` combined with the subsequent
     /// `Shape()` query.
-    // occt: BRepFeat_MakeRevol::Shape
+    // occt-ref: BRepFeat_MakeRevol // ::Shape
     pub fn build(&self) -> String {
         if self.face.is_empty() {
             return String::new();
@@ -224,7 +224,7 @@ impl FeatRevol {
     ///
     /// Mirrors `BRepFeat_MakeRevol::IsDone()`: the face identifier must be
     /// non-empty.
-    // occt: BRepFeat_MakeRevol::IsDone
+    // occt-ref: BRepFeat_MakeRevol // ::IsDone
     pub fn is_done(&self) -> bool {
         !self.face.is_empty()
     }
@@ -257,7 +257,7 @@ impl FeatRevol {
 /// let token = revolve("wire_0", [0.0, 0.0, 1.0], PI);
 /// assert!(!token.is_empty());
 /// ```
-// occt: BRepPrimAPI_MakeRevol (free-function convenience wrapper)
+// occt-ref: BRepPrimAPI_MakeRevol // (free-function convenience wrapper)
 pub fn revolve(shape: &str, axis: [f64; 3], angle: f64) -> String {
     RevolTool::new(shape, axis, angle).build()
 }

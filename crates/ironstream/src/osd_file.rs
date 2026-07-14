@@ -1,5 +1,6 @@
 // FILE: osd_file.rs
-// occt: OSD_File, OSD_Path, OSD_Directory, OSD_FileIterator
+// occt: OSD_File, OSD_FileIterator
+// occt-ref: OSD_Path, OSD_Directory
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum OsdOpenMode {
@@ -22,7 +23,7 @@ pub enum OsdError {
     Unknown,
 }
 
-// occt: OSD_Path
+// occt-ref: OSD_Path
 #[derive(Clone, Debug, PartialEq, Eq, Default)]
 pub struct OsdPath {
     pub path: String,
@@ -111,7 +112,7 @@ impl OsdFile {
     pub fn failed(&self) -> bool { self.error != OsdError::Ok }
 }
 
-// occt: OSD_Directory
+// occt-ref: OSD_Directory
 #[derive(Clone, Debug)]
 pub struct OsdDirectory {
     pub path: OsdPath,

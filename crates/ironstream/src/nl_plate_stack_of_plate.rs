@@ -1,5 +1,6 @@
 // FILE: nl_plate_stack_of_plate.rs
-// occt: NLPlate_StackOfPlate, NLPlate_ListIteratorOfStackOfPlate
+// occt: NLPlate_StackOfPlate
+// occt-ref: NLPlate_ListIteratorOfStackOfPlate
 
 /// Plate_Plate represents a plate surface element.
 #[derive(Clone, Debug)]

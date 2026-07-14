@@ -1,9 +1,9 @@
 // FILE: quantity_ext.rs
-// occt: Quantity_Length, Quantity_Angle, Quantity_Speed,
+// occt-ref: Quantity_Length, Quantity_Angle, Quantity_Speed
 //       Quantity_ColorRGBA, Quantity_ColorRGBaf
 
 /// Represents a physical length value (in mm by default).
-/// occt: Quantity_Length
+// occt-ref: Quantity_Length
 #[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd)]
 pub struct QuantityLength(pub f64);
 
@@ -20,7 +20,7 @@ impl QuantityLength {
 }
 
 /// Represents an angle value (in radians internally).
-/// occt: Quantity_Angle
+// occt-ref: Quantity_Angle
 #[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd)]
 pub struct QuantityAngle(pub f64);
 
@@ -39,7 +39,7 @@ impl QuantityAngle {
 }
 
 /// Represents a speed value (in mm/s).
-/// occt: Quantity_Speed
+// occt-ref: Quantity_Speed
 #[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd)]
 pub struct QuantitySpeed(pub f64);
 
@@ -54,7 +54,7 @@ impl QuantitySpeed {
 }
 
 /// RGBA color with f64 components.
-/// occt: Quantity_ColorRGBA
+// occt-ref: Quantity_ColorRGBA
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct QuantityColorRgba {
     pub r: f64,
@@ -103,7 +103,7 @@ impl QuantityColorRgba {
 }
 
 /// RGBA color with f32 components (GPU-ready).
-/// occt: Quantity_ColorRGBaf
+// occt-ref: Quantity_ColorRGBaf
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct QuantityColorRgbaf {
     pub r: f32,

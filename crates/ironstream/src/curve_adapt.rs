@@ -1,5 +1,6 @@
 // FILE: curve_adapt.rs
-// occt: Adaptor3d_HCurve, Adaptor3d_CurveOnSurface,
+// occt: Adaptor3d_CurveOnSurface
+// occt-ref: Adaptor3d_HCurve
 //       Geom2dAdaptor_Curve, BRep_CurveRepresentation
 
 /// The type of parametric entity.
@@ -37,7 +38,7 @@ impl Default for GeomAbsContinuity {
     fn default() -> Self { Self::C0 }
 }
 
-// occt: Geom2dAdaptor_Curve — adapts a Geom2d_Curve for algorithm use
+// occt-ref: Geom2dAdaptor_Curve // — adapts a Geom2d_Curve for algorithm use
 #[derive(Clone, Debug)]
 pub struct Geom2dAdaptorCurve {
     pub curve_id: u32,
@@ -99,7 +100,7 @@ impl Geom2dAdaptorCurve {
     pub fn nb_intervals(&self, _continuity: GeomAbsContinuity) -> usize { 1 }
 }
 
-// occt: Adaptor3d_CurveOnSurface — a 2D curve mapped onto a surface's parametric space
+// occt: Adaptor3d_CurveOnSurface // — a 2D curve mapped onto a surface's parametric space
 #[derive(Clone, Debug)]
 pub struct AdaptorCurveOnSurface {
     pub curve2d_id: u32,
@@ -165,7 +166,7 @@ impl Default for BrepCurveRepType {
     fn default() -> Self { Self::Curve3D }
 }
 
-// occt: BRep_CurveRepresentation — stores one representation of an edge's geometry
+// occt: BRep_CurveRepresentation // — stores one representation of an edge's geometry
 #[derive(Clone, Debug)]
 pub struct BrepCurveRepresentation {
     pub rep_type: BrepCurveRepType,
@@ -194,7 +195,7 @@ impl BrepCurveRepresentation {
     pub fn tolerance(&self) -> f64 { self.tolerance }
 }
 
-// occt: Adaptor3d_HCurve — handle (wrapper) around a 3D curve adaptor
+// occt-note: Adaptor3d_HCurve — handle (wrapper) around a 3D curve adaptor
 #[derive(Clone, Debug)]
 pub struct Adaptor3dHCurve {
     pub curve_id: u32,

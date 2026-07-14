@@ -1,5 +1,5 @@
 // FILE: iges_graph_line_font_predefined.rs
-// occt: IGESGraph_Ulinefontpredefined
+// occt-ref: IGESGraph_Ulinefontpredefined
 
 pub struct UlineUfontUpredefined {
     entity_type: i32,

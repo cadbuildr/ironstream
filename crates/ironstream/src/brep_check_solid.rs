@@ -25,23 +25,23 @@ use std::collections::HashSet;
 pub enum SolidError {
     /// The bounding shell is not a closed surface — it has at least one free
     /// (boundary) edge.
-    // occt: BRepCheck_NotClosed
+    // occt-ref: BRepCheck_NotClosed
     NotClosed,
     /// One or more faces in the bounding shell have an orientation that is
     /// inconsistent with the solid's inside / outside sense.
-    // occt: BRepCheck_BadOrientationOfSubshape
+    // occt-ref: BRepCheck_BadOrientationOfSubshape
     BadOrientation,
     /// An edge referenced by the solid's topology is geometrically invalid
     /// (e.g., degenerate, self-intersecting, or has no associated curve).
-    // occt: BRepCheck_InvalidEdge
+    // occt-ref: BRepCheck_InvalidEdge
     InvalidEdge,
     /// The shell has at least one edge that is not shared by exactly two faces,
     /// making it a free (boundary) edge.
-    // occt: BRepCheck_FreeEdge
+    // occt-ref: BRepCheck_FreeEdge
     FreeEdge,
     /// An edge is shared by more than two faces, which is not permitted for a
     /// manifold solid.
-    // occt: BRepCheck_MultiConnectedEdge (conceptually)
+    // occt-note: BRepCheck_MultiConnectedEdge (conceptually)
     MultiConnected,
 }
 

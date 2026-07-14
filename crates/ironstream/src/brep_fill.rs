@@ -30,7 +30,7 @@ use crate::gp::{Pnt, Vec3};
 /// boundary.
 ///
 /// Mirrors `GeomAbs_Shape` as used in BRepFill.
-// occt: GeomAbs_Shape (BRepFill context)
+// occt-ref: GeomAbs_Shape // (BRepFill context)
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub enum ContinuityOrder {
     /// Positional (C0 / G0) constraint — the surface passes through the curve.
@@ -424,7 +424,7 @@ impl BRepFillSectionLaw {
 // ---------------------------------------------------------------------------
 
 /// Build status returned by [`BRepFillFilling::build`].
-// occt: BRepFill_Filling (internal state)
+// occt: BRepFill_Filling // (internal state)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FillStatus {
     /// Not yet built.

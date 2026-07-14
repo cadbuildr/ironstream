@@ -1,5 +1,6 @@
 // FILE: resource_data_map_of_ascii_string_extended_string.rs
-// occt: Resource_DataMapOfAsciiStringExtendedString, Resource_DataMapIteratorOfDataMapOfAsciiStringExtendedString
+// occt: Resource_DataMapOfAsciiStringExtendedString
+// occt-ref: Resource_DataMapIteratorOfDataMapOfAsciiStringExtendedString
 
 use std::collections::BTreeMap;
 

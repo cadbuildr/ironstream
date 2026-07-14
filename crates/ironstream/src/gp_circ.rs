@@ -219,7 +219,7 @@ impl Circ {
 // Parab  (gp_Parab)
 // ---------------------------------------------------------------------------
 
-// occt: gp_Parab
+// occt-ref: gp_Parab
 /// Analytic 3-D parabola: a focus, an axis of symmetry direction, and a focal
 /// length.
 ///

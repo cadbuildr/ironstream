@@ -30,7 +30,8 @@ use std::f64::consts::TAU;
 
 /// Error kinds that a `BRepLib` builder can produce, mirroring OCCT's
 /// `BRepLib_MakeShapeError` / `BRepBuilderAPI_EdgeError` etc.
-// occt: BRepLib_MakeShapeError, BRepBuilderAPI_EdgeError, BRepBuilderAPI_FaceError
+// occt: BRepBuilderAPI_EdgeError, BRepBuilderAPI_FaceError
+// occt-ref: BRepLib_MakeShapeError
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum BRepLibError {
     /// The builder has not been invoked yet or holds no result.

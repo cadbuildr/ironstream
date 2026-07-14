@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/brep_algo_check.rs
 
-// occt: BOPAlgo_CheckStatus
+// occt-ref: BOPAlgo_CheckStatus
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum BrepAlgoCheckErrorType {
     NoError,
@@ -14,7 +14,7 @@ pub enum BrepAlgoCheckErrorType {
     NotImplemented,
 }
 
-// occt: BOPAlgo_CheckResult
+// occt-ref: BOPAlgo_CheckResult
 #[derive(Clone, Debug)]
 pub struct BrepAlgoCheckError {
     error_type: BrepAlgoCheckErrorType,
@@ -44,7 +44,7 @@ impl BrepAlgoCheckError {
     }
 }
 
-// occt: BRepAlgoAPI_Check
+// occt-ref: BRepAlgoAPI_Check
 pub struct BrepAlgoCheck {
     errors: Vec<BrepAlgoCheckError>,
     is_valid: bool,

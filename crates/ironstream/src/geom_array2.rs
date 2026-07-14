@@ -1,5 +1,6 @@
 // FILE: geom_array2.rs
-// occt: TColgp_Array2OfPnt, TColgp_Array1OfPnt, TColgp_Array1OfVec, TColgp_Array2OfVec
+// occt: TColgp_Array2OfVec
+// occt-ref: TColgp_Array2OfPnt, TColgp_Array1OfPnt, TColgp_Array1OfVec
 
 /// 1-D array of 3-D points (1-based indexing, arbitrary lower bound).
 #[derive(Clone, Debug)]

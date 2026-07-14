@@ -12,7 +12,7 @@ pub trait Geom2dGeometry: Send + Sync {
     fn clone_box(&self) -> Box<dyn Geom2dGeometry>;
 }
 
-// occt: Geom2d_Curve
+// occt-ref: Geom2d_Curve
 /// Trait for parametric 2D curves.
 pub trait Geom2dCurve: Geom2dGeometry {
     /// Point on the curve at parameter u.
@@ -55,13 +55,13 @@ pub trait Geom2dConic: Geom2dCurve {
 // 3D TRAIT HIERARCHY
 // ---------------------------------------------------------------------------
 
-// occt: Geom_Geometry
+// occt-ref: Geom_Geometry
 /// Base trait for all 3D geometric objects.
 pub trait GeomGeometry: Send + Sync {
     fn clone_box(&self) -> Box<dyn GeomGeometry>;
 }
 
-// occt: Geom_Curve
+// occt-ref: Geom_Curve
 /// Trait for parametric 3D curves.
 pub trait GeomCurve: GeomGeometry {
     /// Point on the curve at parameter u.
@@ -80,7 +80,7 @@ pub trait GeomCurve: GeomGeometry {
     fn is_closed(&self) -> bool;
 }
 
-// occt: Geom_BoundedCurve
+// occt-ref: Geom_BoundedCurve
 /// Trait for 3D curves with explicit start and end points.
 pub trait GeomBoundedCurve: GeomCurve {
     /// Point at the start of the curve.
@@ -89,7 +89,7 @@ pub trait GeomBoundedCurve: GeomCurve {
     fn end_point(&self) -> [f64; 3];
 }
 
-// occt: Geom_Conic
+// occt-ref: Geom_Conic
 /// Trait for 3D conic sections.
 pub trait GeomConic: GeomCurve {
     /// Location (center/vertex) of the conic in 3D.
@@ -111,7 +111,7 @@ pub trait GeomConic: GeomCurve {
 ///
 /// OCCT analogue: Geom2d_TrimmedCurve wrapping Geom2d_Line, trimmed to the
 /// two endpoints.
-// occt: Geom2d_TrimmedCurve
+// occt-ref: Geom2d_TrimmedCurve
 #[derive(Clone)]
 pub struct Line2d {
     pub start: [f64; 2],
@@ -196,7 +196,7 @@ impl Geom2dBoundedCurve for Line2d {
 // ---------------------------------------------------------------------------
 
 /// A full 2D circle parameterised by angle u in [0, 2π).
-// occt: Geom2d_Circle
+// occt-ref: Geom2d_Circle
 #[derive(Clone)]
 pub struct Circle2d {
     /// Centre of the circle.
@@ -280,7 +280,7 @@ impl Geom2dConic for Circle2d {
 ///
 /// The semi-major axis lies along the local X direction, semi-minor along Y.
 /// The major axis length must be >= the minor axis length > 0.
-// occt: Geom2d_Ellipse
+// occt-ref: Geom2d_Ellipse
 #[derive(Clone)]
 pub struct Ellipse2d {
     /// Centre of the ellipse.
@@ -387,7 +387,7 @@ impl Geom2dConic for Ellipse2d {
 // ---------------------------------------------------------------------------
 
 /// A line segment in 3D parameterised by arc-length.
-// occt: Geom_TrimmedCurve
+// occt-ref: Geom_TrimmedCurve
 #[derive(Clone)]
 pub struct Line3d {
     pub start: [f64; 3],
@@ -472,7 +472,7 @@ impl GeomBoundedCurve for Line3d {
 // ---------------------------------------------------------------------------
 
 /// A full 3D circle in the XY plane (z=plane_z) with given centre and radius.
-// occt: Geom_Circle
+// occt-ref: Geom_Circle
 #[derive(Clone)]
 pub struct Circle3d {
     pub center: [f64; 3],

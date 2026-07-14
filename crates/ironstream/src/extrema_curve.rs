@@ -1,5 +1,5 @@
 // FILE: extrema_curve.rs
-// occt: Extrema_ExtCC (curve-curve extrema), Extrema_ExtCurveParameters,
+// occt-ref: Extrema_ExtCC // (curve-curve extrema), Extrema_ExtCurveParameters,
 //       Extrema_ExtCOcc (closest points on curves)
 
 /// Result of a curve-curve extrema computation.
@@ -40,7 +40,7 @@ impl CurvePair {
     pub fn distance(&self) -> f64 { self.square_distance.sqrt() }
 }
 
-// occt: Extrema_ExtCC — finds all extrema (distance min/max) between two 3D curves
+// occt-ref: Extrema_ExtCC // — finds all extrema (distance min/max) between two 3D curves
 #[derive(Clone, Debug, Default)]
 pub struct ExtCCurve3d {
     pub curve1_id: u32,
@@ -111,7 +111,7 @@ impl PointOnCurve {
     pub fn distance(&self) -> f64 { self.square_distance.sqrt() }
 }
 
-// occt: Extrema_ExtPC3d — closest points from a 3D point to a 3D curve
+// occt-note: Extrema_ExtPC3d — closest points from a 3D point to a 3D curve
 #[derive(Clone, Debug, Default)]
 pub struct ExtPCurve3d {
     pub curve_id: u32,
@@ -149,7 +149,7 @@ impl ExtPCurve3d {
     }
 }
 
-// occt: Extrema_ExtCurveParameters — parameter + point pair on a curve
+// occt-note: Extrema_ExtCurveParameters — parameter + point pair on a curve
 #[derive(Clone, Debug, Default)]
 pub struct ExtCurveParameters {
     pub param: f64,

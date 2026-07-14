@@ -1,6 +1,6 @@
 // FILE: graphic3d_graduated_trihedron.rs
 // occt: Graphic3d_GraduatedTrihedron
-// occt: Graphic3d_GraduatedTrihedron::AxisAspect
+// occt: Graphic3d_GraduatedTrihedron // ::AxisAspect
 
 use core::fmt;
 

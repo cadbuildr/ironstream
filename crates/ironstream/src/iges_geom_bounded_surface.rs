@@ -1,5 +1,5 @@
 // FILE: iges_geom_bounded_surface.rs
-// occt: IGESGeom_Uboundedsurface
+// occt-ref: IGESGeom_Uboundedsurface
 
 pub struct UboundedUsurface {
     entity_type: i32,

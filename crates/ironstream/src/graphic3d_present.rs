@@ -1,9 +1,9 @@
 // FILE: graphic3d_present.rs
-// occt: Graphic3d_Camera (extended), Graphic3d_Presentation,
+// occt-ref: Graphic3d_Camera // (extended), Graphic3d_Presentation,
 //       Graphic3d_SequenceOfGroup, PrsMgr_PresentationManager
 
 /// Priority of a presentation.
-/// occt: PrsMgr_PresentationManager
+// occt-ref: PrsMgr_PresentationManager
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub struct PresentationPriority(pub i32);
 
@@ -20,7 +20,7 @@ impl PresentationPriority {
 }
 
 /// Display mode index.
-/// occt: AIS_DisplayMode
+// occt-ref: AIS_DisplayMode
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum DisplayMode {
     WireFrame = 0,
@@ -34,7 +34,7 @@ impl Default for DisplayMode {
 }
 
 /// A single group of primitives in a presentation (GL group).
-/// occt: Graphic3d_Group
+// occt-ref: Graphic3d_Group
 #[derive(Clone, Debug)]
 pub struct Graphic3dGroup {
     pub group_id: u32,
@@ -61,7 +61,7 @@ impl Graphic3dGroup {
 }
 
 /// A 3D presentation: a collection of groups for one object + one display mode.
-/// occt: Graphic3d_Structure / Prs3d_Presentation
+// occt-ref: Graphic3d_Structure // / Prs3d_Presentation
 #[derive(Clone, Debug)]
 pub struct Graphic3dPresentation {
     pub presentation_id: u32,
@@ -124,7 +124,7 @@ impl Graphic3dPresentation {
 }
 
 /// Presentation manager: owns presentations for all interactive objects.
-/// occt: PrsMgr_PresentationManager
+// occt-ref: PrsMgr_PresentationManager
 #[derive(Clone, Debug, Default)]
 pub struct PrsMgrPresentationManager {
     pub presentations: Vec<Graphic3dPresentation>,

@@ -1,5 +1,5 @@
 // FILE: geom2d_gcc_function_tan_obl.rs
-// occt: geom2d::gcc::function::tan::obl
+// occt-note: geom2d::gcc::function::tan::obl
 
 pub struct Stub;
 

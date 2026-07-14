@@ -14,23 +14,23 @@
 
 /// Categories of wire defects detected by [`WireAnalysis`] or repaired by
 /// [`WireFixer`].
-// occt: ShapeAnalysis_Wire — error codes returned by its Check* methods
-// occt: ShapeFix_Wire      — each Fix* method addresses one of these categories
+// occt-ref: ShapeAnalysis_Wire // — error codes returned by its Check* methods
+// occt-ref: ShapeFix_Wire // — each Fix* method addresses one of these categories
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum WireError {
     /// Adjacent edges do not share a common vertex (gap between end-points).
-    // occt: ShapeAnalysis_Wire::CheckConnected / ShapeAnalysis_WireOrder::Status
+    // occt-ref: ShapeAnalysis_Wire // ::CheckConnected / ShapeAnalysis_WireOrder::Status
     NotConnected,
     /// The wire path crosses itself.
-    // occt: ShapeAnalysis_Wire::CheckSelfIntersection
+    // occt-ref: ShapeAnalysis_Wire // ::CheckSelfIntersection
     SelfIntersecting,
     /// A measurable gap exists between consecutive edge end-points that exceeds
     /// the analysis precision.
-    // occt: ShapeAnalysis_Wire::CheckGaps3d / CheckGaps2d
+    // occt-ref: ShapeAnalysis_Wire // ::CheckGaps3d / CheckGaps2d
     Gap,
     /// An individual edge is degenerate, has zero length, or is otherwise
     /// geometrically invalid.
-    // occt: ShapeAnalysis_Wire::CheckSmall / CheckDegenerated
+    // occt-ref: ShapeAnalysis_Wire // ::CheckSmall / CheckDegenerated
     BadEdge,
 }
 
@@ -44,16 +44,16 @@ pub enum WireError {
 /// Mirrors the public interface of `ShapeAnalysis_Wire`: load a wire, call
 /// [`perform`](WireAnalysis::perform) to run all checks, then query individual
 /// results through the accessor methods.
-// occt: ShapeAnalysis_Wire
+// occt-ref: ShapeAnalysis_Wire
 #[derive(Clone, Debug)]
 pub struct WireAnalysis {
     /// Ordered list of edge identifiers that make up the wire.
-    // occt: ShapeAnalysis_Wire holds a Handle(ShapeExtend_WireData)
+    // occt-ref: ShapeAnalysis_Wire // holds a Handle(ShapeExtend_WireData)
     pub wire: Vec<String>,
     /// Defects discovered during the last call to [`perform`](WireAnalysis::perform).
     pub errors: Vec<WireError>,
     /// Spatial tolerance used when evaluating connectivity and gap checks.
-    // occt: ShapeAnalysis_Wire::SetPrecision / Precision::Confusion()
+    // occt-ref: ShapeAnalysis_Wire // ::SetPrecision / Precision::Confusion()
     pub precision: f64,
     /// Whether [`perform`](WireAnalysis::perform) has been called at least once
     /// and the wire contained at least one edge.
@@ -65,7 +65,7 @@ impl WireAnalysis {
     ///
     /// [`perform`](WireAnalysis::perform) must be called before any check
     /// results are available.
-    // occt: ShapeAnalysis_Wire::Init(const Handle(ShapeExtend_WireData)&, …, prec)
+    // occt-ref: ShapeAnalysis_Wire // ::Init(const Handle(ShapeExtend_WireData)&, …, prec)
     pub fn new(wire: Vec<String>, prec: f64) -> Self {
         Self {
             wire,
@@ -78,7 +78,7 @@ impl WireAnalysis {
     /// Replace the current wire with `wire` and clear any previously recorded
     /// errors.  Resets the *loaded* flag so that [`perform`](WireAnalysis::perform)
     /// must be called again.
-    // occt: ShapeAnalysis_Wire::Load(const Handle(ShapeExtend_WireData)&)
+    // occt-ref: ShapeAnalysis_Wire // ::Load(const Handle(ShapeExtend_WireData)&)
     pub fn load(&mut self, wire: Vec<String>) {
         self.wire = wire;
         self.errors.clear();
@@ -95,7 +95,7 @@ impl WireAnalysis {
     ///   consecutive edges.
     /// * Degenerate-edge detection — an edge whose identifier is empty is
     ///   treated as a [`WireError::BadEdge`].
-    // occt: ShapeAnalysis_Wire::Perform() — runs CheckOrder, CheckConnected,
+    // occt-ref: ShapeAnalysis_Wire // ::Perform() — runs CheckOrder, CheckConnected,
     //       CheckSmall, CheckSelfIntersection, CheckGaps3d, etc.
     pub fn perform(&mut self) -> bool {
         self.errors.clear();
@@ -108,7 +108,7 @@ impl WireAnalysis {
         self.loaded = true;
 
         // Degenerate-edge check: any empty identifier is a BadEdge.
-        // occt: ShapeAnalysis_Wire::CheckSmall / CheckDegenerated
+        // occt-ref: ShapeAnalysis_Wire // ::CheckSmall / CheckDegenerated
         for edge_id in &self.wire {
             if edge_id.is_empty() {
                 if !self.errors.contains(&WireError::BadEdge) {
@@ -118,7 +118,7 @@ impl WireAnalysis {
         }
 
         // Connectivity / ordering check.
-        // occt: ShapeAnalysis_Wire::CheckOrder / CheckConnected
+        // occt-ref: ShapeAnalysis_Wire // ::CheckOrder / CheckConnected
         if !self.check_order() {
             if !self.errors.contains(&WireError::NotConnected) {
                 self.errors.push(WireError::NotConnected);
@@ -139,7 +139,7 @@ impl WireAnalysis {
     ///
     /// Returns `true` when the wire has fewer than two edges (trivially ordered)
     /// or when every adjacent pair passes the heuristic.
-    // occt: ShapeAnalysis_Wire::CheckOrder() / ShapeAnalysis_WireOrder::Perform()
+    // occt-ref: ShapeAnalysis_Wire // ::CheckOrder() / ShapeAnalysis_WireOrder::Perform()
     pub fn check_order(&self) -> bool {
         if self.wire.len() < 2 {
             return true;
@@ -152,7 +152,7 @@ impl WireAnalysis {
     }
 
     /// Number of edges in the current wire.
-    // occt: ShapeExtend_WireData::NbEdges()
+    // occt: ShapeExtend_WireData // ::NbEdges()
     pub fn nb_edges(&self) -> usize {
         self.wire.len()
     }
@@ -175,14 +175,14 @@ impl WireAnalysis {
 /// Mirrors the public interface of `ShapeFix_Wire`: construct with a wire,
 /// then call individual `fix_*` methods to repair specific classes of defect.
 /// Retrieve the (possibly modified) wire via [`wire`](WireFixer::wire).
-// occt: ShapeFix_Wire
+// occt-ref: ShapeFix_Wire
 #[derive(Clone, Debug)]
 pub struct WireFixer {
     /// Ordered list of edge identifiers that make up the wire.
-    // occt: ShapeFix_Wire holds a Handle(ShapeExtend_WireData)
+    // occt-ref: ShapeFix_Wire // holds a Handle(ShapeExtend_WireData)
     pub wire: Vec<String>,
     /// Spatial tolerance used for gap and small-edge detection.
-    // occt: ShapeFix_Wire::SetPrecision / Precision::Confusion()
+    // occt-ref: ShapeFix_Wire // ::SetPrecision / Precision::Confusion()
     pub precision: f64,
 }
 
@@ -192,7 +192,7 @@ impl WireFixer {
     /// A default precision of `1e-7` (matching `Precision::Confusion()` in
     /// OCCT) is applied; call the builder pattern or mutate [`precision`]
     /// directly to override.
-    // occt: ShapeFix_Wire::Init(const Handle(ShapeExtend_WireData)&, …, prec)
+    // occt-ref: ShapeFix_Wire // ::Init(const Handle(ShapeExtend_WireData)&, …, prec)
     pub fn new(wire: Vec<String>) -> Self {
         Self {
             wire,
@@ -209,7 +209,7 @@ impl WireFixer {
     /// In a geometry-aware implementation this would walk the actual end-point
     /// graph and reconnect edges in the unique traversal order found by
     /// `ShapeAnalysis_WireOrder`.
-    // occt: ShapeFix_Wire::FixReorder() — calls ShapeAnalysis_WireOrder::Perform
+    // occt-ref: ShapeFix_Wire // ::FixReorder() — calls ShapeAnalysis_WireOrder::Perform
     //       then reorders edges in ShapeExtend_WireData
     pub fn fix_reorder(&mut self) -> bool {
         if self.wire.len() < 2 {
@@ -232,7 +232,7 @@ impl WireFixer {
     ///
     /// In a geometry-aware implementation, edge *length* would be computed from
     /// the underlying `BRep_Tool::EdgeLength` and compared against `tol`.
-    // occt: ShapeFix_Wire::FixSmall(Standard_Boolean lockvtx, Standard_Real prec)
+    // occt-ref: ShapeFix_Wire // ::FixSmall(Standard_Boolean lockvtx, Standard_Real prec)
     //       removes degenerate / too-short edges
     pub fn fix_small(&mut self, tol: f64) -> bool {
         let before = self.wire.len();
@@ -249,7 +249,7 @@ impl WireFixer {
     /// In a geometry-aware implementation, gaps would be detected by comparing
     /// end-point coordinates within [`precision`](WireFixer::precision) and
     /// bridged by `BRepBuilderAPI_MakeEdge` / `ShapeFix_Wire::FixGaps3d`.
-    // occt: ShapeFix_Wire::FixGaps3d() / FixGaps2d()
+    // occt-ref: ShapeFix_Wire // ::FixGaps3d() / FixGaps2d()
     pub fn fix_gaps(&mut self) -> bool {
         if self.wire.len() < 2 {
             return false;
@@ -282,7 +282,7 @@ impl WireFixer {
     }
 
     /// Return a clone of the current (possibly fixed) wire.
-    // occt: ShapeFix_Wire::Wire() — returns the Handle(ShapeExtend_WireData)
+    // occt-ref: ShapeFix_Wire // ::Wire() — returns the Handle(ShapeExtend_WireData)
     pub fn wire(&self) -> Vec<String> {
         self.wire.clone()
     }

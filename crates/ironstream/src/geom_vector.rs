@@ -10,7 +10,7 @@ use crate::gp::{Pnt, Trsf};
 // ── Vec3 ──────────────────────────────────────────────────────────────────────
 
 /// A 3-D vector with arbitrary magnitude.
-// occt: gp_Vec
+// occt-ref: gp_Vec
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Vec3 {
     pub x: f64,
@@ -132,7 +132,7 @@ impl Vec3 {
 /// A unit-length 3-D direction vector.
 ///
 /// Invariant: `v.magnitude() == 1.0` (within floating-point precision).
-// occt: gp_Dir
+// occt-ref: gp_Dir
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Dir3 {
     /// The underlying unit vector.

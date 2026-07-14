@@ -1,5 +1,6 @@
 // FILE: mat_data_map_of_integer_bisector.rs
-// occt: MAT_DataMapOfIntegerBisector, MAT_DataMapIteratorOfDataMapOfIntegerBisector
+// occt: MAT_DataMapOfIntegerBisector
+// occt-ref: MAT_DataMapIteratorOfDataMapOfIntegerBisector
 
 use std::collections::BTreeMap;
 

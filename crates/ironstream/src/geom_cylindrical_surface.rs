@@ -73,7 +73,7 @@ fn scale(v: [f64; 3], s: f64) -> [f64; 3] {
 
 // ─────────────────────────────── main type ───────────────────────────────────
 
-// occt: Geom_CylindricalSurface
+// occt-ref: Geom_CylindricalSurface
 /// An infinite analytic cylindrical surface in 3D space.
 ///
 /// The parameterisation is:

@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/xcaf_color.rs
 
-// occt: XCAFDoc_ColorType — distinguishes how a color is applied to a shape
+// occt-ref: XCAFDoc_ColorType // — distinguishes how a color is applied to a shape
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum XcafColorType {
     /// General color, applied to the whole shape
@@ -11,7 +11,7 @@ pub enum XcafColorType {
     Curve,
 }
 
-// occt: XCAFDoc_Color — stores a named color entry with RGBA and color type
+// occt-ref: XCAFDoc_Color // — stores a named color entry with RGBA and color type
 #[derive(Clone, Debug)]
 pub struct XcafColorEntry {
     label: String,
@@ -50,7 +50,7 @@ impl XcafColorEntry {
     }
 }
 
-// occt: XCAFDoc_ColorTool — manages a collection of color entries indexed by position
+// occt-ref: XCAFDoc_ColorTool // — manages a collection of color entries indexed by position
 pub struct XcafColorTool {
     entries: Vec<XcafColorEntry>,
 }

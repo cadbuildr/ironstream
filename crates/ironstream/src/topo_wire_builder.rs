@@ -24,7 +24,7 @@ pub struct WireBuilder {
 
 impl WireBuilder {
     /// Create an empty, open builder.
-    // occt: BRepBuilderAPI_MakeWire()
+    // occt-note: BRepBuilderAPI_MakeWire()
     pub fn new() -> Self {
         Self {
             edges: Vec::new(),
@@ -33,7 +33,7 @@ impl WireBuilder {
     }
 
     /// Append edge `e` to the wire.
-    // occt: BRepBuilderAPI_MakeWire::Add(const TopoDS_Edge&)
+    // occt: BRepBuilderAPI_MakeWire // ::Add(const TopoDS_Edge&)
     pub fn add_edge(&mut self, e: &str) {
         self.edges.push(e.to_string());
     }
@@ -43,19 +43,19 @@ impl WireBuilder {
     /// In OCCT a wire is closed when the last edge's end vertex coincides with
     /// the first edge's start vertex.  Here we simply set the `closed` flag
     /// since no geometry is tracked.
-    // occt: BRep_Tool::IsClosed(const TopoDS_Wire&)
+    // occt-ref: BRep_Tool // ::IsClosed(const TopoDS_Wire&)
     pub fn close(&mut self) {
         self.closed = true;
     }
 
     /// Return `true` when at least one edge has been added.
-    // occt: BRepBuilderAPI_Command::IsDone()
+    // occt: BRepBuilderAPI_Command // ::IsDone()
     pub fn is_done(&self) -> bool {
         !self.edges.is_empty()
     }
 
     /// Return a clone of the accumulated edge list (the "wire").
-    // occt: BRepBuilderAPI_MakeWire::Wire() — returns TopoDS_Wire
+    // occt: BRepBuilderAPI_MakeWire // ::Wire() — returns TopoDS_Wire
     pub fn wire(&self) -> Vec<String> {
         self.edges.clone()
     }
@@ -77,7 +77,7 @@ impl Default for WireBuilder {
 /// edges are strings; "free" edges are those that appear an odd number of times
 /// in the wire (i.e. they are not shared by a second occurrence that would
 /// conceptually close the loop).
-// occt: ShapeAnalysis_Wire / BRepCheck_Wire
+// occt-ref: ShapeAnalysis_Wire // / BRepCheck_Wire
 pub struct WireAnalysis {
     /// The wire being analysed (ordered edge identifiers).
     pub wire: Vec<String>,
@@ -92,7 +92,7 @@ impl WireAnalysis {
     ///
     /// [`analyze`](WireAnalysis::analyze) must be called to populate
     /// `is_closed` and `num_free_edges`.
-    // occt: ShapeAnalysis_Wire::Load(const TopoDS_Wire&)
+    // occt-ref: ShapeAnalysis_Wire // ::Load(const TopoDS_Wire&)
     pub fn new(wire: Vec<String>) -> Self {
         Self {
             wire,
@@ -109,7 +109,7 @@ impl WireAnalysis {
     /// non-empty.
     ///
     /// Returns `true` when the wire is valid (non-empty and closed).
-    // occt: ShapeAnalysis_Wire::Perform() / BRepCheck_Wire::Closed()
+    // occt-ref: ShapeAnalysis_Wire // ::Perform() / BRepCheck_Wire::Closed()
     pub fn analyze(&mut self) -> bool {
         use std::collections::HashMap;
 
@@ -129,7 +129,7 @@ impl WireAnalysis {
     /// Return the subset of edges that appear an odd number of times.
     ///
     /// Preserves the order of first appearance in the wire.
-    // occt: ShapeAnalysis_Wire::NbFreeEdges() / CheckFreeEdge()
+    // occt-ref: ShapeAnalysis_Wire // ::NbFreeEdges() / CheckFreeEdge()
     pub fn free_edges(&self) -> Vec<String> {
         use std::collections::HashMap;
 
@@ -158,7 +158,7 @@ impl WireAnalysis {
 ///
 /// Equivalent to calling [`WireBuilder::new`] and then [`WireBuilder::add_edge`]
 /// for every element of `edges`.
-// occt: BRepBuilderAPI_MakeWire(const TopTools_ListOfShape&)
+// occt-note: BRepBuilderAPI_MakeWire(const TopTools_ListOfShape&)
 pub fn wire_from_edges(edges: &[&str]) -> WireBuilder {
     let mut wb = WireBuilder::new();
     for e in edges {
@@ -175,7 +175,7 @@ pub fn wire_from_edges(edges: &[&str]) -> WireBuilder {
 /// `BRepLib_MakeWire::Connect`.  Each chain is returned as a `Vec<String>`.
 ///
 /// Edges that share no prefix with their predecessor start a new chain.
-// occt: BRepLib_MakeWire — connects edges that share vertices
+// occt-ref: BRepLib_MakeWire // — connects edges that share vertices
 pub fn connect_edges(edges: &[String]) -> Vec<Vec<String>> {
     if edges.is_empty() {
         return Vec::new();

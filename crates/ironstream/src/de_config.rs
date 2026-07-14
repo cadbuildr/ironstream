@@ -1,5 +1,5 @@
 // FILE: de_config.rs
-// occt: DE_ConfigurationNode, DE_Wrapper, DE_PluginHolder, DE_ShapeFixParameters
+// occt-ref: DE_ConfigurationNode, DE_Wrapper, DE_PluginHolder, DE_ShapeFixParameters
 
 /// Configuration parameter types.
 #[derive(Clone, Debug, PartialEq)]
@@ -17,7 +17,7 @@ impl ConfigValue {
     pub fn as_str(&self) -> Option<&str> { if let ConfigValue::Str(v) = self { Some(v) } else { None } }
 }
 
-// occt: DE_ConfigurationNode — a named group of DE settings
+// occt-ref: DE_ConfigurationNode // — a named group of DE settings
 #[derive(Clone, Debug, Default)]
 pub struct ConfigNode {
     pub name: String,
@@ -37,7 +37,7 @@ impl ConfigNode {
     pub fn has(&self, key: &str) -> bool { self.params.contains_key(key) }
 }
 
-// occt: DE_ShapeFixParameters
+// occt-ref: DE_ShapeFixParameters
 #[derive(Clone, Debug)]
 pub struct ShapeFixParameters {
     pub fix_solid: bool,
@@ -87,7 +87,7 @@ impl Default for ShapeFixParameters {
     fn default() -> Self { Self::default_fix() }
 }
 
-// occt: DE_Wrapper — single entry point for read/write configuration
+// occt-ref: DE_Wrapper // — single entry point for read/write configuration
 #[derive(Clone, Debug, Default)]
 pub struct DeWrapper {
     pub nodes: Vec<ConfigNode>,

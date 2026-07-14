@@ -182,7 +182,7 @@ impl Hyperbola3d {
 /// ```
 ///
 /// The transverse axis is aligned with the global X axis.
-// occt: Geom2d_Hyperbola
+// occt-ref: Geom2d_Hyperbola
 #[derive(Clone, Copy, Debug)]
 pub struct Hyperbola2d {
     /// Center of the hyperbola `[cx, cy]`.

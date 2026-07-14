@@ -1,5 +1,5 @@
 // FILE: adapt_surf.rs
-// occt: Adaptor3d_Surface, GeomAdaptor_Surface, BRepAdaptor_Surface
+// occt-ref: Adaptor3d_Surface, GeomAdaptor_Surface, BRepAdaptor_Surface
 
 /// Type of underlying surface geometry.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -21,7 +21,7 @@ impl Default for SurfaceType {
     fn default() -> Self { Self::BSplineSurface }
 }
 
-// occt: Adaptor3d_Surface — abstract surface adaptor interface
+// occt-ref: Adaptor3d_Surface // — abstract surface adaptor interface
 #[derive(Clone, Debug)]
 pub struct Adaptor3dSurface {
     pub surface_id: u32,
@@ -91,7 +91,7 @@ impl Adaptor3dSurface {
     }
 }
 
-// occt: GeomAdaptor_Surface — wraps Geom_Surface as an Adaptor3d_Surface
+// occt-ref: GeomAdaptor_Surface // — wraps Geom_Surface as an Adaptor3d_Surface
 #[derive(Clone, Debug)]
 pub struct GeomAdaptorSurface {
     pub adaptor: Adaptor3dSurface,
@@ -121,7 +121,7 @@ impl GeomAdaptorSurface {
     pub fn v_last(&self) -> f64 { self.adaptor.v_last() }
 }
 
-// occt: BRepAdaptor_Surface — adaptor for a BRep face's underlying surface
+// occt-ref: BRepAdaptor_Surface // — adaptor for a BRep face's underlying surface
 #[derive(Clone, Debug)]
 pub struct BrepAdaptorSurface {
     pub face_id: u32,

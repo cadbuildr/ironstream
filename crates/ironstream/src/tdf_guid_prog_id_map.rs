@@ -1,5 +1,6 @@
 // FILE: tdf_guid_prog_id_map.rs
-// occt: TDF_GUIDProgIDMap, TDF_DoubleMapIteratorOfGUIDProgIDMap
+// occt: TDF_GUIDProgIDMap
+// occt-ref: TDF_DoubleMapIteratorOfGUIDProgIDMap
 
 //! Deprecated typedef for TDF_GUIDProgIDMap.
 //!

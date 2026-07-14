@@ -1,6 +1,6 @@
 // FILE: de_shape.rs
 
-// occt: TopAbs_ShapeEnum (mirror as DE_Shape type)
+// occt-ref: TopAbs_ShapeEnum // (mirror as DE_Shape type)
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub enum DeShapeType {
     Vertex = 0,
@@ -34,7 +34,7 @@ impl DeShapeType {
     }
 }
 
-// occt: statistics for DataExchange
+// occt-note: statistics for DataExchange
 pub struct DeShapeStats {
     pub nb_vertices: u32,
     pub nb_edges: u32,
@@ -81,7 +81,7 @@ impl Default for DeShapeStats {
     }
 }
 
-// occt: BRep bounding box
+// occt-note: BRep bounding box
 pub struct DeShapeBoundingBox {
     pub xmin: f64,
     pub xmax: f64,
@@ -233,7 +233,7 @@ impl DeShapeBoundingBox {
     }
 }
 
-// occt: shape type utilities
+// occt-note: shape type utilities
 pub struct DeShapeClassifier;
 
 impl DeShapeClassifier {

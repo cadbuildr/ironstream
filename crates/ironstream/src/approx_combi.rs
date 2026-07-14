@@ -1,5 +1,6 @@
 // FILE: approx_combi.rs
-// occt: Approx_SweepFunction, Approx_Curve3d, Approx_Curve2d,
+// occt: Approx_SweepFunction, Approx_Curve2d
+// occt-ref: Approx_Curve3d
 //       Approx_CurvlinFunc, AppDef_MultiPointConstraint,
 //       AppDef_MultiLine, Approx_FitAndDivide
 
@@ -68,7 +69,7 @@ impl MultiLine {
 }
 
 /// Approximates a 3D curve by a B-spline.
-/// occt: Approx_Curve3d
+// occt-ref: Approx_Curve3d
 #[derive(Clone, Debug)]
 pub struct ApproxCurve3d {
     pub tolerance: f64,

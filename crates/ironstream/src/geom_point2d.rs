@@ -19,7 +19,7 @@
 /// Stores a bare `(x, y)` coordinate pair.  Unlike a direction or vector,
 /// a `Pnt2d` has position semantics; it participates in translations,
 /// reflections, and scaling but not in pure linear maps.
-// occt: gp_Pnt2d
+// occt-ref: gp_Pnt2d
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Pnt2d {
     /// X coordinate.
@@ -96,7 +96,7 @@ impl Pnt2d {
 ///
 /// This type adds named coordinate accessors / mutators on top of the bare
 /// [`Pnt2d`] struct.
-// occt: Geom2d_CartesianPoint
+// occt-ref: Geom2d_CartesianPoint
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct CartesianPoint2d {
     /// The underlying `gp_Pnt2d`-equivalent coordinate pair.

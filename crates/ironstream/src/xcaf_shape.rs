@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/xcaf_shape.rs
 
-// occt: XDE shape entry — mirrors the per-label metadata stored by XCAFDoc_ShapeTool
+// occt-note: XDE shape entry — mirrors the per-label metadata stored by XCAFDoc_ShapeTool
 #[derive(Clone, Debug)]
 pub struct XcafShapeEntry {
     label: String,
@@ -85,7 +85,7 @@ impl XcafShapeEntry {
     }
 }
 
-// occt: XCAFDoc_ShapeTool — shape label management; owns a flat list of shape entries
+// occt-ref: XCAFDoc_ShapeTool // — shape label management; owns a flat list of shape entries
 pub struct XcafShapeTool {
     entries: Vec<XcafShapeEntry>,
 }

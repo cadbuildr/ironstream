@@ -1,5 +1,6 @@
 // FILE: quant_extra.rs
-// occt: Quantity_NameOfColor, Quantity_PhysicalQuantity,
+// occt: Quantity_NameOfColor
+// occt-ref: Quantity_PhysicalQuantity
 //       Quantity_Factor, Quantity_Period
 
 /// Named OCCT colors (subset of Quantity_NameOfColor).
@@ -177,7 +178,7 @@ impl QuantitySystem {
     pub fn fahrenheit_to_kelvin() -> QuantityFactor { QuantityFactor::new("°F", "K", 5.0/9.0).with_offset(273.15 - 32.0 * 5.0/9.0) }
 }
 
-// occt: Quantity_Period — time duration
+// occt: Quantity_Period // — time duration
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct Period {
     pub hours: u32,

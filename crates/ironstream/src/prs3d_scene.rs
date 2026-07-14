@@ -1,5 +1,5 @@
 // FILE: prs3d_scene.rs
-// occt: PrsMgr_PresentationManager, PrsMgr_Presentation, StdPrs_WFShape, StdPrs_ShadedShape
+// occt-ref: PrsMgr_PresentationManager, PrsMgr_Presentation, StdPrs_WFShape, StdPrs_ShadedShape
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum DisplayMode {
@@ -47,7 +47,7 @@ impl Presentation {
     pub fn is_highlighted(&self) -> bool { self.state == PresentationState::Highlighted }
 }
 
-// occt: PrsMgr_PresentationManager
+// occt-ref: PrsMgr_PresentationManager
 #[derive(Clone, Debug, Default)]
 pub struct PresentationManager {
     pub presentations: Vec<Presentation>,
@@ -81,7 +81,7 @@ impl PresentationManager {
     pub fn erase_all(&mut self) { for p in &mut self.presentations { p.erase(); } }
 }
 
-// occt: StdPrs_WFShape / StdPrs_ShadedShape helper
+// occt-ref: StdPrs_WFShape // / StdPrs_ShadedShape helper
 pub struct SceneBuilder;
 
 impl SceneBuilder {

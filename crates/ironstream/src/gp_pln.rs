@@ -39,7 +39,7 @@ impl GpPln {
     ///
     /// The Z direction of `pos` becomes the plane normal; its origin lies on
     /// the plane.
-    // occt: gp_Pln(const gp_Ax3&)
+    // occt-note: gp_Pln(const gp_Ax3&)
     pub fn new(pos: Ax3) -> Self {
         Self { pos }
     }
@@ -48,7 +48,7 @@ impl GpPln {
     ///
     /// An X direction is chosen automatically (any vector perpendicular to
     /// the normal), mirroring OCCT's `gp_Pln(gp_Pnt, gp_Dir)`.
-    // occt: gp_Pln(const gp_Pnt& P, const gp_Dir& V)
+    // occt-note: gp_Pln(const gp_Pnt& P, const gp_Dir& V)
     pub fn from_point_normal(p: Pnt, normal: Pnt) -> Self {
         let z = normal.normalized();
         let x = z.any_perpendicular();
@@ -66,7 +66,7 @@ impl GpPln {
     /// Construct from the implicit-form coefficients `A·x + B·y + C·z + D = 0`.
     ///
     /// Panics if `(A, B, C)` is the zero vector.
-    // occt: gp_Pln(Standard_Real A, Standard_Real B, Standard_Real C, Standard_Real D)
+    // occt-note: gp_Pln(Standard_Real A, Standard_Real B, Standard_Real C, Standard_Real D)
     pub fn from_coefficients(a: f64, b: f64, c: f64, d: f64) -> Self {
         let normal = Pnt::new(a, b, c);
         let n2 = normal.dot(normal);
@@ -79,37 +79,37 @@ impl GpPln {
     // ─────────────────────────── accessors ──────────────────────────────────
 
     /// The location of the plane (origin of the local frame).
-    // occt: gp_Pln::Location
+    // occt: gp_Pln // ::Location
     pub fn location(&self) -> Pnt {
         self.pos.location
     }
 
     /// The full local coordinate system (`gp_Ax3`).
-    // occt: gp_Pln::Position
+    // occt: gp_Pln // ::Position
     pub fn position(&self) -> Ax3 {
         self.pos
     }
 
     /// The plane normal — the Z direction of the local frame.
-    // occt: gp_Pln::Axis (its Direction component)
+    // occt: gp_Pln // ::Axis (its Direction component)
     pub fn normal(&self) -> Pnt {
         self.pos.z_dir
     }
 
     /// The main axis of the plane — `Ax1` through the origin along the normal.
-    // occt: gp_Pln::Axis
+    // occt: gp_Pln // ::Axis
     pub fn axis(&self) -> Ax1 {
         Ax1::new(self.pos.location, self.pos.z_dir)
     }
 
     /// The U axis — `Ax1` through the origin along `x_dir`.
-    // occt: gp_Pln::XAxis
+    // occt: gp_Pln // ::XAxis
     pub fn x_axis(&self) -> Ax1 {
         Ax1::new(self.pos.location, self.pos.x_dir)
     }
 
     /// The V axis — `Ax1` through the origin along `y_dir`.
-    // occt: gp_Pln::YAxis
+    // occt: gp_Pln // ::YAxis
     pub fn y_axis(&self) -> Ax1 {
         Ax1::new(self.pos.location, self.pos.y_dir)
     }
@@ -120,7 +120,7 @@ impl GpPln {
     /// `A·x + B·y + C·z + D = 0` for every point on the plane.
     ///
     /// `(A, B, C)` is the unit normal; `D = -n·O` where `O` is the origin.
-    // occt: gp_Pln::Coefficients
+    // occt: gp_Pln // ::Coefficients
     pub fn coefficients(&self) -> (f64, f64, f64, f64) {
         let n = self.pos.z_dir; // already unit
         let d = -n.dot(self.pos.location);
@@ -130,7 +130,7 @@ impl GpPln {
     // ─────────────────────────── geometric tests ────────────────────────────
 
     /// Unsigned perpendicular distance from a point to the plane.
-    // occt: gp_Pln::Distance(gp_Pnt)
+    // occt: gp_Pln // ::Distance(gp_Pnt)
     pub fn distance_point(&self, p: Pnt) -> f64 {
         (p - self.pos.location).dot(self.pos.z_dir).abs()
     }
@@ -139,7 +139,7 @@ impl GpPln {
     ///
     /// Two planes are either parallel (possibly identical) or they intersect
     /// along a line, in which case the distance is zero.
-    // occt: gp_Pln::Distance(gp_Pln)
+    // occt: gp_Pln // ::Distance(gp_Pln)
     pub fn distance_plane(&self, other: &GpPln) -> f64 {
         let n1 = self.pos.z_dir;
         let n2 = other.pos.z_dir;
@@ -156,7 +156,7 @@ impl GpPln {
     }
 
     /// Returns `true` if `p` lies on the plane within the linear tolerance `tol`.
-    // occt: gp_Pln::Contains(gp_Pnt, tol)
+    // occt: gp_Pln // ::Contains(gp_Pnt, tol)
     pub fn contains_point(&self, p: Pnt, tol: f64) -> bool {
         self.distance_point(p) <= tol
     }
@@ -167,7 +167,7 @@ impl GpPln {
     /// The line is in the plane when:
     /// 1. its direction is perpendicular to the normal (within `angular_tol`), and
     /// 2. its location is on the plane (within `linear_tol`).
-    // occt: gp_Pln::Contains(gp_Lin, linear_tol, angular_tol)
+    // occt: gp_Pln // ::Contains(gp_Lin, linear_tol, angular_tol)
     pub fn contains_line(&self, loc: Pnt, dir: Pnt, linear_tol: f64, angular_tol: f64) -> bool {
         let n = self.pos.z_dir;
         let d = dir.normalized();
@@ -178,7 +178,7 @@ impl GpPln {
 
     /// Evaluate the parametric surface at `(u, v)`:
     /// `P(u, v) = O + u·XDir + v·YDir`.
-    // occt: no direct equivalent; mirrors Geom_Plane::Value
+    // occt-note: no direct equivalent; mirrors Geom_Plane::Value
     pub fn value(&self, u: f64, v: f64) -> Pnt {
         self.pos.location + self.pos.x_dir * u + self.pos.y_dir * v
     }
@@ -186,7 +186,7 @@ impl GpPln {
     /// Project a 3D point onto the plane; return `(u, v)` coordinates.
     ///
     /// `u = (P - O)·XDir`, `v = (P - O)·YDir`.
-    // occt: gp_Pln local-frame projection
+    // occt: gp_Pln // local-frame projection
     pub fn project(&self, p: Pnt) -> (f64, f64) {
         let rel = p - self.pos.location;
         (rel.dot(self.pos.x_dir), rel.dot(self.pos.y_dir))
@@ -195,7 +195,7 @@ impl GpPln {
     /// Return the foot of the perpendicular from `p` to the plane.
     ///
     /// `foot = P - ((P - O)·n)·n`
-    // occt: no direct method; standard plane projection
+    // occt-note: no direct method; standard plane projection
     pub fn project_point(&self, p: Pnt) -> Pnt {
         let n = self.pos.z_dir;
         let dist = (p - self.pos.location).dot(n);
@@ -205,7 +205,7 @@ impl GpPln {
     // ─────────────────────────── handedness ─────────────────────────────────
 
     /// Returns `true` when the local frame is direct (right-handed).
-    // occt: gp_Pln::Direct
+    // occt: gp_Pln // ::Direct
     pub fn is_direct(&self) -> bool {
         self.pos.x_dir.cross(self.pos.y_dir).dot(self.pos.z_dir) > 0.0
     }
@@ -213,13 +213,13 @@ impl GpPln {
     // ─────────────────────────── setters ────────────────────────────────────
 
     /// Replace the location (origin) of the plane.  Axes are unchanged.
-    // occt: gp_Pln::SetLocation
+    // occt: gp_Pln // ::SetLocation
     pub fn set_location(&mut self, p: Pnt) {
         self.pos.location = p;
     }
 
     /// Replace the full local coordinate system.
-    // occt: gp_Pln::SetPosition
+    // occt: gp_Pln // ::SetPosition
     pub fn set_position(&mut self, pos: Ax3) {
         self.pos = pos;
     }
@@ -227,7 +227,7 @@ impl GpPln {
     // ─────────────────────────── transforms ─────────────────────────────────
 
     /// Return a new plane translated by vector `v`.
-    // occt: gp_Pln::Translated(gp_Vec)
+    // occt: gp_Pln // ::Translated(gp_Vec)
     pub fn translated(&self, v: Vec3) -> Self {
         Self {
             pos: Ax3 {
@@ -240,13 +240,13 @@ impl GpPln {
     }
 
     /// Return a new plane translated from `p1` to `p2`.
-    // occt: gp_Pln::Translated(gp_Pnt, gp_Pnt)
+    // occt: gp_Pln // ::Translated(gp_Pnt, gp_Pnt)
     pub fn translated_2pts(&self, p1: Pnt, p2: Pnt) -> Self {
         self.translated(p2 - p1)
     }
 
     /// Return a new plane rotated about `axis` by `angle` radians.
-    // occt: gp_Pln::Rotated
+    // occt: gp_Pln // ::Rotated
     pub fn rotated(&self, axis: Ax1, angle: f64) -> Self {
         let t = Trsf::rotation(axis, angle);
         Self {
@@ -258,7 +258,7 @@ impl GpPln {
     ///
     /// Scaling a plane moves its origin; the normal direction is unchanged
     /// (planes have no intrinsic size), but if `factor < 0` the normal flips.
-    // occt: gp_Pln::Scaled
+    // occt: gp_Pln // ::Scaled
     pub fn scaled(&self, center: Pnt, factor: f64) -> Self {
         let new_loc = center + (self.pos.location - center) * factor;
         let (x_dir, y_dir, z_dir) = if factor < 0.0 {
@@ -281,7 +281,7 @@ impl GpPln {
     /// The origin maps to `2·pt − O`; X and Y directions are negated;
     /// the normal (Z direction) is also negated and then the frame is
     /// re-derived so that the result is right-handed.
-    // occt: gp_Pln::Mirrored(gp_Pnt)
+    // occt: gp_Pln // ::Mirrored(gp_Pnt)
     pub fn mirrored_through_point(&self, pt: Pnt) -> Self {
         let new_loc = pt * 2.0 - self.pos.location;
         // After a central symmetry all three axes negate, but negating all
@@ -303,7 +303,7 @@ impl GpPln {
     ///
     /// The location is reflected across the line; direction vectors are
     /// reflected using the standard Householder formula for a line reflection.
-    // occt: gp_Pln::Mirrored(gp_Ax1)
+    // occt: gp_Pln // ::Mirrored(gp_Ax1)
     pub fn mirrored_through_ax1(&self, ax: Ax1) -> Self {
         let u = ax.direction.normalized();
         // Reflection of a direction d about a line with unit direction u:
@@ -327,7 +327,7 @@ impl GpPln {
     ///
     /// The location is reflected across the mirror plane; direction vectors
     /// are reflected via `d' = d - 2*(d·n)*n`.
-    // occt: gp_Pln::Mirrored(gp_Ax2)
+    // occt: gp_Pln // ::Mirrored(gp_Ax2)
     pub fn mirrored_through_plane(&self, mirror: Ax3) -> Self {
         let n = mirror.z_dir.normalized();
         let reflect_dir = |d: Pnt| (d - n * (2.0 * d.dot(n))).normalized();
@@ -346,7 +346,7 @@ impl GpPln {
     }
 
     /// Apply an arbitrary affine transform `t`.
-    // occt: gp_Pln::Transformed
+    // occt: gp_Pln // ::Transformed
     pub fn transformed(&self, t: &Trsf) -> Self {
         Self {
             pos: self.pos.transformed(t),
@@ -356,7 +356,7 @@ impl GpPln {
     // ─────────────────────────── interop ────────────────────────────────────
 
     /// Convert to the lightweight `gp_prim::Pln` type.
-    // occt: implicit (same underlying data)
+    // occt-note: implicit (same underlying data)
     pub fn to_prim(&self) -> Pln {
         Pln::new(self.pos)
     }

@@ -1,6 +1,6 @@
 // FILE: step_control.rs
 
-// occt: STEPControl_StepModelType
+// occt-ref: STEPControl_StepModelType
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum StepModelType {
     AsIs,
@@ -10,7 +10,7 @@ pub enum StepModelType {
     GeometricCurveSet,
 }
 
-// occt: IFSelect_ReturnStatus
+// occt-ref: IFSelect_ReturnStatus
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum StepReadStatus {
     Done,
@@ -27,7 +27,7 @@ pub enum StepWriteStatus {
     Fail,
 }
 
-// occt: STEPControl_Reader
+// occt-ref: STEPControl_Reader
 pub struct StepControlReader {
     nb_roots: u32,
     nb_shapes: u32,
@@ -82,7 +82,7 @@ impl Default for StepControlReader {
     }
 }
 
-// occt: STEPControl_Writer
+// occt-ref: STEPControl_Writer
 pub struct StepControlWriter {
     model_type: StepModelType,
     nb_shapes: u32,

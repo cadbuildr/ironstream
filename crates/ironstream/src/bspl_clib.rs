@@ -1,5 +1,5 @@
 // FILE: bspl_clib.rs
-// occt: BSplCLib — B-spline curve library functions
+// occt: BSplCLib // — B-spline curve library functions
 
 /// B-spline basis function evaluation result.
 #[derive(Clone, Debug)]
@@ -8,7 +8,7 @@ pub struct BasisEval {
     pub values: Vec<f64>,
 }
 
-// occt: BSplCLib — static B-spline operations (knot finding, basis evaluation, etc.)
+// occt: BSplCLib // — static B-spline operations (knot finding, basis evaluation, etc.)
 pub struct BSplCLib;
 
 impl BSplCLib {
@@ -116,7 +116,7 @@ impl BSplCLib {
     }
 }
 
-// occt: BSplSLib — B-spline surface library (basic operations)
+// occt-ref: BSplSLib // — B-spline surface library (basic operations)
 pub struct BSplSLib;
 
 impl BSplSLib {

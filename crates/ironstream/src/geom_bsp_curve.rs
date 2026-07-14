@@ -23,7 +23,7 @@
 /// its `w_i` before the de Boor triangle and the result is divided by the
 /// accumulated weight, giving the rational (NURBS) point. For a non-rational
 /// curve (all weights `1.0`) the result is identical to the polynomial case.
-// occt: Geom_BSplineCurve
+// occt-ref: Geom_BSplineCurve
 #[derive(Clone, Debug)]
 pub struct BspCurve {
     /// Polynomial degree of the curve. Must be >= 1.

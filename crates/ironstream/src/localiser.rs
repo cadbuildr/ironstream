@@ -1,5 +1,5 @@
 // FILE: localiser.rs
-// occt: TopOpeBRep_EdgesFiller, TopOpeBRep_PointGeomTool,
+// occt: TopOpeBRep_EdgesFiller, TopOpeBRep_PointGeomTool
 //       TopOpeBRepBuild_Localizer
 
 use std::collections::HashMap;
@@ -63,7 +63,7 @@ impl LocalizePoint {
     }
 }
 
-// occt: TopOpeBRep_EdgesFiller — fills topology intersection data for edges
+// occt: TopOpeBRep_EdgesFiller // — fills topology intersection data for edges
 #[derive(Clone, Debug, Default)]
 pub struct EdgesFiller {
     pub shape_a_id: u32,
@@ -150,7 +150,7 @@ impl LocalisationData {
     }
 }
 
-// occt: TopOpeBRepBuild_Localizer — classifies sub-shapes relative to solids
+// occt-note: TopOpeBRepBuild_Localizer — classifies sub-shapes relative to solids
 #[derive(Clone, Debug, Default)]
 pub struct Localizer {
     pub solid_id: u32,

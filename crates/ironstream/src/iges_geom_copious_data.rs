@@ -1,5 +1,5 @@
 // FILE: iges_geom_copious_data.rs
-// occt: IGESGeom_Ucopiousdata
+// occt-ref: IGESGeom_Ucopiousdata
 
 pub struct UcopiousUdata {
     entity_type: i32,

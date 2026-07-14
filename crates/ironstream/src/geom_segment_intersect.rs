@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/geom_segment_intersect.rs
 
-// occt: IntAna2d result type — enum NoIntersection, Point, Coincident, Parallel
+// occt-note: IntAna2d result type — enum NoIntersection, Point, Coincident, Parallel
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum SegIntersectResult {
     NoIntersection,
@@ -9,7 +9,7 @@ pub enum SegIntersectResult {
     Parallel,
 }
 
-// occt: IntAna2d_AnaIntersection for 2D rays
+// occt-ref: IntAna2d_AnaIntersection // for 2D rays
 #[derive(Clone, Copy, Debug)]
 pub struct SegIntersect2d {
     result_type: SegIntersectResult,
@@ -94,7 +94,7 @@ impl Default for SegIntersect2d {
     }
 }
 
-// occt: 3D ray closest approach
+// occt-note: 3D ray closest approach
 #[derive(Clone, Copy, Debug)]
 pub struct SegIntersect3d {
     result_type: SegIntersectResult,

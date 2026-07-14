@@ -1,5 +1,5 @@
 // FILE: iges_geom_conic_arc.rs
-// occt: IGESGeom_Uconicarc
+// occt-ref: IGESGeom_Uconicarc
 
 pub struct UconicUarc {
     entity_type: i32,

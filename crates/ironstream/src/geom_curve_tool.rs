@@ -17,7 +17,7 @@ pub enum GeomCurveType {
     OtherCurve,
 }
 
-// occt: GeomAdaptor_Curve info
+// occt-ref: GeomAdaptor_Curve // info
 /// Lightweight descriptor of a curve's parametric domain and continuity,
 /// mirroring the bookkeeping portion of `GeomAdaptor_Curve`.
 #[derive(Debug, Clone, Copy)]
@@ -46,31 +46,31 @@ impl GeomCurveInfo {
         }
     }
 
-    // occt: GeomAdaptor_Curve::GetType
+    // occt-ref: GeomAdaptor_Curve // ::GetType
     /// Return the curve type.
     pub fn curve_type(&self) -> GeomCurveType {
         self.curve_type
     }
 
-    // occt: GeomAdaptor_Curve::FirstParameter
+    // occt-ref: GeomAdaptor_Curve // ::FirstParameter
     /// First parameter of the curve's domain.
     pub fn first(&self) -> f64 {
         self.first
     }
 
-    // occt: GeomAdaptor_Curve::LastParameter
+    // occt-ref: GeomAdaptor_Curve // ::LastParameter
     /// Last parameter of the curve's domain.
     pub fn last(&self) -> f64 {
         self.last
     }
 
-    // occt: GeomAdaptor_Curve::Degree
+    // occt-ref: GeomAdaptor_Curve // ::Degree
     /// Polynomial degree (meaningful for Bezier and BSpline curves).
     pub fn degree(&self) -> u32 {
         self.degree
     }
 
-    // occt: GeomAdaptor_Curve::NbPoles
+    // occt-ref: GeomAdaptor_Curve // ::NbPoles
     /// Number of poles / control points (meaningful for Bezier and BSpline curves).
     pub fn nb_poles(&self) -> usize {
         self.nb_poles
@@ -86,7 +86,7 @@ impl GeomCurveInfo {
         self.nb_poles = n;
     }
 
-    // occt: GeomAdaptor_Curve::Continuity (returned as u8 here)
+    // occt-ref: GeomAdaptor_Curve // ::Continuity (returned as u8 here)
     /// Continuity level (0 = C0, 1 = C1, …).
     pub fn continuity(&self) -> u8 {
         self.continuity
@@ -97,7 +97,7 @@ impl GeomCurveInfo {
         self.continuity = c;
     }
 
-    // occt: GeomAdaptor_Curve::IsClosed
+    // occt-ref: GeomAdaptor_Curve // ::IsClosed
     /// Returns `true` when the parameter span covers (approximately) one full
     /// period for periodic analytic curves (Circle: 2π, Ellipse: 2π).
     /// Always `false` for non-periodic types.
@@ -111,7 +111,7 @@ impl GeomCurveInfo {
         }
     }
 
-    // occt: GeomAdaptor_Curve::IsPeriodic
+    // occt-ref: GeomAdaptor_Curve // ::IsPeriodic
     /// Returns `true` for Circle and Ellipse (intrinsically periodic), `false`
     /// for all other curve types.
     pub fn is_periodic(&self) -> bool {
@@ -122,7 +122,7 @@ impl GeomCurveInfo {
     }
 }
 
-// occt: curve evaluation
+// occt-note: curve evaluation
 /// Evaluates a curve at a parametric value, mirroring the evaluation methods
 /// of `GeomAdaptor_Curve`.
 ///
@@ -148,7 +148,7 @@ impl GeomCurveEvaluator {
         &self.info
     }
 
-    // occt: GeomAdaptor_Curve::Value
+    // occt-ref: GeomAdaptor_Curve // ::Value
     /// Point on the curve at parameter `t`.
     ///
     /// - Line   → `[t, 0, 0]`
@@ -162,7 +162,7 @@ impl GeomCurveEvaluator {
         }
     }
 
-    // occt: GeomAdaptor_Curve::D1
+    // occt-ref: GeomAdaptor_Curve // ::D1
     /// Point and first derivative (tangent) at parameter `t`.
     ///
     /// Returns `(point, tangent)`.
@@ -180,7 +180,7 @@ impl GeomCurveEvaluator {
         (pt, tangent)
     }
 
-    // occt: GeomAdaptor_Curve length (stub approximation)
+    // occt-ref: GeomAdaptor_Curve // length (stub approximation)
     /// Approximate arc length over the interval `[t1, t2]`.
     ///
     /// - Line   → `|t2 - t1|` (exact for a unit-speed line)
@@ -192,7 +192,7 @@ impl GeomCurveEvaluator {
         }
     }
 
-    // occt: GeomAdaptor_Curve curvature (stub)
+    // occt-ref: GeomAdaptor_Curve // curvature (stub)
     /// Curvature of the curve at parameter `t`.
     ///
     /// - Line   → `0.0` (straight)

@@ -1,5 +1,6 @@
 // FILE: expr_intrp_stack_of_general_expression.rs
-// occt: ExprIntrp_StackOfGeneralExpression, ExprIntrp_ListIteratorOfStackOfGeneralExpression
+// occt: ExprIntrp_StackOfGeneralExpression
+// occt-ref: ExprIntrp_ListIteratorOfStackOfGeneralExpression
 
 use std::collections::LinkedList;
 

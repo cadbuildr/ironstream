@@ -29,7 +29,7 @@ use std::f64::consts::PI;
 /// ```
 /// The arc runs counter-clockwise from `start_param` to `end_param`. If
 /// `end_param < start_param` the arc wraps around through `2*PI`.
-// occt: GCE2d_MakeArcOfCircle
+// occt-ref: GCE2d_MakeArcOfCircle
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct ArcOfCircle2d {
     /// Centre of the circumscribed circle in the 2D plane.
@@ -54,7 +54,7 @@ impl ArcOfCircle2d {
     /// `p2`. `start_param` is the angle of `p1`, `end_param` is the angle of
     /// `p3` adjusted so that the arc passes through `p2` in the
     /// counter-clockwise sense.
-    // occt: GCE2d_MakeArcOfCircle
+    // occt-ref: GCE2d_MakeArcOfCircle
     pub fn from_3_points(p1: [f64; 2], p2: [f64; 2], p3: [f64; 2]) -> Option<Self> {
         // Find circumcentre: intersection of the perpendicular bisectors of
         // segments p1–p2 and p2–p3.
@@ -154,7 +154,7 @@ impl ArcOfCircle2d {
     ///
     /// `t` does not have to be clamped to `[start_param, end_param]`; the
     /// caller is responsible for staying within the arc range.
-    // occt: GCE2d_MakeArcOfCircle
+    // occt-ref: GCE2d_MakeArcOfCircle
     pub fn evaluate(&self, t: f64) -> [f64; 2] {
         [
             self.center[0] + self.radius * t.cos(),
@@ -165,7 +165,7 @@ impl ArcOfCircle2d {
     /// First derivative of the arc at parameter `t` (radians).
     ///
     /// `P'(t) = radius * [-sin(t), cos(t)]`.
-    // occt: GCE2d_MakeArcOfCircle
+    // occt-ref: GCE2d_MakeArcOfCircle
     pub fn d1(&self, t: f64) -> [f64; 2] {
         [
             -self.radius * t.sin(),
@@ -177,7 +177,7 @@ impl ArcOfCircle2d {
     ///
     /// For a circular arc the length is simply `radius * |delta_angle|`,
     /// where `delta_angle = end_param - start_param`.
-    // occt: GCE2d_MakeArcOfCircle
+    // occt-ref: GCE2d_MakeArcOfCircle
     pub fn length(&self) -> f64 {
         self.radius * (self.end_param - self.start_param).abs()
     }
@@ -193,7 +193,7 @@ impl ArcOfCircle2d {
 /// ```text
 /// P(t) = start + t * (end - start)
 /// ```
-// occt: GCE2d_MakeSegment
+// occt-ref: GCE2d_MakeSegment
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Segment2d {
     /// Start point of the segment.
@@ -204,7 +204,7 @@ pub struct Segment2d {
 
 impl Segment2d {
     /// Construct a segment from two endpoints.
-    // occt: GCE2d_MakeSegment
+    // occt-ref: GCE2d_MakeSegment
     pub fn new(s: [f64; 2], e: [f64; 2]) -> Self {
         Self { start: s, end: e }
     }
@@ -214,7 +214,7 @@ impl Segment2d {
     /// `P(t) = start + t * (end - start)`.
     ///
     /// `t = 0` gives `start`, `t = 1` gives `end`.
-    // occt: GCE2d_MakeSegment
+    // occt-ref: GCE2d_MakeSegment
     pub fn evaluate(&self, t: f64) -> [f64; 2] {
         [
             self.start[0] + t * (self.end[0] - self.start[0]),
@@ -225,7 +225,7 @@ impl Segment2d {
     /// Constant first derivative vector `end - start`.
     ///
     /// This is not normalised; its magnitude equals the segment length.
-    // occt: GCE2d_MakeSegment
+    // occt-ref: GCE2d_MakeSegment
     pub fn d1(&self) -> [f64; 2] {
         [
             self.end[0] - self.start[0],
@@ -234,7 +234,7 @@ impl Segment2d {
     }
 
     /// Euclidean length of the segment.
-    // occt: GCE2d_MakeSegment
+    // occt-ref: GCE2d_MakeSegment
     pub fn length(&self) -> f64 {
         let dx = self.end[0] - self.start[0];
         let dy = self.end[1] - self.start[1];
@@ -242,7 +242,7 @@ impl Segment2d {
     }
 
     /// Mid-point of the segment (`evaluate(0.5)`).
-    // occt: GCE2d_MakeSegment
+    // occt-ref: GCE2d_MakeSegment
     pub fn midpoint(&self) -> [f64; 2] {
         [
             (self.start[0] + self.end[0]) * 0.5,
@@ -260,7 +260,7 @@ impl Segment2d {
 /// Constructs the unique circular arc that passes through `p1`, `p2`, and
 /// `p3` (in that order, counter-clockwise). Returns `None` when the points
 /// are collinear or coincident.
-// occt: GCE2d_MakeArcOfCircle
+// occt-ref: GCE2d_MakeArcOfCircle
 pub fn arc_2d_through_3pts(
     p1: [f64; 2],
     p2: [f64; 2],

@@ -1,5 +1,6 @@
 // FILE: bop_section_ext.rs
-// occt: BOPAlgo_Section, BRepAlgoAPI_Section, BRepAlgo_Section
+// occt: BOPAlgo_Section
+// occt-ref: BRepAlgoAPI_Section, BRepAlgo_Section
 
 /// Status after a Boolean section operation.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -69,7 +70,7 @@ impl SectionEdge {
     }
 }
 
-// occt: BOPAlgo_Section — core algorithm for shape×shape section
+// occt: BOPAlgo_Section // — core algorithm for shape×shape section
 #[derive(Clone, Debug)]
 pub struct BopAlgoSection {
     pub shape_a_id: u32,
@@ -130,7 +131,7 @@ impl BopAlgoSection {
     }
 }
 
-// occt: BRepAlgoAPI_Section — higher-level section API (wraps BOP)
+// occt-ref: BRepAlgoAPI_Section // — higher-level section API (wraps BOP)
 #[derive(Clone, Debug)]
 pub struct BrepAlgoSection {
     pub inner: BopAlgoSection,
@@ -174,7 +175,7 @@ impl BrepAlgoSection {
     }
 }
 
-// occt: BRepAlgo_Section (legacy) — same concept, older API
+// occt-note: BRepAlgo_Section (legacy) — same concept, older API
 #[derive(Clone, Debug)]
 pub struct BrepAlgoSectionLegacy {
     pub shape_a_id: u32,

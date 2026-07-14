@@ -1,5 +1,6 @@
 // FILE: top_ope_b_rep_array1_of_v_point_inter.rs
-// occt: TopOpeBRep_Array1OfVPointInter, TopOpeBRep_VPointInter
+// occt: TopOpeBRep_Array1OfVPointInter
+// occt-ref: TopOpeBRep_VPointInter
 
 /// VPointInter: Vertex point intersection data.
 #[derive(Clone, Debug)]

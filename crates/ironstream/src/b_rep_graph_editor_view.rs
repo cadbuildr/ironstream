@@ -1,5 +1,5 @@
 // FILE: b_rep_graph_editor_view.rs
-// occt: BRepGraph::EditorView
+// occt: BRepGraph // ::EditorView
 
 use std::collections::HashMap;
 

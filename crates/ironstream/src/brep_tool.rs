@@ -1,5 +1,6 @@
 // FILE: brep_tool.rs
-// occt: BRep_Tool, BRep_Builder,
+// occt: BRep_Tool
+// occt-ref: BRep_Builder
 //       TopAbs_Orientation, TopAbs_ShapeEnum, TopAbs_State
 
 /// Orientation of a shape within its parent.
@@ -123,7 +124,7 @@ impl Default for TopoShape {
     fn default() -> Self { Self::null() }
 }
 
-// occt: BRep_Tool — utilities for querying B-rep topology
+// occt: BRep_Tool // — utilities for querying B-rep topology
 pub struct BrepToolQuery;
 
 impl BrepToolQuery {
@@ -171,7 +172,7 @@ impl BrepToolQuery {
     pub fn is_geometry_modified(edge_id: u32) -> bool { edge_id > 0 }
 }
 
-// occt: BRep_Builder — constructs topological shapes by assembling sub-shapes
+// occt-ref: BRep_Builder // — constructs topological shapes by assembling sub-shapes
 #[derive(Clone, Debug, Default)]
 pub struct BrepBuilder {
     pub shapes: Vec<TopoShape>,

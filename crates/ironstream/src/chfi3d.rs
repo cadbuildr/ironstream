@@ -20,7 +20,7 @@ pub struct ChFi3dChamferEntry {
     pub dist2: f64,
 }
 
-// occt: ChFi3d_Builder
+// occt-ref: ChFi3d_Builder
 pub struct ChFi3dBuilder {
     fillets: Vec<ChFi3dFilletEntry>,
     chamfers: Vec<ChFi3dChamferEntry>,

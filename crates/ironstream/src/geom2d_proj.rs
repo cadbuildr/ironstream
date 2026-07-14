@@ -11,7 +11,7 @@
 /// One projection result — a foot-point on a 2D curve together with its
 /// curve parameter and distance from the query point.
 ///
-// occt: projection result
+// occt-note: projection result
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Geom2dProjResult {
     point: [f64; 2],
@@ -52,7 +52,7 @@ impl Geom2dProjResult {
 /// public API of `Geom2dAPI_ProjectPointOnCurve` so that call-sites can be
 /// ported without changes.
 ///
-// occt: Geom2dAPI_ProjectPointOnCurve
+// occt-ref: Geom2dAPI_ProjectPointOnCurve
 #[derive(Clone, Debug)]
 pub struct Geom2dProjectPointOnCurve {
     point: [f64; 2],
@@ -133,7 +133,7 @@ impl Geom2dProjectPointOnCurve {
 /// Static projection utilities for 2D geometry, mirroring the OCCT
 /// `Geom2dProjLib` namespace.
 ///
-// occt: Geom2dProjLib utility namespace
+// occt-note: Geom2dProjLib utility namespace
 pub struct Geom2dProjLib;
 
 impl Geom2dProjLib {

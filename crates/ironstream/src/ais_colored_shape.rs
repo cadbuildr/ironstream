@@ -1,5 +1,6 @@
 // FILE: ais_colored_shape.rs
-// occt: AIS_ColoredShape, AIS_ColorScale, AIS_ColoredDrawer
+// occt: AIS_ColoredShape, AIS_ColoredDrawer
+// occt-ref: AIS_ColorScale
 
 use std::collections::HashMap;
 
@@ -38,7 +39,7 @@ impl ColorRgba {
     }
 }
 
-// occt: AIS_ColoredDrawer — per-subshape override drawer
+// occt: AIS_ColoredDrawer // — per-subshape override drawer
 #[derive(Clone, Debug)]
 pub struct ColoredDrawer {
     pub color: Option<ColorRgba>,
@@ -94,7 +95,7 @@ impl ColoredShape {
     pub fn nb_custom_shapes(&self) -> usize { self.sub_shape_drawers.len() }
 }
 
-// occt: AIS_ColorScale — color legend / color ramp
+// occt-ref: AIS_ColorScale // — color legend / color ramp
 #[derive(Clone, Debug)]
 pub struct ColorScale {
     pub min_value: f64,

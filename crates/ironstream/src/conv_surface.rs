@@ -6,7 +6,7 @@
 //! Provides:
 //! - [`ConvBSplineSurface`] — data holder for a converted B-spline surface
 
-// occt: Convert (package)
+// occt-note: Convert (package)
 
 // ---------------------------------------------------------------------------
 // ConvBSplineSurface
@@ -27,7 +27,7 @@
 /// All 1-based accessor methods (e.g. `pole`) follow OCCT's
 /// `NCollection_Array2` convention so callers can be ported without
 /// re-indexing.
-// occt: Convert_BSplineSurface
+// occt-ref: Convert_BSplineSurface
 #[derive(Clone, Debug)]
 pub struct ConvBSplineSurface {
     /// Flat pole array, row-major: index = i_u * nb_v + i_v (0-based).
@@ -380,7 +380,7 @@ pub enum ConvSurfaceError {
 // ConvSurfaceType
 // ---------------------------------------------------------------------------
 
-// occt: GeomConvert surface type
+// occt-ref: GeomConvert // surface type
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ConvSurfaceType {
     Plane,
@@ -420,7 +420,7 @@ impl ConvSurfaceParams {
 // ConvSurfaceToBSpline
 // ---------------------------------------------------------------------------
 
-// occt: GeomConvert_SurfaceToBSplineSurface
+// occt-ref: GeomConvert_SurfaceToBSplineSurface
 pub struct ConvSurfaceToBSpline {
     surface_type: ConvSurfaceType,
     params: ConvSurfaceParams,
@@ -502,7 +502,7 @@ impl ConvSurfaceToBSpline {
 // ConvSurfaceContinuity
 // ---------------------------------------------------------------------------
 
-// occt: GeomConvert continuity checking
+// occt-ref: GeomConvert // continuity checking
 pub struct ConvSurfaceContinuity;
 
 impl ConvSurfaceContinuity {

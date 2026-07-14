@@ -1,8 +1,8 @@
 // FILE: geom_surface_extra.rs
-// occt: Geom_Plane, Geom_CylindricalSurface, Geom_ConicalSurface, Geom_SphericalSurface
+// occt-ref: Geom_Plane, Geom_CylindricalSurface, Geom_ConicalSurface, Geom_SphericalSurface
 
 /// Plane surface: infinite flat plane.
-/// occt: Geom_Plane
+// occt-ref: Geom_Plane
 #[derive(Clone, Debug)]
 pub struct GeomPlane {
     pub origin: [f64; 3],
@@ -33,7 +33,7 @@ impl Default for GeomPlane {
 }
 
 /// Cylindrical surface: radius + axis.
-/// occt: Geom_CylindricalSurface
+// occt-ref: Geom_CylindricalSurface
 #[derive(Clone, Debug)]
 pub struct GeomCylindricalSurface {
     pub origin: [f64; 3],
@@ -74,7 +74,7 @@ impl Default for GeomCylindricalSurface {
 }
 
 /// Conical surface: half angle + axis + apex.
-/// occt: Geom_ConicalSurface
+// occt-ref: Geom_ConicalSurface
 #[derive(Clone, Debug)]
 pub struct GeomConicalSurface {
     pub apex: [f64; 3],
@@ -132,7 +132,7 @@ impl Default for GeomConicalSurface {
 }
 
 /// Spherical surface: center + radius.
-/// occt: Geom_SphericalSurface
+// occt-ref: Geom_SphericalSurface
 #[derive(Clone, Debug)]
 pub struct GeomSphericalSurface {
     pub center: [f64; 3],

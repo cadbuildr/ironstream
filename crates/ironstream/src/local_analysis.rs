@@ -1,8 +1,8 @@
 // FILE: local_analysis.rs
-// occt: LocalAnalysis_Curvature, LocalAnalysis_Tangent, LocalAnalysis_SurfaceCurvature
+// occt-ref: LocalAnalysis_Curvature, LocalAnalysis_Tangent, LocalAnalysis_SurfaceCurvature
 
 /// Curvature analysis for a curve point.
-/// occt: LocalAnalysis_Curvature
+// occt-ref: LocalAnalysis_Curvature
 #[derive(Clone, Debug)]
 pub struct LocalAnalysisCurvature {
     pub curvature: f64,
@@ -35,7 +35,7 @@ impl Default for LocalAnalysisCurvature {
 }
 
 /// Tangent analysis: direction and continuity.
-/// occt: LocalAnalysis_Tangent
+// occt-ref: LocalAnalysis_Tangent
 #[derive(Clone, Debug)]
 pub struct LocalAnalysisTangent {
     pub direction: [f64; 3],
@@ -62,7 +62,7 @@ impl Default for LocalAnalysisTangent {
 }
 
 /// Principal curvatures of a surface.
-/// occt: LocalAnalysis_SurfaceCurvature
+// occt-ref: LocalAnalysis_SurfaceCurvature
 #[derive(Clone, Debug)]
 pub struct LocalAnalysisSurfaceCurvature {
     pub principal_curvature_1: f64,

@@ -7,7 +7,7 @@
 /// Higher-level cut builder: subtract `tool` from `shape`.
 ///
 /// Mirrors the builder pattern of `BRepAlgoAPI_Cut`.
-// occt: BRepAlgoAPI_Cut
+// occt-ref: BRepAlgoAPI_Cut
 #[derive(Debug, Clone)]
 pub struct CutTool {
     pub shape: String,
@@ -80,7 +80,7 @@ impl CutTool {
 /// Multi-tool cut: subtract multiple tools from one base shape, one at a time.
 ///
 /// Mirrors the pattern of `BRepAlgo_Cut` applied in sequence.
-// occt: BRepAlgoAPI_Cut
+// occt-ref: BRepAlgoAPI_Cut
 #[derive(Debug, Clone)]
 pub struct MultiCut {
     pub shape: String,
@@ -141,7 +141,7 @@ pub fn multi_cut(shape: &str, tools: &[&str]) -> String {
 // ---------------------------------------------------------------------------
 
 /// Boolean subtraction of two point sets (geometry-level).
-// occt: BRepAlgoAPI_Cut
+// occt-ref: BRepAlgoAPI_Cut
 #[derive(Debug, Clone)]
 pub struct CutOperation {
     pub base: Vec<[f64; 3]>,
@@ -164,7 +164,7 @@ impl CutOperation {
 }
 
 /// Boolean union of two point sets (geometry-level).
-// occt: BRepAlgoAPI_Fuse
+// occt-ref: BRepAlgoAPI_Fuse
 #[derive(Debug, Clone)]
 pub struct FuseOperation {
     pub a: Vec<[f64; 3]>,

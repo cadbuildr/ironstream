@@ -1,9 +1,9 @@
 // FILE: prs3d_line.rs
-// occt: Prs3d_LineAspect, Prs3d_PointAspect, Prs3d_ShadingAspect,
+// occt-ref: Prs3d_LineAspect, Prs3d_PointAspect, Prs3d_ShadingAspect
 //       Prs3d_IsoAspect, Prs3d_PlaneAspect
 
 /// Line type (stipple pattern).
-/// occt: Aspect_TypeOfLine
+// occt-ref: Aspect_TypeOfLine
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum TypeOfLine {
     Solid,
@@ -51,7 +51,7 @@ impl Default for ShadingModel {
 }
 
 /// Line aspect (color + type + width).
-/// occt: Prs3d_LineAspect
+// occt-ref: Prs3d_LineAspect
 #[derive(Clone, Debug)]
 pub struct Prs3dLineAspect {
     pub color: [f64; 3],
@@ -80,7 +80,7 @@ impl Default for Prs3dLineAspect {
 }
 
 /// Point (marker) aspect.
-/// occt: Prs3d_PointAspect
+// occt-ref: Prs3d_PointAspect
 #[derive(Clone, Debug)]
 pub struct Prs3dPointAspect {
     pub color: [f64; 3],
@@ -109,7 +109,7 @@ impl Default for Prs3dPointAspect {
 }
 
 /// Shading (surface fill) aspect.
-/// occt: Prs3d_ShadingAspect
+// occt-ref: Prs3d_ShadingAspect
 #[derive(Clone, Debug)]
 pub struct Prs3dShadingAspect {
     pub color_front: [f64; 3],

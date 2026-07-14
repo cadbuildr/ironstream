@@ -1,11 +1,11 @@
 // FILE: bvh_set.rs
-// occt: BVH_Set - Abstract set of entities bounded by BVH boxes
+// occt: BVH_Set // - Abstract set of entities bounded by BVH boxes
 
 use crate::bvh_types::Vec3;
 
 /// Represents an axis-aligned bounding box (AABB).
 /// Contains minimum and maximum corner points.
-/// occt: BVH_Box<T, N> (specialized for 3D with T=f64)
+/// occt-note: BVH_Box<T, N> (specialized for 3D with T=f64)
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct BBox<T: Clone + Copy> {
     pub min: Vec3<T>,
@@ -20,7 +20,7 @@ impl<T: Clone + Copy> BBox<T> {
 }
 
 /// Concrete implementation of a BVH set for 3D objects with f64 coordinates.
-/// occt: BVH_Set<f64, 3> - template specialization
+/// occt-note: BVH_Set<f64, 3> - template specialization
 /// Stores a collection of objects with their bounding boxes and centroids.
 pub struct SimpleBVHSet {
     objects: Vec<(BBox<f64>, Vec3<f64>)>, // (bounding box, centroid)

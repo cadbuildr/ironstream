@@ -12,7 +12,7 @@
 
 /// Result of a point-on-surface projection: the foot point in 3D space together
 /// with its `(u, v)` surface parameters and the distance from the query point.
-// occt: result point on surface — fields: point [f64;3], u f64, v f64, distance f64
+// occt-note: result point on surface — fields: point [f64;3], u f64, v f64, distance f64
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GeomApiProjectResult {
     /// The foot point on the surface in world coordinates.
@@ -55,7 +55,7 @@ impl GeomApiProjectResult {
 ///
 /// This is a stub implementation that returns a single result with
 /// `u = 0`, `v = 0`, and `distance = 1.0` after `perform()` is called.
-// occt: GeomAPI_ProjectPointOnSurf — project point onto surface (stub)
+// occt-ref: GeomAPI_ProjectPointOnSurf // — project point onto surface (stub)
 #[derive(Clone, Debug)]
 pub struct GeomApiProjectPointOnSurf {
     /// The query point to project.
@@ -137,7 +137,7 @@ impl GeomApiProjectPointOnSurf {
 ///
 /// This is a stub implementation.  After `perform()` is called the result is
 /// `parameter = 0.5` and `distance = 1.0`.
-// occt: GeomAPI_ProjectPointOnCurve — project point onto curve (stub)
+// occt-ref: GeomAPI_ProjectPointOnCurve // — project point onto curve (stub)
 #[derive(Clone, Debug)]
 pub struct GeomApiProjectPointOnCurve {
     /// The query point to project.

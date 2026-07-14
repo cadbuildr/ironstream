@@ -11,17 +11,17 @@
 /// Which Boolean set-operation to perform.
 ///
 /// Maps 1-to-1 onto the three primary OCCT Boolean-API classes.
-// occt: BRepAlgoAPI_Fuse / BRepAlgoAPI_Cut / BRepAlgoAPI_Common
+// occt-ref: BRepAlgoAPI_Fuse // / BRepAlgoAPI_Cut / BRepAlgoAPI_Common
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum BoolOp {
     /// A ∪ B — union of two shapes.
-    // occt: BRepAlgoAPI_Fuse
+    // occt-ref: BRepAlgoAPI_Fuse
     Fuse,
     /// A \ B — subtract B from A.
-    // occt: BRepAlgoAPI_Cut
+    // occt-ref: BRepAlgoAPI_Cut
     Cut,
     /// A ∩ B — intersection of two shapes.
-    // occt: BRepAlgoAPI_Common
+    // occt-ref: BRepAlgoAPI_Common
     Common,
 }
 
@@ -35,8 +35,8 @@ pub enum BoolOp {
 /// [`with_fuzzy`](BoolOpBuilder::with_fuzzy), then call
 /// [`build`](BoolOpBuilder::build) to obtain the result shape label and
 /// [`is_done`](BoolOpBuilder::is_done) to check success.
-// occt: BRepAlgoAPI_Fuse
-// occt: BRepAlgoAPI_Cut
+// occt-ref: BRepAlgoAPI_Fuse
+// occt-ref: BRepAlgoAPI_Cut
 #[derive(Clone, Debug)]
 pub struct BoolOpBuilder {
     /// First operand shape (label / serialised tag).
@@ -75,7 +75,7 @@ impl BoolOpBuilder {
     /// Create a **fuse** (union, A ∪ B) builder.
     ///
     /// # occt: BRepAlgoAPI_Fuse
-    // occt: BRepAlgoAPI_Fuse
+    // occt-ref: BRepAlgoAPI_Fuse
     pub fn fuse(s1: &str, s2: &str) -> Self {
         Self::new(s1, s2, BoolOp::Fuse)
     }
@@ -83,7 +83,7 @@ impl BoolOpBuilder {
     /// Create a **cut** (subtraction, A \ B) builder.
     ///
     /// # occt: BRepAlgoAPI_Cut
-    // occt: BRepAlgoAPI_Cut
+    // occt-ref: BRepAlgoAPI_Cut
     pub fn cut(s1: &str, s2: &str) -> Self {
         Self::new(s1, s2, BoolOp::Cut)
     }
@@ -91,7 +91,7 @@ impl BoolOpBuilder {
     /// Create a **common** (intersection, A ∩ B) builder.
     ///
     /// # occt: BRepAlgoAPI_Common
-    // occt: BRepAlgoAPI_Common
+    // occt-ref: BRepAlgoAPI_Common
     pub fn common(s1: &str, s2: &str) -> Self {
         Self::new(s1, s2, BoolOp::Common)
     }
@@ -152,7 +152,7 @@ impl BoolOpBuilder {
 /// Fuse (union) two shapes and return the result label.
 ///
 /// Equivalent to `BoolOpBuilder::fuse(s1, s2).build()`.
-// occt: BRepAlgoAPI_Fuse
+// occt-ref: BRepAlgoAPI_Fuse
 pub fn fuse(s1: &str, s2: &str) -> String {
     BoolOpBuilder::fuse(s1, s2).build()
 }
@@ -160,7 +160,7 @@ pub fn fuse(s1: &str, s2: &str) -> String {
 /// Cut (subtract) `s2` from `s1` and return the result label.
 ///
 /// Equivalent to `BoolOpBuilder::cut(s1, s2).build()`.
-// occt: BRepAlgoAPI_Cut
+// occt-ref: BRepAlgoAPI_Cut
 pub fn cut(s1: &str, s2: &str) -> String {
     BoolOpBuilder::cut(s1, s2).build()
 }
@@ -168,7 +168,7 @@ pub fn cut(s1: &str, s2: &str) -> String {
 /// Intersect (common) two shapes and return the result label.
 ///
 /// Equivalent to `BoolOpBuilder::common(s1, s2).build()`.
-// occt: BRepAlgoAPI_Common
+// occt-ref: BRepAlgoAPI_Common
 pub fn common(s1: &str, s2: &str) -> String {
     BoolOpBuilder::common(s1, s2).build()
 }

@@ -29,8 +29,8 @@
 //! conventions).  The public fields `poles`, `weights`, and `knots` are
 //! plain `Vec`s and can be indexed directly.
 
-// occt: Convert_ConicToBSplineCurve
-// occt: Convert_EllipseToBSplineCurve
+// occt-ref: Convert_ConicToBSplineCurve
+// occt-ref: Convert_EllipseToBSplineCurve
 
 use std::f64::consts::PI;
 
@@ -50,8 +50,8 @@ use std::f64::consts::PI;
 /// self-contained and easy to hand to any downstream B-spline evaluator.
 ///
 /// The degree is always `2` (rational quadratic).
-// occt: Convert_ConicToBSplineCurve
-// occt: Convert_EllipseToBSplineCurve
+// occt-ref: Convert_ConicToBSplineCurve
+// occt-ref: Convert_EllipseToBSplineCurve
 #[derive(Clone, Debug)]
 pub struct ConicToBSpline {
     /// Polynomial degree — always `2` (rational quadratic).
@@ -203,7 +203,7 @@ impl ConicToBSpline {
     /// # Panics
     ///
     /// Panics if `r` is negative.
-    // occt: Convert_ConicToBSplineCurve
+    // occt-ref: Convert_ConicToBSplineCurve
     pub fn from_circle(center: [f64; 3], r: f64) -> Self {
         assert!(r >= 0.0, "ConicToBSpline::from_circle: radius must be >= 0");
         Self::from_ellipse(center, r, r)
@@ -219,7 +219,7 @@ impl ConicToBSpline {
     ///
     /// Panics if `a < b` (semi-major must be >= semi-minor) or if either axis
     /// is negative.
-    // occt: Convert_EllipseToBSplineCurve
+    // occt-ref: Convert_EllipseToBSplineCurve
     pub fn from_ellipse(center: [f64; 3], a: f64, b: f64) -> Self {
         assert!(a >= 0.0, "ConicToBSpline::from_ellipse: semi-major axis a must be >= 0");
         assert!(b >= 0.0, "ConicToBSpline::from_ellipse: semi-minor axis b must be >= 0");
@@ -299,7 +299,7 @@ impl ConicToBSpline {
 /// quadratic B-spline.
 ///
 /// Equivalent to [`ConicToBSpline::from_circle`].
-// occt: Convert_ConicToBSplineCurve
+// occt-ref: Convert_ConicToBSplineCurve
 pub fn circle_to_bspline(center: [f64; 3], r: f64) -> ConicToBSpline {
     ConicToBSpline::from_circle(center, r)
 }
@@ -308,7 +308,7 @@ pub fn circle_to_bspline(center: [f64; 3], r: f64) -> ConicToBSpline {
 /// semi-minor axis `b` along Y) to a rational quadratic B-spline.
 ///
 /// Equivalent to [`ConicToBSpline::from_ellipse`].
-// occt: Convert_EllipseToBSplineCurve
+// occt-ref: Convert_EllipseToBSplineCurve
 pub fn ellipse_to_bspline(center: [f64; 3], a: f64, b: f64) -> ConicToBSpline {
     ConicToBSpline::from_ellipse(center, a, b)
 }

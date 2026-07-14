@@ -1,5 +1,5 @@
 // FILE: b_rep_fill_draft_law.rs
-// occt: Brepfilldraftlaw
+// occt-ref: Brepfilldraftlaw
 
 #[derive(Clone, Debug)]
 pub struct Brepfilldraftlaw;

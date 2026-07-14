@@ -1,5 +1,6 @@
 // FILE: ais_axis.rs
-// occt: AIS_Axis, AIS_Point, AIS_Circle, AIS_ConnectedInteractive
+// occt: AIS_Axis, AIS_Point, AIS_Circle
+// occt-ref: AIS_ConnectedInteractive
 
 /// An AIS axis (line defined by origin + direction).
 /// occt: AIS_Axis
@@ -128,7 +129,7 @@ impl AisCircle {
 }
 
 /// A connected interactive object (shares presentation with another).
-/// occt: AIS_ConnectedInteractive
+// occt-ref: AIS_ConnectedInteractive
 #[derive(Clone, Debug)]
 pub struct AisConnectedInteractive {
     pub object_id: u32,

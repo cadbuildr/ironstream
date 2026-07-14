@@ -33,7 +33,7 @@ pub enum TopState {
 
 // ─────────────────────────── SolidClassifier ─────────────────────────────────
 
-// occt: BRepClass3d_SolidClassifier
+// occt-ref: BRepClass3d_SolidClassifier
 /// Classifies 3-D points against the interior of a named solid.
 ///
 /// Mirrors `BRepClass3d_SolidClassifier` from the OCCT `BRepClass3d` package.

@@ -146,7 +146,7 @@ impl Default for GeomApproxCurve {
 /// Mirrors the interface of `GeomConvert_ApproxSurface`.  The `perform` method
 /// records the requested grid dimensions and degrees without performing any
 /// geometry work.
-// occt: GeomConvert_ApproxSurface
+// occt-ref: GeomConvert_ApproxSurface
 #[derive(Clone, Debug)]
 pub struct GeomApproxSurface {
     /// Number of control poles in the U direction.

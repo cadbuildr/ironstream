@@ -1,5 +1,6 @@
 // FILE: tdoc_std.rs
-// occt: TDocStd_Application, TDocStd_Document, TDocStd_Modified
+// occt: TDocStd_Application, TDocStd_Modified
+// occt-ref: TDocStd_Document
 
 use std::collections::HashMap;
 
@@ -72,7 +73,7 @@ impl DocPath {
     }
 }
 
-// occt: TDocStd_Document — a TDocStd document (wraps a TDF_Data with XCAF tools)
+// occt-ref: TDocStd_Document // — a TDocStd document (wraps a TDF_Data with XCAF tools)
 #[derive(Clone, Debug)]
 pub struct TDocStdDocument {
     pub id: u32,
@@ -129,7 +130,7 @@ impl TDocStdDocument {
     }
 }
 
-// occt: TDocStd_Application — manages document creation, open, close, save
+// occt: TDocStd_Application // — manages document creation, open, close, save
 #[derive(Clone, Debug, Default)]
 pub struct TDocStdApplication {
     pub documents: HashMap<u32, TDocStdDocument>,
@@ -179,7 +180,7 @@ impl TDocStdApplication {
     }
 }
 
-// occt: TDocStd_Modified — tracks which labels were changed in a transaction
+// occt: TDocStd_Modified // — tracks which labels were changed in a transaction
 #[derive(Clone, Debug, Default)]
 pub struct TDocStdModified {
     pub modified_labels: Vec<u32>,

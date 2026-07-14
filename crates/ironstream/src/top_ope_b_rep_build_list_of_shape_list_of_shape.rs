@@ -1,5 +1,6 @@
 // FILE: top_ope_b_rep_build_list_of_shape_list_of_shape.rs
-// occt: TopOpeBRepBuild_ListOfShapeListOfShape, TopOpeBRepBuild_ShapeListOfShape
+// occt: TopOpeBRepBuild_ListOfShapeListOfShape
+// occt-ref: TopOpeBRepBuild_ShapeListOfShape
 
 /// SimpleShape: Simplified shape representation.
 #[derive(Clone, Debug, PartialEq, Eq)]

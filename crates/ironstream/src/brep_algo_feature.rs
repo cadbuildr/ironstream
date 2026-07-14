@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/brep_algo_feature.rs
 
-// occt: feature type
+// occt-note: feature type
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum AlgoFeatureType {
     Hole,
@@ -10,7 +10,7 @@ pub enum AlgoFeatureType {
     Unknown,
 }
 
-// occt: detected feature
+// occt-note: detected feature
 #[derive(Clone, Debug)]
 pub struct AlgoFeature {
     feature_type: AlgoFeatureType,
@@ -55,7 +55,7 @@ impl AlgoFeature {
     }
 }
 
-// occt: BRepAlgoAPI feature operation result
+// occt-note: BRepAlgoAPI feature operation result
 #[derive(Debug)]
 pub struct BrepAlgoFeatureResult {
     pub is_done: bool,
@@ -104,7 +104,7 @@ impl Default for BrepAlgoFeatureResult {
     }
 }
 
-// occt: BRepAlgoAPI_RemoveFeatures stub
+// occt-note: BRepAlgoAPI_RemoveFeatures stub
 pub struct BrepAlgoFeatureRemoval {
     pub features_to_remove: Vec<String>,
     pub result: BrepAlgoFeatureResult,

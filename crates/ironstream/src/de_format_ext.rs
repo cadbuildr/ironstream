@@ -1,8 +1,8 @@
 // FILE: de_format_ext.rs
-// occt: DE_Format, DE_Provider, DE_Wrapper, DE_ShapeFixParameters
+// occt-ref: DE_Format, DE_Provider, DE_Wrapper, DE_ShapeFixParameters
 
 /// CAD file format identifier.
-/// occt: DE_Format
+// occt-ref: DE_Format
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Default)]
 pub enum DeFormat {
     #[default]
@@ -68,7 +68,7 @@ pub struct DeProviderCaps {
 }
 
 /// A format provider stub.
-/// occt: DE_Provider
+// occt-ref: DE_Provider
 #[derive(Clone, Debug)]
 pub struct DeProvider {
     pub format: DeFormat,
@@ -112,7 +112,7 @@ impl DeProvider {
 }
 
 /// Registry of format providers.
-/// occt: DE_Wrapper
+// occt-ref: DE_Wrapper
 #[derive(Clone, Debug, Default)]
 pub struct DeWrapper {
     pub providers: Vec<DeProvider>,
@@ -144,7 +144,7 @@ impl DeWrapper {
 }
 
 /// Shape fix parameters passed to provider on import.
-/// occt: DE_ShapeFixParameters
+// occt-ref: DE_ShapeFixParameters
 #[derive(Clone, Debug, PartialEq)]
 pub struct DeShapeFixParameters {
     pub fix_shape: bool,

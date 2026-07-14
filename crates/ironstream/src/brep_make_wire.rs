@@ -1,5 +1,5 @@
 // FILE: brep_make_wire.rs
-// occt: BRepBuilderAPI_MakeWire, BRepLib_MakeWire, ShapeAnalysis_Wire
+// occt-ref: BRepBuilderAPI_MakeWire, BRepLib_MakeWire, ShapeAnalysis_Wire
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum WireError {
@@ -29,7 +29,7 @@ impl WireEdgeDef {
     }
 }
 
-// occt: BRepBuilderAPI_MakeWire
+// occt-ref: BRepBuilderAPI_MakeWire
 #[derive(Clone, Debug, Default)]
 pub struct MakeWire {
     pub edges: Vec<WireEdgeDef>,
@@ -81,7 +81,7 @@ impl MakeWire {
     }
 }
 
-// occt: ShapeAnalysis_Wire gap analysis
+// occt-ref: ShapeAnalysis_Wire // gap analysis
 pub struct WireGapAnalysis;
 
 impl WireGapAnalysis {

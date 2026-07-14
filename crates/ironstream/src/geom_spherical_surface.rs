@@ -16,7 +16,7 @@
 
 use std::f64::consts::PI;
 
-// occt: Geom_SphericalSurface
+// occt-ref: Geom_SphericalSurface
 /// A spherical surface defined by a centre point and a radius.
 ///
 /// Parameterisation follows `Geom_SphericalSurface`:

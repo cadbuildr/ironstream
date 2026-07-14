@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/math_bfgs.rs
 
-// occt: math_BFGS result — fields: minimum [f64;8], value f64, nb_iter u32, is_done bool
+// occt: math_BFGS // result — fields: minimum [f64;8], value f64, nb_iter u32, is_done bool
 pub struct MathBfgsResult {
     minimum: [f64; 8],
     value: f64,
@@ -35,7 +35,7 @@ impl MathBfgsResult {
     }
 }
 
-// occt: math_BFGS — BFGS quasi-Newton minimizer
+// occt: math_BFGS // — BFGS quasi-Newton minimizer
 pub struct MathBfgs {
     n: usize,
     tolerance: f64,

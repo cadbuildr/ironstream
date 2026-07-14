@@ -26,7 +26,7 @@ use crate::gp::{Ax1, Ax3, Pnt, Trsf, Vec3};
 use crate::gp_prim::Pln;
 use crate::precision::INFINITE;
 
-// occt: Geom_Plane
+// occt-ref: Geom_Plane
 /// `Geom_Plane` — an infinite plane in 3D space parameterized as
 /// `P(U, V) = O + U*XDir + V*YDir`.
 ///

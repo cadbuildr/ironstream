@@ -1,5 +1,5 @@
 // FILE: geom_diff_geom.rs
-// occt: LProp_SLProps, LProp_CLProps, LProp3d_SLProps
+// occt-ref: LProp_SLProps, LProp_CLProps, LProp3d_SLProps
 
 /// First-order properties of a 3D curve at a parameter.
 #[derive(Clone, Debug)]
@@ -47,7 +47,7 @@ impl CurveProps {
     pub fn has_normal(&self) -> bool { self.normal.is_some() }
 }
 
-// occt: LProp_SLProps (surface local properties)
+// occt-note: LProp_SLProps (surface local properties)
 #[derive(Clone, Debug)]
 pub struct SurfaceProps {
     pub point: [f64; 3],
@@ -94,7 +94,7 @@ impl SurfaceProps {
     }
 }
 
-// occt: GeomLProp_SLProps
+// occt-ref: GeomLProp_SLProps
 pub struct GeomSurfaceProps {
     pub props: Vec<SurfaceProps>,
 }

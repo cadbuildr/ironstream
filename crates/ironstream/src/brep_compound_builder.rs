@@ -1,7 +1,7 @@
 // FILE: brep_compound_builder.rs
-// occt: BRepBuilderAPI_MakeCompound, BRep_Builder (compound operations)
+// occt-note: BRepBuilderAPI_MakeCompound, BRep_Builder (compound operations)
 
-// occt: BRepBuilderAPI_MakeCompound
+// occt-ref: BRepBuilderAPI_MakeCompound
 /// Assembles multiple shapes into a compound (unordered collection).
 #[derive(Clone, Debug, Default)]
 pub struct MakeCompound {
@@ -73,7 +73,7 @@ impl MakeCompound {
     }
 }
 
-// occt: BRep_Builder compound ops
+// occt-ref: BRep_Builder // compound ops
 pub struct CompoundOps;
 
 impl CompoundOps {

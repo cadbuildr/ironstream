@@ -13,28 +13,28 @@
 ///
 /// Mirrors a subset of OCCT's `BRepCheck_Status` enumeration, limited to
 /// the codes that are meaningful for surface-level checks.
-// occt: BRepCheck_Status subset
+// occt-ref: BRepCheck_Status // subset
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum SurfaceCheckStatus {
     /// Surface passed all checks.
-    // occt: BRepCheck_NoError
+    // occt-ref: BRepCheck_NoError
     NoError,
     /// The same-domain flag stored on the surface is inconsistent.
-    // occt: BRepCheck_InvalidSameDomainFlag
+    // occt-ref: BRepCheck_InvalidSameDomainFlag
     InvalidSameDomainFlag,
     /// The parametric (u, v) range is degenerate (zero or inverted extent).
-    // occt: BRepCheck_InvalidRange
+    // occt-ref: BRepCheck_InvalidRange
     InvalidRange,
     /// The curvature radius at some point on the surface is not representable
     /// (zero, negative, or non-finite).
-    // occt: BRepCheck_InvalidCurvatureRadius
+    // occt-ref: BRepCheck_InvalidCurvatureRadius
     InvalidCurvatureRadius,
     /// The orientation of the surface normal is inconsistent with its context.
-    // occt: BRepCheck_BadOrientation
+    // occt-ref: BRepCheck_BadOrientation
     BadOrientation,
     /// A generic check failure that does not fall into one of the above
     /// categories.
-    // occt: BRepCheck_CheckFail
+    // occt-ref: BRepCheck_CheckFail
     CheckFail,
 }
 
@@ -67,7 +67,7 @@ impl SurfaceCheckStatus {
 /// surface checking routines.  Each result stores the surface label, its
 /// parametric (u, v) ranges, the maximum numerical error observed during
 /// checking, and the overall status.
-// occt: BRepCheck surface result
+// occt-ref: BRepCheck // surface result
 #[derive(Debug, Clone)]
 pub struct SurfaceCheckResult {
     /// Human-readable identifier for the surface (e.g. a label or index
@@ -169,7 +169,7 @@ impl SurfaceCheckResult {
 ///
 /// Mirrors the role of OCCT's `BRepCheck` surface checker, which iterates
 /// over surfaces in a shape and produces one result per surface.
-// occt: BRepCheck surface checker
+// occt-ref: BRepCheck // surface checker
 #[derive(Debug, Default)]
 pub struct SurfaceChecker {
     /// Accumulated results, one per surface that has been checked.

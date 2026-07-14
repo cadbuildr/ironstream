@@ -1,5 +1,6 @@
 // FILE: mat2d_data_map_of_integer_sequence_of_connexion.rs
-// occt: MAT2d_DataMapOfIntegerSequenceOfConnexion, MAT2d_DataMapIteratorOfDataMapOfIntegerSequenceOfConnexion
+// occt: MAT2d_DataMapOfIntegerSequenceOfConnexion
+// occt-ref: MAT2d_DataMapIteratorOfDataMapOfIntegerSequenceOfConnexion
 
 use std::collections::BTreeMap;
 

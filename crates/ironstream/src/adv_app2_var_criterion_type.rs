@@ -1,5 +1,5 @@
 // FILE: adv_app2_var_criterion_type.rs
-// occt: AdvApp2VarCriterionType
+// occt-ref: AdvApp2VarCriterionType
 
 //! Approximation and constraint handling class.
 pub struct AdvApp2VarCriterionType {

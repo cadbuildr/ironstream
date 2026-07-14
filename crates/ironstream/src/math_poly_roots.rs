@@ -437,7 +437,7 @@ fn factor_quartic_via_ferrari(
 // math_DirectPolynomialRoots
 // ===========================================================================
 
-// occt: math_DirectPolynomialRoots
+// occt-ref: math_DirectPolynomialRoots
 /// All real roots of a real polynomial of degree ≤ 4, found by direct
 /// algebraic methods (Ferrari / Cardano / stable quadratic) and polished with
 /// Newton-Raphson.

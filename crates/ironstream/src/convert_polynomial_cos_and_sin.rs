@@ -6,7 +6,7 @@
 
 use std::f64::consts::PI;
 
-// occt: BuildPolynomialCosAndSin
+// occt-ref: BuildPolynomialCosAndSin
 /// Builds polynomial cos and sin coefficients for a rational BSpline representation of a circle/ellipse arc.
 ///
 /// This function generates degree-7 polynomial Bezier control points that approximate

@@ -1,5 +1,6 @@
 // FILE: mesh_vs_data_map_of_integer_two_colors.rs
-// occt: MeshVS_DataMapOfIntegerTwoColors, MeshVS_DataMapIteratorOfDataMapOfIntegerTwoColors
+// occt: MeshVS_DataMapOfIntegerTwoColors
+// occt-ref: MeshVS_DataMapIteratorOfDataMapOfIntegerTwoColors
 
 use std::collections::HashMap;
 

@@ -1,5 +1,5 @@
 // FILE: step_extra.rs
-// occt: STEPControl_Reader, STEPControl_Writer, STEPConstruct_PointIterator,
+// occt-ref: STEPControl_Reader, STEPControl_Writer, STEPConstruct_PointIterator
 //       STEPConstruct_AP203Context, STEPConstruct_AP214Context,
 //       STEPEdit_Explore, XSControl_TransferReader
 
@@ -74,7 +74,7 @@ impl AP203Context {
     pub fn schema(&self) -> StepSchemaType { StepSchemaType::AP203 }
 }
 
-// occt: STEPConstruct_AP214Context
+// occt-ref: STEPConstruct_AP214Context
 #[derive(Clone, Debug, Default)]
 pub struct AP214Context {
     pub product_name: String,
@@ -140,7 +140,7 @@ impl StepDirection {
     }
 }
 
-// occt: STEPConstruct_PointIterator
+// occt-ref: STEPConstruct_PointIterator
 #[derive(Clone, Debug)]
 pub struct StepPointIterator {
     pub points: Vec<StepPoint3d>,
@@ -209,7 +209,7 @@ impl StepShapeOccurrence {
     }
 }
 
-// occt: STEPControl_Reader (extended)
+// occt-ref: STEPControl_Reader // (extended)
 #[derive(Clone, Debug, Default)]
 pub struct StepReader {
     pub file_path: String,
@@ -253,7 +253,7 @@ impl StepReader {
     }
 }
 
-// occt: STEPControl_Writer (extended)
+// occt-ref: STEPControl_Writer // (extended)
 #[derive(Clone, Debug, Default)]
 pub struct StepWriter {
     pub schema: StepSchemaType,
@@ -301,7 +301,7 @@ impl StepWriter {
     pub fn nb_entities(&self) -> usize { self.header.len() + self.body.len() }
 }
 
-// occt: STEPEdit_Explore
+// occt-ref: STEPEdit_Explore
 #[derive(Clone, Debug, Default)]
 pub struct StepExplorer {
     pub entities: Vec<(String, u32)>,  // (type_name, count)

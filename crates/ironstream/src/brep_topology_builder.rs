@@ -8,7 +8,7 @@
 ///
 /// Mirrors the ordered set of kinds in OCCT so that code ported from
 /// `TopAbs_ShapeEnum` maps one-to-one.
-// occt: TopAbs_ShapeEnum for builder
+// occt-ref: TopAbs_ShapeEnum // for builder
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum BrepTopoShapeType {
     Vertex,
@@ -30,7 +30,7 @@ pub enum BrepTopoShapeType {
 /// Each shape has a unique numeric `id`, a `shape_type`, a human-readable
 /// `label`, an ordered list of child shape ids, and an orientation flag
 /// (`0` = Forward, `1` = Reversed).
-// occt: BRep shape stub
+// occt-note: BRep shape stub
 #[derive(Clone, Debug)]
 pub struct BrepTopoShape {
     id: usize,
@@ -99,7 +99,7 @@ impl BrepTopoShape {
 /// children into it, stores it in the internal arena, and returns the new
 /// shape's `id`.  The builder owns all shapes; callers navigate the graph
 /// through ids.
-// occt: BRep_Builder — builds BRep topology
+// occt-ref: BRep_Builder // — builds BRep topology
 pub struct BrepTopoBuilder {
     shapes: Vec<BrepTopoShape>,
     next_id: usize,
@@ -123,14 +123,14 @@ impl BrepTopoBuilder {
     }
 
     /// Create a `Vertex` shape and return its id.
-    // occt: BRep_Builder::MakeVertex
+    // occt-ref: BRep_Builder // ::MakeVertex
     pub fn make_vertex(&mut self, label: &str) -> usize {
         self.alloc(BrepTopoShapeType::Vertex, label)
     }
 
     /// Create an `Edge` whose two endpoint vertices are `v1` and `v2`.
     /// Returns the new edge's id.
-    // occt: BRep_Builder::MakeEdge
+    // occt-ref: BRep_Builder // ::MakeEdge
     pub fn make_edge(&mut self, v1: usize, v2: usize) -> usize {
         let id = self.alloc(BrepTopoShapeType::Edge, "edge");
         let shape = &mut self.shapes[id];
@@ -141,7 +141,7 @@ impl BrepTopoBuilder {
 
     /// Create a `Wire` from an ordered slice of edge ids.
     /// Returns the new wire's id.
-    // occt: BRep_Builder::MakeWire
+    // occt-ref: BRep_Builder // ::MakeWire
     pub fn make_wire(&mut self, edges: &[usize]) -> usize {
         let id = self.alloc(BrepTopoShapeType::Wire, "wire");
         let edge_ids: Vec<usize> = edges.to_vec();
@@ -153,7 +153,7 @@ impl BrepTopoBuilder {
 
     /// Create a `Face` bounded by the wire with id `wire`.
     /// Returns the new face's id.
-    // occt: BRep_Builder::MakeFace
+    // occt-ref: BRep_Builder // ::MakeFace
     pub fn make_face(&mut self, wire: usize) -> usize {
         let id = self.alloc(BrepTopoShapeType::Face, "face");
         self.shapes[id].add_child(wire);
@@ -162,7 +162,7 @@ impl BrepTopoBuilder {
 
     /// Create a `Shell` from an ordered slice of face ids.
     /// Returns the new shell's id.
-    // occt: BRep_Builder::MakeShell
+    // occt-ref: BRep_Builder // ::MakeShell
     pub fn make_shell(&mut self, faces: &[usize]) -> usize {
         let id = self.alloc(BrepTopoShapeType::Shell, "shell");
         let face_ids: Vec<usize> = faces.to_vec();
@@ -174,7 +174,7 @@ impl BrepTopoBuilder {
 
     /// Create a `Solid` bounded by the shell with id `shell`.
     /// Returns the new solid's id.
-    // occt: BRep_Builder::MakeSolid
+    // occt-ref: BRep_Builder // ::MakeSolid
     pub fn make_solid(&mut self, shell: usize) -> usize {
         let id = self.alloc(BrepTopoShapeType::Solid, "solid");
         self.shapes[id].add_child(shell);

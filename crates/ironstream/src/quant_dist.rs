@@ -1,9 +1,9 @@
 // FILE: quant_dist.rs
-// occt: Quantity_Parameter, Quantity_Length, Quantity_Angle,
+// occt-ref: Quantity_Parameter, Quantity_Length, Quantity_Angle
 //       Quantity_Color, Quantity_ColorRGBA, Quantity_NameOfColor
 
 /// Named OCCT colors (subset of Quantity_NameOfColor).
-/// occt: Quantity_NameOfColor
+// occt-ref: Quantity_NameOfColor
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum NameOfColor {
     Black,
@@ -59,7 +59,7 @@ impl Default for NameOfColor {
 }
 
 /// Color (RGB in [0,1]).
-/// occt: Quantity_Color
+// occt-ref: Quantity_Color
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct QuantityColor {
     pub r: f64,
@@ -164,7 +164,7 @@ impl Default for QuantityColorRGBA {
 }
 
 /// Angle conversion helpers.
-/// occt: M_PI usage from Standard.hxx
+/// occt-note: M_PI usage from Standard.hxx
 pub struct QuantityAngle;
 
 impl QuantityAngle {

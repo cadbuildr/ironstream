@@ -1,9 +1,9 @@
 // FILE: geom_spiral.rs
-// occt: (spiral curves: Archimedean, Logarithmic, Fermat)
+// occt-note: (spiral curves: Archimedean, Logarithmic, Fermat)
 
 use std::f64::consts::PI;
 
-// occt: (Archimedean spiral) r = a + b*theta
+// occt-note: (Archimedean spiral) r = a + b*theta
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct ArchimedeanSpiral {
     pub a: f64,
@@ -30,7 +30,7 @@ impl ArchimedeanSpiral {
     }
 }
 
-// occt: (Logarithmic spiral) r = a * exp(b*theta)
+// occt-note: (Logarithmic spiral) r = a * exp(b*theta)
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct LogarithmicSpiral {
     pub a: f64,
@@ -58,7 +58,7 @@ impl LogarithmicSpiral {
     }
 }
 
-// occt: (Fermat spiral) r = a * sqrt(theta)
+// occt-note: (Fermat spiral) r = a * sqrt(theta)
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct FermatSpiral {
     pub a: f64,

@@ -8,7 +8,7 @@ use crate::gp::{Ax1, Ax3, Pnt, Trsf};
 use std::f64::consts::PI;
 
 /// A 3D vector with arbitrary magnitude.
-// occt: gp_Vec
+// occt-ref: gp_Vec
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Vec {
     pub x: f64,

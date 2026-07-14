@@ -1,5 +1,5 @@
 // FILE: ais_interactive.rs
-// occt: AIS_InteractiveObject, AIS_Shape, AIS_ColoredShape
+// occt-ref: AIS_InteractiveObject, AIS_Shape, AIS_ColoredShape
 
 /// AIS display mode.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -26,7 +26,7 @@ impl Default for AisPriority {
     fn default() -> Self { Self::DEFAULT }
 }
 
-// occt: AIS_InteractiveObject — base interactive object
+// occt-ref: AIS_InteractiveObject // — base interactive object
 #[derive(Clone, Debug)]
 pub struct AisInteractiveObject {
     pub object_id: u32,
@@ -71,7 +71,7 @@ impl AisInteractiveObject {
     pub fn mark_hidden(&mut self) { self.is_displayed = false; }
 }
 
-// occt: AIS_Shape — wraps a BRep shape for AIS display
+// occt-ref: AIS_Shape // — wraps a BRep shape for AIS display
 #[derive(Clone, Debug)]
 pub struct AisShape {
     pub base: AisInteractiveObject,
@@ -109,7 +109,7 @@ impl AisShape {
     pub fn selection_mode(&self, i: usize) -> Option<i32> { self.selection_modes.get(i).copied() }
 }
 
-// occt: AIS_ColoredShape — shape with per-face color support
+// occt-ref: AIS_ColoredShape // — shape with per-face color support
 #[derive(Clone, Debug)]
 pub struct AisColoredShape {
     pub base: AisShape,

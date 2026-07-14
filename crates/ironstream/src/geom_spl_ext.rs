@@ -1,10 +1,10 @@
 // FILE: geom_spl_ext.rs
-// occt: GeomConvert_BSplineSurfaceToBezierSurface,
+// occt-ref: GeomConvert_BSplineSurfaceToBezierSurface
 //       GeomConvert_BSplineCurveToBezierCurve,
 //       GeomConvert_CompCurveToBSplineCurve
 
 /// Convert B-spline curve to array of Bezier arcs (stub).
-/// occt: GeomConvert_BSplineCurveToBezierCurve
+// occt-ref: GeomConvert_BSplineCurveToBezierCurve
 #[derive(Clone, Debug)]
 pub struct GeomConvertBSplineToBezierCurve {
     pub curve_id: u32,
@@ -38,7 +38,7 @@ impl GeomConvertBSplineToBezierCurve {
 }
 
 /// Convert B-spline surface to array of Bezier patches (stub).
-/// occt: GeomConvert_BSplineSurfaceToBezierSurface
+// occt-ref: GeomConvert_BSplineSurfaceToBezierSurface
 #[derive(Clone, Debug)]
 pub struct GeomConvertBSplineToBezierSurface {
     pub surface_id: u32,
@@ -70,7 +70,7 @@ impl GeomConvertBSplineToBezierSurface {
 }
 
 /// Compose multiple C0 curves into a single B-spline.
-/// occt: GeomConvert_CompCurveToBSplineCurve
+// occt-ref: GeomConvert_CompCurveToBSplineCurve
 #[derive(Clone, Debug)]
 pub struct GeomConvertCompCurveToBSpline {
     pub curve_ids: Vec<u32>,
@@ -103,7 +103,7 @@ impl GeomConvertCompCurveToBSpline {
 }
 
 /// Approximate a surface by a B-spline surface (stub).
-/// occt: GeomConvert_ApproxSurface
+// occt-ref: GeomConvert_ApproxSurface
 #[derive(Clone, Debug)]
 pub struct GeomConvertApproxSurface {
     pub surface_id: u32,

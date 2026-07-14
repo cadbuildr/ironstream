@@ -41,7 +41,7 @@ use std::f64::consts::PI;
 /// ```text
 /// P(t) = radius*cos(t)*X + radius*sin(t)*Y + (pitch/(2*PI))*t * axis
 /// ```
-// occt: GeomFill_Pipe
+// occt-ref: GeomFill_Pipe
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Spring {
     /// Unit direction vector of the helix axis (advance direction).
@@ -129,7 +129,7 @@ impl Spring {
 ///
 /// Use [`Spring`] when you also need turn count, axis direction, and tangent /
 /// arc-length helpers.
-// occt: GeomFill_Pipe
+// occt-ref: GeomFill_Pipe
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Helix {
     /// Distance from the Z axis to the helix spine.

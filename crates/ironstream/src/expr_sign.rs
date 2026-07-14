@@ -124,7 +124,7 @@ impl UnaryExpression {
 }
 
 /// Sign function: returns -1, 0, or 1 depending on the sign of the argument.
-/// occt: Expr_Sign (unary expression)
+/// occt: Expr_Sign // (unary expression)
 #[derive(Clone, Debug)]
 pub struct Sign {
     base: UnaryExpression,

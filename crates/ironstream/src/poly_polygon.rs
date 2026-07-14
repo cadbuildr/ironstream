@@ -21,7 +21,7 @@
 /// curve-parameter values at each node and a linear deflection hint.
 ///
 /// Mirrors `Poly_Polygon3D` from OpenCascade's `Poly` package.
-// occt: Poly_Polygon3D
+// occt-ref: Poly_Polygon3D
 #[derive(Clone, Debug)]
 pub struct PolyPolygon3D {
     /// Ordered list of 3-D node coordinates `[x, y, z]`.
@@ -145,7 +145,7 @@ impl PolyPolygon3D {
 /// curve-parameter values at each node and a linear deflection hint.
 ///
 /// Mirrors `Poly_Polygon2D` from OpenCascade's `Poly` package.
-// occt: Poly_Polygon2D
+// occt-ref: Poly_Polygon2D
 #[derive(Clone, Debug)]
 pub struct PolyPolygon2D {
     /// Ordered list of 2-D node coordinates `[u, v]`.
@@ -271,7 +271,7 @@ impl PolyPolygon2D {
 /// and a linear deflection hint.
 ///
 /// Mirrors `Poly_PolygonOnTriangulation` from OpenCascade's `Poly` package.
-// occt: Poly_PolygonOnTriangulation
+// occt-ref: Poly_PolygonOnTriangulation
 #[derive(Clone, Debug)]
 pub struct PolyPolygonOnTriangulation {
     /// 0-based indices into a companion triangulation's node array.

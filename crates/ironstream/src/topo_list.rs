@@ -1,5 +1,6 @@
 // FILE: topo_list.rs
-// occt: TopTools_ListOfShape, TopTools_SequenceOfShape,
+// occt: TopTools_SequenceOfShape
+// occt-ref: TopTools_ListOfShape
 //       TopTools_DataMapOfShapeShape, TopTools_DataMapOfShapeInteger,
 //       TopTools_MapOfOrientedShape
 
@@ -7,7 +8,7 @@ use crate::brep_tool::{TopoShape, TopAbsShapeEnum, TopAbsOrientation};
 use std::collections::HashMap;
 
 /// A list of shapes (ordered, duplicates allowed).
-/// occt: TopTools_ListOfShape
+// occt-ref: TopTools_ListOfShape
 #[derive(Clone, Debug, Default)]
 pub struct TopoListOfShape {
     shapes: Vec<TopoShape>,
@@ -90,7 +91,7 @@ impl TopoSeqOfShape {
 }
 
 /// Map: Shape → Shape (keyed by shape_id).
-/// occt: TopTools_DataMapOfShapeShape
+// occt-ref: TopTools_DataMapOfShapeShape
 #[derive(Clone, Debug, Default)]
 pub struct DataMapShapeShape {
     map: HashMap<u32, TopoShape>,

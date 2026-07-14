@@ -35,7 +35,7 @@
 ///
 /// Mirrors `BRepExtrema_DistShapeShape` from OpenCascade's `BRepExtrema`
 /// package.
-// occt: BRepExtrema_DistShapeShape
+// occt-ref: BRepExtrema_DistShapeShape
 #[derive(Clone, Debug)]
 pub struct DistShapeShape {
     /// Name / identifier of the first shape.

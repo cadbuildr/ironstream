@@ -1,5 +1,5 @@
 // FILE: chord_dev.rs
-// occt: GCPnts_AbscissaPoint, GCPnts_UniformAbscissa, GCPnts_TangentialDeflection
+// occt-ref: GCPnts_AbscissaPoint, GCPnts_UniformAbscissa, GCPnts_TangentialDeflection
 
 /// Algorithm for chord-deviation point sampling.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -10,7 +10,7 @@ pub enum ChordAlgoType {
     UniformDeflection,
 }
 
-// occt: GCPnts_AbscissaPoint — point at a given curvilinear abscissa
+// occt-ref: GCPnts_AbscissaPoint // — point at a given curvilinear abscissa
 #[derive(Clone, Debug)]
 pub struct GcpntsAbscissaPoint {
     pub curve_id: u32,
@@ -51,7 +51,7 @@ impl GcpntsAbscissaPoint {
     }
 }
 
-// occt: GCPnts_UniformAbscissa — distributes N points with equal arc-length spacing
+// occt-ref: GCPnts_UniformAbscissa // — distributes N points with equal arc-length spacing
 #[derive(Clone, Debug)]
 pub struct GcpntsUniformAbscissa {
     pub curve_id: u32,
@@ -113,7 +113,7 @@ impl GcpntsUniformAbscissa {
     }
 }
 
-// occt: GCPnts_TangentialDeflection — adaptive point sampling by chord and angular deviation
+// occt-ref: GCPnts_TangentialDeflection // — adaptive point sampling by chord and angular deviation
 #[derive(Clone, Debug)]
 pub struct GcpntsTangentialDeflection {
     pub curve_id: u32,

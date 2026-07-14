@@ -1,9 +1,9 @@
 // FILE: step_shape.rs
-// occt: STEPControl_Reader, STEPControl_Writer, STEPControl_StepModelType,
+// occt-ref: STEPControl_Reader, STEPControl_Writer, STEPControl_StepModelType
 //       STEPConstruct_Styles, STEPConstruct_PointHasher
 
 /// Transfer status for STEP read/write operations.
-/// occt: IFSelect_ReturnStatus
+// occt-ref: IFSelect_ReturnStatus
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum StepReturnStatus {
     Void,    // nothing done
@@ -23,7 +23,7 @@ impl StepReturnStatus {
 }
 
 /// STEP model type.
-/// occt: STEPControl_StepModelType
+// occt-ref: STEPControl_StepModelType
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum StepModelType {
     AsIs,
@@ -54,7 +54,7 @@ impl StepEntity {
 }
 
 /// STEP file reader stub.
-/// occt: STEPControl_Reader
+// occt-ref: STEPControl_Reader
 #[derive(Clone, Debug, Default)]
 pub struct StepControlReader {
     pub file_path: String,
@@ -123,7 +123,7 @@ impl StepControlReader {
 }
 
 /// STEP file writer stub.
-/// occt: STEPControl_Writer
+// occt-ref: STEPControl_Writer
 #[derive(Clone, Debug, Default)]
 pub struct StepControlWriter {
     pub file_path: String,

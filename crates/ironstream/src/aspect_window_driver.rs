@@ -1,5 +1,6 @@
 // FILE: aspect_window_driver.rs
-// occt: Aspect_WindowDriver, Aspect_DisplayConnection, Aspect_VKeySet
+// occt: Aspect_DisplayConnection, Aspect_VKeySet
+// occt-ref: Aspect_WindowDriver
 
 /// Key code for virtual keyboard events.
 /// occt: Aspect_VKey
@@ -135,7 +136,7 @@ impl AspectDisplayConnection {
 }
 
 /// Abstract window driver stub.
-/// occt: Aspect_WindowDriver
+// occt-ref: Aspect_WindowDriver
 #[derive(Clone, Debug)]
 pub struct AspectWindowDriver {
     pub display: AspectDisplayConnection,

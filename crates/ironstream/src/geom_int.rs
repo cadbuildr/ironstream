@@ -1,7 +1,7 @@
 // FILE: rust/ironstream/crates/ironstream/src/geom_int.rs
 
-// occt: GeomInt_SurfaceTool result stub
-/// occt: GeomInt_SurfaceTool result stub — stores nb_lines and is_done state.
+// occt-note: GeomInt_SurfaceTool result stub
+/// occt-note: GeomInt_SurfaceTool result stub — stores nb_lines and is_done state.
 pub struct GeomIntSsResult {
     nb_lines: usize,
     is_done: bool,
@@ -31,8 +31,8 @@ impl Default for GeomIntSsResult {
     }
 }
 
-// occt: GeomInt_IntSS — surface-surface intersection query stub
-/// occt: GeomInt_IntSS — surface-surface intersection query stub.
+// occt: GeomInt_IntSS // — surface-surface intersection query stub
+/// occt: GeomInt_IntSS // — surface-surface intersection query stub.
 pub struct GeomIntIntSs {
     pub is_done: bool,
     pub nb_lines: usize,
@@ -43,7 +43,7 @@ impl GeomIntIntSs {
         Self { is_done: false, nb_lines: 0 }
     }
 
-    /// occt: GeomInt_IntSS::Perform — sets is_done=true, nb_lines=0 (stub).
+    /// occt: GeomInt_IntSS // ::Perform — sets is_done=true, nb_lines=0 (stub).
     pub fn perform(&mut self) {
         self.is_done = true;
         self.nb_lines = 0;
@@ -64,28 +64,28 @@ impl Default for GeomIntIntSs {
     }
 }
 
-// occt: GeomInt_LineTool — helper for intersection lines
-/// occt: GeomInt_LineTool — helper for intersection lines.
+// occt: GeomInt_LineTool // — helper for intersection lines
+/// occt: GeomInt_LineTool // — helper for intersection lines.
 pub struct GeomIntLineTool;
 
 impl GeomIntLineTool {
-    /// occt: GeomInt_LineTool::NbVertex — returns nb for stub.
+    /// occt: GeomInt_LineTool // ::NbVertex — returns nb for stub.
     pub fn nb_vertex(nb: usize) -> usize {
         nb
     }
 
-    /// occt: GeomInt_LineTool::FirstVertex — returns 0 (stub vertex index).
+    /// occt: GeomInt_LineTool // ::FirstVertex — returns 0 (stub vertex index).
     pub fn first_vertex() -> usize {
         0
     }
 
-    /// occt: GeomInt_LineTool::LastVertex — returns 0 (stub vertex index).
+    /// occt: GeomInt_LineTool // ::LastVertex — returns 0 (stub vertex index).
     pub fn last_vertex() -> usize {
         0
     }
 }
 
-// occt: GeomInt_LineTool type
+// occt: GeomInt_LineTool // type
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum GeomIntLineType {
     Walking,
@@ -93,7 +93,7 @@ pub enum GeomIntLineType {
     Analytic,
 }
 
-/// occt: GeomInt_IntSS result point
+/// occt: GeomInt_IntSS // result point
 pub struct GeomIntIntSSPoint {
     pub u1: f64,
     pub v1: f64, // params on surface 1
@@ -108,7 +108,7 @@ impl GeomIntIntSSPoint {
     }
 }
 
-/// occt: GeomInt_IntSS line
+/// occt: GeomInt_IntSS // line
 pub struct GeomIntIntSSLine {
     pub line_type: GeomIntLineType,
     pub points: Vec<GeomIntIntSSPoint>,

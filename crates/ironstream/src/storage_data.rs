@@ -1,5 +1,5 @@
 // FILE: storage_data.rs
-// occt: Storage_Schema, Storage_Data, Storage_BaseDriver,
+// occt: Storage_Schema, Storage_Data, Storage_BaseDriver
 //       Storage_Error, Storage_HeaderData
 
 /// Storage operation error code.
@@ -41,7 +41,7 @@ impl StorageError {
     }
 }
 
-// occt: Storage_HeaderData — document header info
+// occt: Storage_HeaderData // — document header info
 #[derive(Clone, Debug, Default)]
 pub struct StorageHeaderData {
     pub creation_date: String,
@@ -80,7 +80,7 @@ impl StorageHeaderData {
     }
 }
 
-// occt: Storage_Data — holds persistent object data
+// occt: Storage_Data // — holds persistent object data
 #[derive(Clone, Debug, Default)]
 pub struct StorageData {
     pub header: StorageHeaderData,
@@ -126,7 +126,7 @@ impl Default for StorageAccessMode {
     fn default() -> Self { Self::Read }
 }
 
-// occt: Storage_BaseDriver — base for file I/O drivers
+// occt: Storage_BaseDriver // — base for file I/O drivers
 #[derive(Clone, Debug)]
 pub struct StorageBaseDriver {
     pub path: String,
@@ -201,7 +201,7 @@ impl Default for StorageBaseDriver {
     fn default() -> Self { Self::new() }
 }
 
-// occt: Storage_Schema — registry of type names for serialization
+// occt: Storage_Schema // — registry of type names for serialization
 #[derive(Clone, Debug, Default)]
 pub struct StorageSchema {
     pub name: String,

@@ -1,5 +1,5 @@
 // FILE: app_def_my_gradient_of_compute.rs
-// occt: AppDefMyGradient1
+// occt-ref: AppDefMyGradient1
 
 //! Approximation and constraint handling class.
 pub struct AppDefMyGradient1 {

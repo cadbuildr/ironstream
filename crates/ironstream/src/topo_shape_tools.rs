@@ -23,33 +23,33 @@ use std::fmt;
 ///
 /// The ordering follows the OCCT convention: from lowest dimensionality
 /// (`Vertex`) up through the highest (`Compound`).
-// occt: BRepTools
-// occt: TopExp
+// occt-ref: BRepTools
+// occt-ref: TopExp
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum ShapeType {
     /// A zero-dimensional point in space.
-    // occt: TopAbs_VERTEX
+    // occt-ref: TopAbs_VERTEX
     Vertex,
     /// A one-dimensional curve bounded by two vertices.
-    // occt: TopAbs_EDGE
+    // occt-ref: TopAbs_EDGE
     Edge,
     /// A closed or open sequence of connected edges.
-    // occt: TopAbs_WIRE
+    // occt-ref: TopAbs_WIRE
     Wire,
     /// A bounded region of a surface.
-    // occt: TopAbs_FACE
+    // occt-ref: TopAbs_FACE
     Face,
     /// A connected set of faces.
-    // occt: TopAbs_SHELL
+    // occt-ref: TopAbs_SHELL
     Shell,
     /// A region of space bounded by one or more shells.
-    // occt: TopAbs_SOLID
+    // occt-ref: TopAbs_SOLID
     Solid,
     /// A connected set of solids sharing faces.
-    // occt: TopAbs_COMPSOLID
+    // occt-ref: TopAbs_COMPSOLID
     CompSolid,
     /// An arbitrary collection of shapes.
-    // occt: TopAbs_COMPOUND
+    // occt-ref: TopAbs_COMPOUND
     Compound,
 }
 
@@ -67,8 +67,8 @@ impl fmt::Display for ShapeType {
 ///
 /// Mirrors the information surface exposed by `TopoDS_Shape` in OCCT when
 /// queried through `BRepTools` or `TopExp_Explorer`.
-// occt: BRepTools
-// occt: TopExp
+// occt-ref: BRepTools
+// occt-ref: TopExp
 #[derive(Clone, Debug, PartialEq)]
 pub struct ShapeInfo {
     /// The topological kind of this shape.
@@ -85,7 +85,7 @@ impl ShapeInfo {
     ///
     /// Mirrors the typical pattern of building a `TopoDS_Shape` and attaching
     /// metadata through `TopExp` utilities.
-    // occt: BRepTools
+    // occt-ref: BRepTools
     pub fn new(t: ShapeType, name: &str) -> Self {
         Self {
             shape_type: t,
@@ -101,7 +101,7 @@ impl ShapeInfo {
     /// shape (`Solid`, `CompSolid`, `Compound`) that is inherently bounded.
     ///
     /// Mirrors `BRep_Builder`/`BRepCheck` closure tests in OCCT.
-    // occt: BRepTools
+    // occt-ref: BRepTools
     pub fn is_closed(&self) -> bool {
         matches!(
             self.shape_type,
@@ -134,8 +134,8 @@ impl fmt::Display for ShapeInfo {
 ///
 /// All methods in this stub operate on opaque string tokens representing shape
 /// identifiers.  A full implementation would accept `TopoDS_Shape` references.
-// occt: BRepTools
-// occt: TopExp
+// occt-ref: BRepTools
+// occt-ref: TopExp
 pub struct ShapeTools;
 
 impl ShapeTools {
@@ -144,7 +144,7 @@ impl ShapeTools {
     /// Mirrors `BRepTools::OuterWire(face)`.  The returned string is the
     /// canonical label of the outer bounding wire.  When the face label is
     /// empty the function returns an empty string indicating a null shape.
-    // occt: BRepTools
+    // occt-ref: BRepTools
     pub fn outer_wire(face: &str) -> String {
         if face.is_empty() {
             return String::new();
@@ -158,7 +158,7 @@ impl ShapeTools {
     /// The stub encodes the UTF-8 bytes of the shape label preceded by a
     /// 4-byte little-endian length prefix so callers can round-trip through
     /// [`ShapeTools::read_shape`].
-    // occt: BRepTools
+    // occt-ref: BRepTools
     pub fn write_shape(shape: &str) -> Vec<u8> {
         let bytes = shape.as_bytes();
         let len = bytes.len() as u32;
@@ -172,7 +172,7 @@ impl ShapeTools {
     ///
     /// Mirrors `BRepTools::Read` / `BinTools::Read`.  Returns an empty string
     /// if the buffer is malformed or too short.
-    // occt: BRepTools
+    // occt-ref: BRepTools
     pub fn read_shape(data: &[u8]) -> String {
         if data.len() < 4 {
             return String::new();
@@ -192,7 +192,7 @@ impl ShapeTools {
     /// Mirrors `BRepBndLib::Add` / `BRepTools` bounding-box helpers.  The
     /// stub derives deterministic pseudo-bounds from the hash of the shape
     /// label so that callers can exercise the API without real geometry.
-    // occt: BRepTools
+    // occt-ref: BRepTools
     pub fn bounds(shape: &str) -> ([f64; 3], [f64; 3]) {
         // Derive a stable seed from the shape label so that tests are
         // reproducible.  A production implementation would walk the topology
@@ -212,7 +212,7 @@ impl ShapeTools {
 /// Return the canonical OCCT-style name for a [`ShapeType`] variant.
 ///
 /// Mirrors `TopAbs::ShapeTypeToString` from OCCT.
-// occt: TopExp
+// occt-ref: TopExp
 pub fn shape_type_name(t: &ShapeType) -> &'static str {
     match t {
         ShapeType::Vertex => "Vertex",
@@ -236,7 +236,7 @@ pub fn shape_type_name(t: &ShapeType) -> &'static str {
 /// The stub synthesises sub-shape labels from the root label and the
 /// requested type so that callers can exercise traversal logic without
 /// real topology data.
-// occt: TopExp
+// occt-ref: TopExp
 pub fn map_shapes(root: &str, shape_type: ShapeType) -> Vec<String> {
     if root.is_empty() {
         return Vec::new();

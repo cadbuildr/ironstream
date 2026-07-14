@@ -1,9 +1,10 @@
 // FILE: graphic3d_bound.rs
-// occt: Graphic3d_BndBox3d, Graphic3d_BVHItem, Graphic3d_CullInterval,
+// occt: Graphic3d_BndBox3d
+// occt-ref: Graphic3d_BVHItem, Graphic3d_CullInterval
 //       Graphic3d_WorldViewProjState
 
 /// Axis-aligned bounding box in 3D.
-/// occt: Graphic3d_BndBox3d / Bnd_Box
+/// occt: Graphic3d_BndBox3d // / Bnd_Box
 #[derive(Clone, Debug)]
 pub struct Graphic3dBndBox3d {
     pub min: [f64; 3],
@@ -90,7 +91,7 @@ impl Graphic3dBndBox3d {
 }
 
 /// BVH (Bounding Volume Hierarchy) tree item.
-/// occt: Graphic3d_BVHItem
+// occt-ref: Graphic3d_BVHItem
 #[derive(Clone, Debug)]
 pub struct Graphic3dBvhItem {
     pub shape_id: u32,
@@ -107,7 +108,7 @@ impl Graphic3dBvhItem {
 }
 
 /// Cull interval for view-frustum culling.
-/// occt: Graphic3d_CullInterval
+// occt-ref: Graphic3d_CullInterval
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Graphic3dCullInterval {
     pub min_dist: f64,

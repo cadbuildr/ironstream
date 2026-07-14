@@ -9,7 +9,7 @@ pub enum FairCurveConstraint {
     Ok,
 }
 
-// occt: FairCurve_MinimalVariation
+// occt-ref: FairCurve_MinimalVariation
 pub struct FairCurveMinimalVariation {
     p1: [f64; 2],
     p2: [f64; 2],
@@ -79,7 +79,7 @@ impl FairCurveMinimalVariation {
     }
 }
 
-// occt: FairCurve BSpline output
+// occt-note: FairCurve BSpline output
 pub struct FairCurveBSpline {
     pub poles: Vec<[f64; 2]>,
     pub degree: u32,
@@ -93,7 +93,7 @@ impl FairCurveBSpline {
     }
 }
 
-// occt: FairCurve_BattenCurve
+// occt-ref: FairCurve_BattenCurve
 pub struct FairCurveBattenCurve {
     p1: [f64; 2],
     p2: [f64; 2],

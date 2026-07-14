@@ -80,7 +80,7 @@ impl TransientProcess {
     }
 }
 
-// occt: TransferBRep_Reader — the reader itself
+// occt: TransferBRep_Reader // — the reader itself
 pub struct TransferBRepReader {
     done: bool,
     proc: Option<TransientProcess>,

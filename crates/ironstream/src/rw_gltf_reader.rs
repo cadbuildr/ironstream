@@ -1,7 +1,8 @@
 // FILE: rw_gltf_reader.rs
-// occt: RWGltf_CafReader, RWGltf_GltfJsonParser, RWGltf_PrimitiveArrayReader
+// occt: RWGltf_GltfJsonParser
+// occt-ref: RWGltf_CafReader, RWGltf_PrimitiveArrayReader
 
-// occt: RWGltf_GltfAccessorLayout
+// occt-ref: RWGltf_GltfAccessorLayout
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum GltfAccessorType {
     Scalar,
@@ -43,7 +44,7 @@ impl GltfAccessor {
     }
 }
 
-// occt: RWGltf_GltfNode
+// occt-ref: RWGltf_GltfNode
 #[derive(Clone, Debug)]
 pub struct GltfNode {
     pub name: String,
@@ -67,14 +68,14 @@ impl GltfNode {
     }
 }
 
-// occt: RWGltf_GltfMesh
+// occt-ref: RWGltf_GltfMesh
 #[derive(Clone, Debug)]
 pub struct GltfMesh {
     pub name: String,
     pub primitives: Vec<GltfPrimitive>,
 }
 
-// occt: RWGltf_GltfPrimitive
+// occt-ref: RWGltf_GltfPrimitive
 #[derive(Clone, Debug)]
 pub struct GltfPrimitive {
     pub position_accessor: Option<usize>,
@@ -84,7 +85,7 @@ pub struct GltfPrimitive {
     pub material_index: Option<usize>,
 }
 
-// occt: RWGltf_CafReader
+// occt-ref: RWGltf_CafReader
 /// Reads a glTF 2.0 file into an in-memory model.
 #[derive(Clone, Debug, Default)]
 pub struct GltfReader {

@@ -1,5 +1,6 @@
 // FILE: mat2d_data_map_of_integer_vec2d.rs
-// occt: MAT2d_DataMapOfIntegerVec2d, MAT2d_DataMapIteratorOfDataMapOfIntegerVec2d
+// occt: MAT2d_DataMapOfIntegerVec2d
+// occt-ref: MAT2d_DataMapIteratorOfDataMapOfIntegerVec2d
 
 use std::collections::BTreeMap;
 

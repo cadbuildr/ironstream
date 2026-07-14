@@ -27,7 +27,7 @@
 /// The chosen mode controls how the Frenet / guide frame is transported along
 /// the spine, which in turn determines how the profile is oriented at each
 /// cross-section.
-// occt: GeomFill_Trihedron
+// occt-ref: GeomFill_Trihedron
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum PipeFillMode {
     /// `GeomFill_IsCorrectedFrenet` — Frenet frame with torsion correction to
@@ -70,25 +70,25 @@ pub enum PipeFillMode {
 ///
 /// Mirrors the input parameters accepted by `BRepOffsetAPI_MakePipe` and the
 /// underlying `GeomFill_Pipe` algorithm.
-// occt: BRepOffsetAPI_MakePipe params
+// occt-ref: BRepOffsetAPI_MakePipe // params
 #[derive(Clone, Debug)]
 pub struct PipeParams {
     /// Total arc-length of the spine curve.
-    // occt: spine length (BRepOffsetAPI_MakePipe spine)
+    // occt-note: spine length (BRepOffsetAPI_MakePipe spine)
     pub spine_length: f64,
     /// Number of control/pole points in the profile curve.
-    // occt: profile pole count (GeomFill_Pipe profile poles)
+    // occt-note: profile pole count (GeomFill_Pipe profile poles)
     pub nb_profile_poles: usize,
     /// Trihedron propagation mode controlling profile orientation.
-    // occt: GeomFill_Trihedron filling mode
+    // occt-ref: GeomFill_Trihedron // filling mode
     fill_mode: PipeFillMode,
     /// When `true` the result is a closed solid shell; when `false` it is an
     /// open shell.
-    // occt: BRepOffsetAPI_MakePipe ForceApprox / solid flag
+    // occt-ref: BRepOffsetAPI_MakePipe // ForceApprox / solid flag
     is_solid: bool,
     /// When `true` the algorithm is forced to produce a `C1`-continuous
     /// result even if the spine is only `G1`.
-    // occt: BRepOffsetAPI_MakePipe ForceC1
+    // occt-ref: BRepOffsetAPI_MakePipe // ForceC1
     pub force_c1: bool,
 }
 
@@ -99,7 +99,7 @@ impl PipeParams {
     /// - `force_c1` disabled
     ///
     /// Mirrors `BRepOffsetAPI_MakePipe(spine, profile)`.
-    // occt: BRepOffsetAPI_MakePipe::BRepOffsetAPI_MakePipe
+    // occt-ref: BRepOffsetAPI_MakePipe // ::BRepOffsetAPI_MakePipe
     pub fn new(spine_length: f64, nb_profile_poles: usize) -> Self {
         Self {
             spine_length,
@@ -111,31 +111,31 @@ impl PipeParams {
     }
 
     /// Set the trihedron propagation mode.
-    // occt: BRepOffsetAPI_MakePipe (mode parameter)
+    // occt-ref: BRepOffsetAPI_MakePipe // (mode parameter)
     pub fn set_fill_mode(&mut self, mode: PipeFillMode) {
         self.fill_mode = mode;
     }
 
     /// Return the current trihedron propagation mode.
-    // occt: GeomFill_Trihedron accessor
+    // occt-ref: GeomFill_Trihedron // accessor
     pub fn fill_mode(&self) -> PipeFillMode {
         self.fill_mode
     }
 
     /// Set whether the result should be a closed solid shell.
-    // occt: BRepOffsetAPI_MakePipe solid flag
+    // occt-ref: BRepOffsetAPI_MakePipe // solid flag
     pub fn set_solid(&mut self, solid: bool) {
         self.is_solid = solid;
     }
 
     /// Return whether the result is a closed solid shell.
-    // occt: BRepOffsetAPI_MakePipe solid flag accessor
+    // occt-ref: BRepOffsetAPI_MakePipe // solid flag accessor
     pub fn is_solid(&self) -> bool {
         self.is_solid
     }
 
     /// Return the arc-length of the spine.
-    // occt: BRepOffsetAPI_MakePipe spine length
+    // occt-ref: BRepOffsetAPI_MakePipe // spine length
     pub fn spine_length(&self) -> f64 {
         self.spine_length
     }
@@ -149,23 +149,23 @@ impl PipeParams {
 ///
 /// Mirrors the shape-query methods exposed by `BRepOffsetAPI_MakePipe` after
 /// `Build()` has been called.
-// occt: BRepOffsetAPI_MakePipe result stub
+// occt-ref: BRepOffsetAPI_MakePipe // result stub
 #[derive(Clone, Debug)]
 pub struct PipeResult {
     /// Whether `Build()` has been called and completed successfully.
-    // occt: BRepOffsetAPI_MakePipe::IsDone
+    // occt-ref: BRepOffsetAPI_MakePipe // ::IsDone
     pub is_done: bool,
     /// Number of shell faces in the resulting shape.
-    // occt: BRepOffsetAPI_MakePipe shape face count
+    // occt-ref: BRepOffsetAPI_MakePipe // shape face count
     pub nb_shell_faces: usize,
     /// Number of wire edges in the resulting shape.
-    // occt: BRepOffsetAPI_MakePipe shape edge count
+    // occt-ref: BRepOffsetAPI_MakePipe // shape edge count
     pub nb_wire_edges: usize,
 }
 
 impl PipeResult {
     /// Create an uninitialised result (not yet built).
-    // occt: BRepOffsetAPI_MakePipe (pre-build state)
+    // occt-ref: BRepOffsetAPI_MakePipe // (pre-build state)
     pub fn new() -> Self {
         Self {
             is_done: false,
@@ -178,7 +178,7 @@ impl PipeResult {
     /// wire edges, and mark the result as done.
     ///
     /// Mirrors `BRepOffsetAPI_MakePipe::Build()` side-effects.
-    // occt: BRepOffsetAPI_MakePipe::Build
+    // occt-ref: BRepOffsetAPI_MakePipe // ::Build
     pub fn build(&mut self, nb_faces: usize, nb_edges: usize) {
         self.nb_shell_faces = nb_faces;
         self.nb_wire_edges = nb_edges;
@@ -186,19 +186,19 @@ impl PipeResult {
     }
 
     /// Return `true` if [`build`](Self::build) has been called successfully.
-    // occt: BRepOffsetAPI_MakePipe::IsDone
+    // occt-ref: BRepOffsetAPI_MakePipe // ::IsDone
     pub fn is_done(&self) -> bool {
         self.is_done
     }
 
     /// Return the number of shell faces in the built shape.
-    // occt: BRepOffsetAPI_MakePipe shape topology
+    // occt-ref: BRepOffsetAPI_MakePipe // shape topology
     pub fn nb_shell_faces(&self) -> usize {
         self.nb_shell_faces
     }
 
     /// Return the number of wire edges in the built shape.
-    // occt: BRepOffsetAPI_MakePipe shape topology
+    // occt-ref: BRepOffsetAPI_MakePipe // shape topology
     pub fn nb_wire_edges(&self) -> usize {
         self.nb_wire_edges
     }
@@ -219,14 +219,14 @@ impl Default for PipeResult {
 /// Combines [`PipeParams`] (inputs) with a [`PipeResult`] (outputs) and
 /// exposes the `Build` / `IsDone` / `Shape` lifecycle that mirrors
 /// `BRepOffsetAPI_MakePipe`.
-// occt: BRepOffsetAPI_MakePipe
+// occt-ref: BRepOffsetAPI_MakePipe
 #[derive(Clone, Debug)]
 pub struct GeomPipe {
     /// Construction parameters for the sweep.
-    // occt: BRepOffsetAPI_MakePipe inputs
+    // occt-ref: BRepOffsetAPI_MakePipe // inputs
     pub params: PipeParams,
     /// Build result (populated after [`build`](Self::build)).
-    // occt: BRepOffsetAPI_MakePipe result
+    // occt-ref: BRepOffsetAPI_MakePipe // result
     pub result: PipeResult,
 }
 
@@ -234,7 +234,7 @@ impl GeomPipe {
     /// Construct a new `GeomPipe` from the given parameters.
     ///
     /// The result is not built until [`build`](Self::build) is called.
-    // occt: BRepOffsetAPI_MakePipe::BRepOffsetAPI_MakePipe
+    // occt-ref: BRepOffsetAPI_MakePipe // ::BRepOffsetAPI_MakePipe
     pub fn new(params: PipeParams) -> Self {
         Self {
             params,
@@ -249,7 +249,7 @@ impl GeomPipe {
     /// wire edges is `nb_profile_poles` (one edge per profile pole seam).
     ///
     /// Mirrors `BRepOffsetAPI_MakePipe::Build()`.
-    // occt: BRepOffsetAPI_MakePipe::Build
+    // occt-ref: BRepOffsetAPI_MakePipe // ::Build
     pub fn build(&mut self) {
         let nb_faces = self.params.nb_profile_poles * 2;
         let nb_edges = self.params.nb_profile_poles;
@@ -257,7 +257,7 @@ impl GeomPipe {
     }
 
     /// Return `true` if [`build`](Self::build) has completed successfully.
-    // occt: BRepOffsetAPI_MakePipe::IsDone
+    // occt-ref: BRepOffsetAPI_MakePipe // ::IsDone
     pub fn is_done(&self) -> bool {
         self.result.is_done()
     }
@@ -266,7 +266,7 @@ impl GeomPipe {
     ///
     /// Mirrors `BRepOffsetAPI_MakePipe::Shape()` (returns the constructed
     /// topology; here simplified to the result metadata struct).
-    // occt: BRepOffsetAPI_MakePipe::Shape
+    // occt-ref: BRepOffsetAPI_MakePipe // ::Shape
     pub fn result(&self) -> &PipeResult {
         &self.result
     }

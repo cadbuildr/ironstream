@@ -13,7 +13,7 @@
 //! - [`Geom2dGccTanCirc`]         — `Geom2dGcc_Circ2d2TanRad` result circle
 //! - [`Geom2dGcc2TanRad`]         — `Geom2dGcc_Circ2d2TanRad` solver
 
-// occt: GccEnt_Position (2D)
+// occt: GccEnt_Position // (2D)
 /// Describes the qualifier of a 2-D circle in a tangency constraint.
 ///
 /// Matches `GccEnt_Position` in OpenCascade (used by the 2-D Gcc family).
@@ -31,7 +31,7 @@ pub enum Geom2dGccQualifier {
     OnCurve,
 }
 
-// occt: Geom2dGcc_QCurve for circles
+// occt-ref: Geom2dGcc_QCurve // for circles
 /// A 2-D circle together with a qualifier that constrains how a tangent
 /// solution relates to it.
 ///
@@ -87,7 +87,7 @@ impl Geom2dGccQualifiedCirc {
     }
 }
 
-// occt: Geom2dGcc_Circ2d2TanRad result
+// occt: Geom2dGcc_Circ2d2TanRad // result
 /// A solution circle tangent to two qualified circles.
 ///
 /// Stores the solution center, radius and the qualifiers that were satisfied

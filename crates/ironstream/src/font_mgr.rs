@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/font_mgr.rs
 
-// occt: Font_FontAspect
+// occt-ref: Font_FontAspect
 /// Style variant of a typeface, mirroring `Font_FontAspect` in OCCT.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FontAspect {
@@ -10,7 +10,7 @@ pub enum FontAspect {
     BoldItalic,
 }
 
-// occt: Font_FontMgr  (per-font metadata entry)
+// occt-ref: Font_FontMgr // (per-font metadata entry)
 /// Metadata record for a single registered font file.
 #[derive(Clone, Debug)]
 pub struct FontInfo {
@@ -30,7 +30,7 @@ impl FontInfo {
     }
 }
 
-// occt: Font_FontMgr
+// occt-ref: Font_FontMgr
 /// Registry of available fonts, analogous to `Font_FontMgr` in OCCT.
 pub struct FontMgr {
     pub fonts: Vec<FontInfo>,
@@ -91,7 +91,7 @@ impl Default for FontMgr {
     }
 }
 
-// occt: Font_BRepFont
+// occt-ref: Font_BRepFont
 /// Stub for a font-driven B-Rep glyph renderer, analogous to `Font_BRepFont`
 /// in OCCT.  The `render_char` method returns contour loops as sequences of
 /// 2-D points; this stub always returns an empty set of contours.

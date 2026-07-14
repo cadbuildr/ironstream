@@ -165,7 +165,7 @@ fn circumscribed_circle(
 // ArcOfCircle
 // ---------------------------------------------------------------------------
 
-// occt: GC_MakeArcOfCircle
+// occt-ref: GC_MakeArcOfCircle
 /// A circular arc in 3-D space, modelled after `GC_MakeArcOfCircle`.
 ///
 /// The arc lies in the plane defined by `normal` and is parameterised by an
@@ -187,7 +187,7 @@ pub struct ArcOfCircle {
 }
 
 impl ArcOfCircle {
-    // occt: GC_MakeArcOfCircle::GC_MakeArcOfCircle(P1, P2, P3)
+    // occt-ref: GC_MakeArcOfCircle // ::GC_MakeArcOfCircle(P1, P2, P3)
     /// Construct an arc passing through three points in order `p1 → p2 → p3`.
     ///
     /// Returns `None` when the three points are collinear or coincident (no
@@ -241,7 +241,7 @@ impl ArcOfCircle {
         })
     }
 
-    // occt: GC_MakeArcOfCircle — local x/y frame derived from normal
+    // occt-ref: GC_MakeArcOfCircle // — local x/y frame derived from normal
     /// Reconstruct the local X-axis of the arc's plane from the stored normal
     /// and the implicit convention that the X-axis points to the start of the
     /// arc.  This is an internal helper.
@@ -266,7 +266,7 @@ impl ArcOfCircle {
         (x_axis, y_axis)
     }
 
-    // occt: GC_MakeArcOfCircle — Value / D0
+    // occt-ref: GC_MakeArcOfCircle // — Value / D0
     /// Evaluate the arc at parameter `t` (radians, measured from the global
     /// X-axis of the arc's plane).  `t` is not clamped.
     pub fn evaluate(&self, t: f64) -> [f64; 3] {
@@ -280,7 +280,7 @@ impl ArcOfCircle {
         ]
     }
 
-    // occt: GC_MakeArcOfCircle — D1
+    // occt-ref: GC_MakeArcOfCircle // — D1
     /// First derivative of the arc at parameter `t`.
     ///
     /// The magnitude equals the radius (arc-length parameterisation speed).
@@ -296,7 +296,7 @@ impl ArcOfCircle {
         ]
     }
 
-    // occt: GC_MakeArcOfCircle — IsDone
+    // occt-ref: GC_MakeArcOfCircle // — IsDone
     /// Always returns `true` for a successfully constructed arc.
     ///
     /// Mirrors `GC_MakeArcOfCircle::IsDone()`.  A value of `false` is only
@@ -306,7 +306,7 @@ impl ArcOfCircle {
         true
     }
 
-    // occt: GC_MakeArcOfCircle — arc length
+    // occt-ref: GC_MakeArcOfCircle // — arc length
     /// Arc length: `radius × |end_angle − start_angle|`.
     pub fn length(&self) -> f64 {
         self.radius * (self.end_angle - self.start_angle).abs()
@@ -317,7 +317,7 @@ impl ArcOfCircle {
 // ArcOfEllipse
 // ---------------------------------------------------------------------------
 
-// occt: GC_MakeArcOfEllipse
+// occt-ref: GC_MakeArcOfEllipse
 /// An arc of an ellipse in 3-D space, modelled after `GC_MakeArcOfEllipse`.
 ///
 /// The ellipse lies in the XY-plane of world space (Z = `cz`). For a general
@@ -343,7 +343,7 @@ pub struct ArcOfEllipse {
 }
 
 impl ArcOfEllipse {
-    // occt: GC_MakeArcOfEllipse::GC_MakeArcOfEllipse
+    // occt-ref: GC_MakeArcOfEllipse // ::GC_MakeArcOfEllipse
     /// Construct an `ArcOfEllipse`.
     ///
     /// Parameters
@@ -367,7 +367,7 @@ impl ArcOfEllipse {
         }
     }
 
-    // occt: GC_MakeArcOfEllipse — Value / D0
+    // occt-ref: GC_MakeArcOfEllipse // — Value / D0
     /// Evaluate the elliptic arc at parameter `t` (radians).
     ///
     /// ```text

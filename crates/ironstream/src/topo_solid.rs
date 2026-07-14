@@ -1,8 +1,8 @@
 // FILE: topo_solid.rs
-// occt: TopoDS_Shell, TopoDS_Solid, TopoDS_CompSolid, TopoDS_Compound
+// occt-ref: TopoDS_Shell, TopoDS_Solid, TopoDS_CompSolid, TopoDS_Compound
 
 /// TopoDS_Shell: a set of faces connected along their edges.
-/// occt: TopoDS_Shell
+// occt-ref: TopoDS_Shell
 #[derive(Clone, Debug, PartialEq)]
 pub struct TopoShell {
     pub shape_id: u32,
@@ -30,7 +30,7 @@ impl TopoShell {
 }
 
 /// TopoDS_Solid: a closed shell that bounds a volume.
-/// occt: TopoDS_Solid
+// occt-ref: TopoDS_Solid
 #[derive(Clone, Debug, PartialEq)]
 pub struct TopoSolid {
     pub shape_id: u32,
@@ -58,7 +58,7 @@ impl TopoSolid {
 }
 
 /// TopoDS_CompSolid: a set of solids connected along faces.
-/// occt: TopoDS_CompSolid
+// occt-ref: TopoDS_CompSolid
 #[derive(Clone, Debug, PartialEq)]
 pub struct TopoCompSolid {
     pub shape_id: u32,
@@ -82,7 +82,7 @@ impl TopoCompSolid {
 }
 
 /// TopoDS_Compound: a heterogeneous collection of shapes.
-/// occt: TopoDS_Compound
+// occt-ref: TopoDS_Compound
 #[derive(Clone, Debug, PartialEq)]
 pub struct TopoCompound {
     pub shape_id: u32,

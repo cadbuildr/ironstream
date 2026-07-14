@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/xml_driver.rs
 
-// occt: XmlMDF_ADriver — OCAF XML/Bin persistence driver layer.
+// occt-ref: XmlMDF_ADriver // — OCAF XML/Bin persistence driver layer.
 // Provides zero-dependency serialization of OCAF attributes to an XML-like
 // text format, mirroring the XmlMDF_ADriver / BinMDF_ADriver contract.
 
@@ -8,18 +8,18 @@
 // XmlAttrType
 // ---------------------------------------------------------------------------
 
-/// occt: XML attribute serialization type — mirrors XmlMDF_ADriver type tags.
+/// occt-note: XML attribute serialization type — mirrors XmlMDF_ADriver type tags.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum XmlAttrType {
-    /// occt: TDataStd_Name / TDataStd_Comment — UTF-8 string attribute.
+    // occt-ref: TDataStd_Name // / TDataStd_Comment — UTF-8 string attribute.
     String,
-    /// occt: TDataStd_Integer — 32-bit signed integer attribute.
+    // occt-ref: TDataStd_Integer // — 32-bit signed integer attribute.
     Integer,
-    /// occt: TDataStd_Real — 64-bit IEEE-754 real attribute.
+    // occt-ref: TDataStd_Real // — 64-bit IEEE-754 real attribute.
     Real,
-    /// occt: TDataStd_UAttribute — boolean flag attribute.
+    // occt-ref: TDataStd_UAttribute // — boolean flag attribute.
     Boolean,
-    /// occt: TDataStd_IntegerArray / TDataStd_RealArray — comma-separated array.
+    // occt-ref: TDataStd_IntegerArray // / TDataStd_RealArray — comma-separated array.
     Array,
 }
 
@@ -53,7 +53,7 @@ impl XmlAttrType {
 // XmlDriverEntry
 // ---------------------------------------------------------------------------
 
-/// occt: one serialized OCAF attribute — mirrors a single XmlMDF_ADriver
+/// occt-note: one serialized OCAF attribute — mirrors a single XmlMDF_ADriver
 /// entry stored in an XML persistence document.
 pub struct XmlDriverEntry {
     label: String,
@@ -62,7 +62,7 @@ pub struct XmlDriverEntry {
 }
 
 impl XmlDriverEntry {
-    /// occt: constructs an entry with the given label path, attribute type,
+    /// occt-note: constructs an entry with the given label path, attribute type,
     /// and value serialized as a string (matching XmlMDF_ADriver::Paste /
     /// BinMDF_ADriver::Paste conventions).
     pub fn new(label: &str, attr_type: XmlAttrType, value: &str) -> Self {
@@ -73,17 +73,17 @@ impl XmlDriverEntry {
         }
     }
 
-    /// occt: returns the OCAF label entry path (e.g. "0:1:2").
+    /// occt-note: returns the OCAF label entry path (e.g. "0:1:2").
     pub fn label(&self) -> &str {
         &self.label
     }
 
-    /// occt: returns the attribute serialization type tag.
+    /// occt-note: returns the attribute serialization type tag.
     pub fn attr_type(&self) -> XmlAttrType {
         self.attr_type
     }
 
-    /// occt: returns the serialized attribute value string.
+    /// occt-note: returns the serialized attribute value string.
     pub fn value(&self) -> &str {
         &self.value
     }
@@ -93,7 +93,7 @@ impl XmlDriverEntry {
 // XmlDocument
 // ---------------------------------------------------------------------------
 
-/// occt: XmlMDF_ADriver — XML document holding a format version and a
+// occt-ref: XmlMDF_ADriver // — XML document holding a format version and a
 /// sequence of serialized OCAF attribute entries.
 pub struct XmlDocument {
     format_version: u32,
@@ -101,7 +101,7 @@ pub struct XmlDocument {
 }
 
 impl XmlDocument {
-    /// occt: creates an empty document with the given format version, matching
+    /// occt-note: creates an empty document with the given format version, matching
     /// the `<document formatVersion="...">` attribute in OCCT XML files.
     pub fn new(format_version: u32) -> Self {
         Self {
@@ -110,22 +110,22 @@ impl XmlDocument {
         }
     }
 
-    /// occt: returns the document format version.
+    /// occt-note: returns the document format version.
     pub fn format_version(&self) -> u32 {
         self.format_version
     }
 
-    /// occt: appends a driver entry to the document (XmlMDF_ADriver::Add).
+    /// occt-note: appends a driver entry to the document (XmlMDF_ADriver::Add).
     pub fn add_entry(&mut self, e: XmlDriverEntry) {
         self.entries.push(e);
     }
 
-    /// occt: returns the total number of entries in the document.
+    /// occt-note: returns the total number of entries in the document.
     pub fn nb_entries(&self) -> usize {
         self.entries.len()
     }
 
-    /// occt: returns a reference to the entry at index `i` (0-based).
+    /// occt-note: returns a reference to the entry at index `i` (0-based).
     ///
     /// # Panics
     /// Panics if `i >= nb_entries()`.
@@ -133,13 +133,13 @@ impl XmlDocument {
         &self.entries[i]
     }
 
-    /// occt: looks up the first entry whose label matches `label`, mirroring
+    /// occt-note: looks up the first entry whose label matches `label`, mirroring
     /// XmlMDF_ADriver label-keyed lookup.  Returns `None` if not found.
     pub fn entry_by_label(&self, label: &str) -> Option<&XmlDriverEntry> {
         self.entries.iter().find(|e| e.label == label)
     }
 
-    /// occt: serializes the document to a simple XML-like string, matching the
+    /// occt-note: serializes the document to a simple XML-like string, matching the
     /// envelope produced by XmlLDrivers_DocumentStorageDriver.
     pub fn serialize(&self) -> String {
         let mut out = String::new();
@@ -161,7 +161,7 @@ impl XmlDocument {
 // Free functions
 // ---------------------------------------------------------------------------
 
-/// occt: formats one XmlDriverEntry as a self-closing XML element, matching
+/// occt-note: formats one XmlDriverEntry as a self-closing XML element, matching
 /// the per-attribute element layout used by XmlMDF_ADriver::Paste output.
 pub fn serialize_entry(e: &XmlDriverEntry) -> String {
     // Escape the five XML special characters inside attribute values so the
@@ -188,7 +188,7 @@ pub fn serialize_entry(e: &XmlDriverEntry) -> String {
     )
 }
 
-/// occt: parses a single `<attr label="..." type="..." value="..."/>` line
+/// occt-note: parses a single `<attr label="..." type="..." value="..."/>` line
 /// produced by `serialize_entry`.  Returns `None` for malformed input.
 pub fn deserialize_entry(s: &str) -> Option<XmlDriverEntry> {
     let s = s.trim();

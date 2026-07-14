@@ -1,9 +1,10 @@
 // FILE: ais_text_label.rs
-// occt: AIS_TextLabel, AIS_TextAttributes, Graphic3d_Text,
+// occt: AIS_TextLabel, Graphic3d_Text
+// occt-ref: AIS_TextAttributes
 //       Font_TextFormatter
 
 /// Text horizontal justification.
-/// occt: Graphic3d_HorizontalTextAlignment
+// occt-ref: Graphic3d_HorizontalTextAlignment
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum HTextAlign {
     #[default]
@@ -13,7 +14,7 @@ pub enum HTextAlign {
 }
 
 /// Text vertical justification.
-/// occt: Graphic3d_VerticalTextAlignment
+// occt-ref: Graphic3d_VerticalTextAlignment
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum VTextAlign {
     #[default]
@@ -38,7 +39,7 @@ impl FontSlant {
 }
 
 /// Attributes for text rendering.
-/// occt: AIS_TextAttributes / Graphic3d_Text
+/// occt-note: AIS_TextAttributes / Graphic3d_Text
 #[derive(Clone, Debug, PartialEq)]
 pub struct AisTextAttributes {
     pub font_name: String,

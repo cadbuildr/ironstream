@@ -135,7 +135,7 @@ impl Default for RwObjMaterial {
 ///
 /// Vertices, normals and texture coordinates are stored as flat `Vec`s.
 /// Triangle indices reference positions in those arrays using 0-based indices.
-// occt: RWObj mesh container
+// occt: RWObj // mesh container
 #[derive(Debug, Clone)]
 pub struct RwObjMesh {
     /// Object/group name.
@@ -247,7 +247,7 @@ impl RwObjMesh {
 /// Accumulates [`RwObjMesh`] objects and [`RwObjMaterial`] definitions that
 /// together describe a complete OBJ asset.  Corresponds broadly to the reader
 /// result produced by `RWObj_CafReader` after ingesting an OBJ file.
-// occt: RWObj_CafReader scene stub
+// occt-ref: RWObj_CafReader // scene stub
 #[derive(Debug)]
 pub struct RwObjScene {
     /// All meshes in insertion order.

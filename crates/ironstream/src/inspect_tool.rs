@@ -1,5 +1,5 @@
 // FILE: inspect_tool.rs
-// occt: BRep_Tool (curve/surface/point access utilities), BRepTools inspector
+// occt-ref: BRep_Tool // (curve/surface/point access utilities), BRepTools inspector
 
 /// Classification of a curve's geometric type.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -39,7 +39,7 @@ impl Default for SurfaceGeomType {
     fn default() -> Self { Self::OtherSurface }
 }
 
-// occt: BRep_Tool face data — surface + tolerance
+// occt-ref: BRep_Tool // face data — surface + tolerance
 #[derive(Clone, Debug, Default)]
 pub struct BrepToolFace {
     pub face_id: u32,
@@ -71,7 +71,7 @@ impl BrepToolFace {
     pub fn set_tolerance(&mut self, tol: f64) { self.tolerance = tol; }
 }
 
-// occt: BRep_Tool edge data — 3D curve + tolerance + flags
+// occt-ref: BRep_Tool // edge data — 3D curve + tolerance + flags
 #[derive(Clone, Debug, Default)]
 pub struct BrepToolEdge {
     pub edge_id: u32,
@@ -115,7 +115,7 @@ impl BrepToolEdge {
     pub fn set_tolerance(&mut self, tol: f64) { self.tolerance = tol; }
 }
 
-// occt: BRep_Tool vertex data — 3D point + tolerance
+// occt-ref: BRep_Tool // vertex data — 3D point + tolerance
 #[derive(Clone, Debug, Default)]
 pub struct BrepToolVertex {
     pub vertex_id: u32,
@@ -141,7 +141,7 @@ impl BrepToolVertex {
     }
 }
 
-// occt: BRepTools inspector — aggregates face/edge/vertex info for a shape
+// occt-ref: BRepTools // inspector — aggregates face/edge/vertex info for a shape
 #[derive(Clone, Debug, Default)]
 pub struct BrepInspector {
     pub shape_id: u32,

@@ -25,7 +25,7 @@ use std::f64::consts::PI;
 // ─────────────────────────────── Error type ──────────────────────────────────
 
 /// Errors that a `GCE2d_MakeXxx` construction may return.
-// occt: GCE2d_Root (status codes)
+// occt: GCE2d_Root // (status codes)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Gce2dError {
     /// The two end points are coincident and do not define a direction.

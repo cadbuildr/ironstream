@@ -1,5 +1,6 @@
 // FILE: t_data_std_data_map_of_string_h_array1_of_real.rs
-// occt: TDataStd_DataMapOfStringHArray1OfReal, TDataStd_DataMapIteratorOfDataMapOfStringHArray1OfReal
+// occt: TDataStd_DataMapOfStringHArray1OfReal
+// occt-ref: TDataStd_DataMapIteratorOfDataMapOfStringHArray1OfReal
 
 //! Deprecated typedef for TDataStd_DataMapOfStringHArray1OfReal.
 //!

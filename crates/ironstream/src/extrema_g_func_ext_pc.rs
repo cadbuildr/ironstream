@@ -1,5 +1,5 @@
 // FILE: extrema_g_func_ext_pc.rs
-// occt: EXTREMAG_FUNC_EXT_PC
+// occt-ref: EXTREMAG_FUNC_EXT_PC
 
 pub struct Extremagfuncextpc {
     done: bool,

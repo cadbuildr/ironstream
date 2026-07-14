@@ -1,5 +1,5 @@
 // FILE: law_s_interpolate.rs
-// occt: Law_S, Law_SInterpolate, Law_Interpol, Law_Linear
+// occt-ref: Law_S, Law_SInterpolate, Law_Interpol, Law_Linear
 
 use std::f64::consts::PI;
 

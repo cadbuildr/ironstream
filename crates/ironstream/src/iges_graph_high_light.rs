@@ -1,5 +1,5 @@
 // FILE: iges_graph_high_light.rs
-// occt: IGESGraph_Uhighlight
+// occt-ref: IGESGraph_Uhighlight
 
 pub struct UhighUlight {
     entity_type: i32,

@@ -14,7 +14,7 @@
 //!
 //! The plane is unbounded in both U and V.
 
-// occt: Geom_Plane
+// occt-ref: Geom_Plane
 
 /// Compute the Y axis of the plane frame as `normal × x_axis`.
 ///
@@ -24,7 +24,7 @@ pub fn y_axis(normal: [f64; 3], x_axis: [f64; 3]) -> [f64; 3] {
     cross(normal, x_axis)
 }
 
-// occt: Geom_Plane
+// occt-ref: Geom_Plane
 /// `Geom_Plane` — an infinite analytic plane in 3D space, parameterized as
 /// `P(U, V) = origin + U * x_axis + V * y_axis`.
 ///

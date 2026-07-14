@@ -563,7 +563,7 @@ fn trsf_scale(trsf: &Trsf) -> (f64, f64) {
     (scale, scale.abs())
 }
 
-// occt: Bnd_B3<float>
+// occt-note: Bnd_B3<float>
 /// Single-precision variant (`Bnd_B3f` = `Bnd_B3<float>`). Center and half-size
 /// are rounded through `f32` on every store, reproducing the precision loss of
 /// the OCCT `float` instantiation; all queries run in `f64`.

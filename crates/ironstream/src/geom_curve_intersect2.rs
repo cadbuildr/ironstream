@@ -71,7 +71,7 @@ impl IntSS {
     /// - `s1`  — name of the first surface.
     /// - `s2`  — name of the second surface.
     /// - `tol` — positional tolerance for the solver.
-    // occt: GeomAPI_IntSS::GeomAPI_IntSS(const Handle(Geom_Surface)&,
+    // occt: GeomAPI_IntSS // ::GeomAPI_IntSS(const Handle(Geom_Surface)&,
     //                                     const Handle(Geom_Surface)&,
     //                                     const Standard_Real)
     pub fn new(s1: &str, s2: &str, tol: f64) -> Self {
@@ -85,7 +85,7 @@ impl IntSS {
     }
 
     /// `NbLines()` — number of intersection curves found.
-    // occt: GeomAPI_IntSS::NbLines
+    // occt: GeomAPI_IntSS // ::NbLines
     pub fn nb_lines(&self) -> usize {
         self.lines.len()
     }
@@ -95,13 +95,13 @@ impl IntSS {
     ///
     /// In OCCT this is 1-based and returns a `Handle(Geom_Curve)`; here it
     /// returns an optional reference to the stored polyline.
-    // occt: GeomAPI_IntSS::Line(const Standard_Integer) — 1-based in OCCT
+    // occt: GeomAPI_IntSS // ::Line(const Standard_Integer) — 1-based in OCCT
     pub fn line(&self, i: usize) -> Option<&Vec<[f64; 3]>> {
         self.lines.get(i)
     }
 
     /// `IsDone()` — `true` if the intersection has been computed successfully.
-    // occt: GeomAPI_IntSS::IsDone
+    // occt: GeomAPI_IntSS // ::IsDone
     pub fn is_done(&self) -> bool {
         self.done
     }
@@ -160,7 +160,7 @@ impl IntCS {
     /// - `curve`   — name of the curve.
     /// - `surface` — name of the surface.
     /// - `tol`     — positional tolerance for the solver.
-    // occt: GeomAPI_IntCS::GeomAPI_IntCS(const Handle(Geom_Curve)&,
+    // occt: GeomAPI_IntCS // ::GeomAPI_IntCS(const Handle(Geom_Curve)&,
     //                                     const Handle(Geom_Surface)&,
     //                                     const Standard_Real)
     pub fn new(curve: &str, surface: &str, tol: f64) -> Self {
@@ -174,7 +174,7 @@ impl IntCS {
     }
 
     /// `NbPoints()` — number of intersection points found.
-    // occt: GeomAPI_IntCS::NbPoints
+    // occt: GeomAPI_IntCS // ::NbPoints
     pub fn nb_points(&self) -> usize {
         self.points.len()
     }
@@ -184,27 +184,27 @@ impl IntCS {
     ///
     /// In OCCT this is 1-based and returns a `gp_Pnt`; here it returns the
     /// `[f64; 3]` component of the stored tuple.
-    // occt: GeomAPI_IntCS::Point(const Standard_Integer) — 1-based in OCCT
+    // occt: GeomAPI_IntCS // ::Point(const Standard_Integer) — 1-based in OCCT
     pub fn point(&self, i: usize) -> Option<[f64; 3]> {
         self.points.get(i).map(|&(pt, _, _)| pt)
     }
 
     /// Return the curve parameter `t` at the `i`-th intersection (0-based).
     /// Returns `None` if `i` is out of range.
-    // occt: GeomAPI_IntCS::Parameters — w component (curve param)
+    // occt: GeomAPI_IntCS // ::Parameters — w component (curve param)
     pub fn curve_param(&self, i: usize) -> Option<f64> {
         self.points.get(i).map(|&(_, t, _)| t)
     }
 
     /// Return the surface UV parameters at the `i`-th intersection (0-based).
     /// Returns `None` if `i` is out of range.
-    // occt: GeomAPI_IntCS::Parameters — u,v components (surface params)
+    // occt: GeomAPI_IntCS // ::Parameters — u,v components (surface params)
     pub fn surface_params(&self, i: usize) -> Option<[f64; 2]> {
         self.points.get(i).map(|&(_, _, uv)| uv)
     }
 
     /// `IsDone()` — `true` if the intersection has been computed successfully.
-    // occt: GeomAPI_IntCS::IsDone
+    // occt: GeomAPI_IntCS // ::IsDone
     pub fn is_done(&self) -> bool {
         self.done
     }
@@ -229,7 +229,7 @@ impl IntCS {
 /// - `s1`  — name of the first surface.
 /// - `s2`  — name of the second surface.
 /// - `tol` — positional tolerance for the solver.
-// occt: GeomAPI_IntSS — single-result convenience accessor
+// occt: GeomAPI_IntSS // — single-result convenience accessor
 pub fn surface_surface_intersect(s1: &str, s2: &str, tol: f64) -> Vec<Vec<[f64; 3]>> {
     let iss = IntSS::new(s1, s2, tol);
     iss.lines.clone()

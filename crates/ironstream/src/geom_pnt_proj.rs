@@ -34,7 +34,7 @@ fn dist3(a: [f64; 3], b: [f64; 3]) -> f64 {
 /// at parameter `0.5` with a placeholder distance of `1.0` and marks the
 /// computation as done.  The nearest-point foot is set equal to the query
 /// point as a placeholder.
-// occt: GeomAPI_ProjectPointOnCurve
+// occt-ref: GeomAPI_ProjectPointOnCurve
 #[derive(Clone, Debug)]
 pub struct ProjectOnCurve {
     /// The query point to project.
@@ -114,7 +114,7 @@ impl ProjectOnCurve {
 /// at `(u, v) = (0.0, 0.0)` with a placeholder distance of `1.0` and marks
 /// the computation as done.  The nearest-point foot is set equal to the query
 /// point as a placeholder.
-// occt: GeomAPI_ProjectPointOnSurf
+// occt-ref: GeomAPI_ProjectPointOnSurf
 #[derive(Clone, Debug)]
 pub struct ProjectOnSurface {
     /// The query point to project.

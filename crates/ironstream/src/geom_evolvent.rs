@@ -21,7 +21,7 @@
 /// Discretises a curve so that the chordal deflection between successive
 /// sample points does not exceed a given tolerance.
 ///
-// occt: GCPnts_UniformDeflection
+// occt-ref: GCPnts_UniformDeflection
 #[derive(Clone, Debug)]
 pub struct UniformDeflection {
     /// Parameter values at each sampled point.
@@ -314,7 +314,7 @@ impl InvoluteParams {
 /// Discretised involute (evolvent) of a circle, stored as a sequence of 2-D
 /// poles uniformly spaced in parameter.
 ///
-// occt: Geom_Curve (involute specialisation)
+// occt-ref: Geom_Curve // (involute specialisation)
 #[derive(Clone, Debug)]
 pub struct InvoluteCurve {
     base_radius: f64,

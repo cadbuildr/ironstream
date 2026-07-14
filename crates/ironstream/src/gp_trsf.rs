@@ -9,7 +9,7 @@
 //! All arithmetic uses only `std` (`f64::sin`, `f64::cos`, `f64::sqrt`).
 //! No external crates are used.
 
-// occt: gp_Trsf
+// occt-ref: gp_Trsf
 
 use crate::gp::{Ax1, Ax3, Pnt};
 
@@ -203,7 +203,7 @@ fn compose_form(outer: Form, inner: Form) -> Form {
 /// ```text
 /// p' = m[0..3][0..3] * p + m[0..3][3]
 /// ```
-// occt: gp_Trsf
+// occt-ref: gp_Trsf
 #[derive(Clone, Copy, Debug)]
 pub struct Trsf {
     /// Augmented 4×4 row-major transformation matrix.

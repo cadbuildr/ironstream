@@ -54,7 +54,7 @@ impl DPrism {
     /// * `face`      — tag of the face to extrude.
     /// * `dir`       — extrusion direction `[dx, dy, dz]`.
     /// * `depth`     — extrusion depth.
-    // occt: BRepFeat_MakeDPrism::BRepFeat_MakeDPrism
+    // occt: BRepFeat_MakeDPrism // ::BRepFeat_MakeDPrism
     pub fn new(shape: &str, face: &str, dir: [f64; 3], depth: f64) -> Self {
         Self {
             shape: shape.to_owned(),
@@ -71,7 +71,7 @@ impl DPrism {
     /// Repeated calls return the same cached tag without recomputing.
     ///
     /// Mirrors `BRepFeat_MakeDPrism::Perform` + `Shape`.
-    // occt: BRepFeat_MakeDPrism::Shape
+    // occt: BRepFeat_MakeDPrism // ::Shape
     pub fn build(&mut self) -> String {
         if let Some(ref cached) = self.result {
             return cached.clone();
@@ -98,7 +98,7 @@ impl DPrism {
     /// non-degenerate result.
     ///
     /// Mirrors `BRepFeat_MakeDPrism::IsDone`.
-    // occt: BRepFeat_MakeDPrism::IsDone
+    // occt: BRepFeat_MakeDPrism // ::IsDone
     pub fn is_done(&mut self) -> bool {
         let result = self.build();
         !result.is_empty() && result != self.shape
@@ -142,7 +142,7 @@ impl LinearForm {
     /// * `shape`   — tag of the base solid.
     /// * `profile` — tag of the wire / face profile to sweep.
     /// * `dir`     — sweep direction `[dx, dy, dz]`.
-    // occt: BRepFeat_MakeLinearForm::BRepFeat_MakeLinearForm
+    // occt: BRepFeat_MakeLinearForm // ::BRepFeat_MakeLinearForm
     pub fn new(shape: &str, profile: &str, dir: [f64; 3]) -> Self {
         Self {
             shape: shape.to_owned(),
@@ -157,7 +157,7 @@ impl LinearForm {
     /// Repeated calls return the same cached tag without recomputing.
     ///
     /// Mirrors `BRepFeat_MakeLinearForm::Perform` + `Shape`.
-    // occt: BRepFeat_MakeLinearForm::Shape
+    // occt: BRepFeat_MakeLinearForm // ::Shape
     pub fn build(&mut self) -> String {
         if let Some(ref cached) = self.result {
             return cached.clone();
@@ -183,7 +183,7 @@ impl LinearForm {
     /// non-degenerate result.
     ///
     /// Mirrors `BRepFeat_MakeLinearForm::IsDone`.
-    // occt: BRepFeat_MakeLinearForm::IsDone
+    // occt: BRepFeat_MakeLinearForm // ::IsDone
     pub fn is_done(&mut self) -> bool {
         let result = self.build();
         !result.is_empty() && result != self.shape
@@ -210,7 +210,7 @@ impl LinearForm {
 /// It does not perform boolean operations itself; that responsibility belongs
 /// to the individual feature builders.  This type is useful when an ordered
 /// history of features must be recorded and replayed.
-// occt: BRepFeat_Builder (partial analogue for feature accumulation)
+// occt: BRepFeat_Builder // (partial analogue for feature accumulation)
 #[derive(Debug, Clone)]
 pub struct FeatureTool {
     /// Tag identifying the base solid that features are applied to.

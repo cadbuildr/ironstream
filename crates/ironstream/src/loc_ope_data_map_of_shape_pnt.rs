@@ -1,5 +1,6 @@
 // FILE: loc_ope_data_map_of_shape_pnt.rs
-// occt: LocOpe_DataMapOfShapePnt, LocOpe_DataMapIteratorOfDataMapOfShapePnt
+// occt: LocOpe_DataMapOfShapePnt
+// occt-ref: LocOpe_DataMapIteratorOfDataMapOfShapePnt
 
 use std::collections::BTreeMap;
 

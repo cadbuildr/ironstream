@@ -1,5 +1,5 @@
 // FILE: geom_hyperbola_tool.rs
-// occt: Geom_Hyperbola, GCE2d_MakeHyperbola, ElCLib hyperbola params
+// occt-note: Geom_Hyperbola, GCE2d_MakeHyperbola, ElCLib hyperbola params
 
 use std::f64::consts::PI;
 

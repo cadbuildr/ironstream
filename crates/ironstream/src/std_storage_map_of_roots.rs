@@ -1,5 +1,6 @@
 // FILE: std_storage_map_of_roots.rs
-// occt: StdStorage_MapOfRoots, StdStorage_DataMapIteratorOfMapOfRoots
+// occt: StdStorage_MapOfRoots
+// occt-ref: StdStorage_DataMapIteratorOfMapOfRoots
 
 use std::collections::BTreeMap;
 

@@ -14,7 +14,7 @@
 //!
 //! This module is zero-dependency (only `std`).
 
-// occt: Geom2d_OffsetCurve — offset of a 2D curve by a scalar
+// occt-ref: Geom2d_OffsetCurve // — offset of a 2D curve by a scalar
 /// `Geom2d_OffsetCurve` — offset of a 2D curve by a signed scalar distance.
 ///
 /// Stores the essential metadata of OCCT's `Geom2d_OffsetCurve`: the offset
@@ -25,7 +25,7 @@
 /// Evaluation methods are stubs: `evaluate(t)` returns `[t, offset]`
 /// (offset in the y-direction), and `d1(t)` returns the value together with
 /// the constant tangent `[1, 0]`.
-// occt: Geom2d_OffsetCurve
+// occt-ref: Geom2d_OffsetCurve
 #[derive(Clone, Debug, PartialEq)]
 pub struct Geom2dOffsetCurve {
     /// Signed offset distance from the basis curve.

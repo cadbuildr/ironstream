@@ -1,5 +1,5 @@
 // FILE: bop_ds.rs
-// occt: BOPAlgo_PaveFiller, BOPAlgo_Builder, BOPDS_DS, BOPDS_PaveBlock,
+// occt: BOPAlgo_PaveFiller, BOPAlgo_Builder, BOPDS_DS, BOPDS_PaveBlock
 //       BOPDS_FaceInfo, BOPDS_ShapeInfo, BOPAlgo_CheckResult
 
 /// Shape type enumeration for BOP operations.
@@ -72,7 +72,7 @@ impl BopShapeInfo {
     }
 }
 
-// occt: BOPDS_PaveBlock — a portion of an edge split by a pave (vertex)
+// occt: BOPDS_PaveBlock // — a portion of an edge split by a pave (vertex)
 #[derive(Clone, Debug)]
 pub struct BopPaveBlock {
     pub edge_index: u32,
@@ -117,7 +117,7 @@ impl BopFaceInfo {
     }
 }
 
-// occt: BOPDS_DS — BOP Data Structure
+// occt: BOPDS_DS // — BOP Data Structure
 #[derive(Clone, Debug, Default)]
 pub struct BopDS {
     pub shapes: Vec<BopShapeInfo>,
@@ -203,7 +203,7 @@ impl BopCheckResult {
     pub fn involves_two_shapes(&self) -> bool { self.shape_index2.is_some() }
 }
 
-// occt: BOPAlgo_PaveFiller (simplified)
+// occt: BOPAlgo_PaveFiller // (simplified)
 #[derive(Clone, Debug, Default)]
 pub struct BopPaveFiller {
     pub ds: BopDS,
@@ -232,7 +232,7 @@ impl BopPaveFiller {
     }
 }
 
-// occt: BOPAlgo_Builder (simplified result of boolean operation)
+// occt: BOPAlgo_Builder // (simplified result of boolean operation)
 #[derive(Clone, Debug, Default)]
 pub struct BopBuilder {
     pub operation: Option<BopOperation>,

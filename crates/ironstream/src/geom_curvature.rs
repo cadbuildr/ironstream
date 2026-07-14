@@ -1,5 +1,6 @@
 // FILE: geom_curvature.rs
-// occt: GeomLProp_CLProps, GeomLProp_SLProps, BRepLProp_CLProps, BRepLProp_SLProps
+// occt: BRepLProp_CLProps, BRepLProp_SLProps
+// occt-ref: GeomLProp_CLProps, GeomLProp_SLProps
 
 /// Local properties of a curve at parameter t (curvature, tangent, normal).
 #[derive(Clone, Debug)]
@@ -78,7 +79,7 @@ impl SurfaceLProps {
     }
 }
 
-// occt: BRepLProp_CLProps convenience type
+// occt: BRepLProp_CLProps // convenience type
 pub type BRepCurveLProps = CurveLProps;
 
 fn sub(a: [f64; 3], b: [f64; 3]) -> [f64; 3] { [a[0]-b[0], a[1]-b[1], a[2]-b[2]] }

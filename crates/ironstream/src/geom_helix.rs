@@ -23,9 +23,9 @@ use std::f64::consts::PI;
 
 /// Parameters that define a helix / spiral curve.
 ///
-/// occt: helix parameters used in BRepBuilderAPI — fields: radius f64, pitch f64,
+/// occt-note: helix parameters used in BRepBuilderAPI — fields: radius f64, pitch f64,
 /// height f64, start_angle f64, left_handed bool
-// occt: helix parameters used in BRepBuilderAPI
+// occt-note: helix parameters used in BRepBuilderAPI
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct HelixParams {
     /// Radius of the helix (distance from the axis).
@@ -101,9 +101,9 @@ impl HelixParams {
 
 /// A sampled helix (screw) curve stored as a sequence of 3-D poles.
 ///
-/// occt: helix (screw curve) — mirrors the discretised 3-D polyline that OCCT
+/// occt-note: helix (screw curve) — mirrors the discretised 3-D polyline that OCCT
 /// builds when sweeping a profile along a helix spine in `BRepBuilderAPI`.
-// occt: helix (screw curve)
+// occt-note: helix (screw curve)
 #[derive(Clone, Debug)]
 pub struct HelixCurve {
     /// Parameters used to construct this curve.

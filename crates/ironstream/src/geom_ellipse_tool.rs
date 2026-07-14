@@ -1,7 +1,7 @@
 // FILE: geom_ellipse_tool.rs
-// occt: GC_MakeEllipse, GC_MakeArcOfEllipse, ElSLib ellipse params
+// occt-note: GC_MakeEllipse, GC_MakeArcOfEllipse, ElSLib ellipse params
 
-// occt: GC_MakeEllipse
+// occt-ref: GC_MakeEllipse
 /// Builds an ellipse from center, major axis, major radius, minor radius.
 #[derive(Clone, Debug)]
 pub struct MakeEllipse {
@@ -61,7 +61,7 @@ impl MakeEllipse {
     }
 }
 
-// occt: GC_MakeArcOfEllipse
+// occt-ref: GC_MakeArcOfEllipse
 #[derive(Clone, Debug)]
 pub struct MakeArcOfEllipse {
     pub ellipse: MakeEllipse,

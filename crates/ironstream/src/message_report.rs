@@ -1,6 +1,6 @@
 // FILE: message_report.rs
 
-// occt: Message_Gravity
+// occt-ref: Message_Gravity
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub enum MessageGravity {
     Trace = 0,
@@ -22,7 +22,7 @@ impl MessageGravity {
     }
 }
 
-// occt: Message_Alert
+// occt-ref: Message_Alert
 pub struct MessageAlert {
     pub gravity: MessageGravity,
     pub message: String,
@@ -115,7 +115,7 @@ impl Default for MessageReport {
     }
 }
 
-// occt: Message_ProgressRange
+// occt-ref: Message_ProgressRange
 pub struct MessageProgress {
     current: f64,
     total: f64,

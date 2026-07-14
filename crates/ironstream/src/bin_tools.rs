@@ -1,5 +1,5 @@
 // FILE: bin_tools.rs
-// occt: BinTools_ShapeSet, BinTools_Curve2dSet, BinTools_SurfaceSet,
+// occt: BinTools_ShapeSet, BinTools_Curve2dSet, BinTools_SurfaceSet
 //       BinTools_CurveSet
 
 /// Version of the binary shape format.
@@ -39,7 +39,7 @@ impl BinToolsFormatVersion {
 }
 
 /// Shape type in the binary stream.
-/// occt: TopAbs_ShapeEnum (used in BinTools context)
+// occt-ref: TopAbs_ShapeEnum // (used in BinTools context)
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Default)]
 pub enum BinToolsShapeType {
     #[default]
@@ -86,7 +86,7 @@ impl BinToolsShapeType {
 }
 
 /// A single shape record in the binary stream.
-/// occt: BinTools_ShapeSet entry
+/// occt: BinTools_ShapeSet // entry
 #[derive(Clone, Debug)]
 pub struct BinToolsShapeRecord {
     pub shape_id: u32,

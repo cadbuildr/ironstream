@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/shape_custom.rs
 
-// occt: ShapeCustom modification kind
+// occt: ShapeCustom // modification kind
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ShapeCustomModType {
     None,
@@ -127,7 +127,7 @@ impl Default for ShapeCustomSweptToElementary {
     }
 }
 
-// occt: ShapeCustom_RestrictionParameters
+// occt-ref: ShapeCustom_RestrictionParameters
 pub struct ShapeCustomRestricted {
     pub gmax_degree: u32,
     pub gmax_seg: u32,

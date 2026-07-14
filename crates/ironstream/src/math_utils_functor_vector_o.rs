@@ -1,5 +1,5 @@
 // FILE: math_utils_functor_vector_o.rs
-// occt: MathUtils::QuadraticForm, MathUtils::Rosenbrock, MathUtils::Sphere, MathUtils::Booth, MathUtils::Beale, MathUtils::Himmelblau, MathUtils::Rastrigin, MathUtils::Ackley, MathUtils::LinearResidual
+// occt-note: MathUtils::QuadraticForm, MathUtils::Rosenbrock, MathUtils::Sphere, MathUtils::Booth, MathUtils::Beale, MathUtils::Himmelblau, MathUtils::Rastrigin, MathUtils::Ackley, MathUtils::LinearResidual
 
 /// Quadratic form functor: f(x) = x^T A x + b^T x + c.
 pub struct QuadraticForm {

@@ -23,7 +23,7 @@
 /// well-defined placeholder values so that calling code can be compiled and
 /// tested without a full geometry kernel.
 // occt: GeomLib
-// occt: BRep_Tool
+// occt-ref: BRep_Tool
 pub struct SurfaceTools;
 
 impl SurfaceTools {
@@ -34,7 +34,7 @@ impl SurfaceTools {
     ///
     /// # Stub behaviour
     /// Returns a string of the form `"Surface(<face>)"`.
-    // occt: BRep_Tool
+    // occt-ref: BRep_Tool
     pub fn surface_of_face(face: &str) -> String {
         format!("Surface({})", face)
     }
@@ -47,7 +47,7 @@ impl SurfaceTools {
     /// # Stub behaviour
     /// Always returns `([0.0, 1.0], [0.0, 1.0])`.
     // occt: GeomLib
-    // occt: BRep_Tool
+    // occt-ref: BRep_Tool
     pub fn uv_bounds(_surface: &str) -> ([f64; 2], [f64; 2]) {
         ([0.0, 1.0], [0.0, 1.0])
     }
@@ -139,7 +139,7 @@ impl SurfaceTools {
 /// # Stub behaviour
 /// Delegates to [`surface_d1`] for the partial derivatives.
 // occt: GeomLib
-// occt: BRep_Tool
+// occt-ref: BRep_Tool
 pub fn surface_normal(surface: &str, u: f64, v: f64) -> [f64; 3] {
     let (_pt, du, dv) = surface_d1(surface, u, v);
     let nx = du[1] * dv[2] - du[2] * dv[1];
@@ -172,7 +172,7 @@ pub fn surface_normal(surface: &str, u: f64, v: f64) -> [f64; 3] {
 /// The `surface` parameter is accepted so real implementations can dispatch
 /// on the surface kind.
 // occt: GeomLib
-// occt: BRep_Tool
+// occt-ref: BRep_Tool
 pub fn surface_d1(_surface: &str, u: f64, v: f64) -> ([f64; 3], [f64; 3], [f64; 3]) {
     let point = [u, v, 0.0];
     let d_du = [1.0, 0.0, 0.0];
@@ -191,7 +191,7 @@ pub fn surface_d1(_surface: &str, u: f64, v: f64) -> ([f64; 3], [f64; 3], [f64; 
 /// i.e. the orthogonal projection of `pt` onto that plane.  The `z` component
 /// of `pt` is intentionally discarded.
 // occt: GeomLib
-// occt: BRep_Tool
+// occt-ref: BRep_Tool
 pub fn project_on_surface(pt: [f64; 3], _surface: &str) -> [f64; 2] {
     [pt[0], pt[1]]
 }

@@ -18,7 +18,7 @@
 ///
 /// Maps to the constructor arguments accepted by the `ShapeSmoothing` family
 /// of OCCT algorithms.
-// occt: ShapeSmoothing
+// occt-ref: ShapeSmoothing
 #[derive(Clone, Debug, PartialEq)]
 pub struct SmoothParams {
     /// Required geometric continuity order (0 = C0, 1 = C1, 2 = C2, …).
@@ -69,7 +69,7 @@ impl SmoothParams {
 /// [`smooth`][CurveSmooth::smooth] to obtain the smoothed pole sequence, or
 /// [`evaluate`][CurveSmooth::evaluate] to sample the underlying piecewise-linear
 /// curve at parameter `t ∈ [0, 1]`.
-// occt: ShapeSmoothing
+// occt-ref: ShapeSmoothing
 #[derive(Clone, Debug)]
 pub struct CurveSmooth {
     /// Current control poles.
@@ -162,7 +162,7 @@ impl CurveSmooth {
 /// Mirrors the `ShapeSmoothing` surface variant from OCCT.  Add rows of poles
 /// with [`add_row`][SurfaceSmooth::add_row], then call
 /// [`smooth`][SurfaceSmooth::smooth] to obtain a smoothed grid.
-// occt: ShapeSmoothing
+// occt-ref: ShapeSmoothing
 #[derive(Clone, Debug)]
 pub struct SurfaceSmooth {
     /// Grid of control poles indexed as `poles[row][col]`.

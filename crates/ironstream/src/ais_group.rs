@@ -1,5 +1,5 @@
 // FILE: ais_group.rs
-// occt: AIS_Group, AIS_MultipleConnectedInteractive
+// occt-ref: AIS_Group, AIS_MultipleConnectedInteractive
 
 /// Display status for an interactive object in a group.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
@@ -32,7 +32,7 @@ impl AisGroupMember {
 }
 
 /// A group of interactive objects managed as one unit.
-/// occt: AIS_Group
+// occt-ref: AIS_Group
 #[derive(Clone, Debug, Default)]
 pub struct AisGroup {
     pub members: Vec<AisGroupMember>,
@@ -81,7 +81,7 @@ impl AisGroup {
 }
 
 /// Connects multiple shapes at different positions via local transforms.
-/// occt: AIS_MultipleConnectedInteractive
+// occt-ref: AIS_MultipleConnectedInteractive
 #[derive(Clone, Debug, Default)]
 pub struct AisMultipleConnectedInteractive {
     pub base_object_id: u32,

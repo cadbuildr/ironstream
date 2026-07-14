@@ -1,5 +1,5 @@
 // FILE: caf_seq_ext.rs
-// occt: TDataStd_NamedData, TDataStd_ListOfExtendedString,
+// occt: TDataStd_NamedData, TDataStd_ListOfExtendedString
 //       TDataStd_IntPackedMap, TDataStd_ReferenceArray
 
 /// Named data attribute — stores heterogeneous named values in a label.

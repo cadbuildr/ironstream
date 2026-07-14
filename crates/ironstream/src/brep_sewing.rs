@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/brep_sewing.rs
 
-// occt: BRepBuilderAPI_Sewing mode — enum Standard, NonManifold, SameGeom, CutFreeEdges
+// occt-ref: BRepBuilderAPI_Sewing // mode — enum Standard, NonManifold, SameGeom, CutFreeEdges
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum BrepSewingMode {
     Standard,
@@ -9,7 +9,7 @@ pub enum BrepSewingMode {
     CutFreeEdges,
 }
 
-// occt: BRepBuilderAPI_Sewing construction params
+// occt-ref: BRepBuilderAPI_Sewing // construction params
 #[derive(Clone, Debug)]
 pub struct BrepSewingParams {
     tolerance: f64,
@@ -55,7 +55,7 @@ impl Default for BrepSewingParams {
     }
 }
 
-// occt: BRepBuilderAPI_Sewing analysis result
+// occt-ref: BRepBuilderAPI_Sewing // analysis result
 #[derive(Clone, Debug)]
 pub struct BrepSewingResult {
     nb_input_shapes: usize,
@@ -125,7 +125,7 @@ impl Default for BrepSewingResult {
     }
 }
 
-// occt: BRepBuilderAPI_Sewing — sews shapes together
+// occt-ref: BRepBuilderAPI_Sewing // — sews shapes together
 pub struct BrepSewing {
     params: BrepSewingParams,
     shape_labels: Vec<String>,

@@ -1,8 +1,8 @@
 // FILE: gp_matrix.rs
-// occt: gp_Mat (3×3 matrix), gp_Mat2d (2×2 matrix), gp_TrsfForm
+// occt-ref: gp_Mat // (3×3 matrix), gp_Mat2d (2×2 matrix), gp_TrsfForm
 
 /// 3×3 general matrix.
-/// occt: gp_Mat
+// occt-ref: gp_Mat
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GpMat {
     pub data: [[f64; 3]; 3],  // data[row][col]
@@ -84,7 +84,7 @@ impl GpMat {
 }
 
 /// 2×2 matrix.
-/// occt: gp_Mat2d
+// occt-ref: gp_Mat2d
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GpMat2d {
     pub a: f64, pub b: f64,
@@ -124,7 +124,7 @@ impl GpMat2d {
 }
 
 /// Type of transformation encoded in gp_Trsf.
-/// occt: gp_TrsfForm
+// occt-ref: gp_TrsfForm
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum GpTrsfForm {
     Identity,

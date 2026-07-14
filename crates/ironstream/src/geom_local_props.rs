@@ -20,7 +20,7 @@
 /// Curvature-derived quantities (`mean_curvature`, `gaussian_curvature`,
 /// `shape_index`) are computed on demand from the stored `min_curvature` /
 /// `max_curvature` values.
-// occt: GeomLProp_SLProps
+// occt-ref: GeomLProp_SLProps
 #[derive(Clone, Debug, PartialEq)]
 pub struct SurfaceLocalProps {
     /// First surface parameter.
@@ -44,7 +44,7 @@ pub struct SurfaceLocalProps {
 impl SurfaceLocalProps {
     /// Create a new instance at parameter `(u, v)` with no properties populated
     /// yet. Call `set_point`, `set_normal`, and `set_curvatures` to fill it.
-    // occt: GeomLProp_SLProps::GeomLProp_SLProps
+    // occt-ref: GeomLProp_SLProps // ::GeomLProp_SLProps
     pub fn new(u: f64, v: f64) -> Self {
         SurfaceLocalProps {
             u,
@@ -59,13 +59,13 @@ impl SurfaceLocalProps {
     }
 
     /// Store the evaluated surface point at `(u, v)`.
-    // occt: GeomLProp_SLProps::Value
+    // occt-ref: GeomLProp_SLProps // ::Value
     pub fn set_point(&mut self, p: [f64; 3]) {
         self.point = p;
     }
 
     /// Store the unit surface normal and mark it as defined.
-    // occt: GeomLProp_SLProps::Normal
+    // occt-ref: GeomLProp_SLProps // ::Normal
     pub fn set_normal(&mut self, n: [f64; 3]) {
         self.normal = n;
         self.is_normal_defined = true;
@@ -75,7 +75,7 @@ impl SurfaceLocalProps {
     ///
     /// `min` and `max` may be provided in any order — the method reorders them
     /// so that `max_curvature >= min_curvature` is always satisfied.
-    // occt: GeomLProp_SLProps::MaxCurvature / MinCurvature
+    // occt-ref: GeomLProp_SLProps // ::MaxCurvature / MinCurvature
     pub fn set_curvatures(&mut self, min: f64, max: f64) {
         self.min_curvature = min.min(max);
         self.max_curvature = min.max(max);
@@ -83,50 +83,50 @@ impl SurfaceLocalProps {
     }
 
     /// The evaluated point on the surface.
-    // occt: GeomLProp_SLProps::Value
+    // occt-ref: GeomLProp_SLProps // ::Value
     pub fn point(&self) -> [f64; 3] {
         self.point
     }
 
     /// The unit surface normal. Only meaningful when `is_normal_defined()` is
     /// true.
-    // occt: GeomLProp_SLProps::Normal
+    // occt-ref: GeomLProp_SLProps // ::Normal
     pub fn normal(&self) -> [f64; 3] {
         self.normal
     }
 
     /// Whether a unit normal has been stored.
-    // occt: GeomLProp_SLProps::IsNormalDefined
+    // occt-ref: GeomLProp_SLProps // ::IsNormalDefined
     pub fn is_normal_defined(&self) -> bool {
         self.is_normal_defined
     }
 
     /// Whether the principal curvatures have been stored.
-    // occt: GeomLProp_SLProps::IsCurvatureDefined
+    // occt-ref: GeomLProp_SLProps // ::IsCurvatureDefined
     pub fn is_curvature_defined(&self) -> bool {
         self.is_curvature_defined
     }
 
     /// Maximum principal curvature κ₁.
-    // occt: GeomLProp_SLProps::MaxCurvature
+    // occt-ref: GeomLProp_SLProps // ::MaxCurvature
     pub fn max_curvature(&self) -> f64 {
         self.max_curvature
     }
 
     /// Minimum principal curvature κ₂.
-    // occt: GeomLProp_SLProps::MinCurvature
+    // occt-ref: GeomLProp_SLProps // ::MinCurvature
     pub fn min_curvature(&self) -> f64 {
         self.min_curvature
     }
 
     /// Mean curvature H = (κ₁ + κ₂) / 2.
-    // occt: GeomLProp_SLProps::MeanCurvature
+    // occt-ref: GeomLProp_SLProps // ::MeanCurvature
     pub fn mean_curvature(&self) -> f64 {
         (self.max_curvature + self.min_curvature) * 0.5
     }
 
     /// Gaussian curvature K = κ₁ · κ₂.
-    // occt: GeomLProp_SLProps::GaussianCurvature
+    // occt-ref: GeomLProp_SLProps // ::GaussianCurvature
     pub fn gaussian_curvature(&self) -> f64 {
         self.max_curvature * self.min_curvature
     }
@@ -139,7 +139,7 @@ impl SurfaceLocalProps {
     /// The shape index lies in the range (−1, 1] and classifies the local
     /// surface shape: −1 = cup, −0.5 = rut/trough, 0 = saddle, +0.5 = ridge,
     /// +1 = dome.
-    // occt: GeomLProp_SLProps (shape index is a derived quantity)
+    // occt-ref: GeomLProp_SLProps // (shape index is a derived quantity)
     pub fn shape_index(&self) -> f64 {
         let kmax = self.max_curvature;
         let kmin = self.min_curvature;
@@ -164,7 +164,7 @@ impl SurfaceLocalProps {
 /// When `set_derivatives` is called with D1 and D2, the curvature is computed
 /// automatically as `|D1 × D2| / |D1|³`. The caller may override `torsion`
 /// directly via `set_torsion` if it has been computed externally.
-// occt: GeomLProp_CLProps
+// occt-ref: GeomLProp_CLProps
 #[derive(Clone, Debug, PartialEq)]
 pub struct CurveLocalProps {
     /// Curve parameter value.
@@ -184,7 +184,7 @@ pub struct CurveLocalProps {
 impl CurveLocalProps {
     /// Create a new instance at curve parameter `t` with no properties
     /// populated yet. Call `set_point` and `set_derivatives` to fill it.
-    // occt: GeomLProp_CLProps::GeomLProp_CLProps
+    // occt-ref: GeomLProp_CLProps // ::GeomLProp_CLProps
     pub fn new(parameter: f64) -> Self {
         CurveLocalProps {
             parameter,
@@ -197,7 +197,7 @@ impl CurveLocalProps {
     }
 
     /// Store the evaluated curve point P(t).
-    // occt: GeomLProp_CLProps::Value
+    // occt-ref: GeomLProp_CLProps // ::Value
     pub fn set_point(&mut self, p: [f64; 3]) {
         self.point = p;
     }
@@ -208,7 +208,7 @@ impl CurveLocalProps {
     /// Curvature κ = |D1 × D2| / |D1|³. If |D1| is effectively zero the
     /// curvature is set to `0.0` rather than `+∞`, matching the common
     /// defensive convention for degenerate points.
-    // occt: GeomLProp_CLProps::D1 / D2 / Curvature
+    // occt-ref: GeomLProp_CLProps // ::D1 / D2 / Curvature
     pub fn set_derivatives(&mut self, d1: [f64; 3], d2: [f64; 3]) {
         self.d1 = d1;
         self.d2 = d2;
@@ -232,14 +232,14 @@ impl CurveLocalProps {
     }
 
     /// Scalar curvature κ.
-    // occt: GeomLProp_CLProps::Curvature
+    // occt-ref: GeomLProp_CLProps // ::Curvature
     pub fn curvature(&self) -> f64 {
         self.curvature
     }
 
     /// Torsion τ (second curvature). Returns the stored value; set externally
     /// via `set_torsion` after calling `set_derivatives`.
-    // occt: GeomLProp_CLProps::Torsion
+    // occt-ref: GeomLProp_CLProps // ::Torsion
     pub fn torsion(&self) -> f64 {
         self.torsion
     }
@@ -252,7 +252,7 @@ impl CurveLocalProps {
     /// Unit tangent vector T̂ = D1 / |D1|.
     ///
     /// Returns `[0.0, 0.0, 0.0]` when D1 is the zero vector (degenerate point).
-    // occt: GeomLProp_CLProps::Tangent
+    // occt-ref: GeomLProp_CLProps // ::Tangent
     pub fn tangent(&self) -> [f64; 3] {
         let [dx, dy, dz] = self.d1;
         let n = (dx * dx + dy * dy + dz * dz).sqrt();
@@ -270,7 +270,7 @@ impl CurveLocalProps {
     ///
     /// Returns `[0.0, 0.0, 0.0]` for straight curves (zero curvature) where the
     /// normal is not defined.
-    // occt: GeomLProp_CLProps::Normal
+    // occt-ref: GeomLProp_CLProps // ::Normal
     pub fn normal(&self) -> [f64; 3] {
         let t = self.tangent();
         let tn = t[0] * t[0] + t[1] * t[1] + t[2] * t[2];
@@ -293,7 +293,7 @@ impl CurveLocalProps {
     }
 
     /// The evaluated point P(t).
-    // occt: GeomLProp_CLProps::Value
+    // occt-ref: GeomLProp_CLProps // ::Value
     pub fn point(&self) -> [f64; 3] {
         self.point
     }

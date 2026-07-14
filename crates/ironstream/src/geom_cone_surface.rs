@@ -25,7 +25,7 @@ use crate::geom_line::GeomLine;
 use crate::gp::{Ax1, Ax3, Pnt, Trsf, Vec3};
 use std::f64::consts::PI;
 
-// occt: Geom_ConicalSurface
+// occt-ref: Geom_ConicalSurface
 /// `Geom_ConicalSurface` — analytic cone surface in 3D space.
 ///
 /// The parameterization is:

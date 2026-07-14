@@ -1,9 +1,9 @@
 // FILE: mesh_data.rs
-// occt: BRep_Triangulation, Poly_Connect, MeshDS_DataSource,
+// occt-ref: BRep_Triangulation, Poly_Connect, MeshDS_DataSource
 //       MeshVS_DataSource, MeshVS_Mesh, IMeshData_Edge, IMeshData_Face
 
 /// A single triangular element.
-/// occt: Poly_Triangle
+// occt-ref: Poly_Triangle
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct PolyTriangle {
     pub n1: usize,
@@ -40,7 +40,7 @@ pub struct MeshQuality {
 }
 
 /// A 3D mesh: nodes + triangles (1-based, like OCCT Poly_Triangulation).
-/// occt: Poly_Triangulation / MeshDS_DataSource / BRep_Triangulation
+// occt-ref: Poly_Triangulation // / MeshDS_DataSource / BRep_Triangulation
 #[derive(Clone, Debug, Default)]
 pub struct MeshDataSource {
     pub mesh_id: u32,
@@ -165,7 +165,7 @@ impl MeshDataSource {
 }
 
 /// Connectivity of triangles around nodes.
-/// occt: Poly_Connect
+// occt-ref: Poly_Connect
 #[derive(Clone, Debug, Default)]
 pub struct PolyConnect {
     pub mesh: Option<Box<MeshDataSource>>,

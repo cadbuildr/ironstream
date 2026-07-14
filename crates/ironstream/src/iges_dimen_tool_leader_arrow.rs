@@ -1,5 +1,5 @@
 // FILE: iges_dimen_tool_leader_arrow.rs
-// occt: IGESDimen_dimentoolleaderarrow
+// occt-ref: IGESDimen_dimentoolleaderarrow
 
 pub struct IGESDimen_dimentoolleaderarrow;
 

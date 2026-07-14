@@ -1,9 +1,9 @@
 // FILE: render_raytracing.rs
-// occt: Graphic3d_RaytracingAspect, Graphic3d_RenderingParams (raytracing section),
+// occt-note: Graphic3d_RaytracingAspect, Graphic3d_RenderingParams (raytracing section),
 //       Graphic3d_PathTracingParameters
 
 /// Ray-tracing algorithm type.
-/// occt: Graphic3d_TypeOfShadingModel (RAYTRACING variant)
+// occt-ref: Graphic3d_TypeOfShadingModel // (RAYTRACING variant)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum RaytracingAlgorithm {
     WhittedStyle,   // classical recursive raytracing
@@ -16,7 +16,7 @@ impl Default for RaytracingAlgorithm {
 }
 
 /// Tone mapping method for HDR output.
-/// occt: Graphic3d_ToneMappingMethod
+// occt-ref: Graphic3d_ToneMappingMethod
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ToneMappingMethod {
     Disabled,
@@ -31,7 +31,7 @@ impl Default for ToneMappingMethod {
 }
 
 /// Raytracing rendering parameters.
-/// occt: Graphic3d_RaytracingAspect / path-tracing portion of Graphic3d_RenderingParams
+/// occt-note: Graphic3d_RaytracingAspect / path-tracing portion of Graphic3d_RenderingParams
 #[derive(Clone, Debug)]
 pub struct RaytracingParams {
     pub algorithm: RaytracingAlgorithm,
@@ -93,7 +93,7 @@ impl RaytracingParams {
 }
 
 /// HDR tone-mapping parameters.
-/// occt: Graphic3d_ToneMappingMethod + parameters
+// occt-ref: Graphic3d_ToneMappingMethod // + parameters
 #[derive(Clone, Debug)]
 pub struct ToneMappingParams {
     pub method: ToneMappingMethod,

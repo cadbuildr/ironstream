@@ -22,7 +22,7 @@ use std::f64::consts::PI;
 /// Discriminant for the kind of BRepFeat pattern being applied.
 ///
 /// Maps to `BRepFeat_ModeType` / the sweep kind in OCCT's `BRepFeat` package.
-// occt: pattern type — enum Linear, Circular, Mirror, Scale
+// occt-note: pattern type — enum Linear, Circular, Mirror, Scale
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum PatternType {
     /// Linear (prismatic) pattern along a direction vector.
@@ -44,7 +44,7 @@ pub enum PatternType {
 /// The pattern places `count` instances separated by `pitch` along `direction`.
 /// Instance `i=0` is the original; instances `i=1..count-1` are translated by
 /// `i * pitch` along the (normalised) `direction`.
-// occt: BRepFeat_MakePrism linear pattern — fields: direction [f64;3], count u32, pitch f64
+// occt-ref: BRepFeat_MakePrism // linear pattern — fields: direction [f64;3], count u32, pitch f64
 #[derive(Clone, Copy, Debug)]
 pub struct LinearPatternParams {
     direction: [f64; 3],
@@ -60,7 +60,7 @@ impl LinearPatternParams {
     /// * `count`     — total number of instances, including the original (≥ 1).
     /// * `pitch`     — centre-to-centre spacing between consecutive instances,
     ///   in the same units as the model.
-    // occt: BRepFeat_MakePrism linear pattern
+    // occt-ref: BRepFeat_MakePrism // linear pattern
     pub fn new(direction: [f64; 3], count: u32, pitch: f64) -> Self {
         Self {
             direction,
@@ -115,7 +115,7 @@ impl LinearPatternParams {
 ///
 /// The pattern places `count` instances evenly distributed over `angle`
 /// (or `2π` when `is_full_rotation` is set) about `axis`.
-// occt: BRepFeat_MakeRevol circular pattern — fields: axis [f64;3], count u32, angle f64, is_full_rotation bool
+// occt-ref: BRepFeat_MakeRevol // circular pattern — fields: axis [f64;3], count u32, angle f64, is_full_rotation bool
 #[derive(Clone, Copy, Debug)]
 pub struct CircularPatternParams {
     axis: [f64; 3],
@@ -130,7 +130,7 @@ impl CircularPatternParams {
     /// * `axis`  — rotation axis direction (need not be unit-length).
     /// * `count` — total number of instances (≥ 1).
     /// * `angle` — total angular span in radians. Use `2*PI` for a full turn.
-    // occt: BRepFeat_MakeRevol circular pattern
+    // occt-ref: BRepFeat_MakeRevol // circular pattern
     pub fn new(axis: [f64; 3], count: u32, angle: f64) -> Self {
         let full = (angle.abs() - 2.0 * PI).abs() < 1e-9 || angle.abs() >= 2.0 * PI;
         Self {
@@ -257,7 +257,7 @@ fn rotation4(ux: f64, uy: f64, uz: f64, theta: f64) -> [[f64; 4]; 4] {
 ///
 /// Each transform is a 4×4 row-major homogeneous matrix. Index `0` always
 /// holds the identity (the original / seed instance).
-// occt: pattern shape results — fields: pattern_type PatternType, nb_instances u32, transforms Vec<[[f64;4];4]>, is_done bool
+// occt-note: pattern shape results — fields: pattern_type PatternType, nb_instances u32, transforms Vec<[[f64;4];4]>, is_done bool
 #[derive(Clone, Debug)]
 pub struct PatternResult {
     /// Which kind of pattern produced this result.
@@ -273,7 +273,7 @@ pub struct PatternResult {
 
 impl PatternResult {
     /// Create an empty, not-done result for the given pattern kind.
-    // occt: pattern shape results
+    // occt-note: pattern shape results
     pub fn new(pattern_type: PatternType) -> Self {
         Self {
             pattern_type,
@@ -299,7 +299,7 @@ impl PatternResult {
     /// direction. Instance `0` is always the identity.
     ///
     /// Mirrors `BRepFeat_MakePrism` linear array semantics.
-    // occt: BRepFeat_MakePrism linear pattern
+    // occt-ref: BRepFeat_MakePrism // linear pattern
     pub fn perform_linear(&mut self, params: &LinearPatternParams) {
         self.transforms.clear();
         self.is_done = false;
@@ -328,7 +328,7 @@ impl PatternResult {
     /// Instance `0` is always the identity.
     ///
     /// Mirrors `BRepFeat_MakeRevol` circular array semantics.
-    // occt: BRepFeat_MakeRevol circular pattern
+    // occt-ref: BRepFeat_MakeRevol // circular pattern
     pub fn perform_circular(&mut self, params: &CircularPatternParams) {
         self.transforms.clear();
         self.is_done = false;

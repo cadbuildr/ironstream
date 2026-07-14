@@ -1,7 +1,7 @@
 // FILE: geom_surf_fill.rs
-// occt: GeomFill_BSplineCurves, GeomFill_FillingStyle, GeomFill_ConstraintEnum
+// occt-ref: GeomFill_BSplineCurves, GeomFill_FillingStyle, GeomFill_ConstraintEnum
 
-// occt: GeomFill_FillingStyle
+// occt-ref: GeomFill_FillingStyle
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FillingStyle {
     Stretch,
@@ -9,7 +9,7 @@ pub enum FillingStyle {
     Curved,
 }
 
-// occt: GeomFill_ConstraintEnum
+// occt-ref: GeomFill_ConstraintEnum
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FillingConstraint {
     NoConstraint,
@@ -18,7 +18,7 @@ pub enum FillingConstraint {
     G2Constraint,
 }
 
-// occt: GeomFill_BSplineCurves
+// occt-ref: GeomFill_BSplineCurves
 /// Builds a B-Spline surface through 2, 3, or 4 boundary curves.
 #[derive(Clone, Debug)]
 pub struct BSplineCurvesFill {
@@ -51,7 +51,7 @@ impl BSplineCurvesFill {
     pub fn nb_curves(&self) -> usize { self.curves.len() }
 }
 
-// occt: GeomFill_ConstrainedFilling
+// occt-ref: GeomFill_ConstrainedFilling
 /// Fills a surface constrained by boundary curves with continuity.
 #[derive(Clone, Debug)]
 pub struct ConstrainedFilling {
@@ -90,7 +90,7 @@ impl Default for ConstrainedFilling {
     fn default() -> Self { Self::new() }
 }
 
-// occt: GeomFill_SimpleBound
+// occt-ref: GeomFill_SimpleBound
 #[derive(Clone, Debug)]
 pub struct SimpleBound {
     pub curve: Vec<[f64; 3]>,
@@ -108,7 +108,7 @@ impl SimpleBound {
     }
 }
 
-// occt: GeomFill_CoonsAlgPatch
+// occt-ref: GeomFill_CoonsAlgPatch
 /// Coons patch: bilinear blend of 4 boundary curves.
 #[derive(Clone, Debug)]
 pub struct CoonsAlgPatch {

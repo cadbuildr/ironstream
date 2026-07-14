@@ -1,5 +1,5 @@
 // FILE: app_def_my_line_tool.rs
-// occt: AppDefMyLineTool
+// occt-ref: AppDefMyLineTool
 
 //! Approximation and constraint handling class.
 pub struct AppDefMyLineTool {

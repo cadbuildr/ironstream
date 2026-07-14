@@ -1,5 +1,5 @@
 // FILE: topo_exp_ext.rs
-// occt: TopExp_Explorer extended, BRepTools_WireExplorer, TopExp
+// occt-ref: TopExp_Explorer // extended, BRepTools_WireExplorer, TopExp
 
 /// Orientation of a shape in its parent.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -36,7 +36,7 @@ pub struct ExploredShape {
     pub depth: usize,
 }
 
-// occt: TopExp_Explorer extended — iterates sub-shapes of a given type
+// occt-ref: TopExp_Explorer // extended — iterates sub-shapes of a given type
 #[derive(Clone, Debug)]
 pub struct TopExpExplorerExt {
     pub shape_id: u32,
@@ -89,7 +89,7 @@ impl TopExpExplorerExt {
     }
 }
 
-// occt: BRepTools_WireExplorer — iterates edges of a wire in order
+// occt-ref: BRepTools_WireExplorer // — iterates edges of a wire in order
 #[derive(Clone, Debug)]
 pub struct WireExplorerExt {
     pub wire_id: u32,
@@ -122,7 +122,7 @@ impl WireExplorerExt {
     pub fn reset(&mut self) { self.current = 0; }
 }
 
-// occt: TopExp utilities — static helpers
+// occt-ref: TopExp // utilities — static helpers
 pub struct TopExp;
 
 impl TopExp {

@@ -1,5 +1,5 @@
 // FILE: iges_graph_general_module.rs
-// occt: IGESGraph_Ugeneralmodule
+// occt-ref: IGESGraph_Ugeneralmodule
 
 pub struct UgeneralUmodule {
     entity_type: i32,

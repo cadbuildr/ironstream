@@ -1,5 +1,6 @@
 // FILE: caf_label.rs
-// occt: TDF_Label, TDF_LabelSequence, TDF_Attribute, TDF_TagSource
+// occt: TDF_TagSource
+// occt-ref: TDF_Label, TDF_LabelSequence, TDF_Attribute
 
 /// Status of a CAF label operation.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -36,7 +37,7 @@ impl TagPath {
     }
 }
 
-// occt: TDF_Label — a node in the label tree
+// occt-ref: TDF_Label // — a node in the label tree
 #[derive(Clone, Debug)]
 pub struct TdfLabel {
     pub path: TagPath,
@@ -71,7 +72,7 @@ impl TdfLabel {
     pub fn nb_attributes(&self) -> usize { self.attr_ids.len() }
 }
 
-// occt: TDF_LabelSequence — ordered sequence of labels
+// occt-ref: TDF_LabelSequence // — ordered sequence of labels
 #[derive(Clone, Debug, Default)]
 pub struct TdfLabelSequence {
     pub labels: Vec<TdfLabel>,
@@ -91,7 +92,7 @@ impl TdfLabelSequence {
     pub fn last(&self) -> Option<&TdfLabel> { self.labels.last() }
 }
 
-// occt: TDF_TagSource — source for generating unique tags on a label
+// occt: TDF_TagSource // — source for generating unique tags on a label
 #[derive(Clone, Debug)]
 pub struct TdfTagSource {
     pub label: TagPath,

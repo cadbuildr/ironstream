@@ -1,5 +1,5 @@
 // FILE: poly_coherent_tri_ptr.rs
-// occt: Poly_CoherentTriPtr, Poly_CoherentTriPtr::Iterator
+// occt-note: Poly_CoherentTriPtr, Poly_CoherentTriPtr::Iterator
 
 /// Pointer and iterator implementation for triangles in a round double-linked list.
 #[derive(Debug, Clone)]

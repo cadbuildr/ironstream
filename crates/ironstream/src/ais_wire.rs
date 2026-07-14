@@ -1,5 +1,5 @@
 // FILE: ais_wire.rs
-// occt: AIS_ConnectedInteractive, AIS_Wire, AIS_Face, AIS_Plane,
+// occt-ref: AIS_ConnectedInteractive, AIS_Wire, AIS_Face, AIS_Plane
 //       AIS_PlaneTrihedron, AIS_EdgeRelation
 
 /// Display mode for AIS interactive objects.
@@ -21,7 +21,7 @@ impl SelectionPriority {
 }
 
 /// Presentation of a wire (edge loop).
-/// occt: AIS_Wire
+// occt-ref: AIS_Wire
 #[derive(Clone, Debug)]
 pub struct AisWire {
     pub wire_id: u32,
@@ -60,7 +60,7 @@ impl AisWire {
 }
 
 /// Presentation of a face.
-/// occt: AIS_Face
+// occt-ref: AIS_Face
 #[derive(Clone, Debug)]
 pub struct AisFace {
     pub face_id: u32,
@@ -94,7 +94,7 @@ impl AisFace {
 }
 
 /// Infinite plane presentation.
-/// occt: AIS_Plane
+// occt-ref: AIS_Plane
 #[derive(Clone, Debug)]
 pub struct AisPlane {
     pub plane_id: u32,
@@ -150,7 +150,7 @@ impl AisPlaneTrihedron {
 }
 
 /// Edge relationship dimension (distance, angle, etc.).
-/// occt: AIS_EqualRadiusRelation / AIS_IdenticRelation (simplified)
+// occt-ref: PrsDim_EqualRadiusRelation // / AIS_IdenticRelation (simplified)
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum AisEdgeRelationKind {
     #[default]

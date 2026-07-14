@@ -67,8 +67,8 @@ const KNOWN_SCHEMAS: &[&str] = &[
 /// let shapes   = provider.read("part.step").unwrap();
 /// provider.write(&shapes, "out.step").unwrap();
 /// ```
-// occt: DE_Wrapper
-// occt: RWStep_Reader
+// occt-ref: DE_Wrapper
+// occt-ref: RWStep_Reader
 #[derive(Debug, Clone)]
 pub struct DeRwStep {
     /// Human-readable version string for this provider (e.g. `"1.0"`).
@@ -200,7 +200,7 @@ impl Default for DeRwStep {
 /// Mirrors the information that OCCT's `RWStep_Reader` / `StepData_StepModel`
 /// make available after loading: the schema name, the total number of DATA
 /// entities, and the product names found in `PRODUCT(…)` records.
-// occt: RWStep_Reader  (header inspection helpers)
+// occt-note: RWStep_Reader  (header inspection helpers)
 #[derive(Debug, Clone, Default)]
 pub struct StepFileInfo {
     /// Schema tag from `FILE_SCHEMA`, e.g. `"AP214"` or `"CONFIG_CONTROL_DESIGN"`.

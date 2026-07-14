@@ -91,7 +91,7 @@ fn ray_triangle_intersect(
 ///
 /// Triangulation is produced from the wire vertices of a [`TopoDS_Face`] using
 /// a simple fan triangulation of the outer wire.
-// occt: BRepClass3d_SolidExplorer (per-face data)
+// occt: BRepClass3d_SolidExplorer // (per-face data)
 #[derive(Clone, Debug)]
 pub struct SolidFace {
     /// Pre-computed outward unit normal.

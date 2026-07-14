@@ -27,7 +27,7 @@ use crate::geom_circle::GeomCircle;
 use crate::gp::{Ax1, Ax3, Pnt, Trsf, Vec3};
 use std::f64::consts::PI;
 
-// occt: Geom_SphericalSurface
+// occt-ref: Geom_SphericalSurface
 /// `Geom_SphericalSurface` — an analytic spherical surface in 3D space.
 ///
 /// The surface is parameterized by `(U, V)` as:

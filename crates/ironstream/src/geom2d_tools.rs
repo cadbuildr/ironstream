@@ -19,7 +19,7 @@
 ///
 /// Mirrors `GeomAbs_Shape` from the OCCT `GeomAbs` package as applied to
 /// 2D-curve contexts (`Geom2dAdaptor_Curve::Continuity()`).
-// occt: GeomAbs_Shape for 2D — enum C0, G1, C1, G2, C2, C3, CN
+// occt-ref: GeomAbs_Shape // for 2D — enum C0, G1, C1, G2, C2, C3, CN
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Geom2dContinuity {
     /// Positional continuity only (no tangent constraint).
@@ -46,7 +46,7 @@ pub enum Geom2dContinuity {
 /// `Geom2dAdaptor_Curve` surfaces from an underlying `Geom2d_Curve`.
 ///
 /// This is a pure-data record with no C++ handle dependency.
-// occt: Geom2dAdaptor_Curve info
+// occt: Geom2dAdaptor_Curve // info
 pub struct Geom2dCurveInfo {
     curve_type: String,
     first: f64,
@@ -76,37 +76,37 @@ impl Geom2dCurveInfo {
 
     /// The string name of the curve kind (e.g. `"Line"`, `"Circle"`,
     /// `"BSpline"`, …).
-    // occt: Geom2dAdaptor_Curve::GetType() → GeomAbs_CurveType
+    // occt: Geom2dAdaptor_Curve // ::GetType() → GeomAbs_CurveType
     pub fn curve_type(&self) -> &str {
         &self.curve_type
     }
 
     /// First (smallest) parameter of the curve's valid range.
-    // occt: Geom2dAdaptor_Curve::FirstParameter()
+    // occt: Geom2dAdaptor_Curve // ::FirstParameter()
     pub fn first(&self) -> f64 {
         self.first
     }
 
     /// Last (largest) parameter of the curve's valid range.
-    // occt: Geom2dAdaptor_Curve::LastParameter()
+    // occt: Geom2dAdaptor_Curve // ::LastParameter()
     pub fn last(&self) -> f64 {
         self.last
     }
 
     /// Polynomial degree (meaningful for Bezier / B-spline curves).
-    // occt: Geom2dAdaptor_Curve::Degree()
+    // occt: Geom2dAdaptor_Curve // ::Degree()
     pub fn degree(&self) -> u32 {
         self.degree
     }
 
     /// Number of control poles (meaningful for Bezier / B-spline curves).
-    // occt: Geom2dAdaptor_Curve::NbPoles()
+    // occt: Geom2dAdaptor_Curve // ::NbPoles()
     pub fn nb_poles(&self) -> usize {
         self.nb_poles
     }
 
     /// Continuity class of the underlying curve.
-    // occt: Geom2dAdaptor_Curve::Continuity()
+    // occt: Geom2dAdaptor_Curve // ::Continuity()
     pub fn continuity(&self) -> Geom2dContinuity {
         self.continuity
     }
@@ -118,7 +118,7 @@ impl Geom2dCurveInfo {
 
     /// Returns `true` when the first and last parameters are within `1e-10`
     /// of each other, indicating a closed (periodic) curve.
-    // occt: Geom2dAdaptor_Curve::IsClosed()
+    // occt: Geom2dAdaptor_Curve // ::IsClosed()
     pub fn is_closed(&self) -> bool {
         (self.first - self.last).abs() < 1.0e-10
     }
@@ -131,7 +131,7 @@ impl Geom2dCurveInfo {
 /// Static utility namespace for 2D curve operations.
 ///
 /// All methods are free functions; `Geom2dTool` itself carries no state.
-// occt: Geom2dConvert utility namespace
+// occt: Geom2dConvert // utility namespace
 pub struct Geom2dTool;
 
 impl Geom2dTool {
@@ -170,7 +170,7 @@ impl Geom2dTool {
     ///
     /// The reversal formula is `first + last - t`, which maps `first ↔ last`
     /// and preserves the midpoint.  Used when reversing curve orientation.
-    // occt: Geom2dConvert reverse-parameter utility
+    // occt: Geom2dConvert // reverse-parameter utility
     pub fn reverse_parameter(t: f64, first: f64, last: f64) -> f64 {
         first + last - t
     }
@@ -181,7 +181,7 @@ impl Geom2dTool {
     /// The parameter range defaults to `[0.0, 1.0]` and the continuity to
     /// `C0`; callers should call [`Geom2dCurveInfo::set_continuity`] when a
     /// more precise continuity class is known.
-    // occt: Geom2dConvert — derive curve info from degree/nb_poles
+    // occt: Geom2dConvert // — derive curve info from degree/nb_poles
     pub fn curve_info_from_degree(degree: u32, nb_poles: usize) -> Geom2dCurveInfo {
         let mut info = Geom2dCurveInfo::new("BSpline", 0.0, 1.0);
         info.degree = degree;

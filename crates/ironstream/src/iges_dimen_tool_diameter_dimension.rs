@@ -1,5 +1,5 @@
 // FILE: iges_dimen_tool_diameter_dimension.rs
-// occt: IGESDimen_dimentooldiameterdimension
+// occt-ref: IGESDimen_dimentooldiameterdimension
 
 pub struct IGESDimen_dimentooldiameterdimension;
 

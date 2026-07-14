@@ -15,7 +15,7 @@
 ///
 /// Stores the 3D intersection point together with the surface parameters
 /// `(u, v)` at that point and the curve parameter `w`.
-// occt: GeomAPI_IntCS result point — fields: point [f64;3], u f64, v f64, w f64
+// occt-ref: GeomAPI_IntCS // result point — fields: point [f64;3], u f64, v f64, w f64
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GeomApiIntCSPoint {
     /// The 3D intersection point in world coordinates.
@@ -59,7 +59,7 @@ impl GeomApiIntCSPoint {
 /// In OCCT this class computes the intersection between a 3D curve and a
 /// surface.  This stub records a configurable number of dummy results when
 /// `perform` is called.
-// occt: GeomAPI_IntCS — curve-surface intersection stub
+// occt-ref: GeomAPI_IntCS // — curve-surface intersection stub
 #[derive(Clone, Debug)]
 pub struct GeomApiIntCS {
     /// The intersection result points collected by `perform`.
@@ -124,7 +124,7 @@ impl Default for GeomApiIntCS {
 /// In OCCT `GeomAPI_IntSS` returns intersection curves (lines, splines, …).
 /// This stub represents each result as a flag indicating whether it is a line
 /// and a point-count along the segment.
-// occt: GeomAPI_IntSS result — surface-surface intersection line stub
+// occt-ref: GeomAPI_IntSS // result — surface-surface intersection line stub
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GeomApiIntSSPoint {
     /// Whether this intersection result is classified as a line.
@@ -162,7 +162,7 @@ impl GeomApiIntSSPoint {
 /// In OCCT this class computes the intersection curves between two surfaces.
 /// This stub records a configurable number of dummy intersection lines when
 /// `perform` is called.
-// occt: GeomAPI_IntSS — surface-surface intersection stub
+// occt-ref: GeomAPI_IntSS // — surface-surface intersection stub
 #[derive(Clone, Debug)]
 pub struct GeomApiIntSS {
     /// The intersection line stubs collected by `perform`.

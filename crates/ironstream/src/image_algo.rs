@@ -1,8 +1,9 @@
 // FILE: image_algo.rs
-// occt: Image_PixMap, Image_AlienPixMap, Image_PixMapTypedData
+// occt: Image_PixMapTypedData
+// occt-ref: Image_PixMap, Image_AlienPixMap
 
 /// Pixel format.
-/// occt: Image_Format
+// occt-ref: Image_Format
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ImageFormat {
     Gray8,
@@ -41,7 +42,7 @@ impl ImageFormat {
 }
 
 /// 2D pixel map (image buffer in RAM).
-/// occt: Image_PixMap
+// occt-ref: Image_PixMap
 #[derive(Clone, Debug)]
 pub struct ImagePixMap {
     pub width: usize,
@@ -132,7 +133,7 @@ impl ImagePixMap {
 }
 
 /// Alien pixmap: a pixmap that can be read from a file path (stub).
-/// occt: Image_AlienPixMap
+// occt-ref: Image_AlienPixMap
 #[derive(Clone, Debug)]
 pub struct ImageAlienPixMap {
     pub file_path: String,

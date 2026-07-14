@@ -85,7 +85,7 @@ impl CircularGrid {
     }
 }
 
-// occt: V3d_RectangularGrid / V3d_CircularGrid display container
+// occt: V3d_RectangularGrid // / V3d_CircularGrid display container
 #[derive(Clone, Debug)]
 pub struct GridDisplay {
     pub draw_mode: u8,
@@ -108,7 +108,7 @@ impl GridDisplay {
     }
 }
 
-// occt: V3d_RectangularGrid / V3d_CircularGrid (unified internal representation)
+// occt: V3d_RectangularGrid // / V3d_CircularGrid (unified internal representation)
 pub struct V3dGrid {
     grid_type: GridType,
     draw_mode: GridDrawMode,

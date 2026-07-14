@@ -1,9 +1,9 @@
 // FILE: material_aspect.rs
-// occt: Graphic3d_Material, Graphic3d_AspectFillArea, Graphic3d_Surface,
+// occt-ref: Graphic3d_Material, Graphic3d_AspectFillArea, Graphic3d_Surface
 //       Graphic3d_ReflectionModel
 
 /// Material reflection model.
-/// occt: Graphic3d_ReflectionModel
+// occt-ref: Graphic3d_ReflectionModel
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Default)]
 pub enum MaterialReflectionModel {
     #[default]
@@ -13,7 +13,7 @@ pub enum MaterialReflectionModel {
 }
 
 /// Surface material properties.
-/// occt: Graphic3d_Material
+// occt-ref: Graphic3d_Material
 #[derive(Clone, Debug)]
 pub struct Material {
     pub name: String,
@@ -73,7 +73,7 @@ impl Material {
 }
 
 /// Fill area aspect (surface appearance).
-/// occt: Graphic3d_AspectFillArea
+// occt-ref: Graphic3d_AspectFillArea
 #[derive(Clone, Debug)]
 pub struct AspectFillArea {
     pub material: Material,
@@ -108,7 +108,7 @@ impl AspectFillArea {
 }
 
 /// Surface finish properties.
-/// occt: Graphic3d_Surface (material params)
+/// occt-note: Graphic3d_Surface (material params)
 #[derive(Clone, Debug)]
 pub struct Surface {
     pub material_id: u32,

@@ -35,16 +35,16 @@
 /// ```
 #[derive(Debug, Clone)]
 pub struct SolidMaker {
-    // occt: BRepBuilderAPI_MakeSolid::Add(const TopoDS_Shell&)
+    // occt: BRepBuilderAPI_MakeSolid // ::Add(const TopoDS_Shell&)
     /// Labels of the shells that have been added via [`SolidMaker::add_shell`].
     pub shells: Vec<String>,
-    // occt: BRepBuilderAPI_MakeSolid::IsDone()
+    // occt: BRepBuilderAPI_MakeSolid // ::IsDone()
     /// Whether a solid has been successfully built (set by [`SolidMaker::solid`]).
     pub done: bool,
 }
 
 impl SolidMaker {
-    // occt: BRepBuilderAPI_MakeSolid()
+    // occt-note: BRepBuilderAPI_MakeSolid()
     /// Create an empty `SolidMaker`.
     ///
     /// Mirrors the default `BRepBuilderAPI_MakeSolid()` constructor.
@@ -55,7 +55,7 @@ impl SolidMaker {
         }
     }
 
-    // occt: BRepBuilderAPI_MakeSolid::Add(const TopoDS_Shell& aShell)
+    // occt: BRepBuilderAPI_MakeSolid // ::Add(const TopoDS_Shell& aShell)
     /// Add a shell label to the solid under construction.
     ///
     /// Empty labels are silently ignored.
@@ -67,7 +67,7 @@ impl SolidMaker {
         }
     }
 
-    // occt: BRepBuilderAPI_MakeSolid::Solid() -> const TopoDS_Solid&
+    // occt: BRepBuilderAPI_MakeSolid // ::Solid() -> const TopoDS_Solid&
     /// Build and return the solid label.
     ///
     /// Sets [`SolidMaker::done`] to `true` when at least one shell is present.
@@ -83,7 +83,7 @@ impl SolidMaker {
         format!("solid(shells=[{}])", self.shells.join(","))
     }
 
-    // occt: BRepBuilderAPI_MakeSolid::IsDone() -> Standard_Boolean
+    // occt: BRepBuilderAPI_MakeSolid // ::IsDone() -> Standard_Boolean
     /// Return `true` when the solid was successfully built.
     ///
     /// Mirrors `BRepBuilderAPI_MakeSolid::IsDone()`.
@@ -91,7 +91,7 @@ impl SolidMaker {
         self.done
     }
 
-    // occt: BRepGProp::VolumeProperties — stub volume heuristic
+    // occt-ref: BRepGProp // ::VolumeProperties — stub volume heuristic
     /// Return an approximate volume for the accumulated shells.
     ///
     /// This stub sums a per-shell nominal volume of 1.0 for each shell whose
@@ -125,7 +125,7 @@ impl Default for SolidMaker {
 // BoxMaker
 // ---------------------------------------------------------------------------
 
-// occt: BRepPrimAPI_MakeBox
+// occt-ref: BRepPrimAPI_MakeBox
 /// Stub mirroring `BRepPrimAPI_MakeBox`.
 ///
 /// Builds an axis-aligned box solid from a corner point and three dimensions.
@@ -144,10 +144,10 @@ impl Default for SolidMaker {
 /// ```
 #[derive(Debug, Clone)]
 pub struct BoxMaker {
-    // occt: BRepPrimAPI_MakeBox — corner of the box (lower-left-front vertex)
+    // occt-ref: BRepPrimAPI_MakeBox // — corner of the box (lower-left-front vertex)
     /// The lower corner (origin vertex) of the box.
     pub corner: [f64; 3],
-    // occt: BRepPrimAPI_MakeBox(Standard_Real dx, ...)
+    // occt-note: BRepPrimAPI_MakeBox(Standard_Real dx, ...)
     /// Extent along the X axis.
     pub dx: f64,
     /// Extent along the Y axis.
@@ -157,7 +157,7 @@ pub struct BoxMaker {
 }
 
 impl BoxMaker {
-    // occt: BRepPrimAPI_MakeBox(Standard_Real dx, Standard_Real dy, Standard_Real dz)
+    // occt-note: BRepPrimAPI_MakeBox(Standard_Real dx, Standard_Real dy, Standard_Real dz)
     /// Create a box with its corner at the origin extending by `(dx, dy, dz)`.
     ///
     /// Negative dimensions are stored as their absolute values.
@@ -172,7 +172,7 @@ impl BoxMaker {
         }
     }
 
-    // occt: BRepPrimAPI_MakeBox(const gp_Pnt& P, Standard_Real dx, ...)
+    // occt-note: BRepPrimAPI_MakeBox(const gp_Pnt& P, Standard_Real dx, ...)
     /// Relocate the lower corner of the box to `corner` and return `self`.
     ///
     /// Consuming builder-pattern method; mirrors the
@@ -182,7 +182,7 @@ impl BoxMaker {
         self
     }
 
-    // occt: BRepPrimAPI_MakeBox::Shape() / ::Solid()
+    // occt-ref: BRepPrimAPI_MakeBox // ::Shape() / ::Solid()
     /// Build and return the box solid label.
     ///
     /// Mirrors `BRepPrimAPI_MakeBox::Shape()` / `::Solid()`.
@@ -198,13 +198,13 @@ impl BoxMaker {
         )
     }
 
-    // occt: BRepGProp::VolumeProperties — analytic volume
+    // occt-ref: BRepGProp // ::VolumeProperties — analytic volume
     /// Return the exact volume `dx * dy * dz`.
     pub fn volume(&self) -> f64 {
         self.dx * self.dy * self.dz
     }
 
-    // occt: BRepGProp::SurfaceProperties — analytic surface area
+    // occt-ref: BRepGProp // ::SurfaceProperties — analytic surface area
     /// Return the exact surface area `2*(dx*dy + dy*dz + dz*dx)`.
     pub fn surface_area(&self) -> f64 {
         2.0 * (self.dx * self.dy + self.dy * self.dz + self.dz * self.dx)
@@ -226,7 +226,7 @@ impl BoxMaker {
 /// let label = ironstream::brep_solid_maker::make_box(1.0, 2.0, 3.0);
 /// assert!(label.contains("dx=1"));
 /// ```
-// occt: BRepPrimAPI_MakeBox
+// occt-ref: BRepPrimAPI_MakeBox
 pub fn make_box(dx: f64, dy: f64, dz: f64) -> String {
     BoxMaker::new(dx, dy, dz).build()
 }
@@ -242,7 +242,7 @@ pub fn make_box(dx: f64, dy: f64, dz: f64) -> String {
 /// let label = ironstream::brep_solid_maker::make_sphere([0.0, 0.0, 0.0], 5.0);
 /// assert!(label.contains("r=5"));
 /// ```
-// occt: BRepPrimAPI_MakeSphere
+// occt-ref: BRepPrimAPI_MakeSphere
 pub fn make_sphere(center: [f64; 3], r: f64) -> String {
     format!(
         "solid(sphere,center=[{},{},{}],r={})",

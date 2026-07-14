@@ -77,7 +77,7 @@ fn cross(a: [f64; 3], b: [f64; 3]) -> [f64; 3] {
 
 // ─────────────────────── SurfaceOfRevolution ────────────────────────────────
 
-// occt: Geom_SurfaceOfRevolution
+// occt-ref: Geom_SurfaceOfRevolution
 /// `Geom_SurfaceOfRevolution` — a surface obtained by rotating a profile curve
 /// around an axis.
 ///

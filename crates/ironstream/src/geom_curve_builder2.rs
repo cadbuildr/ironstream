@@ -1,7 +1,8 @@
 // FILE: geom_curve_builder2.rs
-// occt: GC_MakeLine, GC_MakeSegment, GC_MakeHyperbola, GC_MakeParabola
+// occt: GC_MakeHyperbola
+// occt-ref: GC_MakeLine, GC_MakeSegment, GC_MakeParabola
 
-// occt: GC_MakeLine
+// occt-ref: GC_MakeLine
 /// Builds an infinite line from origin + direction.
 #[derive(Clone, Debug)]
 pub struct MakeLine {
@@ -46,7 +47,7 @@ impl MakeLine {
     }
 }
 
-// occt: GC_MakeSegment
+// occt-ref: GC_MakeSegment
 /// Builds a bounded line segment from two points or from line + two params.
 #[derive(Clone, Debug)]
 pub struct MakeSegment {
@@ -119,7 +120,7 @@ impl MakeHyperbola {
     }
 }
 
-// occt: GC_MakeParabola
+// occt-ref: GC_MakeParabola
 #[derive(Clone, Debug)]
 pub struct MakeParabola {
     pub focus: [f64; 3],

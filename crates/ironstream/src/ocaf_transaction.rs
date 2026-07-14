@@ -1,5 +1,5 @@
 // FILE: ocaf_transaction.rs
-// occt: TDocStd_Application, TDocStd_Document, CDM_Document, TDocStd_Modified
+// occt-ref: TDocStd_Application, TDocStd_Document, CDM_Document, TDocStd_Modified
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum DocStatus {
@@ -24,7 +24,7 @@ impl DocFormat {
     }
 }
 
-// occt: TDocStd_Document (single document with undo/redo transactions)
+// occt-ref: TDocStd_Document // (single document with undo/redo transactions)
 #[derive(Clone, Debug)]
 pub struct StdDocument {
     pub id: u64,
@@ -82,7 +82,7 @@ impl StdDocument {
     pub fn clear_modified(&mut self) { self.is_modified = false; }
 }
 
-// occt: TDocStd_Application — manager of documents
+// occt-ref: TDocStd_Application // — manager of documents
 #[derive(Clone, Debug, Default)]
 pub struct StdApplication {
     pub name: String,

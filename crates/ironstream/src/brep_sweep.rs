@@ -3,7 +3,7 @@
 use std::f64::consts::PI;
 
 /// Errors returned by sweep constructors.
-// occt: BRepSweep_Error (approximated)
+// occt-note: BRepSweep_Error (approximated)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum SweepError {
     EmptyShape,
@@ -13,7 +13,7 @@ pub enum SweepError {
 }
 
 /// Linear sweep (prism) of a shape along a direction vector.
-// occt: BRepPrimAPI_MakePrism
+// occt-ref: BRepPrimAPI_MakePrism
 pub struct BRepSweepPrism {
     direction: [f64; 3],
     length: f64,
@@ -74,7 +74,7 @@ impl BRepSweepPrism {
 }
 
 /// Rotational sweep (revolution) of a shape around an axis.
-// occt: BRepPrimAPI_MakeRevol
+// occt-ref: BRepPrimAPI_MakeRevol
 pub struct BRepSweepRevolution {
     /// [origin, direction] of the revolution axis.
     axis: [[f64; 3]; 2],

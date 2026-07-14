@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/xcaf_material.rs
 
-// occt: XCAFDoc_Material — entry storing a named material with optional description, density, and density unit
+// occt-ref: XCAFDoc_Material // — entry storing a named material with optional description, density, and density unit
 #[derive(Clone, Debug)]
 pub struct XcafMaterial {
     label: String,
@@ -64,7 +64,7 @@ impl XcafMaterial {
     }
 }
 
-// occt: XCAFDoc_MaterialTool — manages a collection of material entries and their associations to shapes
+// occt: XCAFDoc_MaterialTool // — manages a collection of material entries and their associations to shapes
 pub struct XcafMaterialTool {
     materials: Vec<XcafMaterial>,
     /// Maps shape_label -> index into `materials`

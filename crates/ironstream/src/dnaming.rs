@@ -1,8 +1,8 @@
 // FILE: dnaming.rs
-// occt: DNaming_NamedShape, DNaming_Naming, DNaming_Builder
+// occt-ref: DNaming_NamedShape, DNaming_Naming, DNaming_Builder
 
 /// Named shape for construction history.
-/// occt: DNaming_NamedShape
+// occt-ref: DNaming_NamedShape
 #[derive(Clone, Debug)]
 pub struct DNamingNamedShape {
     pub name: String,
@@ -31,7 +31,7 @@ impl Default for DNamingNamedShape {
 }
 
 /// Naming database: maps shapes to names.
-/// occt: DNaming_Naming
+// occt-ref: DNaming_Naming
 #[derive(Clone, Debug)]
 pub struct DNamingNaming {
     pub label_id: u32,
@@ -67,7 +67,7 @@ impl Default for DNamingNaming {
 }
 
 /// Builder for construction naming.
-/// occt: DNaming_Builder
+// occt-ref: DNaming_Builder
 #[derive(Clone, Debug)]
 pub struct DNamingBuilder {
     pub label_id: u32,

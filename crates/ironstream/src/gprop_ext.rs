@@ -1,8 +1,9 @@
 // FILE: gprop_ext.rs
-// occt: GProp_GProps, GProp_PEquation, GProp_PGProps, GProp_SelGProps
+// occt: GProp_PEquation, GProp_SelGProps
+// occt-ref: GProp_GProps, GProp_PGProps
 
 /// Kind of global properties system.
-/// occt: GProp_GProps (mass distribution type)
+// occt-ref: GProp_GProps // (mass distribution type)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum GPropSystemType {
     VertexBased,
@@ -26,7 +27,7 @@ pub enum GPropPEquationType {
 }
 
 /// Global properties of a shape: mass, centroid, inertia.
-/// occt: GProp_GProps
+// occt-ref: GProp_GProps
 #[derive(Clone, Debug)]
 pub struct GPropGProps {
     pub mass: f64,
@@ -91,7 +92,7 @@ impl GPropGProps {
 }
 
 /// Properties of a finite set of points: centroid and deviation.
-/// occt: GProp_PGProps
+// occt-ref: GProp_PGProps
 #[derive(Clone, Debug, Default)]
 pub struct GPropPGProps {
     pub points: Vec<[f64; 3]>,

@@ -22,7 +22,7 @@
 /// curves.
 ///
 /// Mirrors `GeomFill_FillingStyle`.
-// occt: GeomFill_BSplineCurves
+// occt-ref: GeomFill_BSplineCurves
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FillingStyle {
     /// Curved blending — minimises curvature variation across the interior.
@@ -132,7 +132,7 @@ fn scale3(a: [f64; 3], s: f64) -> [f64; 3] {
 /// let pts = fill.build();
 /// assert!(!pts.is_empty());
 /// ```
-// occt: GeomFill_BSplineCurves
+// occt-ref: GeomFill_BSplineCurves
 #[derive(Clone, Debug)]
 pub struct BSplineFilling {
     /// Ordered boundary polylines (up to 4).

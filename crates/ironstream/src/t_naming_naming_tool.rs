@@ -1,5 +1,5 @@
 // FILE: t_naming_naming_tool.rs
-// occt: TNaming_NamingTool
+// occt-ref: TNaming_NamingTool
 
 /// Tool for topological naming operations.
 /// Provides static utility functions for naming management.

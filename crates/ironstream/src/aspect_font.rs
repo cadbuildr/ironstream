@@ -1,5 +1,6 @@
 // FILE: aspect_font.rs
-// occt: Aspect_TypeOfFacingModel, Font_NameOfFont, Graphic3d_HorizontalTextAlignment,
+// occt: Aspect_TypeOfFacingModel, Font_NameOfFont
+// occt-ref: Graphic3d_HorizontalTextAlignment
 //       Graphic3d_VerticalTextAlignment, Graphic3d_RenderTransparentMethod
 
 /// Which side of a face to render.
@@ -13,7 +14,7 @@ pub enum AspectFacingModel {
 }
 
 /// Horizontal text alignment.
-/// occt: Graphic3d_HorizontalTextAlignment
+// occt-ref: Graphic3d_HorizontalTextAlignment
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum Graphic3dHTextAlign {
     #[default]
@@ -23,7 +24,7 @@ pub enum Graphic3dHTextAlign {
 }
 
 /// Vertical text alignment.
-/// occt: Graphic3d_VerticalTextAlignment
+// occt-ref: Graphic3d_VerticalTextAlignment
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum Graphic3dVTextAlign {
     #[default]
@@ -46,7 +47,7 @@ pub enum Graphic3dTransparencyMethod {
 }
 
 /// Display type for 3D text.
-/// occt: Aspect_TypeOfDisplayText
+// occt-ref: Aspect_TypeOfDisplayText
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum AspectTypeOfDisplayText {
     #[default]
@@ -57,7 +58,7 @@ pub enum AspectTypeOfDisplayText {
 }
 
 /// Style of a 3D line.
-/// occt: Aspect_TypeOfLine
+// occt-ref: Aspect_TypeOfLine
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum AspectTypeOfLine {
     #[default]
@@ -82,7 +83,7 @@ impl AspectTypeOfLine {
 }
 
 /// Type of shading model.
-/// occt: Graphic3d_TypeOfShadingModel
+// occt-ref: Graphic3d_TypeOfShadingModel
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum Graphic3dShadingModel {
     #[default]
@@ -95,7 +96,7 @@ pub enum Graphic3dShadingModel {
 }
 
 /// Type of reflective material properties.
-/// occt: Graphic3d_TypeOfReflection
+// occt-ref: Graphic3d_TypeOfReflection
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum Graphic3dReflection {
     #[default]
@@ -106,7 +107,7 @@ pub enum Graphic3dReflection {
 }
 
 /// Polygon offset mode.
-/// occt: Aspect_PolygonOffsetMode
+// occt-ref: Aspect_PolygonOffsetMode
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum AspectPolygonOffsetMode {
     #[default]
@@ -118,7 +119,7 @@ pub enum AspectPolygonOffsetMode {
 }
 
 /// Polygon offset parameters.
-/// occt: Aspect_PolygonOffset
+// occt-ref: Aspect_PolygonOffset
 #[derive(Clone, Copy, Debug)]
 pub struct AspectPolygonOffset {
     pub mode: AspectPolygonOffsetMode,

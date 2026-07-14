@@ -1,8 +1,8 @@
 // FILE: tcolgp_array.rs
-// occt: TColgp_Array1OfPnt, TColgp_Array1OfVec, TColgp_Array1OfPnt2d
+// occt-ref: TColgp_Array1OfPnt, TColgp_Array1OfVec, TColgp_Array1OfPnt2d
 
 /// Array of 3D points (1-indexed).
-/// occt: TColgp_Array1OfPnt
+// occt-ref: TColgp_Array1OfPnt
 #[derive(Clone, Debug)]
 pub struct TColgpArray1OfPnt {
     pub lower: usize,
@@ -37,7 +37,7 @@ impl TColgpArray1OfPnt {
 }
 
 /// Array of 3D vectors (1-indexed).
-/// occt: TColgp_Array1OfVec
+// occt-ref: TColgp_Array1OfVec
 #[derive(Clone, Debug)]
 pub struct TColgpArray1OfVec {
     pub lower: usize,
@@ -72,7 +72,7 @@ impl TColgpArray1OfVec {
 }
 
 /// Array of 2D points (1-indexed).
-/// occt: TColgp_Array1OfPnt2d
+// occt-ref: TColgp_Array1OfPnt2d
 #[derive(Clone, Debug)]
 pub struct TColgpArray1OfPnt2d {
     pub lower: usize,

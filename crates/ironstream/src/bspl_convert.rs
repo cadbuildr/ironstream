@@ -1,5 +1,5 @@
 // FILE: bspl_convert.rs
-// occt: BSplCLib — B-spline curve library utilities,
+// occt-ref: BSplCLib // — B-spline curve library utilities,
 //       BSplSLib — B-spline surface library utilities,
 //       PLib — polynomial library
 
@@ -23,7 +23,7 @@ impl BsplError {
     pub fn is_ok(&self) -> bool { *self == BsplError::Ok }
 }
 
-// occt: BSplCLib — core algorithms for B-spline curves
+// occt-ref: BSplCLib // — core algorithms for B-spline curves
 pub struct BsplCLib;
 
 impl BsplCLib {
@@ -121,7 +121,7 @@ impl BsplCLib {
     }
 }
 
-// occt: BSplSLib — core algorithms for B-spline surfaces
+// occt-ref: BSplSLib // — core algorithms for B-spline surfaces
 pub struct BsplSLib;
 
 impl BsplSLib {
@@ -166,7 +166,7 @@ impl BsplSLib {
     }
 }
 
-// occt: PLib — polynomial evaluation utilities
+// occt-ref: PLib // — polynomial evaluation utilities
 pub struct PLib;
 
 impl PLib {

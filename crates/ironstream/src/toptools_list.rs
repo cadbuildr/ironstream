@@ -1,8 +1,8 @@
 // FILE: toptools_list.rs
-// occt: TopTools_ListOfShape, TopTools_MapOfShape, TopTools_IndexedMapOfShape
+// occt-ref: TopTools_ListOfShape, TopTools_MapOfShape, TopTools_IndexedMapOfShape
 
 /// List of shapes.
-/// occt: TopTools_ListOfShape
+// occt-ref: TopTools_ListOfShape
 #[derive(Clone, Debug)]
 pub struct TopToolsListOfShape {
     pub shapes: Vec<u32>,
@@ -55,7 +55,7 @@ impl Default for TopToolsListOfShape {
 }
 
 /// Map of shapes (no duplicates via linear search).
-/// occt: TopTools_MapOfShape
+// occt-ref: TopTools_MapOfShape
 #[derive(Clone, Debug)]
 pub struct TopToolsMapOfShape {
     pub shapes: Vec<u32>,
@@ -103,7 +103,7 @@ impl Default for TopToolsMapOfShape {
 }
 
 /// Indexed map of shapes (1-indexed like OCCT).
-/// occt: TopTools_IndexedMapOfShape
+// occt-ref: TopTools_IndexedMapOfShape
 #[derive(Clone, Debug)]
 pub struct TopToolsIndexedMapOfShape {
     pub shapes: Vec<u32>,

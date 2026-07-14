@@ -181,7 +181,7 @@ impl Default for ShapeUpgradeUnifySameDomain {
 // ShapeUpgradeShapeTolerances
 // ---------------------------------------------------------------------------
 
-// occt: ShapeUpgrade_ShapeTolerances
+// occt-ref: ShapeUpgrade_ShapeTolerances
 pub struct ShapeUpgradeShapeTolerances {
     tolerance: f64,
     mode: u8,

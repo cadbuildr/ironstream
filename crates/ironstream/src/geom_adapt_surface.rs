@@ -68,7 +68,7 @@ fn normalize3(a: [f64; 3]) -> [f64; 3] {
 /// (e.g. `"Plane"`, `"Cylinder"`, `"Sphere"`) and a rectangular parameter
 /// domain.  Evaluation delegates to simple analytic formulae for the known
 /// types; unknown types return the origin / zero vectors.
-// occt: BRepAdaptor_Surface
+// occt-ref: BRepAdaptor_Surface
 #[derive(Debug, Clone)]
 pub struct BrepAdaptorSurface {
     /// Name / identifier of the originating topological face.
@@ -93,7 +93,7 @@ impl BrepAdaptorSurface {
     /// The stub initialises the surface as an infinite plane (`"Plane"`) with
     /// the parameter domain `[-1e6, 1e6] × [-1e6, 1e6]`.  Replace with real
     /// shape-query logic once the topology layer exists.
-    // occt: BRepAdaptor_Surface::BRepAdaptor_Surface(const TopoDS_Face&)
+    // occt-ref: BRepAdaptor_Surface // ::BRepAdaptor_Surface(const TopoDS_Face&)
     pub fn new(face: &str) -> Self {
         BrepAdaptorSurface {
             face: face.to_owned(),
@@ -109,7 +109,7 @@ impl BrepAdaptorSurface {
     ///
     /// For the stub `"Plane"` type this is the identity XY plane:
     /// `P(u,v) = (u, v, 0)`.  All other types return the origin.
-    // occt: BRepAdaptor_Surface::Value / D0
+    // occt-ref: BRepAdaptor_Surface // ::Value / D0
     pub fn value(&self, u: f64, v: f64) -> [f64; 3] {
         match self.surface_type.as_str() {
             "Plane" => [u, v, 0.0],
@@ -137,7 +137,7 @@ impl BrepAdaptorSurface {
     /// Evaluate the surface point and first partial derivatives at `(u, v)`.
     ///
     /// Returns `(point, d/du, d/dv)`.
-    // occt: BRepAdaptor_Surface::D1
+    // occt-ref: BRepAdaptor_Surface // ::D1
     pub fn d1(&self, u: f64, v: f64) -> ([f64; 3], [f64; 3], [f64; 3]) {
         match self.surface_type.as_str() {
             "Plane" => {
@@ -181,7 +181,7 @@ impl BrepAdaptorSurface {
     /// Outward unit normal at `(u, v)`.
     ///
     /// Computed as `normalize(d/du × d/dv)` from `d1`.
-    // occt: BRepAdaptor_Surface normal (conceptually via DN / GeomLProp)
+    // occt-ref: BRepAdaptor_Surface // normal (conceptually via DN / GeomLProp)
     pub fn normal(&self, u: f64, v: f64) -> [f64; 3] {
         let (_, du, dv) = self.d1(u, v);
         let n = cross3(du, dv);
@@ -190,7 +190,7 @@ impl BrepAdaptorSurface {
 
     /// Returns `true` when the surface is closed (and periodic) in the U
     /// direction.
-    // occt: BRepAdaptor_Surface::IsUClosed
+    // occt-ref: BRepAdaptor_Surface // ::IsUClosed
     pub fn is_u_closed(&self) -> bool {
         matches!(
             self.surface_type.as_str(),
@@ -200,7 +200,7 @@ impl BrepAdaptorSurface {
 
     /// Returns `true` when the surface is closed (and periodic) in the V
     /// direction.
-    // occt: BRepAdaptor_Surface::IsVClosed
+    // occt-ref: BRepAdaptor_Surface // ::IsVClosed
     pub fn is_v_closed(&self) -> bool {
         self.surface_type == "Torus"
     }
@@ -209,7 +209,7 @@ impl BrepAdaptorSurface {
     ///
     /// # Panics
     /// Panics if the surface is not U-periodic.
-    // occt: BRepAdaptor_Surface::UPeriod
+    // occt-ref: BRepAdaptor_Surface // ::UPeriod
     pub fn u_period(&self) -> f64 {
         if self.is_u_closed() {
             2.0 * PI
@@ -225,7 +225,7 @@ impl BrepAdaptorSurface {
     ///
     /// # Panics
     /// Panics if the surface is not V-periodic.
-    // occt: BRepAdaptor_Surface::VPeriod
+    // occt-ref: BRepAdaptor_Surface // ::VPeriod
     pub fn v_period(&self) -> f64 {
         if self.is_v_closed() {
             2.0 * PI
@@ -251,7 +251,7 @@ impl BrepAdaptorSurface {
 /// In this stub the underlying geometry is an implicit unit X-axis line:
 /// `P(t) = (t, 0, 0)`.  Replace the evaluation bodies with real curve
 /// dispatch once the topology layer is available.
-// occt: BRepAdaptor_Curve
+// occt-ref: BRepAdaptor_Curve
 #[derive(Debug, Clone)]
 pub struct BrepAdaptorCurve {
     /// Name / identifier of the originating topological edge.
@@ -268,7 +268,7 @@ impl BrepAdaptorCurve {
     /// The stub initialises the parameter range to `[0, 1]` and the
     /// underlying geometry to a unit segment along the X axis.  Replace with
     /// real shape-query logic once the topology layer exists.
-    // occt: BRepAdaptor_Curve::BRepAdaptor_Curve(const TopoDS_Edge&)
+    // occt-ref: BRepAdaptor_Curve // ::BRepAdaptor_Curve(const TopoDS_Edge&)
     pub fn new(edge: &str) -> Self {
         BrepAdaptorCurve {
             edge: edge.to_owned(),
@@ -280,7 +280,7 @@ impl BrepAdaptorCurve {
     /// Evaluate the curve point at parameter `t`.
     ///
     /// Stub: identity X-axis line, `P(t) = (t, 0, 0)`.
-    // occt: BRepAdaptor_Curve::Value / D0
+    // occt-ref: BRepAdaptor_Curve // ::Value / D0
     pub fn value(&self, t: f64) -> [f64; 3] {
         [t, 0.0, 0.0]
     }
@@ -290,7 +290,7 @@ impl BrepAdaptorCurve {
     /// Returns `(point, tangent)`.
     ///
     /// Stub: identity X-axis line — tangent is always `(1, 0, 0)`.
-    // occt: BRepAdaptor_Curve::D1
+    // occt-ref: BRepAdaptor_Curve // ::D1
     pub fn d1(&self, t: f64) -> ([f64; 3], [f64; 3]) {
         ([t, 0.0, 0.0], [1.0, 0.0, 0.0])
     }
@@ -300,7 +300,7 @@ impl BrepAdaptorCurve {
     ///
     /// Stub: for the X-axis line the speed is exactly 1, so the result is
     /// `last - first`.
-    // occt: BRepAdaptor_Curve (length via GCPnts_AbscissaPoint or similar)
+    // occt-ref: BRepAdaptor_Curve // (length via GCPnts_AbscissaPoint or similar)
     pub fn length(&self) -> f64 {
         gauss_legendre_length(self, self.first, self.last)
     }

@@ -28,7 +28,7 @@ use std::f64::consts::PI;
 // ─────────────────────────────── Error type ──────────────────────────────────
 
 /// Errors that a `GC_MakeXxx` construction may return.
-// occt: GC_Root (status codes)
+// occt: GC_Root // (status codes)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum GcError {
     /// The two end points are coincident and do not define a direction.

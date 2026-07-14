@@ -122,7 +122,7 @@ fn curvature_radius(name: &str, t: f64) -> f64 {
 ///
 /// Pre-computed samples are stored so that downstream consumers do not need to
 /// re-evaluate the geometry repeatedly.
-// occt: Geom_OffsetCurve
+// occt-ref: Geom_OffsetCurve
 #[derive(Clone, Debug)]
 pub struct Evolute {
     /// Name of the source parametric curve.
@@ -293,7 +293,7 @@ impl Involute {
 ///
 /// First derivatives are computed analytically using finite differences of the
 /// position formula (a central-difference step of `h = 1 × 10⁻⁶`).
-// occt: Geom_OffsetCurve
+// occt-ref: Geom_OffsetCurve
 #[derive(Clone, Debug)]
 pub struct CurveOffset {
     /// Name of the source parametric curve.

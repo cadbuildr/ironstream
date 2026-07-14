@@ -1,5 +1,5 @@
 // FILE: app_def_gradient_bfgs_of_my_gradient_of_compute.rs
-// occt: AppDefGradientBFGS1
+// occt-ref: AppDefGradientBFGS1
 
 //! Approximation and constraint handling class.
 pub struct AppDefGradientBFGS1 {

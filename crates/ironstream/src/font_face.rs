@@ -1,8 +1,9 @@
 // FILE: font_face.rs
-// occt: Font_BRepFont, Font_TextFormatter, Font_Rect
+// occt: Font_Rect
+// occt-ref: Font_BRepFont, Font_TextFormatter
 
 /// Axis for text layout.
-/// occt: Font_TextFormatter
+// occt-ref: Font_TextFormatter
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FontHAlign {
     Left,
@@ -46,7 +47,7 @@ impl FontRect {
 }
 
 /// Text formatting result for a single string.
-/// occt: Font_TextFormatter
+// occt-ref: Font_TextFormatter
 #[derive(Clone, Debug)]
 pub struct FontTextFormatter {
     pub text: String,
@@ -100,7 +101,7 @@ impl FontTextFormatter {
 }
 
 /// BRep font: a font that generates BRep shapes for glyphs (stub).
-/// occt: Font_BRepFont
+// occt-ref: Font_BRepFont
 #[derive(Clone, Debug)]
 pub struct FontBRepFont {
     pub font_name: String,

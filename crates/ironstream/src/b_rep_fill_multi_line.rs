@@ -1,5 +1,5 @@
 // FILE: b_rep_fill_multi_line.rs
-// occt: Brepfillmultiline
+// occt-ref: Brepfillmultiline
 
 #[derive(Clone, Debug)]
 pub struct Brepfillmultiline;

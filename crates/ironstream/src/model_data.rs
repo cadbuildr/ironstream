@@ -1,8 +1,8 @@
 // FILE: model_data.rs
-// occt: TDataStd_Name, TDataStd_Comment, TDataStd_AsciiString, TDataStd_Integer
+// occt-ref: TDataStd_Name, TDataStd_Comment, TDataStd_AsciiString, TDataStd_Integer
 
 /// String attribute: stores text on a label.
-/// occt: TDataStd_AsciiString
+// occt-ref: TDataStd_AsciiString
 #[derive(Clone, Debug)]
 pub struct TDataStdAsciiString {
     pub label_id: u32,
@@ -36,7 +36,7 @@ impl Default for TDataStdAsciiString {
 }
 
 /// Name attribute: identifies a label.
-/// occt: TDataStd_Name
+// occt-ref: TDataStd_Name
 #[derive(Clone, Debug)]
 pub struct TDataStdName {
     pub label_id: u32,
@@ -68,7 +68,7 @@ impl Default for TDataStdName {
 }
 
 /// Comment attribute: descriptive text.
-/// occt: TDataStd_Comment
+// occt-ref: TDataStd_Comment
 #[derive(Clone, Debug)]
 pub struct TDataStdComment {
     pub label_id: u32,
@@ -102,7 +102,7 @@ impl Default for TDataStdComment {
 }
 
 /// Integer attribute.
-/// occt: TDataStd_Integer
+// occt-ref: TDataStd_Integer
 #[derive(Clone, Debug)]
 pub struct TDataStdInteger {
     pub label_id: u32,
@@ -131,7 +131,7 @@ impl Default for TDataStdInteger {
 }
 
 /// Real number attribute.
-/// occt: TDataStd_Real
+// occt-ref: TDataStd_Real
 #[derive(Clone, Debug)]
 pub struct TDataStdReal {
     pub label_id: u32,
@@ -160,7 +160,7 @@ impl Default for TDataStdReal {
 }
 
 /// Attribute container: holds multiple attributes per label.
-/// occt: TDataStd_AttributeDict (simplified)
+/// occt-note: TDataStd_AttributeDict (simplified)
 #[derive(Clone, Debug, Default)]
 pub struct TDataStdAttributeDict {
     pub label_id: u32,

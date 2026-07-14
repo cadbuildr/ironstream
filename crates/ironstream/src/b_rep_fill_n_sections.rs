@@ -1,5 +1,5 @@
 // FILE: b_rep_fill_n_sections.rs
-// occt: Brepfillnsections
+// occt-ref: Brepfillnsections
 
 #[derive(Clone, Debug)]
 pub struct Brepfillnsections;

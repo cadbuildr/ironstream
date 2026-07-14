@@ -1,7 +1,7 @@
 // FILE: geom_circ3d.rs
-// occt: GC_MakeCircle, GC_MakeArcOfCircle, gp_Circ (extensions), Geom_Circle
+// occt-note: GC_MakeCircle, GC_MakeArcOfCircle, gp_Circ (extensions), Geom_Circle
 
-// occt: GC_MakeCircle (full circle through 3 points or center+radius)
+// occt-ref: GC_MakeCircle // (full circle through 3 points or center+radius)
 #[derive(Clone, Debug)]
 pub struct MakeCircle {
     pub center: [f64; 3],
@@ -53,7 +53,7 @@ impl MakeCircle {
     }
 }
 
-// occt: GC_MakeArcOfCircle
+// occt-ref: GC_MakeArcOfCircle
 #[derive(Clone, Debug)]
 pub struct MakeArcOfCircle {
     pub center: [f64; 3],

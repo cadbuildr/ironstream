@@ -1,5 +1,5 @@
 // FILE: iges_dimen_tool_dimension_units.rs
-// occt: IGESDimen_dimentooldimensionunits
+// occt-ref: IGESDimen_dimentooldimensionunits
 
 pub struct IGESDimen_dimentooldimensionunits;
 

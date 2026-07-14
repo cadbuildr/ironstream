@@ -31,7 +31,7 @@
 //! assert!((min.location() - 3.0).abs() < 1.0e-5);
 //! ```
 
-// occt: math_BrentMinimum
+// occt-ref: math_BrentMinimum
 
 /// Trait modelling `math_Function` from OCCT — a scalar function `F(x)`.
 ///
@@ -41,7 +41,7 @@ pub trait MathFunctionMin {
     fn value(&self, x: f64) -> f64;
 }
 
-// occt: math_BrentMinimum
+// occt-ref: math_BrentMinimum
 /// Brent's method 1-D minimizer.
 ///
 /// Constructs with `new(F, ax, bx, cx, Tol)` where `[ax, cx]` brackets a

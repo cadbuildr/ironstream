@@ -220,7 +220,7 @@ impl Datum3D {
 /// A single element of the location spine: a datum and an integer power.
 ///
 /// The net transform for this element is `datum.trsf^power`.
-// occt: TopLoc_SListOfItemLocation (each node)
+// occt: TopLoc_SListOfItemLocation // (each node)
 #[derive(Clone, Debug)]
 pub struct LocationItem {
     /// The elementary rigid motion.
@@ -438,7 +438,7 @@ impl Location {
 ///     .push(Datum3D::translation(Pnt::new(1.0, 2.0, 3.0)), 1)
 ///     .build();
 /// ```
-// occt: no direct equivalent — utility helper
+// occt-note: no direct equivalent — utility helper
 pub struct LocationBuilder {
     items: Vec<LocationItem>,
 }

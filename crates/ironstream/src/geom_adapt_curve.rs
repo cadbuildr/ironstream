@@ -1,9 +1,9 @@
 // FILE: geom_adapt_curve.rs
-// occt: GeomAdaptor_Curve, GeomAdaptor_Surface, Handle (simplified),
+// occt-note: GeomAdaptor_Curve, GeomAdaptor_Surface, Handle (simplified),
 //       GeomAbs_CurveType
 
 /// Curve type classification.
-/// occt: GeomAbs_CurveType
+// occt-ref: GeomAbs_CurveType
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Default)]
 pub enum GeomAbsCurveType {
     #[default]
@@ -27,7 +27,7 @@ impl GeomAbsCurveType {
 }
 
 /// Surface type classification.
-/// occt: GeomAbs_SurfaceType
+// occt-ref: GeomAbs_SurfaceType
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Default)]
 pub enum GeomAbsSurfaceType {
     Plane,
@@ -46,7 +46,7 @@ impl GeomAbsSurfaceType {
 }
 
 /// Adaptor for a 3D curve (linearized sampling).
-/// occt: GeomAdaptor_Curve
+// occt-ref: GeomAdaptor_Curve
 #[derive(Clone, Debug)]
 pub struct GeomAdaptorCurve {
     pub curve_id: u32,
@@ -83,7 +83,7 @@ impl GeomAdaptorCurve {
 }
 
 /// Adaptor for a surface (UV mesh sampling).
-/// occt: GeomAdaptor_Surface
+// occt-ref: GeomAdaptor_Surface
 #[derive(Clone, Debug)]
 pub struct GeomAdaptorSurface {
     pub surface_id: u32,

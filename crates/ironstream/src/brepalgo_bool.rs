@@ -1,5 +1,5 @@
 // FILE: brepalgo_bool.rs
-// occt: BRepAlgoAPI_BooleanOperation, BRepAlgoAPI_Section, GEOMAlgo_Splitter
+// occt-ref: BRepAlgoAPI_BooleanOperation, BRepAlgoAPI_Section, GEOMAlgo_Splitter
 
 /// Type of Boolean operation.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -34,7 +34,7 @@ impl BoolOpStatus {
     pub fn is_done(&self) -> bool { *self == BoolOpStatus::Done }
 }
 
-// occt: BRepAlgoAPI_BooleanOperation — base for Fuse/Common/Cut
+// occt-ref: BRepAlgoAPI_BooleanOperation // — base for Fuse/Common/Cut
 #[derive(Clone, Debug)]
 pub struct BrepAlgoBooleanOp {
     pub arg_ids: Vec<u32>,
@@ -86,7 +86,7 @@ impl BrepAlgoBooleanOp {
     pub fn nb_tools(&self) -> usize { self.tool_ids.len() }
 }
 
-// occt: BRepAlgoAPI_Section — computes cross-section curve(s) of two shapes
+// occt-ref: BRepAlgoAPI_Section // — computes cross-section curve(s) of two shapes
 #[derive(Clone, Debug)]
 pub struct BrepAlgoSection {
     pub shape1_id: u32,
@@ -141,7 +141,7 @@ impl BrepAlgoSection {
     pub fn section_edge(&self, i: usize) -> Option<u32> { self.section_edges.get(i).copied() }
 }
 
-// occt: GEOMAlgo_Splitter — splits shapes by tools
+// occt-note: GEOMAlgo_Splitter — splits shapes by tools
 #[derive(Clone, Debug, Default)]
 pub struct GeomsplitterOp {
     pub arg_ids: Vec<u32>,

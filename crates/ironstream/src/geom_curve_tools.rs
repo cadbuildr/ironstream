@@ -1,7 +1,7 @@
 // FILE: crates/ironstream/src/geom_curve_tools.rs
 
-// occt: GeomLib_Tool
-// occt: GeomLib
+// occt-ref: GeomLib_Tool
+// occt-ref: GeomLib
 
 //! Utility routines for evaluating and interrogating 3-D curves and surfaces,
 //! modelled after `GeomLib_Tool` and `GeomLib` from the OCCT utility library.
@@ -15,7 +15,7 @@
 // Free-function surface of GeomLib_Tool
 // ---------------------------------------------------------------------------
 
-// occt: GeomLib_Tool
+// occt-ref: GeomLib_Tool
 /// Evaluate a 3-D curve at parameter `t`.
 ///
 /// Mirrors `GeomLib_Tool::Value`.
@@ -27,7 +27,7 @@ pub fn curve_value(curve: &str, t: f64) -> [f64; 3] {
     [t, 0.0, 0.0]
 }
 
-// occt: GeomLib_Tool
+// occt-ref: GeomLib_Tool
 /// Evaluate a 3-D curve together with its first derivative at parameter `t`.
 ///
 /// Mirrors `GeomLib_Tool::D1`.
@@ -40,7 +40,7 @@ pub fn curve_d1(curve: &str, t: f64) -> ([f64; 3], [f64; 3]) {
     ([t, 0.0, 0.0], [1.0, 0.0, 0.0])
 }
 
-// occt: GeomLib_Tool
+// occt-ref: GeomLib_Tool
 /// Compute the outward unit normal to a surface at parameters `(u, v)`.
 ///
 /// Mirrors `GeomLib_Tool::NormalToSurface`.
@@ -56,7 +56,7 @@ pub fn normal_to_surface(surface: &str, u: f64, v: f64) -> [f64; 3] {
 // Free-function surface of GeomLib
 // ---------------------------------------------------------------------------
 
-// occt: GeomLib
+// occt-ref: GeomLib
 /// Test whether a curve satisfies C0 continuity within the given tolerance.
 ///
 /// Mirrors `GeomLib::IsClosed` / continuity-check logic from `GeomLib`.
@@ -68,7 +68,7 @@ pub fn is_c0_curve(curve: &str, tol: f64) -> bool {
     !curve.is_empty() && tol >= 0.0
 }
 
-// occt: GeomLib
+// occt-ref: GeomLib
 /// Approximate/build a 3-D curve from a 2-D pcurve lying on a surface.
 ///
 /// Mirrors `GeomLib::BuildCurve3d`.
@@ -85,7 +85,7 @@ pub fn build_curve_3d(curve2d: &str, surface: &str, tol: f64) -> String {
 // Struct surface of GeomLib_Tool / GeomLib
 // ---------------------------------------------------------------------------
 
-// occt: GeomLib_Tool
+// occt-ref: GeomLib_Tool
 /// A stateful helper that bundles a tolerance value with the curve-evaluation
 /// and interrogation operations from `GeomLib_Tool`.
 #[derive(Debug, Clone)]
@@ -95,13 +95,13 @@ pub struct CurveTools {
 }
 
 impl CurveTools {
-    // occt: GeomLib_Tool
+    // occt-ref: GeomLib_Tool
     /// Construct a new `CurveTools` with the given tolerance.
     pub fn new(tol: f64) -> Self {
         Self { tolerance: tol }
     }
 
-    // occt: GeomLib_Tool
+    // occt-ref: GeomLib_Tool
     /// Return `true` if `curve` is considered valid (non-empty name and a
     /// non-negative tolerance).
     ///
@@ -110,7 +110,7 @@ impl CurveTools {
         !curve.is_empty() && self.tolerance >= 0.0
     }
 
-    // occt: GeomLib_Tool
+    // occt-ref: GeomLib_Tool
     /// Sample `n` evenly-spaced points along the parametric range `[0, 1]`
     /// of the curve.
     ///
@@ -137,7 +137,7 @@ impl CurveTools {
         pts
     }
 
-    // occt: GeomLib_Tool
+    // occt-ref: GeomLib_Tool
     /// Return the parametric range `(t_first, t_last)` of the curve.
     ///
     /// Mirrors `GeomLib_Tool::Parameters`.  The stub returns `(0.0, 1.0)` as

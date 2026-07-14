@@ -1,5 +1,5 @@
 // FILE: iges_dimen_tool_curve_dimension.rs
-// occt: IGESDimen_dimentoolcurvedimension
+// occt-ref: IGESDimen_dimentoolcurvedimension
 
 pub struct IGESDimen_dimentoolcurvedimension;
 

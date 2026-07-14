@@ -1,5 +1,6 @@
 // FILE: message_h_array_of_msg.rs
-// occt: Message_HArrayOfMsg, Message_ArrayOfMsg
+// occt: Message_HArrayOfMsg
+// occt-ref: Message_ArrayOfMsg
 
 use std::rc::Rc;
 use std::cell::RefCell;

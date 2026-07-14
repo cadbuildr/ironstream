@@ -1,5 +1,5 @@
 // FILE: app_def_b_sp_par_least_square_of_my_b_spl_gradient_of_b_spline_compute.rs
-// occt: AppDefBSpParLeastSquare
+// occt-ref: AppDefBSpParLeastSquare
 
 //! Approximation and constraint handling class.
 pub struct AppDefBSpParLeastSquare {

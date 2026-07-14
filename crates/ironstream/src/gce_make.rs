@@ -1,5 +1,6 @@
 // FILE: gce_make.rs
-// occt: gce_MakeAx1, gce_MakeAx2, gce_MakeCirc, gce_MakeLin, gce_MakePln
+// occt: gce_MakeCirc, gce_MakeLin, gce_MakePln
+// occt-ref: gce_MakeAx1, gce_MakeAx2
 
 /// Return status for gce construction algorithms.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -40,7 +41,7 @@ impl GceMakeStatus {
     }
 }
 
-// occt: gce_MakeAx1 — constructs a gp_Ax1 (axis = point + direction)
+// occt-note: gce_MakeAx1 — constructs a gp_Ax1 (axis = point + direction)
 #[derive(Clone, Debug)]
 pub struct GceMakeAx1 {
     pub origin: [f64; 3],
@@ -68,7 +69,7 @@ impl GceMakeAx1 {
     pub fn direction(&self) -> [f64; 3] { self.direction }
 }
 
-// occt: gce_MakeAx2 — constructs a gp_Ax2 (right-handed coordinate system)
+// occt-note: gce_MakeAx2 — constructs a gp_Ax2 (right-handed coordinate system)
 #[derive(Clone, Debug)]
 pub struct GceMakeAx2 {
     pub origin: [f64; 3],
@@ -130,7 +131,7 @@ impl GceMakeAx2 {
     }
 }
 
-// occt: gce_MakeCirc — constructs a 3D circle from center, normal and radius
+// occt: gce_MakeCirc // — constructs a 3D circle from center, normal and radius
 #[derive(Clone, Debug)]
 pub struct GceMakeCirc {
     pub center: [f64; 3],
@@ -183,7 +184,7 @@ impl GceMakeCirc {
     pub fn area(&self) -> f64 { std::f64::consts::PI * self.radius * self.radius }
 }
 
-// occt: gce_MakeLin — constructs a 3D line from a point and direction
+// occt: gce_MakeLin // — constructs a 3D line from a point and direction
 #[derive(Clone, Debug)]
 pub struct GceMakeLin {
     pub origin: [f64; 3],
@@ -228,7 +229,7 @@ impl GceMakeLin {
     }
 }
 
-// occt: gce_MakePln — constructs a 3D plane from a point and normal
+// occt: gce_MakePln // — constructs a 3D plane from a point and normal
 #[derive(Clone, Debug)]
 pub struct GceMakePln {
     pub origin: [f64; 3],

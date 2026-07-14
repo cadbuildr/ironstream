@@ -5,7 +5,7 @@
 
 /// Compute the Euclidean distance between two 3-D points.
 ///
-/// // occt: BRep_Tool utility
+// occt-ref: BRep_Tool // utility
 pub fn edge_length(start: [f64; 3], end: [f64; 3]) -> f64 {
     let dx = end[0] - start[0];
     let dy = end[1] - start[1];
@@ -19,7 +19,7 @@ pub fn edge_length(start: [f64; 3], end: [f64; 3]) -> f64 {
 
 /// Parameters used to construct a single B-Rep edge from two end-points.
 ///
-/// // occt: BRepBuilderAPI_MakeEdge parameters
+// occt-ref: BRepBuilderAPI_MakeEdge // parameters
 #[derive(Debug, Clone, PartialEq)]
 pub struct BrepEdgeParams {
     /// Start point of the edge.
@@ -40,7 +40,7 @@ impl BrepEdgeParams {
     /// Construct edge parameters from two 3-D points using the default
     /// tolerance (`1e-7`) and no explicit parameter range.
     ///
-    /// // occt: BRepBuilderAPI_MakeEdge(P1, P2)
+    /// // occt-note: BRepBuilderAPI_MakeEdge(P1, P2)
     pub fn new(start: [f64; 3], end: [f64; 3]) -> Self {
         Self {
             start,
@@ -55,7 +55,7 @@ impl BrepEdgeParams {
     /// Attach an explicit curve-parameter range and return `self` (builder
     /// pattern).
     ///
-    /// // occt: BRepBuilderAPI_MakeEdge(curve, p1, p2)
+    /// // occt-note: BRepBuilderAPI_MakeEdge(curve, p1, p2)
     pub fn with_range(mut self, u_start: f64, u_end: f64) -> Self {
         self.u_start = u_start;
         self.u_end = u_end;
@@ -90,7 +90,7 @@ impl BrepEdgeParams {
 
 /// Builder that creates a single topological edge from `BrepEdgeParams`.
 ///
-/// // occt: BRepBuilderAPI_MakeEdge stub
+// occt-ref: BRepBuilderAPI_MakeEdge // stub
 #[derive(Debug, Clone)]
 pub struct BrepMakeEdge {
     /// The parameters used to define this edge.
@@ -104,7 +104,7 @@ pub struct BrepMakeEdge {
 impl BrepMakeEdge {
     /// Create a new edge builder from the given parameters.
     ///
-    /// // occt: BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge
+    // occt-ref: BRepBuilderAPI_MakeEdge // ::BRepBuilderAPI_MakeEdge
     pub fn new(params: BrepEdgeParams) -> Self {
         Self {
             params,
@@ -115,7 +115,7 @@ impl BrepMakeEdge {
 
     /// Build the edge: compute its length and mark it as done.
     ///
-    /// // occt: BRepBuilderAPI_MakeEdge::Build
+    // occt-ref: BRepBuilderAPI_MakeEdge // ::Build
     pub fn build(&mut self) {
         self.length = edge_length(self.params.start(), self.params.end());
         self.is_done = true;
@@ -138,7 +138,7 @@ impl BrepMakeEdge {
 
 /// Builder that assembles a sequence of edges into a wire.
 ///
-/// // occt: BRepBuilderAPI_MakeWire
+// occt-ref: BRepBuilderAPI_MakeWire
 #[derive(Debug, Default)]
 pub struct BrepWireBuilder {
     /// Ordered edges that form the wire.
@@ -155,14 +155,14 @@ pub struct BrepWireBuilder {
 impl BrepWireBuilder {
     /// Create an empty wire builder.
     ///
-    /// // occt: BRepBuilderAPI_MakeWire::BRepBuilderAPI_MakeWire
+    // occt-ref: BRepBuilderAPI_MakeWire // ::BRepBuilderAPI_MakeWire
     pub fn new() -> Self {
         Self::default()
     }
 
     /// Append a built (or unbuilt) edge to the wire.
     ///
-    /// // occt: BRepBuilderAPI_MakeWire::Add
+    // occt-ref: BRepBuilderAPI_MakeWire // ::Add
     pub fn add_edge(&mut self, e: BrepMakeEdge) {
         self.edges.push(e);
     }
@@ -173,7 +173,7 @@ impl BrepWireBuilder {
     /// - `nb_edges` reflects the total edge count.
     /// - `detect_closed()` is called to update `is_closed`.
     ///
-    /// // occt: BRepBuilderAPI_MakeWire::Build
+    // occt-ref: BRepBuilderAPI_MakeWire // ::Build
     pub fn build(&mut self) {
         self.nb_edges = self.edges.len();
         self.is_done = self.edges.iter().all(|e| e.is_done());
@@ -186,7 +186,7 @@ impl BrepWireBuilder {
     ///
     /// A wire with fewer than two edges is never considered closed.
     ///
-    /// // occt: BRepBuilderAPI_MakeWire closed-wire detection
+    // occt-ref: BRepBuilderAPI_MakeWire // closed-wire detection
     pub fn detect_closed(&mut self) {
         if self.edges.len() < 2 {
             self.is_closed = false;

@@ -14,7 +14,7 @@ const THE_GOLDEN_SECTION: f64 = 0.381966011250105; // 1 - 1/phi
 
 /// Result of line search operation.
 ///
-/// occt: LineSearchResult
+// occt-ref: LineSearchResult
 #[derive(Clone, Debug)]
 pub struct LineSearchResult {
     /// True if line search succeeded

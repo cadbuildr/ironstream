@@ -2,7 +2,7 @@
 
 use core::f64::consts::TAU;
 
-// occt: GeomAbs_CurveType (2D)
+// occt-ref: GeomAbs_CurveType // (2D)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Adaptor2dCurveType {
     Line,
@@ -74,7 +74,7 @@ impl Adaptor2dCurve2d {
     }
 }
 
-// occt: Adaptor2d_HCurve2d
+// occt-ref: Adaptor2d_HCurve2d
 pub struct Adaptor2dHCurve2d {
     pub inner: Adaptor2dCurve2d,
 }

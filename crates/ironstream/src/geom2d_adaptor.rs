@@ -2,7 +2,7 @@
 
 use core::f64::consts::TAU;
 
-// occt: GeomAbs_CurveType (2D subset)
+// occt-ref: GeomAbs_CurveType // (2D subset)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum CurveType2d {
     Line,
@@ -15,7 +15,7 @@ pub enum CurveType2d {
     OtherCurve,
 }
 
-// occt: Geom2dAdaptor_Curve
+// occt-ref: Geom2dAdaptor_Curve
 pub struct Geom2dAdaptorCurve {
     curve_type: CurveType2d,
     first: f64,
@@ -71,7 +71,7 @@ impl Geom2dAdaptorCurve {
     }
 }
 
-// occt: Geom2dAdaptor_HCurve
+// occt-ref: Geom2dAdaptor_HCurve
 pub struct Geom2dAdaptorHCurve {
     inner: Geom2dAdaptorCurve,
 }

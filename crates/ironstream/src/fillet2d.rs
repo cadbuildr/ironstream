@@ -4,7 +4,7 @@
 use std::f64::consts::PI;
 
 /// Error type for 2D fillet/chamfer operations.
-// occt: ChFi2d error codes
+// occt: ChFi2d // error codes
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Fillet2dError {
     BadInput,
@@ -14,7 +14,7 @@ pub enum Fillet2dError {
 }
 
 /// Result of a 2D fillet computation: an arc defined by center, radius, and angle span.
-// occt: ChFi2d_AnaFilletAlgo result
+// occt-ref: ChFi2d_AnaFilletAlgo // result
 #[derive(Clone, Copy, Debug)]
 pub struct Fillet2dArc {
     pub center: [f64; 2],
@@ -32,7 +32,7 @@ impl Fillet2dArc {
 }
 
 /// Input parameters for a 2D fillet: two segments meeting at a corner.
-// occt: ChFi2d_AnaFilletAlgo parameters
+// occt-ref: ChFi2d_AnaFilletAlgo // parameters
 #[derive(Clone, Copy, Debug)]
 pub struct FilletParams2d {
     pub p1: [f64; 2],
@@ -42,7 +42,7 @@ pub struct FilletParams2d {
 }
 
 /// Builder for 2D analytic fillet arcs.
-// occt: ChFi2d_AnaFilletAlgo
+// occt-ref: ChFi2d_AnaFilletAlgo
 pub struct Fillet2dBuilder {
     params: Option<FilletParams2d>,
 }
@@ -80,7 +80,7 @@ impl Default for Fillet2dBuilder {
 }
 
 /// Builder for 2D chamfer segments.
-// occt: ChFi2d_ChamferBuilder
+// occt-ref: ChFi2d_ChamferBuilder
 pub struct Chamfer2dBuilder {
     p1: Option<[f64; 2]>,
     corner: Option<[f64; 2]>,

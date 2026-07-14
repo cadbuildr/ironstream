@@ -9,7 +9,7 @@
 /// Each entry carries a unique numeric `id`, a human-readable `label`, and a
 /// `shape_type` string that mirrors the `TopAbs_ShapeEnum` name (e.g. `"Solid"`,
 /// `"Face"`, `"Edge"`, …).
-// occt: shape reference in compound
+// occt-note: shape reference in compound
 #[derive(Clone, Debug)]
 pub struct TopoShapeRef {
     id: usize,
@@ -19,7 +19,7 @@ pub struct TopoShapeRef {
 
 impl TopoShapeRef {
     /// Create a new shape reference with the given `id`, `label`, and `shape_type`.
-    // occt: TopoDS_Shape constructor
+    // occt-ref: TopoDS_Shape // constructor
     pub fn new(id: usize, label: &str, shape_type: &str) -> Self {
         Self {
             id,
@@ -53,7 +53,7 @@ impl TopoShapeRef {
 /// The builder assigns monotonically increasing ids and provides O(n) look-up,
 /// removal, and filtering by type.  It is the pure-Rust equivalent of the
 /// combination of `BRep_Builder::MakeCompound` and `BRep_Builder::Add/Remove`.
-// occt: BRep_Builder compound builder
+// occt-ref: BRep_Builder // compound builder
 pub struct CompoundBuilder {
     shapes: Vec<TopoShapeRef>,
     next_id: usize,
@@ -71,7 +71,7 @@ impl CompoundBuilder {
     /// Add a shape with the given `label` and `shape_type` to the compound.
     ///
     /// Returns the unique id assigned to the new shape.
-    // occt: BRep_Builder::Add
+    // occt-ref: BRep_Builder // ::Add
     pub fn add_shape(&mut self, label: &str, shape_type: &str) -> usize {
         let id = self.next_id;
         self.next_id += 1;
@@ -82,7 +82,7 @@ impl CompoundBuilder {
     /// Remove the shape with the given `id` from the compound.
     ///
     /// Returns `true` if the shape was found and removed, `false` otherwise.
-    // occt: BRep_Builder::Remove
+    // occt-ref: BRep_Builder // ::Remove
     pub fn remove_shape(&mut self, id: usize) -> bool {
         if let Some(pos) = self.shapes.iter().position(|s| s.id == id) {
             self.shapes.remove(pos);
@@ -95,32 +95,32 @@ impl CompoundBuilder {
     /// Look up the shape with the given `id`.
     ///
     /// Returns `None` if no shape with that id exists in the compound.
-    // occt: TopoDS_Iterator shape lookup
+    // occt-ref: TopoDS_Iterator // shape lookup
     pub fn shape(&self, id: usize) -> Option<&TopoShapeRef> {
         self.shapes.iter().find(|s| s.id == id)
     }
 
     /// Return the total number of shapes currently in the compound.
-    // occt: BRep_Builder shape count
+    // occt-ref: BRep_Builder // shape count
     pub fn nb_shapes(&self) -> usize {
         self.shapes.len()
     }
 
     /// Return `true` when the compound contains no shapes.
-    // occt: TopoDS_Compound IsNull / empty check
+    // occt-ref: TopoDS_Compound // IsNull / empty check
     pub fn is_empty(&self) -> bool {
         self.shapes.is_empty()
     }
 
     /// Remove all shapes from the compound and reset the id counter.
-    // occt: BRep_Builder::MakeCompound (re-initialise)
+    // occt-ref: BRep_Builder // ::MakeCompound (re-initialise)
     pub fn clear(&mut self) {
         self.shapes.clear();
         self.next_id = 0;
     }
 
     /// Return the ids of all shapes whose `shape_type` equals `shape_type`.
-    // occt: TopExp_Explorer filtered by shape type
+    // occt-ref: TopExp_Explorer // filtered by shape type
     pub fn shape_ids_of_type(&self, shape_type: &str) -> Vec<usize> {
         self.shapes
             .iter()
@@ -144,7 +144,7 @@ impl Default for CompoundBuilder {
 ///
 /// Mirrors the `TopoDS_Iterator` / `BRepTools_Iterator` cursor pattern: callers
 /// advance with `next()`, check `more()`, and dereference with `current()`.
-// occt: BRep_Explorer for compounds — iterates child shapes
+// occt-note: BRep_Explorer for compounds — iterates child shapes
 pub struct CompoundExplorer {
     shapes: Vec<TopoShapeRef>,
     current: usize,
@@ -155,13 +155,13 @@ impl CompoundExplorer {
     ///
     /// The explorer takes ownership of the vec so the underlying compound may
     /// be mutated independently after construction.
-    // occt: TopoDS_Iterator constructor
+    // occt-ref: TopoDS_Iterator // constructor
     pub fn new(shapes: Vec<TopoShapeRef>) -> Self {
         Self { shapes, current: 0 }
     }
 
     /// Return `true` while there are more shapes to visit.
-    // occt: TopoDS_Iterator::More
+    // occt-ref: TopoDS_Iterator // ::More
     pub fn more(&self) -> bool {
         self.current < self.shapes.len()
     }
@@ -169,7 +169,7 @@ impl CompoundExplorer {
     /// Advance the cursor by one position.
     ///
     /// Has no effect when `more()` is already `false`.
-    // occt: TopoDS_Iterator::Next
+    // occt-ref: TopoDS_Iterator // ::Next
     pub fn next(&mut self) {
         if self.current < self.shapes.len() {
             self.current += 1;
@@ -181,13 +181,13 @@ impl CompoundExplorer {
     /// # Panics
     ///
     /// Panics if `more()` is `false` (i.e. the cursor is past the end).
-    // occt: TopoDS_Iterator::Value
+    // occt-ref: TopoDS_Iterator // ::Value
     pub fn current(&self) -> &TopoShapeRef {
         &self.shapes[self.current]
     }
 
     /// Reset the cursor back to the first shape.
-    // occt: TopoDS_Iterator::Initialize (re-init same compound)
+    // occt-ref: TopoDS_Iterator // ::Initialize (re-init same compound)
     pub fn reset(&mut self) {
         self.current = 0;
     }

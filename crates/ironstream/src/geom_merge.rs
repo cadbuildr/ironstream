@@ -16,7 +16,7 @@
 /// Assembles a chain of curves into a single composite B-spline curve.
 ///
 /// Mirrors OpenCascade's `GeomConvert_CompCurveToBSplineCurve`.
-// occt: GeomConvert_CompCurveToBSplineCurve
+// occt-ref: GeomConvert_CompCurveToBSplineCurve
 #[derive(Debug, Clone)]
 pub struct CompCurveToBSpline {
     /// Input curve identifiers (names / tags) in assembly order.
@@ -178,7 +178,7 @@ impl CompCurveToBSpline {
 /// Merges a set of topological shapes into a single unified shape.
 ///
 /// Mirrors OpenCascade's `BRepAlgo_Merge`.
-// occt: BRepAlgo_Merge
+// occt-ref: BRepAlgo_Merge
 #[derive(Debug, Clone)]
 pub struct MergeAlgo {
     /// Input shape identifiers (names / tags) to be merged.

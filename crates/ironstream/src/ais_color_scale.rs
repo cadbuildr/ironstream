@@ -1,8 +1,9 @@
 // FILE: ais_color_scale.rs
-// occt: AIS_ColorScale, AIS_ColorRange
+// occt: AIS_ColorScale
+// occt-ref: AIS_ColorRange
 
 /// Color scale label type.
-/// occt: AIS_ColorScale::LabelType
+/// occt: AIS_ColorScale // ::LabelType
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ColorScaleLabelType {
     None,
@@ -17,7 +18,7 @@ impl Default for ColorScaleLabelType {
 }
 
 /// Position of the color scale on screen.
-/// occt: AIS_ColorScale position
+/// occt: AIS_ColorScale // position
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ColorScalePosition {
     Left,

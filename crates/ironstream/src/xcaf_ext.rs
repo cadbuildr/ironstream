@@ -1,5 +1,6 @@
 // FILE: xcaf_ext.rs
-// occt: XCAFDoc_Color, XCAFDoc_Layer, XCAFDoc_Material, XCAFDoc_DocumentTool
+// occt: XCAFDoc_Color, XCAFDoc_Material
+// occt-ref: XCAFDoc_Layer, XCAFDoc_DocumentTool
 
 /// Color in XCAF document.
 /// occt: XCAFDoc_Color
@@ -25,7 +26,7 @@ impl XcafColor {
 }
 
 /// Layer entry in XCAF document.
-/// occt: XCAFDoc_Layer
+// occt-ref: XCAFDoc_Layer
 #[derive(Clone, Debug)]
 pub struct XcafLayer {
     pub layer_id: u32,
@@ -84,7 +85,7 @@ impl XcafDimension {
 }
 
 /// XCAF Document tool: manages color/layer/material tables.
-/// occt: XCAFDoc_DocumentTool
+// occt-ref: XCAFDoc_DocumentTool
 #[derive(Clone, Debug, Default)]
 pub struct XcafDocumentTool {
     pub colors: Vec<XcafColor>,

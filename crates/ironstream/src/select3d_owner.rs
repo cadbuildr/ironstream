@@ -1,19 +1,19 @@
 // FILE: select3d_owner.rs
 
-// occt: SelectBasics_EntityOwner
-// occt: SelectMgr_EntityOwner
+// occt-ref: SelectBasics_EntityOwner
+// occt-ref: SelectMgr_EntityOwner
 /// Represents an owner of a selectable entity, tracking selection state and priority.
 /// Models SelectBasics_EntityOwner / SelectMgr_EntityOwner from OCCT.
 #[derive(Clone, Debug)]
 pub struct EntityOwner {
-    // occt: SelectBasics_EntityOwner
+    // occt-ref: SelectBasics_EntityOwner
     pub id: u32,
     pub priority: i32,
     pub selected: bool,
 }
 
 impl EntityOwner {
-    // occt: SelectBasics_EntityOwner
+    // occt-ref: SelectBasics_EntityOwner
     /// Create a new EntityOwner with the given id, default priority 0, not selected.
     pub fn new(id: u32) -> Self {
         Self {
@@ -23,38 +23,38 @@ impl EntityOwner {
         }
     }
 
-    // occt: SelectMgr_EntityOwner
+    // occt-ref: SelectMgr_EntityOwner
     /// Builder-style method to set priority.
     pub fn with_priority(mut self, p: i32) -> Self {
         self.priority = p;
         self
     }
 
-    // occt: SelectMgr_EntityOwner
+    // occt-ref: SelectMgr_EntityOwner
     /// Set the selected state of this owner.
     pub fn set_selected(&mut self, b: bool) {
         self.selected = b;
     }
 
-    // occt: SelectMgr_EntityOwner
+    // occt-ref: SelectMgr_EntityOwner
     /// Returns true if this owner is currently selected.
     pub fn is_selected(&self) -> bool {
         self.selected
     }
 
-    // occt: SelectBasics_EntityOwner
+    // occt-ref: SelectBasics_EntityOwner
     /// Returns the unique identifier of this owner.
     pub fn id(&self) -> u32 {
         self.id
     }
 
-    // occt: SelectBasics_EntityOwner
+    // occt-ref: SelectBasics_EntityOwner
     /// Returns the selection priority of this owner.
     pub fn priority(&self) -> i32 {
         self.priority
     }
 
-    // occt: SelectMgr_EntityOwner
+    // occt-ref: SelectMgr_EntityOwner
     /// Returns true if this owner has an associated selectable object.
     /// In this stub, always returns false (no selectable attached).
     pub fn has_selectable() -> bool {
@@ -62,18 +62,18 @@ impl EntityOwner {
     }
 }
 
-// occt: SelectMgr_EntityOwner
+// occt-ref: SelectMgr_EntityOwner
 /// Manages a collection of EntityOwner instances, supporting add, lookup,
 /// and querying of selected owners. Models the selection management layer
 /// from SelectMgr_EntityOwner in OCCT.
 #[derive(Debug, Default)]
 pub struct SelectionManager {
-    // occt: SelectMgr_EntityOwner
+    // occt-ref: SelectMgr_EntityOwner
     pub owners: Vec<EntityOwner>,
 }
 
 impl SelectionManager {
-    // occt: SelectMgr_EntityOwner
+    // occt-ref: SelectMgr_EntityOwner
     /// Create a new, empty SelectionManager.
     pub fn new() -> Self {
         Self {
@@ -81,25 +81,25 @@ impl SelectionManager {
         }
     }
 
-    // occt: SelectMgr_EntityOwner
+    // occt-ref: SelectMgr_EntityOwner
     /// Add an EntityOwner to the manager.
     pub fn add(&mut self, owner: EntityOwner) {
         self.owners.push(owner);
     }
 
-    // occt: SelectMgr_EntityOwner
+    // occt-ref: SelectMgr_EntityOwner
     /// Find an EntityOwner by id, returning a reference if found.
     pub fn find(&self, id: u32) -> Option<&EntityOwner> {
         self.owners.iter().find(|o| o.id == id)
     }
 
-    // occt: SelectMgr_EntityOwner
+    // occt-ref: SelectMgr_EntityOwner
     /// Returns the count of currently selected owners.
     pub fn selected_count(&self) -> usize {
         self.owners.iter().filter(|o| o.selected).count()
     }
 
-    // occt: SelectMgr_EntityOwner
+    // occt-ref: SelectMgr_EntityOwner
     /// Remove all owners from the manager.
     pub fn clear(&mut self) {
         self.owners.clear();

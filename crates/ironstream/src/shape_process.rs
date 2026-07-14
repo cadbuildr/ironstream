@@ -1,5 +1,5 @@
 // FILE: shape_process.rs
-// occt: ShapeProcess
+// occt-ref: ShapeProcess
 
 use std::collections::HashMap;
 

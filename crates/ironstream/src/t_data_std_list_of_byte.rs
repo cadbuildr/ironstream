@@ -1,5 +1,6 @@
 // FILE: t_data_std_list_of_byte.rs
-// occt: TDataStd_ListOfByte, TDataStd_ListIteratorOfListOfByte
+// occt: TDataStd_ListOfByte
+// occt-ref: TDataStd_ListIteratorOfListOfByte
 
 //! Deprecated typedef for TDataStd_ListOfByte.
 //!

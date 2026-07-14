@@ -1,5 +1,5 @@
 // FILE: app_def_the_least_squares.rs
-// occt: AppDefTheLeastSquares
+// occt-ref: AppDefTheLeastSquares
 
 //! Approximation and constraint handling class.
 pub struct AppDefTheLeastSquares {

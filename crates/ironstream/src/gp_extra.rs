@@ -1,5 +1,6 @@
 // FILE: gp_extra.rs
-// occt: gp_Quaternion, gp_EulerSequence, gp_XY, gp_Mat2d
+// occt: gp_EulerSequence
+// occt-ref: gp_Quaternion, gp_XY, gp_Mat2d
 
 use std::f64::consts::PI;
 
@@ -23,7 +24,7 @@ impl Default for EulerSequence {
     fn default() -> Self { Self::ZYX }
 }
 
-// occt: gp_XY — 2D coordinate pair
+// occt-ref: gp_XY // — 2D coordinate pair
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct GpXY {
     pub x: f64,
@@ -57,7 +58,7 @@ impl GpXY {
     }
 }
 
-// occt: gp_Mat2d — 2×2 matrix
+// occt-ref: gp_Mat2d // — 2×2 matrix
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GpMat2d {
     pub m: [[f64; 2]; 2],
@@ -133,7 +134,7 @@ impl Default for GpMat2d {
     fn default() -> Self { Self::identity() }
 }
 
-// occt: gp_Quaternion
+// occt-ref: gp_Quaternion
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GpQuaternion {
     pub x: f64,

@@ -1,5 +1,5 @@
 // FILE: rw_step_ext.rs
-// occt: STEPControl_Reader, STEPControl_Writer, RWStepGeom_RWAxis2Placement3d,
+// occt-ref: STEPControl_Reader, STEPControl_Writer, RWStepGeom_RWAxis2Placement3d
 //       STEPConstruct_Styles, STEPEdit_Exploration
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -62,7 +62,7 @@ impl StepEntity {
     pub fn nb_params(&self) -> usize { self.params.len() }
 }
 
-// occt: STEPControl_Reader
+// occt-ref: STEPControl_Reader
 #[derive(Clone, Debug, Default)]
 pub struct StepReader {
     pub entities: Vec<StepEntity>,
@@ -102,7 +102,7 @@ impl StepReader {
     }
 }
 
-// occt: STEPControl_Writer
+// occt-ref: STEPControl_Writer
 #[derive(Clone, Debug, Default)]
 pub struct StepWriter {
     pub content: String,
@@ -140,7 +140,7 @@ impl StepWriter {
     pub fn byte_count(&self) -> usize { self.content.len() }
 }
 
-// occt: STEPEdit_Exploration entity count by type
+// occt-note: STEPEdit_Exploration entity count by type
 pub struct StepExplorer;
 
 impl StepExplorer {

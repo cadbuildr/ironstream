@@ -11,7 +11,7 @@
 //! All implementations are self-contained and contain **no unsafe code**.
 //! Zero external dependencies — only `std` is used.
 
-// occt: BRepOffsetAPI_ThruSections (package boundary)
+// occt: BRepOffsetAPI_ThruSections // (package boundary)
 
 // ---------------------------------------------------------------------------
 // ThruSections
@@ -134,7 +134,7 @@ impl ThruSections {
 /// Between two adjacent poles / profiles bilinear interpolation is used.  This
 /// is equivalent to a degree-1 tensor-product surface (ruled in both directions)
 /// and serves as a pure-Rust zero-dependency stub for the OCCT loft kernel.
-// occt: loft surface
+// occt-note: loft surface
 #[derive(Clone, Debug)]
 pub struct LoftSurface {
     /// Input profiles as added by [`add_profile`](LoftSurface::add_profile).

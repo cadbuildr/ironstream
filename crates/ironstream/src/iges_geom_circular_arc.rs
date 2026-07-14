@@ -1,5 +1,5 @@
 // FILE: iges_geom_circular_arc.rs
-// occt: IGESGeom_Ucirculararc
+// occt-ref: IGESGeom_Ucirculararc
 
 pub struct UcircularUarc {
     entity_type: i32,

@@ -26,7 +26,7 @@ const TOL: f64 = 1.0e-9;
 // ─────────────────────────────────────────────────────────────────────────────
 
 /// Errors returned by GeomAPI algorithms.
-// occt: GeomAPI error codes / Standard_Failure
+// occt: GeomAPI // error codes / Standard_Failure
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum GeomApiError {
     /// Too few points to construct the requested curve.
@@ -285,7 +285,7 @@ fn gauss_solve(mut a: Vec<Vec<f64>>, mut rhs: Vec<Pnt>) -> Option<Vec<Pnt>> {
 // ─────────────────────────────────────────────────────────────────────────────
 
 /// Defines constraints for end tangent vectors in [`GeomApiInterpolate`].
-// occt: GeomAPI_Interpolate (tangent constraint flags)
+// occt: GeomAPI_Interpolate // (tangent constraint flags)
 #[derive(Clone, Debug)]
 pub struct TangentConstraint {
     /// Tangent vector at the first (start) point.
@@ -571,7 +571,7 @@ impl GeomApiInterpolate {
 // ─────────────────────────────────────────────────────────────────────────────
 
 /// Degree-continuation preference for [`GeomApiPointsToBSpline`].
-// occt: GeomAbs_Shape (used as continuity selector)
+// occt-ref: GeomAbs_Shape // (used as continuity selector)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Continuity {
     C0,
@@ -714,7 +714,7 @@ impl GeomApiPointsToBSpline {
 // ─────────────────────────────────────────────────────────────────────────────
 
 /// A single projection result: parameter + foot point + distance.
-// occt: internal result of GeomAPI_ProjectPointOnCurve
+// occt-note: internal result of GeomAPI_ProjectPointOnCurve
 #[derive(Clone, Copy, Debug)]
 pub struct CurveProjection {
     /// The parameter value `u` such that `curve.D0(u)` is the foot point.
@@ -901,7 +901,7 @@ impl GeomApiProjectPointOnCurve {
 
 /// A single projection result on a surface: (u, v) parameters + foot point +
 /// distance.
-// occt: internal result of GeomAPI_ProjectPointOnSurf
+// occt-note: internal result of GeomAPI_ProjectPointOnSurf
 #[derive(Clone, Copy, Debug)]
 pub struct SurfaceProjection {
     /// The U parameter of the foot point.

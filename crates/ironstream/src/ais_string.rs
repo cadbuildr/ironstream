@@ -1,5 +1,5 @@
 // FILE: ais_string.rs
-// occt: AIS_TextLabel (string-specific), AIS_DisplayMode,
+// occt-ref: AIS_TextLabel // (string-specific), AIS_DisplayMode,
 //       AIS_TextRenderMode, Prs3d_Text
 
 /// Text rendering mode.
@@ -32,7 +32,7 @@ impl AisFontSpec {
 }
 
 /// String (text) object in AIS context.
-/// occt: AIS_TextLabel with string value
+// occt-ref: AIS_TextLabel // with string value
 #[derive(Clone, Debug)]
 pub struct AisString {
     pub object_id: u32,
@@ -74,7 +74,7 @@ impl AisString {
 }
 
 /// String formatter: wrapping + escaping.
-/// occt: Text formatter utilities
+/// occt-note: Text formatter utilities
 #[derive(Clone, Debug, Default)]
 pub struct AisStringFormatter;
 

@@ -1,5 +1,6 @@
 // FILE: graphic3d_group.rs
-// occt: Graphic3d_Group, Graphic3d_Structure, Graphic3d_ArrayOfPrimitives,
+// occt: Graphic3d_Group, Graphic3d_ArrayOfPrimitives
+// occt-ref: Graphic3d_Structure
 //       Graphic3d_ArrayOfTriangles, Graphic3d_ArrayOfLines, Graphic3d_ArrayOfPoints
 
 /// Primitive array type.
@@ -125,7 +126,7 @@ impl ArrayOfTriangles {
     pub fn nb_triangles(&self) -> usize { self.0.nb_primitives() }
 }
 
-// occt: Graphic3d_ArrayOfLines
+// occt-ref: Graphic3d_ArrayOfLines
 pub struct ArrayOfLines(pub ArrayOfPrimitives);
 
 impl ArrayOfLines {
@@ -204,7 +205,7 @@ impl Graphic3dGroup {
     pub fn clear(&mut self) { self.arrays.clear(); }
 }
 
-// occt: Graphic3d_Structure
+// occt-ref: Graphic3d_Structure
 #[derive(Clone, Debug, Default)]
 pub struct Graphic3dStructure {
     pub struct_id: u32,

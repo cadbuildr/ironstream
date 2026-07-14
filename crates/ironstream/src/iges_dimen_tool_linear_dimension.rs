@@ -1,5 +1,5 @@
 // FILE: iges_dimen_tool_linear_dimension.rs
-// occt: IGESDimen_dimentoollineardimension
+// occt-ref: IGESDimen_dimentoollineardimension
 
 pub struct IGESDimen_dimentoollineardimension;
 

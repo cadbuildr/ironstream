@@ -1,5 +1,6 @@
 // FILE: prs3d_ext.rs
-// occt: Prs3d_Drawer, Prs3d_BndBox, Prs3d_ShadingAspect, Prs3d_LineAspect
+// occt: Prs3d_BndBox
+// occt-ref: Prs3d_Drawer, Prs3d_ShadingAspect, Prs3d_LineAspect
 
 /// Display mode for Prs3d drawing.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -26,7 +27,7 @@ impl Default for Prs3dTypeOfHLR {
     fn default() -> Self { Self::NotSet }
 }
 
-// occt: Prs3d_LineAspect — line rendering attributes
+// occt-ref: Prs3d_LineAspect // — line rendering attributes
 #[derive(Clone, Debug)]
 pub struct Prs3dLineAspect {
     pub color: [f32; 3],
@@ -51,7 +52,7 @@ impl Prs3dLineAspect {
     pub fn width(&self) -> f32 { self.width }
 }
 
-// occt: Prs3d_ShadingAspect — surface shading rendering attributes
+// occt-ref: Prs3d_ShadingAspect // — surface shading rendering attributes
 #[derive(Clone, Debug)]
 pub struct Prs3dShadingAspect {
     pub color: [f32; 3],
@@ -82,7 +83,7 @@ impl Prs3dShadingAspect {
     pub fn is_transparent(&self) -> bool { self.transparency > 1e-3 }
 }
 
-// occt: Prs3d_BndBox — bounding box presentation attributes
+// occt: Prs3d_BndBox // — bounding box presentation attributes
 #[derive(Clone, Debug)]
 pub struct Prs3dBndBox {
     pub is_oriented: bool,
@@ -108,7 +109,7 @@ impl Prs3dBndBox {
     pub fn set_draw_named_texts(&mut self, v: bool) { self.draw_named_texts = v; }
 }
 
-// occt: Prs3d_Drawer — aggregated presentation attributes
+// occt-ref: Prs3d_Drawer // — aggregated presentation attributes
 #[derive(Clone, Debug)]
 pub struct Prs3dDrawer {
     pub wire_aspect: Prs3dLineAspect,

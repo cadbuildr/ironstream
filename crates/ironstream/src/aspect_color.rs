@@ -1,9 +1,9 @@
 // FILE: aspect_color.rs
-// occt: Aspect_ColorRampColorMap, Aspect_MarkAspect, Aspect_TypeOfColorRampLaw,
+// occt-ref: Aspect_ColorRampColorMap, Aspect_MarkAspect, Aspect_TypeOfColorRampLaw
 //       Aspect_TypeOfMarker
 
 /// Type of color ramp interpolation law.
-/// occt: Aspect_TypeOfColorRampLaw
+// occt-ref: Aspect_TypeOfColorRampLaw
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum AspectColorRampLaw {
     #[default]
@@ -25,7 +25,7 @@ impl AspectColorRampEntry {
 }
 
 /// A color ramp mapping values to colors.
-/// occt: Aspect_ColorRampColorMap
+// occt-ref: Aspect_ColorRampColorMap
 #[derive(Clone, Debug)]
 pub struct AspectColorRampColorMap {
     pub entries: Vec<AspectColorRampEntry>,
@@ -84,7 +84,7 @@ impl AspectColorRampColorMap {
 }
 
 /// Marker shape type.
-/// occt: Aspect_TypeOfMarker
+// occt-ref: Aspect_TypeOfMarker
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum AspectTypeOfMarker {
     #[default]
@@ -107,7 +107,7 @@ pub enum AspectTypeOfMarker {
 }
 
 /// Aspect of a marker (point symbol).
-/// occt: Aspect_MarkAspect (also covers Graphic3d_MarkerImage)
+/// occt-note: Aspect_MarkAspect (also covers Graphic3d_MarkerImage)
 #[derive(Clone, Debug)]
 pub struct AspectMarkAspect {
     pub marker_type: AspectTypeOfMarker,
@@ -132,7 +132,7 @@ impl AspectMarkAspect {
 }
 
 /// Fill method for 2D polygons.
-/// occt: Aspect_FillMethod (used with Aspect_Background)
+/// occt: Aspect_FillMethod // (used with Aspect_Background)
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum AspectFillMethod {
     #[default]

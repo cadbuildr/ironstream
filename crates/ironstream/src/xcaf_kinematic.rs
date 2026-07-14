@@ -1,6 +1,6 @@
 // FILE: xcaf_kinematic.rs
 
-// occt: XCAFKinematics_PairObject
+// occt-ref: XCAFKinematics_PairObject
 /// The kind of kinematic joint between two bodies.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum PairType {
@@ -18,7 +18,7 @@ pub enum PairType {
     Planar,
 }
 
-// occt: XCAFKinematics_PairObject
+// occt-ref: XCAFKinematics_PairObject
 /// A single kinematic pair (joint) connecting two named bodies.
 ///
 /// `base` is the driving body and `follower` is the driven body.
@@ -56,7 +56,7 @@ impl KinematicPair {
     }
 }
 
-// occt: XCAFKinematics_Tool
+// occt-ref: XCAFKinematics_Tool
 /// A container for all kinematic pairs defined in an assembly document.
 ///
 /// Mirrors the role of `XCAFKinematics_Tool` from Open CASCADE Technology:

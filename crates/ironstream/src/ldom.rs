@@ -1,5 +1,5 @@
 // FILE: ldom.rs
-// occt: LDom_Document, LDom_Element, LDom_Attr, LDom_XmlReader,
+// occt-ref: LDom_Document, LDom_Element, LDom_Attr, LDom_XmlReader
 //       LDom_Node, LDom_CharacterData
 
 /// Node type in the LDOM tree.
@@ -18,7 +18,7 @@ impl Default for NodeType {
     fn default() -> Self { Self::Unknown }
 }
 
-// occt: LDom_Attr — a key/value attribute on an element
+// occt-note: LDom_Attr — a key/value attribute on an element
 #[derive(Clone, Debug, Default)]
 pub struct LdomAttr {
     pub name: String,
@@ -35,7 +35,7 @@ impl LdomAttr {
     pub fn value(&self) -> &str { &self.value }
 }
 
-// occt: LDom_Element — an XML element with tag, attributes, and children
+// occt-note: LDom_Element — an XML element with tag, attributes, and children
 #[derive(Clone, Debug)]
 pub struct LdomElement {
     pub tag: String,
@@ -81,7 +81,7 @@ impl Default for LdomElement {
     fn default() -> Self { Self::null() }
 }
 
-// occt: LDom_Document — root of an LDOM tree
+// occt-note: LDom_Document — root of an LDOM tree
 #[derive(Clone, Debug, Default)]
 pub struct LdomDocument {
     pub elements: Vec<LdomElement>,
@@ -134,7 +134,7 @@ impl LdomDocument {
     }
 }
 
-// occt: LDom_XmlReader — parses a minimal XML-like string into an LdomDocument
+// occt-note: LDom_XmlReader — parses a minimal XML-like string into an LdomDocument
 #[derive(Clone, Debug, Default)]
 pub struct XmlReader {
     pub source: String,
@@ -172,7 +172,7 @@ impl XmlReader {
     }
 }
 
-// occt: LDom_CharacterData — text/CDATA node
+// occt-note: LDom_CharacterData — text/CDATA node
 #[derive(Clone, Debug, Default)]
 pub struct CharacterData {
     pub data: String,

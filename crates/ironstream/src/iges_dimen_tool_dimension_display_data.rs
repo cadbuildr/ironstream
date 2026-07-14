@@ -1,5 +1,5 @@
 // FILE: iges_dimen_tool_dimension_display_data.rs
-// occt: IGESDimen_dimentooldimensiondisplaydata
+// occt-ref: IGESDimen_dimentooldimensiondisplaydata
 
 pub struct IGESDimen_dimentooldimensiondisplaydata;
 

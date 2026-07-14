@@ -1,6 +1,6 @@
 // FILE: geomapi_ext.rs
 
-// occt: GeomAPI_ExtremaCurveCurve result point pair
+// occt-ref: GeomAPI_ExtremaCurveCurve // result point pair
 pub struct GeomApiExtremaPair {
     pub param1: f64,
     pub param2: f64,
@@ -9,7 +9,7 @@ pub struct GeomApiExtremaPair {
     pub point2: [f64; 3],
 }
 
-// occt: GeomAPI_ExtremaCurveCurve
+// occt-ref: GeomAPI_ExtremaCurveCurve
 pub struct GeomApiExtremaCurveCurve {
     pairs: Vec<GeomApiExtremaPair>,
     is_done: bool,
@@ -60,7 +60,7 @@ impl Default for GeomApiExtremaCurveCurve {
     }
 }
 
-// occt: GeomAPI_ExtremaCurveSurface result
+// occt-ref: GeomAPI_ExtremaCurveSurface // result
 pub struct GeomApiExtremaCurveSurfResult {
     pub curve_param: f64,
     pub surface_u: f64,
@@ -68,7 +68,7 @@ pub struct GeomApiExtremaCurveSurfResult {
     pub distance: f64,
 }
 
-// occt: GeomAPI_ExtremaCurveSurface
+// occt-ref: GeomAPI_ExtremaCurveSurface
 pub struct GeomApiExtremaCurveSurface {
     results: Vec<GeomApiExtremaCurveSurfResult>,
     is_done: bool,
@@ -118,7 +118,7 @@ impl Default for GeomApiExtremaCurveSurface {
     }
 }
 
-// occt: GeomAPI_PointsToBSpline
+// occt-ref: GeomAPI_PointsToBSpline
 pub struct GeomApiPointsToBSpline {
     points: Vec<[f64; 3]>,
     degree_min: u32,

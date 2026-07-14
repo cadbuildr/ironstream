@@ -1,7 +1,7 @@
 // FILE: geom_torus_tool.rs
-// occt: gp_Torus (extended), BRepPrimAPI_MakeTorus analysis, Geom_ToroidalSurface (extended)
+// occt-ref: gp_Torus // (extended), BRepPrimAPI_MakeTorus analysis, Geom_ToroidalSurface (extended)
 
-// occt: TorusParameters
+// occt-ref: TorusParameters
 #[derive(Clone, Copy, Debug)]
 pub struct TorusParams {
     pub major_radius: f64,
@@ -64,7 +64,7 @@ impl TorusParams {
     }
 }
 
-// occt: BRepPrimAPI_MakeTorus (analysis of torus sections)
+// occt-ref: BRepPrimAPI_MakeTorus // (analysis of torus sections)
 #[derive(Clone, Debug)]
 pub struct TorusSections {
     pub params: TorusParams,

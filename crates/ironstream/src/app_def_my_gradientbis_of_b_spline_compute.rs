@@ -1,5 +1,5 @@
 // FILE: app_def_my_gradientbis_of_b_spline_compute.rs
-// occt: AppDefMyGradient2
+// occt-ref: AppDefMyGradient2
 
 //! Approximation and constraint handling class.
 pub struct AppDefMyGradient2 {

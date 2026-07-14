@@ -1,5 +1,6 @@
 // FILE: law_func.rs
-// occt: Law_BSpFunc, Law_Composite, Law_Interpol, Law_Linear
+// occt: Law_BSpFunc
+// occt-ref: Law_Composite, Law_Interpol, Law_Linear
 
 /// Continuity class for law functions.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -11,7 +12,7 @@ impl Default for LawContinuity {
     fn default() -> Self { Self::C1 }
 }
 
-// occt: Law_Linear — linear function f(t) = a*t + b
+// occt-ref: Law_Linear // — linear function f(t) = a*t + b
 #[derive(Clone, Debug)]
 pub struct LawLinear {
     pub t_first: f64,
@@ -40,7 +41,7 @@ impl LawLinear {
     pub fn is_constant(&self) -> bool { (self.v_last - self.v_first).abs() < 1e-12 }
 }
 
-// occt: Law_Interpol — interpolated law through a set of (param, value) pairs
+// occt-ref: Law_Interpol // — interpolated law through a set of (param, value) pairs
 #[derive(Clone, Debug, Default)]
 pub struct LawInterpol {
     pub params: Vec<f64>,
@@ -117,7 +118,7 @@ impl LawSegment {
     }
 }
 
-// occt: Law_Composite — piecewise law made of sub-laws on contiguous intervals
+// occt-ref: Law_Composite // — piecewise law made of sub-laws on contiguous intervals
 #[derive(Clone, Debug, Default)]
 pub struct LawComposite {
     pub segments: Vec<LawSegment>,
@@ -148,7 +149,7 @@ impl LawComposite {
     pub fn law_at(&self, i: usize) -> Option<&LawSegment> { self.segments.get(i) }
 }
 
-// occt: Law_BSpFunc — B-Spline-based law function
+// occt: Law_BSpFunc // — B-Spline-based law function
 #[derive(Clone, Debug)]
 pub struct LawBSpFunc {
     pub knots: Vec<f64>,

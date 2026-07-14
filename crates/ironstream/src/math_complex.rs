@@ -1,5 +1,5 @@
 // FILE: math_complex.rs
-// occt: math_ComplexNumber, math_Gauss, math_Jacobi, math_Eigenvectors
+// occt-ref: math_ComplexNumber, math_Gauss, math_Jacobi, math_Eigenvectors
 
 /// Complex number with basic arithmetic.
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -57,7 +57,7 @@ impl Default for Complex {
     fn default() -> Self { Self::ZERO }
 }
 
-// occt: math_Gauss — simple Gaussian elimination
+// occt-ref: math_Gauss // — simple Gaussian elimination
 pub struct GaussElim {
     pub n: usize,
 }
@@ -89,7 +89,7 @@ impl GaussElim {
     }
 }
 
-// occt: math_Jacobi — power iteration for dominant eigenvalue
+// occt-ref: math_Jacobi // — power iteration for dominant eigenvalue
 pub struct PowerIteration;
 
 impl PowerIteration {

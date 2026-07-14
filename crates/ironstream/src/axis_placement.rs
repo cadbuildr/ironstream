@@ -1,8 +1,8 @@
 // FILE: axis_placement.rs
-// occt: gp_Ax1, gp_Ax2, gp_Ax3, gp_Ax2d
+// occt-ref: gp_Ax1, gp_Ax2, gp_Ax3, gp_Ax2d
 
 /// 1D axis: origin + direction.
-/// occt: gp_Ax1
+// occt-ref: gp_Ax1
 #[derive(Clone, Debug)]
 pub struct GpAx1 {
     pub origin: [f64; 3],
@@ -28,7 +28,7 @@ impl Default for GpAx1 {
 }
 
 /// 2D axis: origin + direction.
-/// occt: gp_Ax2d
+// occt-ref: gp_Ax2d
 #[derive(Clone, Debug)]
 pub struct GpAx2d {
     pub origin: [f64; 2],
@@ -54,7 +54,7 @@ impl Default for GpAx2d {
 }
 
 /// 3D orthonormal coordinate system.
-/// occt: gp_Ax2
+// occt-ref: gp_Ax2
 #[derive(Clone, Debug)]
 pub struct GpAx2 {
     pub origin: [f64; 3],
@@ -101,7 +101,7 @@ impl Default for GpAx2 {
 }
 
 /// 3D axis with secondary direction (right-hand rule for Z).
-/// occt: gp_Ax3
+// occt-ref: gp_Ax3
 #[derive(Clone, Debug)]
 pub struct GpAx3 {
     pub origin: [f64; 3],

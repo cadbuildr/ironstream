@@ -21,7 +21,7 @@ use crate::precision::INFINITE;
 /// Global continuity class of a curve, mirroring OCCT's `GeomAbs_Shape`.
 /// A line is `CN` (infinitely continuously differentiable).
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-// occt: GeomAbs_Shape
+// occt-ref: GeomAbs_Shape
 pub enum GeomAbsShape {
     C0,
     G1,
@@ -35,7 +35,7 @@ pub enum GeomAbsShape {
 /// `Geom_Line` — an infinite line described by a positioning axis `pos`
 /// (`gp_Ax1`): its `location` is the origin, its (unit) `direction` the line
 /// direction. Parameterized `P(U) = O + U * Dir`.
-// occt: Geom_Line
+// occt-ref: Geom_Line
 #[derive(Clone, Copy, Debug)]
 pub struct GeomLine {
     /// The positioning axis: origin (`Location`) plus unit direction.
@@ -246,7 +246,7 @@ impl GeomLine {
 ///
 /// All coordinates are stored as plain `[f64; 3]` arrays; no external crates
 /// are required.
-// occt: Geom_Line
+// occt-ref: Geom_Line
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GeomLine3d {
     /// The origin (a point on the line).

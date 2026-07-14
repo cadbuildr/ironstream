@@ -5,7 +5,7 @@
 //! Provides ready-to-use functor classes that work with the template-based
 //! math API without virtual dispatch overhead.
 
-// occt: MathUtils_ScalarLambda
+// occt-ref: MathUtils_ScalarLambda
 /// Lambda wrapper for scalar functions with value only.
 /// Wraps a lambda/callable into a functor with Value() method.
 pub struct ScalarLambda<F>
@@ -31,7 +31,7 @@ where
     }
 }
 
-// occt: MathUtils_ScalarLambdaWithDerivative
+// occt-ref: MathUtils_ScalarLambdaWithDerivative
 /// Lambda wrapper for scalar functions with value and derivative.
 /// Wraps a lambda/callable into a functor with Values() method.
 pub struct ScalarLambdaWithDerivative<F>
@@ -62,7 +62,7 @@ where
     }
 }
 
-// occt: MathUtils_Polynomial
+// occt-ref: MathUtils_Polynomial
 /// Polynomial functor: f(x) = sum(a[i] * x^i).
 /// Coefficients are stored in order: a[0] + a[1]*x + a[2]*x^2 + ...
 #[derive(Clone)]
@@ -133,7 +133,7 @@ impl Polynomial {
     }
 }
 
-// occt: MathUtils_Rational
+// occt-ref: MathUtils_Rational
 /// Rational function functor: f(x) = P(x) / Q(x).
 /// Both numerator P and denominator Q are polynomials.
 #[derive(Clone)]
@@ -165,7 +165,7 @@ impl Rational {
     }
 }
 
-// occt: MathUtils_Composite
+// occt-ref: MathUtils_Composite
 /// Composite functor: f(g(x)).
 /// Evaluates the outer function at the result of the inner function.
 pub struct Composite<Outer, Inner> {
@@ -190,7 +190,7 @@ where
     }
 }
 
-// occt: MathUtils_Sum
+// occt-ref: MathUtils_Sum
 /// Sum of functions functor: f(x) + g(x).
 pub struct Sum<F, G> {
     f: F,
@@ -215,7 +215,7 @@ where
     }
 }
 
-// occt: MathUtils_Difference
+// occt-ref: MathUtils_Difference
 /// Difference of functions functor: f(x) - g(x).
 pub struct Difference<F, G> {
     f: F,
@@ -240,7 +240,7 @@ where
     }
 }
 
-// occt: MathUtils_Product
+// occt-ref: MathUtils_Product
 /// Product of functions functor: f(x) * g(x).
 pub struct Product<F, G> {
     f: F,
@@ -265,7 +265,7 @@ where
     }
 }
 
-// occt: MathUtils_Quotient
+// occt-ref: MathUtils_Quotient
 /// Quotient of functions functor: f(x) / g(x).
 pub struct Quotient<F, G> {
     f: F,
@@ -296,7 +296,7 @@ where
     }
 }
 
-// occt: MathUtils_Scaled
+// occt-ref: MathUtils_Scaled
 /// Scaled function functor: c * f(x).
 pub struct Scaled<F> {
     f: F,
@@ -318,7 +318,7 @@ where
     }
 }
 
-// occt: MathUtils_Shifted
+// occt-ref: MathUtils_Shifted
 /// Shifted function functor: f(x) + c.
 pub struct Shifted<F> {
     f: F,
@@ -340,7 +340,7 @@ where
     }
 }
 
-// occt: MathUtils_Negated
+// occt-ref: MathUtils_Negated
 /// Negated function functor: -f(x).
 pub struct Negated<F> {
     f: F,
@@ -361,7 +361,7 @@ where
     }
 }
 
-// occt: MathUtils_Constant
+// occt-ref: MathUtils_Constant
 /// Constant function functor: f(x) = c.
 #[derive(Clone, Copy)]
 pub struct Constant {
@@ -385,7 +385,7 @@ impl Constant {
     }
 }
 
-// occt: MathUtils_Linear
+// occt-ref: MathUtils_Linear
 /// Linear function functor: f(x) = a*x + b.
 #[derive(Clone, Copy)]
 pub struct Linear {
@@ -410,7 +410,7 @@ impl Linear {
     }
 }
 
-// occt: MathUtils_Sine
+// occt-ref: MathUtils_Sine
 /// Sine function functor: f(x) = a * sin(b*x + c) + d.
 #[derive(Clone, Copy)]
 pub struct Sine {
@@ -460,7 +460,7 @@ impl Sine {
     }
 }
 
-// occt: MathUtils_Cosine
+// occt-ref: MathUtils_Cosine
 /// Cosine function functor: f(x) = a * cos(b*x + c) + d.
 #[derive(Clone, Copy)]
 pub struct Cosine {
@@ -510,7 +510,7 @@ impl Cosine {
     }
 }
 
-// occt: MathUtils_Exponential
+// occt-ref: MathUtils_Exponential
 /// Exponential function functor: f(x) = a * exp(b*x) + c.
 #[derive(Clone, Copy)]
 pub struct Exponential {
@@ -552,7 +552,7 @@ impl Exponential {
     }
 }
 
-// occt: MathUtils_Power
+// occt-ref: MathUtils_Power
 /// Power function functor: f(x) = a * x^n + b.
 #[derive(Clone, Copy)]
 pub struct Power {
@@ -604,7 +604,7 @@ impl Power {
     }
 }
 
-// occt: MathUtils_Gaussian
+// occt-ref: MathUtils_Gaussian
 /// Gaussian function functor: f(x) = a * exp(-((x-mu)^2)/(2*sigma^2)).
 #[derive(Clone, Copy)]
 pub struct Gaussian {

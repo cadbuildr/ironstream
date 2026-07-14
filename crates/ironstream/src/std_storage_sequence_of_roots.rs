@@ -1,5 +1,6 @@
 // FILE: std_storage_sequence_of_roots.rs
-// occt: StdStorage_SequenceOfRoots, StdStorage_SequenceIteratorOfSequenceOfRoots
+// occt: StdStorage_SequenceOfRoots
+// occt-ref: StdStorage_SequenceIteratorOfSequenceOfRoots
 
 /// Deprecated typedef for backward compatibility.
 /// A sequence of storage roots using 1-based indexing (OCCT semantics).

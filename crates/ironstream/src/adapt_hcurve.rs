@@ -1,5 +1,5 @@
 // FILE: adapt_hcurve.rs
-// occt: Adaptor3d_HCurve, Adaptor3d_HSurface,
+// occt-ref: Adaptor3d_HCurve, Adaptor3d_HSurface
 //       Adaptor3d_CurveOnSurface, Adaptor2d_HCurve2d
 
 /// Curve type identifier (mirrors GeomAbs_CurveType).
@@ -40,7 +40,7 @@ impl Default for SurfaceType {
     fn default() -> Self { Self::BSplineSurface }
 }
 
-// occt: Adaptor3d_Curve — abstract adaptor wrapping a 3D curve
+// occt-ref: Adaptor3d_Curve // — abstract adaptor wrapping a 3D curve
 #[derive(Clone, Debug)]
 pub struct Adaptor3dCurve {
     pub curve_id: u32,
@@ -74,7 +74,7 @@ impl Adaptor3dCurve {
     pub fn nb_intervals(&self, _continuity: u8) -> usize { 1 }
 }
 
-// occt: Adaptor3d_HCurve — handle wrapper around Adaptor3d_Curve
+// occt-note: Adaptor3d_HCurve — handle wrapper around Adaptor3d_Curve
 #[derive(Clone, Debug)]
 pub struct HCurve {
     pub curve: Adaptor3dCurve,
@@ -87,7 +87,7 @@ impl HCurve {
     pub fn is_null(&self) -> bool { false }
 }
 
-// occt: Adaptor3d_Surface — abstract adaptor wrapping a 3D surface
+// occt-ref: Adaptor3d_Surface // — abstract adaptor wrapping a 3D surface
 #[derive(Clone, Debug)]
 pub struct Adaptor3dSurface {
     pub surface_id: u32,
@@ -134,7 +134,7 @@ impl Adaptor3dSurface {
     pub fn nb_v_intervals(&self, _continuity: u8) -> usize { 1 }
 }
 
-// occt: Adaptor3d_HSurface — handle wrapper around Adaptor3d_Surface
+// occt-note: Adaptor3d_HSurface — handle wrapper around Adaptor3d_Surface
 #[derive(Clone, Debug)]
 pub struct HSurface {
     pub surface: Adaptor3dSurface,
@@ -147,7 +147,7 @@ impl HSurface {
     pub fn is_null(&self) -> bool { false }
 }
 
-// occt: Adaptor3d_CurveOnSurface — 3D curve induced by a 2D pcurve on a surface
+// occt-ref: Adaptor3d_CurveOnSurface // — 3D curve induced by a 2D pcurve on a surface
 #[derive(Clone, Debug)]
 pub struct CurveOnSurface {
     pub pcurve_id: u32,     // 2D curve (pcurve) reference
@@ -175,7 +175,7 @@ impl CurveOnSurface {
     pub fn get_type(&self) -> CurveType { CurveType::BSplineCurve }
 }
 
-// occt: Adaptor2d_HCurve2d — 2D adaptor curve handle
+// occt-note: Adaptor2d_HCurve2d — 2D adaptor curve handle
 #[derive(Clone, Debug)]
 pub struct HCurve2d {
     pub curve_id: u32,

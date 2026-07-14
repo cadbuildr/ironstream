@@ -1,9 +1,9 @@
 // FILE: extrema_points.rs
-// occt: Extrema_POnSurf, Extrema_POnCurv,
+// occt-ref: Extrema_POnSurf, Extrema_POnCurv
 //       Extrema_ExtPC, Extrema_ExtSS, Extrema_ExtCS
 
 /// A point on a parametric surface with its (u, v) parameters.
-// occt: Extrema_POnSurf
+// occt-ref: Extrema_POnSurf
 #[derive(Clone, Debug, Default)]
 pub struct POnSurf {
     pub point: [f64; 3],
@@ -17,7 +17,7 @@ impl POnSurf {
 }
 
 /// A point on a parametric curve with its parameter t.
-// occt: Extrema_POnCurv
+// occt-ref: Extrema_POnCurv
 #[derive(Clone, Debug, Default)]
 pub struct POnCurv {
     pub point: [f64; 3],
@@ -49,7 +49,7 @@ impl ExtremumSolution {
     }
 }
 
-// occt: Extrema_ExtPC — extrema between a 3D point and a parametric curve
+// occt-ref: Extrema_ExtPC // — extrema between a 3D point and a parametric curve
 #[derive(Clone, Debug)]
 pub struct ExtPC {
     pub point: [f64; 3],
@@ -99,7 +99,7 @@ impl ExtPC {
     }
 }
 
-// occt: Extrema_ExtSS — extrema between two parametric surfaces
+// occt-ref: Extrema_ExtSS // — extrema between two parametric surfaces
 #[derive(Clone, Debug)]
 pub struct ExtSS {
     pub surface1_id: u32,
@@ -164,7 +164,7 @@ impl ExtSS {
     }
 }
 
-// occt: Extrema_ExtCS — extrema between a curve and a surface
+// occt-ref: Extrema_ExtCS // — extrema between a curve and a surface
 #[derive(Clone, Debug)]
 pub struct ExtCS {
     pub curve_id: u32,

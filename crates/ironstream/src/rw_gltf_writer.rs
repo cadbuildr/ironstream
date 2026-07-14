@@ -12,7 +12,7 @@ use std::fs;
 // ---------------------------------------------------------------------------
 
 /// Output format selector.
-// occt: RWGltf_WriterTrsfFormat (GLB vs. glTF split)
+// occt: RWGltf_WriterTrsfFormat // (GLB vs. glTF split)
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum GltfFormat {
     /// Binary GLB container — everything in one file.
@@ -22,7 +22,7 @@ pub enum GltfFormat {
 }
 
 /// Tuning knobs forwarded to the writer.
-// occt: RWGltf_CafWriterTrsfFormat / per-writer flags
+// occt-note: RWGltf_CafWriterTrsfFormat / per-writer flags
 #[derive(Debug, Clone)]
 pub struct GltfWriteParams {
     /// Apply the OCCT-to-glTF coordinate-system transform (Y-up, metre scale).
@@ -51,7 +51,7 @@ impl Default for GltfWriteParams {
 }
 
 /// glTF writer — stub modelled on `RWGltf_CafWriter`.
-// occt: RWGltf_CafWriter
+// occt-ref: RWGltf_CafWriter
 #[derive(Debug, Clone)]
 pub struct GltfWriter {
     /// Destination file path (`.gltf` or `.glb`).

@@ -1,9 +1,10 @@
 // FILE: sweep_builder.rs
-// occt: BRepSweep_Builder, BRepSweep_Sector, BRepFill_Sweep,
+// occt: BRepSweep_Builder
+// occt-ref: BRepSweep_Sector, BRepFill_Sweep
 //       BRepBuilderAPI_Sweep
 
 /// Sweep mode: how to translate/rotate the profile.
-/// occt: BRepSweep_NumShapesMode
+// occt-ref: BRepSweep_NumShapesMode
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Default)]
 pub enum SweepMode {
     #[default]
@@ -19,7 +20,7 @@ impl SweepMode {
 }
 
 /// Sweep sector: profile + spine segment.
-/// occt: BRepSweep_Sector
+// occt-ref: BRepSweep_Sector
 #[derive(Clone, Debug)]
 pub struct SweepSector {
     pub sector_id: u32,
@@ -50,7 +51,7 @@ impl SweepSector {
 }
 
 /// Sweep builder: sweeps a profile along a spine.
-/// occt: BRepSweep_Builder / BRepFill_Sweep
+/// occt: BRepSweep_Builder // / BRepFill_Sweep
 #[derive(Clone, Debug)]
 pub struct SweepBuilder {
     pub profile_id: u32,
@@ -94,7 +95,7 @@ impl SweepBuilder {
 }
 
 /// Sweep with scaling: profile scales as it sweeps.
-/// occt: BRepBuilderAPI_Sweep with scale function
+/// occt-note: BRepBuilderAPI_Sweep with scale function
 #[derive(Clone, Debug)]
 pub struct SweepWithScale {
     pub base_sweep: SweepBuilder,
@@ -117,7 +118,7 @@ impl SweepWithScale {
         if self.scale_function.is_empty() {
             return false;
         }
-        // occt: BRepFill_Sweep::Build generates the intermediate sections
+        // occt-ref: BRepFill_Sweep // ::Build generates the intermediate sections
         // internally from the section (scale) law — the caller never supplies
         // them. Mirror that: when no sectors were added explicitly, derive one
         // sector per scale-function interval along the spine.

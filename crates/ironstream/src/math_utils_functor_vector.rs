@@ -147,7 +147,7 @@ impl std::ops::IndexMut<(usize, usize)> for Matrix {
     }
 }
 
-// occt: MathUtils_VectorLambda
+// occt-ref: MathUtils_VectorLambda
 /// Lambda wrapper for N-D objective functions (value only).
 pub struct VectorLambda<F>
 where
@@ -171,7 +171,7 @@ where
     }
 }
 
-// occt: MathUtils_VectorLambdaWithGradient
+// occt-ref: MathUtils_VectorLambdaWithGradient
 /// Lambda wrapper for N-D objective functions with gradient.
 pub struct VectorLambdaWithGradient<FValue, FGrad>
 where
@@ -216,7 +216,7 @@ where
     }
 }
 
-// occt: MathUtils_QuadraticForm
+// occt-ref: MathUtils_QuadraticForm
 /// Quadratic form functor: f(x) = x^T A x + b^T x + c.
 #[derive(Clone)]
 pub struct QuadraticForm {
@@ -273,7 +273,7 @@ impl QuadraticForm {
     }
 }
 
-// occt: MathUtils_Rosenbrock
+// occt-ref: MathUtils_Rosenbrock
 /// Rosenbrock function functor (for testing optimization).
 /// f(x,y) = (a - x)^2 + b*(y - x^2)^2
 /// Global minimum at (a, a^2) with f = 0.
@@ -322,7 +322,7 @@ impl Rosenbrock {
     }
 }
 
-// occt: MathUtils_Sphere
+// occt-ref: MathUtils_Sphere
 /// Sphere function functor (for testing optimization).
 /// f(x) = sum(x[i]^2) for all i.
 /// Global minimum at origin with f = 0.
@@ -354,7 +354,7 @@ impl Sphere {
     }
 }
 
-// occt: MathUtils_Booth
+// occt-ref: MathUtils_Booth
 /// Booth function functor (for testing optimization).
 /// f(x,y) = (x + 2y - 7)^2 + (2x + y - 5)^2
 /// Global minimum at (1, 3) with f = 0.
@@ -390,7 +390,7 @@ impl Booth {
     }
 }
 
-// occt: MathUtils_Beale
+// occt-ref: MathUtils_Beale
 /// Beale function functor (for testing optimization).
 /// f(x,y) = (1.5 - x + xy)^2 + (2.25 - x + xy^2)^2 + (2.625 - x + xy^3)^2
 /// Global minimum at (3, 0.5) with f = 0.
@@ -431,7 +431,7 @@ impl Beale {
     }
 }
 
-// occt: MathUtils_Himmelblau
+// occt-ref: MathUtils_Himmelblau
 /// Himmelblau function functor (for testing optimization).
 /// f(x,y) = (x^2 + y - 11)^2 + (x + y^2 - 7)^2
 /// Has four local minima, all with f = 0.
@@ -467,7 +467,7 @@ impl Himmelblau {
     }
 }
 
-// occt: MathUtils_Rastrigin
+// occt-ref: MathUtils_Rastrigin
 /// Rastrigin function functor (for testing global optimization).
 /// f(x) = A*n + sum(x[i]^2 - A*cos(2*pi*x[i])) for all i
 /// Default: A = 10
@@ -520,7 +520,7 @@ impl Rastrigin {
     }
 }
 
-// occt: MathUtils_Ackley
+// occt-ref: MathUtils_Ackley
 /// Ackley function functor (for testing global optimization).
 /// f(x) = -a*exp(-b*sqrt(sum(x[i]^2)/n)) - exp(sum(cos(c*x[i]))/n) + a + e
 /// Default: a = 20, b = 0.2, c = 2*pi
@@ -564,7 +564,7 @@ impl Ackley {
     }
 }
 
-// occt: MathUtils_LinearResidual
+// occt-ref: MathUtils_LinearResidual
 /// Linear system residual functor: f(x) = ||Ax - b||^2.
 #[derive(Clone)]
 pub struct LinearResidual {
@@ -625,7 +625,7 @@ impl LinearResidual {
     }
 }
 
-// occt: MathUtils_SystemLambda
+// occt-ref: MathUtils_SystemLambda
 /// Nonlinear system functor: F(x) = [f1(x), f2(x), ..., fn(x)].
 pub struct SystemLambda<F>
 where

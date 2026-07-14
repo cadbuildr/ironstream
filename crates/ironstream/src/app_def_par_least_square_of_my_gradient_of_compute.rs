@@ -1,5 +1,5 @@
 // FILE: app_def_par_least_square_of_my_gradient_of_compute.rs
-// occt: AppDefParLeastSquare1
+// occt-ref: AppDefParLeastSquare1
 
 //! Approximation and constraint handling class.
 pub struct AppDefParLeastSquare1 {

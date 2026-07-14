@@ -1,7 +1,7 @@
 // FILE: brep_solid_tools.rs
-// occt: BRepBuilderAPI_MakeSolid, ShapeAnalysis_FreeBounds, BRepCheck_Solid
+// occt-ref: BRepBuilderAPI_MakeSolid, ShapeAnalysis_FreeBounds, BRepCheck_Solid
 
-// occt: BRepBuilderAPI_MakeSolid
+// occt-ref: BRepBuilderAPI_MakeSolid
 /// Builds a solid from one or more shells (closed surfaces).
 #[derive(Clone, Debug)]
 pub struct MakeSolid {
@@ -52,7 +52,7 @@ impl Default for MakeSolid {
     fn default() -> Self { Self::new() }
 }
 
-// occt: ShapeAnalysis_FreeBounds
+// occt-ref: ShapeAnalysis_FreeBounds
 /// Finds free (open) boundary wires in a shape.
 #[derive(Clone, Debug, Default)]
 pub struct FreeBoundsAnalysis {
@@ -93,7 +93,7 @@ impl FreeBoundsAnalysis {
     pub fn has_free_bounds(&self) -> bool { !self.open_wires.is_empty() }
 }
 
-// occt: BRepCheck_Solid
+// occt-ref: BRepCheck_Solid
 /// Validates a solid for topological consistency.
 #[derive(Clone, Debug)]
 pub struct CheckSolid {
@@ -124,7 +124,7 @@ impl CheckSolid {
     pub fn errors(&self) -> &[SolidError] { &self.errors }
 }
 
-// occt: BRepOffset_MakeOffset (offset solid)
+// occt-ref: BRepOffset_MakeOffset // (offset solid)
 #[derive(Clone, Debug)]
 pub struct MakeOffset {
     pub nb_faces: usize,

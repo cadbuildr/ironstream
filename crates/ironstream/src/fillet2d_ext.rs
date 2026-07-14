@@ -1,5 +1,5 @@
 // FILE: fillet2d_ext.rs
-// occt: Fillet2d_FilletConstructor, Fillet2d_Fillet,
+// occt-ref: Fillet2d_FilletConstructor, Fillet2d_Fillet
 //       FilletSurf_InternalBuilder, FilletSurf_Builder
 
 /// Status of a fillet construction.
@@ -56,7 +56,7 @@ impl FilletArc2d {
     }
 }
 
-// occt: Fillet2d_Fillet — individual fillet between two 2D edges
+// occt-note: Fillet2d_Fillet — individual fillet between two 2D edges
 #[derive(Clone, Debug)]
 pub struct Fillet2d {
     pub edge1_id: u32,
@@ -102,7 +102,7 @@ impl Fillet2d {
     pub fn curve(&self) -> Option<&FilletArc2d> { self.arc.as_ref() }
 }
 
-// occt: Fillet2d_FilletConstructor — builds multiple fillets at wire vertices
+// occt-note: Fillet2d_FilletConstructor — builds multiple fillets at wire vertices
 #[derive(Clone, Debug, Default)]
 pub struct FilletConstructor {
     pub wire_id: u32,
@@ -135,7 +135,7 @@ impl FilletConstructor {
     }
 }
 
-// occt: FilletSurf_Builder — builds fillet surfaces between two faces in 3D
+// occt: FilletSurf_Builder // — builds fillet surfaces between two faces in 3D
 #[derive(Clone, Debug)]
 pub struct FilletSurfBuilder {
     pub face1_id: u32,
@@ -178,7 +178,7 @@ impl FilletSurfBuilder {
     pub fn tolerance(&self) -> f64 { self.tolerance }
 }
 
-// occt: FilletSurf_InternalBuilder — internal stepping/parameter tracking
+// occt: FilletSurf_InternalBuilder // — internal stepping/parameter tracking
 #[derive(Clone, Debug, Default)]
 pub struct FilletSurfInternalBuilder {
     pub radius: f64,

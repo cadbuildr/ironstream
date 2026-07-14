@@ -1,5 +1,5 @@
 // FILE: adapt_curve.rs
-// occt: Adaptor3d_Curve, Adaptor2d_Curve2d, GeomAdaptor_Curve
+// occt-ref: Adaptor3d_Curve, Adaptor2d_Curve2d, GeomAdaptor_Curve
 
 /// Curve type (discriminant for curve geometry).
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -34,7 +34,7 @@ pub struct CurveD2 {
     pub d2: [f64; 3],
 }
 
-// occt: Adaptor3d_Curve — abstract 3D curve adaptor interface stub
+// occt-ref: Adaptor3d_Curve // — abstract 3D curve adaptor interface stub
 #[derive(Clone, Debug)]
 pub struct Adaptor3dCurve {
     pub curve_id: u32,
@@ -98,7 +98,7 @@ impl Adaptor3dCurve {
     }
 }
 
-// occt: GeomAdaptor_Curve — wraps a Geom curve into an Adaptor3d_Curve
+// occt-ref: GeomAdaptor_Curve // — wraps a Geom curve into an Adaptor3d_Curve
 #[derive(Clone, Debug)]
 pub struct GeomAdaptorCurve {
     pub adaptor: Adaptor3dCurve,
@@ -125,7 +125,7 @@ impl GeomAdaptorCurve {
     pub fn last_parameter(&self) -> f64 { self.adaptor.last_parameter() }
 }
 
-// occt: Adaptor2d_Curve2d — 2D curve adaptor (in UV space)
+// occt-ref: Adaptor2d_Curve2d // — 2D curve adaptor (in UV space)
 #[derive(Clone, Debug)]
 pub struct Adaptor2dCurve2d {
     pub curve_id: u32,

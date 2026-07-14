@@ -1,5 +1,5 @@
 // FILE: iges_geom_composite_curve.rs
-// occt: IGESGeom_Ucompositecurve
+// occt-ref: IGESGeom_Ucompositecurve
 
 pub struct UcompositeUcurve {
     entity_type: i32,

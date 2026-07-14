@@ -65,7 +65,7 @@ fn trsf2d_scale_factor(t: &Trsf2d) -> f64 {
 /// Both radii must be non-negative; the major radius may be zero (degenerate)
 /// but the minor radius must be `>= 0`.
 #[derive(Clone, Copy, Debug)]
-// occt: gp_Hypr2d
+// occt-ref: gp_Hypr2d
 pub struct Hypr2d {
     position: Ax22d2,
     major_radius: f64,

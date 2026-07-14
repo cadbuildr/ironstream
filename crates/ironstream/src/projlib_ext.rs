@@ -1,5 +1,6 @@
 // FILE: projlib_ext.rs
-// occt: ProjLib_ProjectedCurve, ProjLib_ComputeApprox, ProjLib_Plane
+// occt: ProjLib_ProjectedCurve, ProjLib_ComputeApprox
+// occt-ref: ProjLib_Plane
 
 /// Status of a ProjLib operation.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -36,7 +37,7 @@ impl Default for ProjSurfaceType {
     fn default() -> Self { Self::Plane }
 }
 
-// occt: ProjLib_ProjectedCurve — projects a 3D curve onto a surface to give a 2D curve
+// occt: ProjLib_ProjectedCurve // — projects a 3D curve onto a surface to give a 2D curve
 #[derive(Clone, Debug)]
 pub struct ProjLibProjectedCurve {
     pub surface_id: u32,
@@ -87,7 +88,7 @@ impl ProjLibProjectedCurve {
     pub fn set_use_same_param(&mut self, v: bool) { self.use_same_param = v; }
 }
 
-// occt: ProjLib_ComputeApprox — approximates the projection as a B-spline 2D curve
+// occt: ProjLib_ComputeApprox // — approximates the projection as a B-spline 2D curve
 #[derive(Clone, Debug)]
 pub struct ProjLibComputeApprox {
     pub curve_id: u32,
@@ -133,7 +134,7 @@ impl ProjLibComputeApprox {
     pub fn nb_poles(&self) -> usize { self.nb_poles }
 }
 
-// occt: ProjLib_Plane — projects curves onto a plane analytically
+// occt-ref: ProjLib_Plane // — projects curves onto a plane analytically
 #[derive(Clone, Debug, Default)]
 pub struct ProjLibPlane {
     pub plane_id: u32,
@@ -157,7 +158,7 @@ impl ProjLibPlane {
     pub fn curve2d(&self) -> u32 { self.result_curve2d_id }
 }
 
-// occt: ProjLib_Cylinder — projects curves onto a cylinder analytically
+// occt: ProjLib_Cylinder // — projects curves onto a cylinder analytically
 #[derive(Clone, Debug, Default)]
 pub struct ProjLibCylinder {
     pub cylinder_id: u32,

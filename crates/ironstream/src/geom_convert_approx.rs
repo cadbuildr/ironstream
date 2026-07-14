@@ -17,7 +17,7 @@
 
 /// Continuity classification for curves and surfaces.
 ///
-// occt: GeomAbs_Shape continuity
+// occt-ref: GeomAbs_Shape // continuity
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum GeomConvertContinuity {
     /// Positional (C0) continuity — curves join but may have a kink.
@@ -66,7 +66,7 @@ impl GeomConvertContinuity {
 /// Finds the knot indices at which a B-spline curve should be split so that
 /// each resulting segment has the requested continuity.
 ///
-// occt: GeomConvert_BSplineCurvKnotSplitting
+// occt-ref: GeomConvert_BSplineCurvKnotSplitting
 #[derive(Debug, Clone)]
 pub struct GeomConvertBSplineCurveKnotSplitting {
     /// Indices (0-based) into the knot vector at which splits are needed.
@@ -176,7 +176,7 @@ impl Default for GeomConvertBSplineCurveKnotSplitting {
 /// Finds knot indices at which a B-spline surface should be split in each
 /// parametric direction so that each resulting patch has at most C0 continuity.
 ///
-// occt: GeomConvert_BSplineSurfKnotSplitting
+// occt-ref: GeomConvert_BSplineSurfKnotSplitting
 #[derive(Debug, Clone)]
 pub struct GeomConvertBSplineSurfaceKnotSplitting {
     /// Knot indices (0-based, U direction) where splits are needed.
@@ -252,7 +252,7 @@ impl Default for GeomConvertBSplineSurfaceKnotSplitting {
 /// parameter values, honouring a geometric tolerance and a requested point
 /// count.
 ///
-// occt: GeomConvert_Units (parameter/unit sampling)
+// occt-ref: GeomConvert_Units // (parameter/unit sampling)
 #[derive(Debug, Clone)]
 pub struct GeomConvertSampling {
     tolerance: f64,

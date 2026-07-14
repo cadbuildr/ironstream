@@ -78,7 +78,7 @@ pub struct BvhProperties;
 
 /// Non-template base class for `BvhObject<T, N>`.
 /// Holds the dirty flag and generic properties.
-// occt: BVH_ObjectTransient
+// occt-ref: BVH_ObjectTransient
 pub struct BvhObjectTransient {
     /// Properties handle (in Rust, simplified as a marker type).
     properties: Option<Rc<BvhProperties>>,

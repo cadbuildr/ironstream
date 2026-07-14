@@ -1,8 +1,8 @@
 // FILE: primitive_shape.rs
-// occt: Primitive_Box, Primitive_Cylinder, Primitive_Cone, Primitive_Sphere, Primitive_Torus
+// occt-ref: Primitive_Box, Primitive_Cylinder, Primitive_Cone, Primitive_Sphere, Primitive_Torus
 
 /// Primitive box shape.
-/// occt: Primitive_Box
+// occt-ref: Primitive_Box
 #[derive(Clone, Debug)]
 pub struct PrimitiveBox {
     pub origin: [f64; 3],
@@ -34,7 +34,7 @@ impl Default for PrimitiveBox {
 }
 
 /// Primitive cylinder.
-/// occt: Primitive_Cylinder
+// occt-ref: Primitive_Cylinder
 #[derive(Clone, Debug)]
 pub struct PrimitiveCylinder {
     pub origin: [f64; 3],
@@ -64,7 +64,7 @@ impl Default for PrimitiveCylinder {
 }
 
 /// Primitive cone.
-/// occt: Primitive_Cone
+// occt-ref: Primitive_Cone
 #[derive(Clone, Debug)]
 pub struct PrimitiveCone {
     pub apex: [f64; 3],
@@ -97,7 +97,7 @@ impl Default for PrimitiveCone {
 }
 
 /// Primitive sphere.
-/// occt: Primitive_Sphere
+// occt-ref: Primitive_Sphere
 #[derive(Clone, Debug)]
 pub struct PrimitiveSphere {
     pub center: [f64; 3],
@@ -125,7 +125,7 @@ impl Default for PrimitiveSphere {
 }
 
 /// Primitive torus.
-/// occt: Primitive_Torus
+// occt-ref: Primitive_Torus
 #[derive(Clone, Debug)]
 pub struct PrimitiveTorus {
     pub center: [f64; 3],

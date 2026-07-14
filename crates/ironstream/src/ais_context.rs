@@ -1,13 +1,13 @@
 // FILE: src/ais_context.rs
 
-// occt: AIS_DisplayMode
+// occt-ref: AIS_DisplayMode
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum AisDisplayMode {
     WireFrame = 0,
     Shaded = 1,
 }
 
-// occt: AIS_SelectionModesConcern
+// occt-ref: AIS_SelectionModesConcern
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum AisSelectionMode {
     All = 0,
@@ -19,7 +19,7 @@ pub enum AisSelectionMode {
     Solid = 6,
 }
 
-// occt: displayed object record
+// occt-note: displayed object record
 #[derive(Clone, Debug)]
 pub struct AisDisplayedObject {
     label: String,
@@ -65,7 +65,7 @@ impl AisDisplayedObject {
     }
 }
 
-// occt: AIS_InteractiveContext stub
+// occt-ref: AIS_InteractiveContext // stub
 pub struct AisInteractiveContext {
     objects: Vec<AisDisplayedObject>,
     selected_labels: Vec<String>,

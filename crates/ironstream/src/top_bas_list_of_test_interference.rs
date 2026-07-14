@@ -1,5 +1,6 @@
 // FILE: top_bas_list_of_test_interference.rs
-// occt: TopBas_ListOfTestInterference, TopBas_TestInterference, TopBas_ListIteratorOfListOfTestInterference
+// occt: TopBas_ListOfTestInterference
+// occt-ref: TopBas_TestInterference, TopBas_ListIteratorOfListOfTestInterference
 
 /// TopBas_TestInterference: Holds interference data for hidden line removal.
 #[derive(Clone, Debug)]

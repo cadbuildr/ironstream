@@ -16,7 +16,7 @@
 ///
 /// Mirrors `TColgp_Array1OfPnt` from OpenCascade's `TColgp` package.
 /// Elements are indexed from `lower` to `upper` inclusive.
-// occt: TColgp_Array1OfPnt
+// occt-ref: TColgp_Array1OfPnt
 #[derive(Clone, Debug)]
 pub struct Array1OfPnt {
     /// The raw storage for the points.
@@ -101,7 +101,7 @@ impl Array1OfPnt {
 ///
 /// Mirrors `TColStd_Array1OfReal` from OpenCascade's `TColStd` package.
 /// Elements are indexed from `lower` to `upper` inclusive.
-// occt: TColStd_Array1OfReal
+// occt-ref: TColStd_Array1OfReal
 #[derive(Clone, Debug)]
 pub struct Array1OfReal {
     /// The raw storage for the real values.
@@ -180,7 +180,7 @@ impl Array1OfReal {
 /// Mirrors `TColgp_Array2OfPnt` from OpenCascade's `TColgp` package.
 /// Elements are indexed by zero-based `(i, j)` where `i < rows` and
 /// `j < cols`.
-// occt: TColgp_Array2OfPnt
+// occt-ref: TColgp_Array2OfPnt
 #[derive(Clone, Debug)]
 pub struct Array2OfPnt {
     /// The raw storage, organised as `data[row][col]`.

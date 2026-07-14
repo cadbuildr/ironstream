@@ -1,5 +1,5 @@
 // FILE: xcaf_doc_o.rs
-// occt: XCAFDoc
+// occt-ref: XCAFDoc
 
 /// XCAFDoc (Extended CAF Document) provides utilities for managing extended CAD document structures.
 /// It includes tools for managing assemblies, colors, dimensions, tolerances, materials, and layers.

@@ -15,7 +15,7 @@
 
 /// Operation status codes for ShapeExtend algorithms.
 ///
-// occt: ShapeExtend_Status
+// occt-ref: ShapeExtend_Status
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum ShapeExtendStatus {
     /// No particular condition; algorithm neither succeeded nor failed.
@@ -56,7 +56,7 @@ pub enum ShapeExtendStatus {
 
 /// Diagnostic message produced by a ShapeExtend algorithm.
 ///
-// occt: shape extension message
+// occt-note: shape extension message
 #[derive(Debug, Clone)]
 pub struct ShapeExtendMsg {
     status: ShapeExtendStatus,
@@ -106,7 +106,7 @@ impl ShapeExtendMsg {
 /// topology dependencies.  In a full kernel each label would reference a
 /// `TopoDS_Edge`.
 ///
-// occt: ShapeExtend_WireData
+// occt-ref: ShapeExtend_WireData
 #[derive(Debug, Clone)]
 pub struct ShapeExtendWireData {
     edges: Vec<String>,
@@ -185,7 +185,7 @@ impl Default for ShapeExtendWireData {
 
 /// Attribute record for a single topological edge.
 ///
-// occt: ShapeExtend_Edge info
+// occt-note: ShapeExtend_Edge info
 #[derive(Debug, Clone)]
 pub struct ShapeExtendEdge {
     edge_label: String,

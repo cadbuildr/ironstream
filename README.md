@@ -69,15 +69,20 @@ cargo test                       # full: also builds the ported OCCT gtest suite
 ```
 
 The crate carries a large corpus of OpenCascade unit tests ported to Rust under
-`crates/ironstream/tests/`. They link the full kernel rlib, so a bounded job
-count is set in `.cargo/config.toml`; the `--lib` loop above skips them for a
-fast iteration cycle.
+`crates/ironstream/tests/occt_suite/` — one submodule per ported OCCT test
+file, consolidated into a single `occt_suite` binary by
+`parity/gen_occt_suite.py` so the kernel rlib links once. A bounded job count
+is set in `.cargo/config.toml`; the `--lib` loop above skips the integration
+binary for a fast iteration cycle. New top-level `tests/*.rs` files are
+auto-discovered by cargo and run as their own targets.
 
 ## OpenCascade parity
 
 IronStream treats OCCT as the reference. `parity/parity.py` compares the full
 OCCT class inventory against the IronStream modules that mirror it — a class
-counts as covered when a Rust line carries a `// occt: <ClassName>` marker — and
+counts as covered when a kernel source line carries a `// occt: <ClassName>`
+marker, under a strict grammar (identifiers only, exactly one claiming file
+per class; enforced by `parity/check_markers.py`, which CI runs) — and
 reports per-package coverage:
 
 ```bash

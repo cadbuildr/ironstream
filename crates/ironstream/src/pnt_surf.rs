@@ -1,5 +1,5 @@
 // FILE: pnt_surf.rs
-// occt: GeomAPI_ProjectPointOnSurf, GeomAPI_ProjectPointOnCurve,
+// occt-ref: GeomAPI_ProjectPointOnSurf, GeomAPI_ProjectPointOnCurve
 //       GeomAPI_ExtremaCurveCurve, GeomAPI_ExtremaSurfaceSurface
 
 /// Status of a projection or extrema query.
@@ -18,7 +18,7 @@ impl ProjectStatus {
     pub fn is_done(&self) -> bool { !matches!(self, Self::NotDone) }
 }
 
-// occt: GeomAPI_ProjectPointOnCurve — projects a 3D point onto a curve
+// occt-ref: GeomAPI_ProjectPointOnCurve // — projects a 3D point onto a curve
 #[derive(Clone, Debug, Default)]
 pub struct ProjectPointOnCurve {
     pub point: [f64; 3],
@@ -57,7 +57,7 @@ impl ProjectPointOnCurve {
     pub fn distance(&self, i: usize) -> Option<f64> { self.solutions.get(i - 1).map(|&(_, d)| d) }
 }
 
-// occt: GeomAPI_ProjectPointOnSurf — projects a 3D point onto a surface
+// occt-ref: GeomAPI_ProjectPointOnSurf // — projects a 3D point onto a surface
 #[derive(Clone, Debug, Default)]
 pub struct ProjectPointOnSurf {
     pub point: [f64; 3],
@@ -124,7 +124,7 @@ pub struct ExtremaPair {
     pub point2: [f64; 3],
 }
 
-// occt: GeomAPI_ExtremaCurveCurve — computes extrema between two curves
+// occt-ref: GeomAPI_ExtremaCurveCurve // — computes extrema between two curves
 #[derive(Clone, Debug, Default)]
 pub struct ExtremaCurveCurve {
     pub curve1_id: u32,
@@ -170,7 +170,7 @@ impl ExtremaCurveCurve {
     pub fn extrema(&self, i: usize) -> Option<&ExtremaPair> { self.pairs.get(i - 1) }
 }
 
-// occt: GeomAPI_ExtremaSurfaceSurface — extrema between two surfaces
+// occt: GeomAPI_ExtremaSurfaceSurface // — extrema between two surfaces
 #[derive(Clone, Debug, Default)]
 pub struct ExtremaSurfaceSurface {
     pub surf1_id: u32,

@@ -32,7 +32,7 @@
 //! * `to_gp_trsf()` — cast to `gp::Trsf` when the vectorial part has the
 //!   structure of an orthogonal map (possibly with uniform scale).
 
-// occt: gp_GTrsf
+// occt-ref: gp_GTrsf
 
 use crate::gp::{Ax1, Ax2, Pnt, Trsf as GpTrsf};
 
@@ -44,7 +44,7 @@ use crate::gp::{Ax1, Ax2, Pnt, Trsf as GpTrsf};
 ///
 /// Mirrors OCCT's `gp_TrsfForm` extended to cover the general case.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-// occt: gp_TrsfForm (general)
+// occt-ref: gp_TrsfForm // (general)
 pub enum GTrsfForm {
     /// Identity.
     Identity,
@@ -269,7 +269,7 @@ fn detect_form(mat: &[[f64; 3]; 3], loc: &[f64; 3]) -> GTrsfForm {
 /// The applied map is: `p' = mat * p + loc`.
 /// `mat` is the 3×3 vectorial part (row-major, 0-based).
 /// `loc` is the translation vector.
-// occt: gp_GTrsf
+// occt-ref: gp_GTrsf
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GTrsf {
     /// Row-major 3×3 linear (vectorial) part.  `mat[row][col]`, 0-based.

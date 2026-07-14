@@ -36,7 +36,7 @@ pub enum ShapeDefect {
     InvalidSolid,
 }
 
-// occt: BRepAlgoAPI_Check — validates shape for Boolean operations
+// occt: BRepAlgoAPI_Check // — validates shape for Boolean operations
 #[derive(Clone, Debug, Default)]
 pub struct BrepAlgoApiCheck {
     pub shape_id: u32,
@@ -64,7 +64,7 @@ impl BrepAlgoApiCheck {
     pub fn has_defect(&self, d: ShapeDefect) -> bool { self.defects.contains(&d) }
 }
 
-// occt: BRepAlgoAPI_Defeaturing — removes small/unwanted features from a solid
+// occt: BRepAlgoAPI_Defeaturing // — removes small/unwanted features from a solid
 #[derive(Clone, Debug)]
 pub struct BrepAlgoApiDefeaturing {
     pub shape_id: u32,

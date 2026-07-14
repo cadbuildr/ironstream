@@ -38,7 +38,7 @@ impl FreeEdge {
     }
 }
 
-// occt: ShapeAnalysis_FreeBounds — finds free (boundary) edges in a shape
+// occt: ShapeAnalysis_FreeBounds // — finds free (boundary) edges in a shape
 #[derive(Clone, Debug, Default)]
 pub struct ShapeAnalysisFreeBouns {
     pub shape_id: u32,
@@ -88,7 +88,7 @@ pub struct ContiguousPair {
     pub distance: f64,
 }
 
-// occt: BRepOffsetAPI_FindContigousEdges — matches free edges between shapes within tolerance
+// occt: BRepOffsetAPI_FindContigousEdges // — matches free edges between shapes within tolerance
 #[derive(Clone, Debug, Default)]
 pub struct FindContigousEdges {
     pub tolerance: f64,

@@ -1,5 +1,5 @@
 // FILE: topo_seq.rs
-// occt: TopTools_ListOfShape, TopTools_SequenceOfShape, TopTools_IndexedMapOfShape,
+// occt-ref: TopTools_ListOfShape, TopTools_SequenceOfShape, TopTools_IndexedMapOfShape
 //       TopTools_DataMapOfShapeShape, TopTools_MapOfShape
 
 use std::collections::HashMap;
@@ -16,7 +16,7 @@ impl ShapeHandle {
     pub fn is_null(&self) -> bool { self.id == 0 }
 }
 
-// occt: TopTools_ListOfShape
+// occt-ref: TopTools_ListOfShape
 #[derive(Clone, Debug, Default)]
 pub struct ListOfShape {
     items: Vec<ShapeHandle>,
@@ -35,7 +35,7 @@ impl ListOfShape {
     pub fn clear(&mut self) { self.items.clear(); }
 }
 
-// occt: TopTools_SequenceOfShape
+// occt-ref: TopTools_SequenceOfShape
 #[derive(Clone, Debug, Default)]
 pub struct SequenceOfShape {
     items: Vec<ShapeHandle>,
@@ -53,7 +53,7 @@ impl SequenceOfShape {
     pub fn iter(&self) -> impl Iterator<Item = &ShapeHandle> { self.items.iter() }
 }
 
-// occt: TopTools_MapOfShape
+// occt-ref: TopTools_MapOfShape
 #[derive(Clone, Debug, Default)]
 pub struct MapOfShape {
     inner: std::collections::HashSet<ShapeHandle>,
@@ -69,7 +69,7 @@ impl MapOfShape {
     pub fn clear(&mut self) { self.inner.clear(); }
 }
 
-// occt: TopTools_DataMapOfShapeShape
+// occt-ref: TopTools_DataMapOfShapeShape
 #[derive(Clone, Debug, Default)]
 pub struct DataMapOfShapeShape {
     inner: HashMap<ShapeHandle, ShapeHandle>,
@@ -85,7 +85,7 @@ impl DataMapOfShapeShape {
     pub fn iter(&self) -> impl Iterator<Item = (&ShapeHandle, &ShapeHandle)> { self.inner.iter() }
 }
 
-// occt: TopTools_IndexedMapOfShape
+// occt-ref: TopTools_IndexedMapOfShape
 #[derive(Clone, Debug, Default)]
 pub struct IndexedMapOfShape {
     items: Vec<ShapeHandle>,

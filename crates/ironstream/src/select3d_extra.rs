@@ -1,6 +1,6 @@
 // FILE: crates/ironstream/src/select3d_extra.rs
 
-// occt: Select3D primitive type
+// occt-note: Select3D primitive type
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Select3dSensitiveType {
     Point,
@@ -13,7 +13,7 @@ pub enum Select3dSensitiveType {
     Polyhedron,
 }
 
-// occt: Select3D_SensitivePoint — selectable 3D point
+// occt-ref: Select3D_SensitivePoint // — selectable 3D point
 pub struct Select3dSensitivePoint {
     pub point: [f64; 3],
     pub sensitivity: f64,
@@ -37,7 +37,7 @@ impl Select3dSensitivePoint {
     }
 }
 
-// occt: Select3D_SensitiveSegment — selectable line segment
+// occt: Select3D_SensitiveSegment // — selectable line segment
 pub struct Select3dSensitiveSegment {
     pub start: [f64; 3],
     pub end: [f64; 3],
@@ -69,7 +69,7 @@ impl Select3dSensitiveSegment {
     }
 }
 
-// occt: Select3D_SensitiveSphere — selectable sphere
+// occt-ref: Select3D_SensitiveSphere // — selectable sphere
 pub struct Select3dSensitiveSphere {
     pub center: [f64; 3],
     pub radius: f64,
@@ -93,7 +93,7 @@ impl Select3dSensitiveSphere {
     }
 }
 
-// occt: SelectMgr_EntityOwner — associates a selection owner with a selectable entity
+// occt-ref: SelectMgr_EntityOwner // — associates a selection owner with a selectable entity
 pub struct Select3dOwner {
     pub label: String,
     pub priority: i32,

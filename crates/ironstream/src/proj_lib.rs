@@ -12,7 +12,7 @@ pub enum ProjLibProjectionStatus {
 }
 
 /// How the projection result was computed.
-// occt: ProjLib_ProjectionType
+// occt-ref: ProjLib_ProjectionType
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ProjLibProjectionType {
     BSpline,
@@ -21,7 +21,7 @@ pub enum ProjLibProjectionType {
 }
 
 /// Projects a 3D curve onto a surface; result is a 2D curve.
-// occt: ProjLib_ProjectedCurve
+// occt-ref: ProjLib_ProjectedCurve
 pub struct ProjLibProjectedCurve {
     status: ProjLibProjectionStatus,
     projection_type: ProjLibProjectionType,
@@ -93,7 +93,7 @@ impl ProjLibHProjectedCurve {
 }
 
 /// Approximate projection of a 3D curve onto a surface by a B-spline 2D curve.
-// occt: ProjLib_ComputeApprox
+// occt-ref: ProjLib_ComputeApprox
 pub struct ProjLibComputeApprox {
     tolerance: f64,
     max_degree: u32,

@@ -45,7 +45,7 @@ impl GpTorus {
     ///
     /// # Panics
     /// Panics if either radius is `<= 0`.
-    // occt: gp_Torus::gp_Torus(const gp_Ax3&, Standard_Real, Standard_Real)
+    // occt: gp_Torus // ::gp_Torus(const gp_Ax3&, Standard_Real, Standard_Real)
     pub fn new(pos: Ax3, major_radius: f64, minor_radius: f64) -> Self {
         assert!(
             major_radius > 0.0,
@@ -65,43 +65,43 @@ impl GpTorus {
     // ───────────────────────────────── accessors ─────────────────────────────
 
     /// The local coordinate system (placement) of the torus.
-    // occt: gp_Torus::Position
+    // occt: gp_Torus // ::Position
     pub fn position(&self) -> &Ax3 {
         &self.pos
     }
 
     /// The center of the torus (origin of the local frame).
-    // occt: gp_Torus::Location
+    // occt: gp_Torus // ::Location
     pub fn location(&self) -> Pnt {
         self.pos.location
     }
 
     /// The main (revolution) axis of the torus as an `Ax1` (Z axis of the frame).
-    // occt: gp_Torus::Axis
+    // occt: gp_Torus // ::Axis
     pub fn axis(&self) -> Ax1 {
         Ax1::new(self.pos.location, self.pos.z_dir)
     }
 
     /// X axis of the local frame as an `Ax1`.
-    // occt: gp_Torus::XAxis
+    // occt: gp_Torus // ::XAxis
     pub fn x_axis(&self) -> Ax1 {
         Ax1::new(self.pos.location, self.pos.x_dir)
     }
 
     /// Y axis of the local frame as an `Ax1`.
-    // occt: gp_Torus::YAxis
+    // occt: gp_Torus // ::YAxis
     pub fn y_axis(&self) -> Ax1 {
         Ax1::new(self.pos.location, self.pos.y_dir)
     }
 
     /// Major radius: distance from torus center to tube center.
-    // occt: gp_Torus::MajorRadius
+    // occt: gp_Torus // ::MajorRadius
     pub fn major_radius(&self) -> f64 {
         self.major_radius
     }
 
     /// Minor radius: radius of the tube.
-    // occt: gp_Torus::MinorRadius
+    // occt: gp_Torus // ::MinorRadius
     pub fn minor_radius(&self) -> f64 {
         self.minor_radius
     }
@@ -109,7 +109,7 @@ impl GpTorus {
     // ──────────────────────────────── setters ────────────────────────────────
 
     /// Set the major radius (must be > 0).
-    // occt: gp_Torus::SetMajorRadius
+    // occt: gp_Torus // ::SetMajorRadius
     pub fn set_major_radius(&mut self, r: f64) {
         assert!(
             r > 0.0,
@@ -119,7 +119,7 @@ impl GpTorus {
     }
 
     /// Set the minor radius (must be > 0).
-    // occt: gp_Torus::SetMinorRadius
+    // occt: gp_Torus // ::SetMinorRadius
     pub fn set_minor_radius(&mut self, r: f64) {
         assert!(
             r > 0.0,
@@ -129,13 +129,13 @@ impl GpTorus {
     }
 
     /// Replace the local coordinate system.
-    // occt: gp_Torus::SetPosition
+    // occt: gp_Torus // ::SetPosition
     pub fn set_position(&mut self, pos: Ax3) {
         self.pos = pos;
     }
 
     /// Move the torus center to `p` (keeps axes and radii unchanged).
-    // occt: gp_Torus::SetLocation
+    // occt: gp_Torus // ::SetLocation
     pub fn set_location(&mut self, p: Pnt) {
         self.pos.location = p;
     }
@@ -143,19 +143,19 @@ impl GpTorus {
     // ─────────────────────────── geometric properties ────────────────────────
 
     /// Surface area of the torus: `4·π²·R·r`.
-    // occt: gp_Torus::Area
+    // occt: gp_Torus // ::Area
     pub fn area(&self) -> f64 {
         4.0 * PI * PI * self.major_radius * self.minor_radius
     }
 
     /// Volume enclosed by the torus: `2·π²·R·r²`.
-    // occt: gp_Torus::Volume
+    // occt: gp_Torus // ::Volume
     pub fn volume(&self) -> f64 {
         2.0 * PI * PI * self.major_radius * self.minor_radius * self.minor_radius
     }
 
     /// Returns `true` when the local frame is direct (right-handed).
-    // occt: gp_Torus::Direct
+    // occt: gp_Torus // ::Direct
     pub fn is_direct(&self) -> bool {
         self.pos.x_dir.cross(self.pos.y_dir).dot(self.pos.z_dir) > 0.0
     }
@@ -166,7 +166,7 @@ impl GpTorus {
     /// plane of the local frame (V = 0, outer edge).
     ///
     /// Radius = `R + r`.
-    // occt: gp_Torus::VIso-related
+    // occt: gp_Torus // ::VIso-related
     pub fn outer_circle(&self) -> Circ {
         Circ::new(self.pos, self.major_radius + self.minor_radius)
     }
@@ -175,7 +175,7 @@ impl GpTorus {
     /// plane of the local frame.
     ///
     /// Radius = `R - r` (may be 0 for a horn torus).
-    // occt: gp_Torus::VIso-related
+    // occt: gp_Torus // ::VIso-related
     pub fn inner_circle(&self) -> Circ {
         let r = (self.major_radius - self.minor_radius).max(0.0);
         Circ::new(self.pos, r)
@@ -188,7 +188,7 @@ impl GpTorus {
     /// direction `cos(u)·XDir + sin(u)·YDir`.
     ///
     /// The circle plane contains ZDir and the radial direction.
-    // occt: gp_Torus::UIso
+    // occt: gp_Torus // ::UIso
     pub fn u_iso(&self, u: f64) -> Circ {
         let (su, cu) = u.sin_cos();
         // Radial direction in the equatorial plane at angle u.
@@ -214,7 +214,7 @@ impl GpTorus {
     /// lies at height `r·sin(v)` along ZDir.
     ///
     /// Radius = `|R + r·cos(v)|`.
-    // occt: gp_Torus::VIso
+    // occt: gp_Torus // ::VIso
     pub fn v_iso(&self, v: f64) -> Circ {
         let (sv, cv) = v.sin_cos();
         let lat_radius = self.major_radius + self.minor_radius * cv;
@@ -236,7 +236,7 @@ impl GpTorus {
     /// ```text
     /// P(U, V) = O + (R + r·cos(V))·(cos(U)·XDir + sin(U)·YDir) + r·sin(V)·ZDir
     /// ```
-    // occt: implicit via Geom_ToroidalSurface::Value
+    // occt-note: implicit via Geom_ToroidalSurface::Value
     pub fn value(&self, u: f64, v: f64) -> Pnt {
         let (su, cu) = u.sin_cos();
         let (sv, cv) = v.sin_cos();
@@ -251,7 +251,7 @@ impl GpTorus {
     ///
     /// A point is on the torus when the distance from `p` to the nearest point
     /// of the tube center circle equals `minor_radius`.
-    // occt: gp_Torus::Contains (implicit)
+    // occt: gp_Torus // ::Contains (implicit)
     pub fn contains(&self, p: Pnt, tol: f64) -> bool {
         // Project p onto the equatorial plane by stripping the Z component.
         let rel = p - self.pos.location;
@@ -266,7 +266,7 @@ impl GpTorus {
     // ───────────────────────────── transforms ────────────────────────────────
 
     /// Mirror the torus through a point `pt`.
-    // occt: gp_Torus::Mirrored (gp_Pnt overload)
+    // occt: gp_Torus // ::Mirrored (gp_Pnt overload)
     pub fn mirrored_through_point(&self, pt: &Pnt) -> Self {
         let loc = self.pos.location;
         let new_loc = Pnt::new(
@@ -287,13 +287,13 @@ impl GpTorus {
     }
 
     /// Mirror the torus in place through point `pt`.
-    // occt: gp_Torus::Mirror (gp_Pnt overload)
+    // occt: gp_Torus // ::Mirror (gp_Pnt overload)
     pub fn mirror_through_point(&mut self, pt: &Pnt) {
         *self = self.mirrored_through_point(pt);
     }
 
     /// Mirror the torus through a line (`Ax1`).
-    // occt: gp_Torus::Mirrored (gp_Ax1 overload)
+    // occt: gp_Torus // ::Mirrored (gp_Ax1 overload)
     pub fn mirrored_through_ax1(&self, ax: &Ax1) -> Self {
         let u = ax.direction.normalized();
         let reflect_vec = |d: Pnt| {
@@ -313,13 +313,13 @@ impl GpTorus {
     }
 
     /// Mirror the torus in place through a line (`Ax1`).
-    // occt: gp_Torus::Mirror (gp_Ax1 overload)
+    // occt: gp_Torus // ::Mirror (gp_Ax1 overload)
     pub fn mirror_through_ax1(&mut self, ax: &Ax1) {
         *self = self.mirrored_through_ax1(ax);
     }
 
     /// Mirror the torus through a plane (`Ax2` — its XY plane is the mirror plane).
-    // occt: gp_Torus::Mirrored (gp_Ax2 overload)
+    // occt: gp_Torus // ::Mirrored (gp_Ax2 overload)
     pub fn mirrored_through_ax2(&self, ax: &Ax2) -> Self {
         let n = ax.z_dir.normalized();
         let reflect_vec = |d: Pnt| {
@@ -339,13 +339,13 @@ impl GpTorus {
     }
 
     /// Mirror the torus in place through a plane (`Ax2`).
-    // occt: gp_Torus::Mirror (gp_Ax2 overload)
+    // occt: gp_Torus // ::Mirror (gp_Ax2 overload)
     pub fn mirror_through_ax2(&mut self, ax: &Ax2) {
         *self = self.mirrored_through_ax2(ax);
     }
 
     /// Return a new torus rotated about `ax` by `angle` radians.
-    // occt: gp_Torus::Rotated
+    // occt: gp_Torus // ::Rotated
     pub fn rotated(&self, ax: &Ax1, angle: f64) -> Self {
         let t = Trsf::rotation(*ax, angle);
         Self {
@@ -356,7 +356,7 @@ impl GpTorus {
     }
 
     /// Rotate the torus in place.
-    // occt: gp_Torus::Rotate
+    // occt: gp_Torus // ::Rotate
     pub fn rotate(&mut self, ax: &Ax1, angle: f64) {
         *self = self.rotated(ax, angle);
     }
@@ -364,7 +364,7 @@ impl GpTorus {
     /// Return a new torus scaled about point `pt` by factor `s`.
     ///
     /// Both radii scale by `|s|`. If `s < 0` the frame directions are negated.
-    // occt: gp_Torus::Scaled
+    // occt: gp_Torus // ::Scaled
     pub fn scaled(&self, pt: &Pnt, s: f64) -> Self {
         let loc = self.pos.location;
         let new_loc = Pnt::new(
@@ -399,13 +399,13 @@ impl GpTorus {
     }
 
     /// Scale the torus in place.
-    // occt: gp_Torus::Scale
+    // occt: gp_Torus // ::Scale
     pub fn scale(&mut self, pt: &Pnt, s: f64) {
         *self = self.scaled(pt, s);
     }
 
     /// Return a new torus translated by vector `v`.
-    // occt: gp_Torus::Translated (gp_Vec overload)
+    // occt: gp_Torus // ::Translated (gp_Vec overload)
     pub fn translated(&self, v: &Vec3) -> Self {
         Self {
             pos: Ax3 {
@@ -424,7 +424,7 @@ impl GpTorus {
     }
 
     /// Translate the torus in place by vector `v`.
-    // occt: gp_Torus::Translate (gp_Vec overload)
+    // occt: gp_Torus // ::Translate (gp_Vec overload)
     pub fn translate(&mut self, v: &Vec3) {
         self.pos.location = Pnt::new(
             self.pos.location.x + v.x,
@@ -434,21 +434,21 @@ impl GpTorus {
     }
 
     /// Return a new torus translated from point `p1` to point `p2`.
-    // occt: gp_Torus::Translated (gp_Pnt, gp_Pnt overload)
+    // occt: gp_Torus // ::Translated (gp_Pnt, gp_Pnt overload)
     pub fn translated_from_to(&self, p1: &Pnt, p2: &Pnt) -> Self {
         let v = Vec3::new(p2.x - p1.x, p2.y - p1.y, p2.z - p1.z);
         self.translated(&v)
     }
 
     /// Translate the torus in place from point `p1` to point `p2`.
-    // occt: gp_Torus::Translate (gp_Pnt, gp_Pnt overload)
+    // occt: gp_Torus // ::Translate (gp_Pnt, gp_Pnt overload)
     pub fn translate_from_to(&mut self, p1: &Pnt, p2: &Pnt) {
         let v = Vec3::new(p2.x - p1.x, p2.y - p1.y, p2.z - p1.z);
         self.translate(&v);
     }
 
     /// Apply an arbitrary transformation.
-    // occt: gp_Torus::Transformed
+    // occt: gp_Torus // ::Transformed
     pub fn transformed(&self, t: &Trsf) -> Self {
         let abs_s = t.scale_factor().abs();
         Self {

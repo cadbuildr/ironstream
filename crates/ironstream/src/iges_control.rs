@@ -1,6 +1,6 @@
 // FILE: iges_control.rs
 
-// occt: IGESControl
+// occt-ref: IGESControl
 
 /// Status returned by [`IgesControlReader::read_file`].
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -11,7 +11,7 @@ pub enum IgesReadStatus {
     Fail,
 }
 
-// occt: IGESControl_WriteMode
+// occt-ref: IGESControl_WriteMode
 /// Write mode controlling how shapes are encoded in the output IGES file.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum IgesWriteMode {
@@ -20,7 +20,7 @@ pub enum IgesWriteMode {
     NoBrep,
 }
 
-// occt: IGESControl_Reader
+// occt-ref: IGESControl_Reader
 /// Stub IGES file reader.
 pub struct IgesControlReader {
     nb_roots: u32,
@@ -82,7 +82,7 @@ impl Default for IgesControlReader {
     }
 }
 
-// occt: IGESControl_Writer
+// occt-ref: IGESControl_Writer
 /// Stub IGES file writer.
 pub struct IgesControlWriter {
     write_mode: IgesWriteMode,

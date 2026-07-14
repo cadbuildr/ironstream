@@ -40,7 +40,7 @@ impl ShapeModification {
     /// let m = ShapeModification::identity();
     /// assert_eq!(m.apply_to_point([1.0, 2.0, 3.0]), [1.0, 2.0, 3.0]);
     /// ```
-    // occt: BRepTools_TrsfModification — identity trsf
+    // occt: BRepTools_TrsfModification // — identity trsf
     pub fn identity() -> Self {
         Self {
             matrix: [
@@ -60,7 +60,7 @@ impl ShapeModification {
     /// let m = ShapeModification::from_translation([1.0, 2.0, 3.0]);
     /// assert_eq!(m.apply_to_point([0.0, 0.0, 0.0]), [1.0, 2.0, 3.0]);
     /// ```
-    // occt: BRepTools_TrsfModification — SetTranslation
+    // occt: BRepTools_TrsfModification // — SetTranslation
     pub fn from_translation(v: [f64; 3]) -> Self {
         Self {
             matrix: [
@@ -80,7 +80,7 @@ impl ShapeModification {
     /// let m = ShapeModification::from_scale(2.0);
     /// assert_eq!(m.apply_to_point([1.0, 1.0, 1.0]), [2.0, 2.0, 2.0]);
     /// ```
-    // occt: BRepTools_TrsfModification — SetScale
+    // occt: BRepTools_TrsfModification // — SetScale
     pub fn from_scale(s: f64) -> Self {
         Self {
             matrix: [
@@ -104,7 +104,7 @@ impl ShapeModification {
     /// let m = ShapeModification::from_translation([5.0, 0.0, 0.0]);
     /// assert_eq!(m.apply_to_point([1.0, 2.0, 3.0]), [6.0, 2.0, 3.0]);
     /// ```
-    // occt: BRepTools_TrsfModification — transforms a gp_Pnt
+    // occt: BRepTools_TrsfModification // — transforms a gp_Pnt
     pub fn apply_to_point(&self, p: [f64; 3]) -> [f64; 3] {
         let m = &self.matrix;
         let x = p[0];
@@ -138,7 +138,7 @@ impl ShapeModification {
 /// 2. Optionally supply a modification via [`TopoModifier::with_modification`].
 /// 3. Call [`TopoModifier::perform`] to produce the output shape token.
 /// 4. Check [`TopoModifier::is_done`] to confirm success.
-// occt: BRepTools_Modifier
+// occt-ref: BRepTools_Modifier
 #[derive(Debug, Clone)]
 pub struct TopoModifier {
     /// The input shape token (opaque string representation of a TopoDS_Shape).
@@ -162,7 +162,7 @@ impl TopoModifier {
     /// let modifier = TopoModifier::new("solid:box");
     /// assert!(!modifier.is_done());
     /// ```
-    // occt: BRepTools_Modifier::BRepTools_Modifier(const TopoDS_Shape&)
+    // occt-ref: BRepTools_Modifier // ::BRepTools_Modifier(const TopoDS_Shape&)
     pub fn new(shape: &str) -> Self {
         Self {
             shape: shape.to_string(),
@@ -184,7 +184,7 @@ impl TopoModifier {
     ///     .with_modification(ShapeModification::from_scale(2.0));
     /// assert!(!modifier.is_done());
     /// ```
-    // occt: BRepTools_Modifier::Init — sets a new BRepTools_Modification
+    // occt-ref: BRepTools_Modifier // ::Init — sets a new BRepTools_Modification
     pub fn with_modification(mut self, m: ShapeModification) -> Self {
         self.modification = m;
         self.done = false;
@@ -206,7 +206,7 @@ impl TopoModifier {
     ///     .perform();
     /// assert!(result.starts_with("modified:"));
     /// ```
-    // occt: BRepTools_Modifier::Perform
+    // occt-ref: BRepTools_Modifier // ::Perform
     pub fn perform(&mut self) -> String {
         let token = format_modified_token(&self.shape, &self.modification);
         self.result = Some(token.clone());
@@ -224,7 +224,7 @@ impl TopoModifier {
     /// modifier.perform();
     /// assert!(modifier.is_done());
     /// ```
-    // occt: BRepTools_Modifier::IsDone
+    // occt-ref: BRepTools_Modifier // ::IsDone
     pub fn is_done(&self) -> bool {
         self.done
     }
@@ -245,7 +245,7 @@ impl TopoModifier {
 /// let out = transform_shape("solid:box", &m);
 /// assert!(out.starts_with("modified:"));
 /// ```
-// occt: BRepTools_Modifier::Perform (convenience form)
+// occt-ref: BRepTools_Modifier // ::Perform (convenience form)
 pub fn transform_shape(shape: &str, m: &ShapeModification) -> String {
     format_modified_token(shape, m)
 }
@@ -263,7 +263,7 @@ pub fn transform_shape(shape: &str, m: &ShapeModification) -> String {
 /// let copy = copy_shape(original);
 /// assert_eq!(copy, "copy:solid:box");
 /// ```
-// occt: BRepTools_Modifier — shape copy via BRepTools_TrsfModification identity
+// occt-ref: BRepTools_Modifier // — shape copy via BRepTools_TrsfModification identity
 pub fn copy_shape(shape: &str) -> String {
     format!("copy:{}", shape)
 }

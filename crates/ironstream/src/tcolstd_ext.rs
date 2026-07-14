@@ -1,10 +1,10 @@
 // FILE: tcolstd_ext.rs
-// occt: TColStd_Array1OfReal, TColStd_Array2OfReal,
+// occt-ref: TColStd_Array1OfReal, TColStd_Array2OfReal
 //       TColStd_DataMapOfStringInteger, TColStd_ListOfInteger
 
 use std::collections::HashMap;
 
-// occt: TColStd_Array1OfReal — 1D array of f64 with arbitrary bounds
+// occt-ref: TColStd_Array1OfReal // — 1D array of f64 with arbitrary bounds
 #[derive(Clone, Debug)]
 pub struct Array1OfReal {
     pub lower: usize,
@@ -66,7 +66,7 @@ impl Array1OfReal {
     }
 }
 
-// occt: TColStd_Array2OfReal — 2D array of f64
+// occt-ref: TColStd_Array2OfReal // — 2D array of f64
 #[derive(Clone, Debug)]
 pub struct Array2OfReal {
     pub r_lower: usize,
@@ -101,7 +101,7 @@ impl Array2OfReal {
     pub fn init(&mut self, v: f64) { for row in &mut self.data { for x in row { *x = v; } } }
 }
 
-// occt: TColStd_DataMapOfStringInteger — hash map String → i32
+// occt: TColStd_DataMapOfStringInteger // — hash map String → i32
 #[derive(Clone, Debug, Default)]
 pub struct DataMapOfStringInteger {
     pub map: HashMap<String, i32>,
@@ -124,7 +124,7 @@ impl DataMapOfStringInteger {
     pub fn values(&self) -> Vec<i32> { self.map.values().copied().collect() }
 }
 
-// occt: TColStd_ListOfInteger — singly-linked list of integers (stub: Vec-backed)
+// occt: TColStd_ListOfInteger // — singly-linked list of integers (stub: Vec-backed)
 #[derive(Clone, Debug, Default)]
 pub struct ListOfInteger {
     data: Vec<i32>,
@@ -154,7 +154,7 @@ impl ListOfInteger {
     pub fn as_slice(&self) -> &[i32] { &self.data }
 }
 
-// occt: TColStd_SequenceOfReal — sequence (ordered resizeable list) of f64
+// occt-ref: TColStd_SequenceOfReal // — sequence (ordered resizeable list) of f64
 #[derive(Clone, Debug, Default)]
 pub struct SequenceOfReal {
     data: Vec<f64>,

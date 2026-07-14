@@ -1,5 +1,5 @@
 // FILE: geom_array.rs
-// occt: TColgp_Array1OfPnt, TColgp_Array2OfPnt,
+// occt-ref: TColgp_Array1OfPnt, TColgp_Array2OfPnt
 //       TColgp_Array1OfPnt2d, TColgp_SequenceOfPnt,
 //       TColgp_HArray1OfPnt
 

@@ -12,7 +12,7 @@
 /// A single triangle defined by three **0-based** node indices.
 ///
 /// Mirrors `Poly_Triangle` from OpenCascade's `Poly` package.
-// occt: Poly_Triangulation
+// occt-ref: Poly_Triangulation
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Triangle {
     pub a: u32,
@@ -40,7 +40,7 @@ impl Triangle {
 /// optional per-node normals and optional per-node UV coordinates.
 ///
 /// Mirrors `Poly_Triangulation` from OpenCascade's `Poly` package.
-// occt: Poly_Triangulation
+// occt-ref: Poly_Triangulation
 #[derive(Clone, Debug, Default)]
 pub struct TriangulationMesh {
     /// 3-D node positions.

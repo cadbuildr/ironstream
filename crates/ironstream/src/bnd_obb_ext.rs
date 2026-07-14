@@ -1,9 +1,9 @@
 // FILE: bnd_obb_ext.rs
-// occt: Bnd_OBB (extended builder), Bnd_Sphere (extended),
+// occt-ref: Bnd_OBB // (extended builder), Bnd_Sphere (extended),
 //       Bnd_Range
 
 /// An Oriented Bounding Box (OBB) defined by center, axes, and half-extents.
-/// occt: Bnd_OBB
+// occt-ref: Bnd_OBB
 #[derive(Clone, Debug)]
 pub struct BndObbExt {
     pub center: [f64; 3],
@@ -81,7 +81,7 @@ impl BndObbExt {
 }
 
 /// A bounding sphere.
-/// occt: Bnd_Sphere
+// occt-ref: Bnd_Sphere
 #[derive(Clone, Debug)]
 pub struct BndSphereExt {
     pub center: [f64; 3],
@@ -125,7 +125,7 @@ impl BndSphereExt {
 }
 
 /// A 1D range [first, last].
-/// occt: Bnd_Range
+// occt-ref: Bnd_Range
 #[derive(Clone, Copy, Debug)]
 pub struct BndRange {
     pub first: f64,

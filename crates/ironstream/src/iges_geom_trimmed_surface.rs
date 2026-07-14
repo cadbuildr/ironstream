@@ -1,5 +1,5 @@
 // FILE: iges_geom_trimmed_surface.rs
-// occt: IGESGeom_Utrimmedsurface
+// occt-ref: IGESGeom_Utrimmedsurface
 
 pub struct UtrimmedUsurface {
     entity_type: i32,

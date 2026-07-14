@@ -1,11 +1,11 @@
 // FILE: toptools_map.rs
-// occt: TopTools_MapOfShape, TopTools_DataMapOfShapeShape,
+// occt-ref: TopTools_MapOfShape, TopTools_DataMapOfShapeShape
 //       TopTools_IndexedMapOfShape, TopTools_ListOfShape
 
 use std::collections::HashMap;
 
 /// Set of shape IDs (no duplicates).
-/// occt: TopTools_MapOfShape
+// occt-ref: TopTools_MapOfShape
 #[derive(Clone, Debug, Default)]
 pub struct TopToolsMapOfShape {
     ids: std::collections::HashSet<u32>,
@@ -33,7 +33,7 @@ impl TopToolsMapOfShape {
 }
 
 /// Map from shape ID to another shape ID.
-/// occt: TopTools_DataMapOfShapeShape
+// occt-ref: TopTools_DataMapOfShapeShape
 #[derive(Clone, Debug, Default)]
 pub struct TopToolsDataMapOfShapeShape {
     map: HashMap<u32, u32>,
@@ -51,7 +51,7 @@ impl TopToolsDataMapOfShapeShape {
 }
 
 /// Indexed map of shape IDs — each shape gets a stable 1-based index.
-/// occt: TopTools_IndexedMapOfShape
+// occt-ref: TopTools_IndexedMapOfShape
 #[derive(Clone, Debug, Default)]
 pub struct TopToolsIndexedMapOfShape {
     items: Vec<u32>,
@@ -94,7 +94,7 @@ impl TopToolsIndexedMapOfShape {
 }
 
 /// Ordered list of shape IDs (allows duplicates).
-/// occt: TopTools_ListOfShape
+// occt-ref: TopTools_ListOfShape
 #[derive(Clone, Debug, Default)]
 pub struct TopToolsListOfShape {
     list: Vec<u32>,
@@ -150,7 +150,7 @@ mod tests {
         a.unite(&b);
         assert_eq!(a.extent(), 4);
         a.intersect(&b);
-        // occt: NCollection_Map::Intersect keeps exactly the common elements;
+        // occt-ref: NCollection_Map // ::Intersect keeps exactly the common elements;
         // after unite, a = {1,2,3,4} and a ∩ {2,4} = {2,4}.
         assert_eq!(a.extent(), 2);
         assert!(a.contains(2));

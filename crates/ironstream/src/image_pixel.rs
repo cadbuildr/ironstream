@@ -1,5 +1,5 @@
 // FILE: image_pixel.rs
-// occt: Image_PixMap, Image_Diff, Image_AlienPixMap
+// occt-ref: Image_PixMap, Image_Diff, Image_AlienPixMap
 
 /// Pixel format enumeration.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -46,7 +46,7 @@ impl PixelFormat {
     }
 }
 
-// occt: Image_PixMap — pixel map container
+// occt-ref: Image_PixMap // — pixel map container
 #[derive(Clone, Debug)]
 pub struct ImagePixMap {
     pub width: usize,
@@ -144,7 +144,7 @@ impl DiffResult {
     pub fn is_equal(&self) -> bool { self.nb_different_pixels == 0 }
 }
 
-// occt: Image_Diff — pixel-by-pixel image comparison
+// occt-ref: Image_Diff // — pixel-by-pixel image comparison
 #[derive(Clone, Debug)]
 pub struct ImageDiff {
     pub tolerance: u8,
@@ -178,7 +178,7 @@ impl ImageDiff {
     }
 }
 
-// occt: Image_AlienPixMap — pixel map that can load from file (stub)
+// occt-ref: Image_AlienPixMap // — pixel map that can load from file (stub)
 #[derive(Clone, Debug, Default)]
 pub struct ImageAlienPixMap {
     pub pixmap: Option<ImagePixMap>,

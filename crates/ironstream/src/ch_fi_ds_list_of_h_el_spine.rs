@@ -1,5 +1,6 @@
 // FILE: ch_fi_ds_list_of_h_el_spine.rs
-// occt: ChFiDS_ListOfHElSpine, ChFiDS_ListIteratorOfListOfHElSpine
+// occt: ChFiDS_ListOfHElSpine
+// occt-ref: ChFiDS_ListIteratorOfListOfHElSpine
 
 //! Deprecated type aliases for backward compatibility.
 //! Use VecDeque<Arc<ChFiDsElSpine>> directly instead.

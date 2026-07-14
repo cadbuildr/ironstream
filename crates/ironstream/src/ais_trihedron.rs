@@ -1,5 +1,6 @@
 // FILE: ais_trihedron.rs
-// occt: AIS_Trihedron, AIS_Axis, AIS_Symbol, AIS_PlaneTrihedron
+// occt: AIS_Trihedron
+// occt-ref: AIS_Axis, AIS_Symbol, AIS_PlaneTrihedron
 
 /// Display mode for an AIS trihedron (XYZ axes display).
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -79,7 +80,7 @@ impl Trihedron {
     }
 }
 
-// occt: AIS_Axis — single axis interactive object
+// occt-ref: AIS_Axis // — single axis interactive object
 #[derive(Clone, Debug)]
 pub struct AisAxis {
     pub origin: [f64; 3],
@@ -102,7 +103,7 @@ impl AisAxis {
     }
 }
 
-// occt: AIS_PlaneTrihedron — trihedron lying in a plane (2D)
+// occt-ref: AIS_PlaneTrihedron // — trihedron lying in a plane (2D)
 #[derive(Clone, Debug)]
 pub struct PlaneTrihedron {
     pub origin: [f64; 3],

@@ -1,5 +1,6 @@
 // FILE: draft_angle.rs
-// occt: BRepOffsetAPI_DraftAngle, Draft_Modification, Draft_EdgeInfo
+// occt: BRepOffsetAPI_DraftAngle, Draft_EdgeInfo
+// occt-ref: Draft_Modification
 
 /// Status of a draft-angle operation.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -47,7 +48,7 @@ pub struct DraftFaceEntry {
     pub result_face_id: u32,
 }
 
-// occt: Draft_Modification — internal modification data for a draft operation
+// occt-ref: Draft_Modification // — internal modification data for a draft operation
 #[derive(Clone, Debug, Default)]
 pub struct DraftModification {
     pub faces: Vec<DraftFaceEntry>,
@@ -74,7 +75,7 @@ impl DraftModification {
     pub fn clear(&mut self) { self.faces.clear(); self.edge_infos.clear(); }
 }
 
-// occt: BRepOffsetAPI_DraftAngle — adds draft angles to faces of a solid
+// occt: BRepOffsetAPI_DraftAngle // — adds draft angles to faces of a solid
 #[derive(Clone, Debug)]
 pub struct BrepOffsetApiDraftAngle {
     pub solid_id: u32,

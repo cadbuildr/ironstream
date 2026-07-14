@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/xcaf_properties.rs
 
-// occt: XCAFPrs_Style — presentation style applied to an XDE shape (color + transparency)
+// occt-ref: XCAFPrs_Style // — presentation style applied to an XDE shape (color + transparency)
 #[derive(Clone, Debug, PartialEq)]
 pub struct PrsStyle {
     pub color: [f64; 3],
@@ -41,7 +41,7 @@ impl Default for PrsStyle {
     }
 }
 
-// occt: XCAFDoc_DocumentTool — generic key/value property attached to an XDE label
+// occt-ref: XCAFDoc_DocumentTool // — generic key/value property attached to an XDE label
 #[derive(Clone, Debug, PartialEq)]
 pub struct XcafProperty {
     pub name: String,
@@ -58,7 +58,7 @@ impl XcafProperty {
     }
 }
 
-// occt: XCAFDoc_DocumentTool — tool that manages a collection of XcafProperty entries
+// occt-ref: XCAFDoc_DocumentTool // — tool that manages a collection of XcafProperty entries
 pub struct PropertyTool {
     pub properties: Vec<XcafProperty>,
 }
@@ -94,7 +94,7 @@ impl Default for PropertyTool {
 }
 
 /// Return a PrsStyle representing the OCCT default presentation: white, fully opaque.
-// occt: XCAFPrs_Style
+// occt-ref: XCAFPrs_Style
 pub fn default_style() -> PrsStyle {
     let mut s = PrsStyle::new();
     s.set_color(1.0, 1.0, 1.0);

@@ -1,5 +1,5 @@
 // FILE: tnaming.rs
-// occt: TNaming_Builder, TNaming_NamedShape, TNaming_Evolution,
+// occt: TNaming_Builder, TNaming_NamedShape, TNaming_Evolution
 //       TNaming_Iterator, TNaming_Selector
 
 /// Evolution status of a named shape.

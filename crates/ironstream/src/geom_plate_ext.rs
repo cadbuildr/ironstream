@@ -1,5 +1,5 @@
 // FILE: geom_plate_ext.rs
-// occt: GeomPlate_Surface extended, GeomPlate_BuildAveragePlane
+// occt-ref: GeomPlate_Surface // extended, GeomPlate_BuildAveragePlane
 
 /// Status of a plate-surface construction.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -57,7 +57,7 @@ impl PlateCurveConstraint {
     pub fn curve_id(&self) -> u32 { self.curve_id }
 }
 
-// occt: GeomPlate_Surface extended — thin-plate spline surface
+// occt-ref: GeomPlate_Surface // extended — thin-plate spline surface
 #[derive(Clone, Debug)]
 pub struct GeomPlateSurfaceExt {
     pub surface_id: u32,
@@ -119,7 +119,7 @@ impl Default for GeomPlateSurfaceExt {
     fn default() -> Self { Self::new() }
 }
 
-// occt: GeomPlate_BuildAveragePlane — best-fit plane through a point cloud
+// occt: GeomPlate_BuildAveragePlane // — best-fit plane through a point cloud
 #[derive(Clone, Debug)]
 pub struct GeomPlateBuildAveragePlane {
     pub points: Vec<[f64; 3]>,

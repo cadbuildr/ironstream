@@ -7,7 +7,7 @@
 //!
 //! All methods are fully implemented — no stubs, no `unimplemented!()`.
 
-// occt: gp_Quaternion
+// occt-ref: gp_Quaternion
 
 use crate::gp_mat::Mat;
 
@@ -41,7 +41,7 @@ pub enum EulerSeq {
 }
 
 /// A unit quaternion representing a 3D rotation.
-// occt: gp_Quaternion
+// occt-ref: gp_Quaternion
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Quaternion {
     /// Vector (imaginary) part — x component.

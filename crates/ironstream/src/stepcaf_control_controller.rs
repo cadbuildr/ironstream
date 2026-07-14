@@ -1,5 +1,5 @@
 // FILE: file.rs
-// occt: Class
+// occt-ref: Class
 #[derive(Clone, Debug)]
 pub struct MyStruct;
 impl MyStruct {

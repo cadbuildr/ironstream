@@ -1,5 +1,5 @@
 // FILE: geom_tools_o.rs
-// occt: GeomTools
+// occt-ref: GeomTools
 
 /// Geometric tools utilities.
 pub struct GeomTools;

@@ -1,5 +1,6 @@
 // FILE: font_brep.rs
-// occt: Font_BRepFont, Font_BRepTextBuilder, Font_FontMgr, Font_SystemFont
+// occt: Font_BRepFont, Font_BRepTextBuilder
+// occt-ref: Font_FontMgr, Font_SystemFont
 
 /// Font rendering mode for BRep text.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -30,7 +31,7 @@ impl FontUnit {
     }
 }
 
-// occt: Font_SystemFont
+// occt-ref: Font_SystemFont
 #[derive(Clone, Debug)]
 pub struct SystemFont {
     pub family: String,
@@ -53,7 +54,7 @@ impl SystemFont {
     }
 }
 
-// occt: Font_FontMgr
+// occt-ref: Font_FontMgr
 #[derive(Clone, Debug, Default)]
 pub struct FontManager {
     pub fonts: Vec<SystemFont>,

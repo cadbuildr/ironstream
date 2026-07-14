@@ -1,9 +1,9 @@
 // FILE: rect_2d.rs
-// occt: Bnd_Box2d, Bnd_Rect (simplified), Rect_Rectan (OCC rectangle),
+// occt-note: Bnd_Box2d, Bnd_Rect (simplified), Rect_Rectan (OCC rectangle),
 //       Bnd_Rectangle (axis-aligned rectangle in 2D)
 
 /// 2D axis-aligned bounding rectangle.
-/// occt: Bnd_Box2d / Bnd_Rectangle
+// occt-ref: Bnd_Box2d // / Bnd_Rectangle
 #[derive(Clone, Debug)]
 pub struct Rect2d {
     pub x_min: f64,
@@ -95,7 +95,7 @@ impl Rect2d {
 }
 
 /// Oriented rectangle in 2D (with rotation).
-/// occt: Rect_OriRectangle (simplified stub)
+/// occt-note: Rect_OriRectangle (simplified stub)
 #[derive(Clone, Debug)]
 pub struct Rect2dOriented {
     pub center: [f64; 2],

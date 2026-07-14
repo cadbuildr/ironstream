@@ -6,7 +6,7 @@
 //! not in pure linear maps.  The API mirrors OCCT's `gp_Pnt` exactly
 //! (snake_case for Rust idiom).
 
-// occt: gp_Pnt
+// occt-ref: gp_Pnt
 
 /// A point in 3-D space.
 ///
@@ -17,7 +17,7 @@
 /// [`distance_3pts`]).
 ///
 /// Only `std` is used (`f64::sqrt`); no external crates are required.
-// occt: gp_Pnt
+// occt-ref: gp_Pnt
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Pnt {
     pub x: f64,

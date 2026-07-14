@@ -313,7 +313,7 @@ fn vec_normalize3(v: [f64; 3]) -> [f64; 3] {
     if n == 0.0 { v } else { vec_scale3(v, 1.0 / n) }
 }
 
-// occt: gp_Hypr
+// occt-ref: gp_Hypr
 /// An analytic 3-D hyperbola, mirroring `gp_Hypr`.
 ///
 /// Uses raw `[f64; 3]` arrays for its centre and axis.

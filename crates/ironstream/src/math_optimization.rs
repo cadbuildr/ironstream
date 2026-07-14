@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/math_optimization.rs
 
-// occt: math_GlobOptMin result — fields: minimum Vec<f64>, value f64, nb_iter u32, is_done bool
+// occt-ref: math_GlobOptMin // result — fields: minimum Vec<f64>, value f64, nb_iter u32, is_done bool
 pub struct MathGSSectionResult {
     minimum: Vec<f64>,
     value: f64,
@@ -35,7 +35,7 @@ impl MathGSSectionResult {
     }
 }
 
-// occt: math_GoldenSection — 1D minimization on [a, b] using golden-section search
+// occt-note: math_GoldenSection — 1D minimization on [a, b] using golden-section search
 pub struct MathGoldenSection {
     result: f64,
     value: f64,
@@ -120,7 +120,7 @@ impl MathGoldenSection {
     }
 }
 
-// occt: math_Powell — multidimensional minimization (coordinate-descent stub)
+// occt-ref: math_Powell // — multidimensional minimization (coordinate-descent stub)
 pub struct MathPowell {
     n: usize,
     result: Vec<f64>,

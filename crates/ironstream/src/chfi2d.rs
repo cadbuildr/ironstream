@@ -1,5 +1,5 @@
 // FILE: chfi2d.rs
-// occt: ChFi2d_AnaFilletAlgo, ChFi2d_FilletAlgo, ChFi2d_ChamferAPI,
+// occt: ChFi2d_AnaFilletAlgo, ChFi2d_FilletAlgo, ChFi2d_ChamferAPI
 //       ChFi2d_ConstructionError
 
 /// Error type for 2D fillet/chamfer construction.
@@ -139,7 +139,7 @@ impl FilletAlgo2d {
     pub fn result(&self, idx: usize) -> Option<&FilletResult2d> { self.results.get(idx) }
 }
 
-// occt: ChFi2d_AnaFilletAlgo — analytical (exact) variant
+// occt: ChFi2d_AnaFilletAlgo // — analytical (exact) variant
 #[derive(Clone, Debug, Default)]
 pub struct AnaFilletAlgo2d {
     pub edge1: Option<Edge2d>,

@@ -1,5 +1,6 @@
 // FILE: message_exec.rs
-// occt: Message_ExecStatus, Message_ProgressScope, Message_ProgressRange
+// occt: Message_ExecStatus, Message_ProgressScope
+// occt-ref: Message_ProgressRange
 
 /// Bit-field execution status — mirrors OCCT's Message_ExecStatus.
 /// occt: Message_ExecStatus
@@ -33,7 +34,7 @@ impl MessageExecStatus {
 }
 
 /// Progress range for a single scope within the progress indicator.
-/// occt: Message_ProgressRange
+// occt-ref: Message_ProgressRange
 #[derive(Clone, Copy, Debug)]
 pub struct MessageProgressRange {
     pub min: f64,
@@ -104,7 +105,7 @@ impl MessageProgressScope {
 }
 
 /// Composite progress indicator aggregating multiple scopes.
-/// occt: Message_ProgressIndicator (simplified)
+/// occt: Message_ProgressIndicator // (simplified)
 #[derive(Clone, Debug, Default)]
 pub struct MessageProgressIndicator {
     pub scopes: Vec<MessageProgressScope>,

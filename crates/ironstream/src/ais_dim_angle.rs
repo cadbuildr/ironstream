@@ -1,9 +1,9 @@
 // FILE: ais_dim_angle.rs
-// occt: AIS_AngleDimension, AIS_RadiusDimension, AIS_DiameterDimension,
+// occt-ref: PrsDim_AngleDimension, PrsDim_RadiusDimension, PrsDim_DiameterDimension
 //       AIS_LengthDimension (additional variants)
 
 /// Dimension kind discriminant.
-/// occt: AIS_DimensionSelectionMode
+// occt-ref: PrsDim_DimensionSelectionMode
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum AisDimensionKind {
     #[default]
@@ -14,7 +14,7 @@ pub enum AisDimensionKind {
 }
 
 /// Common dimension display attributes.
-/// occt: AIS_DimensionAspect (simplified)
+/// occt-note: AIS_DimensionAspect (simplified)
 #[derive(Clone, Debug)]
 pub struct AisDimensionAspect {
     pub text_size: f64,
@@ -44,7 +44,7 @@ impl AisDimensionAspect {
 }
 
 /// Angle dimension between two lines/edges.
-/// occt: AIS_AngleDimension
+// occt-ref: PrsDim_AngleDimension
 #[derive(Clone, Debug)]
 pub struct AisAngleDimension {
     pub center: [f64; 3],
@@ -88,7 +88,7 @@ impl AisAngleDimension {
 }
 
 /// Radius dimension for a circular edge or face.
-/// occt: AIS_RadiusDimension
+// occt-ref: PrsDim_RadiusDimension
 #[derive(Clone, Debug)]
 pub struct AisRadiusDimension {
     pub center: [f64; 3],
@@ -108,7 +108,7 @@ impl AisRadiusDimension {
 }
 
 /// Diameter dimension (2 × radius).
-/// occt: AIS_DiameterDimension
+// occt-ref: PrsDim_DiameterDimension
 #[derive(Clone, Debug)]
 pub struct AisDiameterDimension {
     pub center: [f64; 3],

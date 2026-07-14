@@ -66,7 +66,7 @@ impl PolyPolygon2d {
     pub fn deflection(&self) -> f64 { self.deflection }
 }
 
-// occt: Poly_PolygonOnTriangulation — links polygon nodes to triangulation nodes
+// occt: Poly_PolygonOnTriangulation // — links polygon nodes to triangulation nodes
 #[derive(Clone, Debug)]
 pub struct PolyPolygonOnTriangulation {
     pub node_indices: Vec<usize>,
@@ -98,7 +98,7 @@ impl PolyPolygonOnTriangulation {
     pub fn has_parameters(&self) -> bool { self.has_parameters }
 }
 
-// occt: Poly_MakeLoops — converts a sequence of edges into loops
+// occt-ref: Poly_MakeLoops // — converts a sequence of edges into loops
 #[derive(Clone, Debug, Default)]
 pub struct PolyMakeLoops {
     pub edge_ids: Vec<u32>,

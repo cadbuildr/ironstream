@@ -1,5 +1,6 @@
 // FILE: chfids.rs
-// occt: ChFiDS_Stripe, ChFiDS_HData, ChFiDS_Spine, ChFiDS_Map
+// occt: ChFiDS_Stripe, ChFiDS_HData, ChFiDS_Map
+// occt-ref: ChFiDS_Spine
 
 /// Stripe: fillet/chamfer surface between two faces.
 /// occt: ChFiDS_Stripe
@@ -34,7 +35,7 @@ impl Default for ChFiDsStripe {
 }
 
 /// Spine: edge sequence for fillet/chamfer construction.
-/// occt: ChFiDS_Spine
+// occt-ref: ChFiDS_Spine
 #[derive(Clone, Debug)]
 pub struct ChFiDsSpine {
     pub spine_id: u32,

@@ -1,7 +1,7 @@
 // FILE: geom_convert_ext.rs
-// occt: GeomConvert_CompBezierCurvesToBSplineCurve, GeomConvert_ApproxSurface
+// occt-ref: GeomConvert_CompBezierCurvesToBSplineCurve, GeomConvert_ApproxSurface
 
-// occt: GeomConvert_CompBezierCurvesToBSplineCurve
+// occt-ref: GeomConvert_CompBezierCurvesToBSplineCurve
 /// Converts a sequence of Bezier curve segments into a single B-spline.
 /// Each segment must have the same degree.
 #[derive(Clone, Debug)]
@@ -41,7 +41,7 @@ impl CompBezierToBSpline {
     }
 }
 
-// occt: GeomConvert_ApproxSurface
+// occt-ref: GeomConvert_ApproxSurface
 /// Approximates a surface by a B-spline surface within a given tolerance.
 #[derive(Clone, Debug)]
 pub struct ApproxSurface {
@@ -77,7 +77,7 @@ impl ApproxSurface {
     pub fn max_error(&self) -> f64 { self.max_error }
 }
 
-// occt: GeomConvert_BSplineSurfaceToBezierSurface
+// occt-ref: GeomConvert_BSplineSurfaceToBezierSurface
 /// Converts a B-spline surface into a grid of Bezier patches.
 #[derive(Clone, Debug)]
 pub struct BSplineSurfaceToBezier {

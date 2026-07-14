@@ -1,9 +1,9 @@
 // FILE: image_proc.rs
-// occt: Image_ColorBgr, Image_ColorRgb, Image_ColorBgra, Image_ColorRgba32,
+// occt-ref: Image_ColorBgr, Image_ColorRgb, Image_ColorBgra, Image_ColorRgba32
 //       Image_SupportedFormats, Image_PixMapData
 
 /// Packed RGB color (byte components).
-/// occt: Image_ColorRgb
+// occt-ref: Image_ColorRgb
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct ImageColorRgb {
     pub r: u8,
@@ -34,7 +34,7 @@ impl ImageColorRgb {
 }
 
 /// Packed BGR color (OpenGL-native byte order).
-/// occt: Image_ColorBgr
+// occt-ref: Image_ColorBgr
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct ImageColorBgr {
     pub b: u8,
@@ -50,7 +50,7 @@ impl ImageColorBgr {
 }
 
 /// Packed RGBA color (byte components).
-/// occt: Image_ColorRgba32 / Quantity_ColorRGBA byte encoding
+/// occt-note: Image_ColorRgba32 / Quantity_ColorRGBA byte encoding
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct ImageColorRgba {
     pub r: u8,
@@ -89,7 +89,7 @@ impl ImageColorRgba {
 }
 
 /// Packed BGRA color (GPU-native byte order).
-/// occt: Image_ColorBgra
+// occt-ref: Image_ColorBgra
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct ImageColorBgra {
     pub b: u8,
@@ -125,7 +125,7 @@ impl ImageSupportedFormats {
 }
 
 /// Raw pixel buffer with width, height, and bytes-per-pixel metadata.
-/// occt: Image_PixMapData
+// occt-ref: Image_PixMapData
 #[derive(Clone, Debug)]
 pub struct ImagePixMapData {
     pub width: u32,

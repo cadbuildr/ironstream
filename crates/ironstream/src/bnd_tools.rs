@@ -9,7 +9,7 @@ pub enum BndLibAddResult {
 }
 
 /// Computed bounding box with gap.
-// occt: Bnd_Box + BndLib tools
+// occt-ref: Bnd_Box // + BndLib tools
 pub struct BndLibBox {
     pub xmin: f64,
     pub xmax: f64,
@@ -261,7 +261,7 @@ impl Default for BndLibSphereComputer {
 }
 
 /// Axis-aligned bounding box in 3D space storing min/max as `[f64; 3]` arrays.
-// occt: BndLib_Box3d
+// occt-ref: BndLib_Box3d
 #[derive(Clone, Copy, Debug)]
 pub struct BndToolsBox3d {
     pub min: [f64; 3],
@@ -373,7 +373,7 @@ impl Default for BndToolsBox3d {
 }
 
 /// Axis-aligned bounding box in 2D space storing min/max as `[f64; 2]` arrays.
-// occt: BndLib_Box2d
+// occt-ref: BndLib_Box2d
 #[derive(Clone, Copy, Debug)]
 pub struct BndToolsBox2d {
     pub min: [f64; 2],

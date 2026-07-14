@@ -1,5 +1,5 @@
 // FILE: b_rep_fill_offset_ancestors.rs
-// occt: Brepfilloffsetancestors
+// occt-ref: Brepfilloffsetancestors
 
 #[derive(Clone, Debug)]
 pub struct Brepfilloffsetancestors;

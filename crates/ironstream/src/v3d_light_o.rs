@@ -1,5 +1,5 @@
 // FILE: v3d_light_o.rs
-// occt: V3d_Light
+// occt-ref: V3d_Light
 
 //! Base class for lights in 3D views.
 

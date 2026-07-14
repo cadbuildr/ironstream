@@ -1,8 +1,9 @@
 // FILE: tcolstd_array.rs
-// occt: TColStd_Array1OfInteger, TColStd_Array1OfReal, TColStd_HArray1OfInteger
+// occt: TColStd_HArray1OfInteger
+// occt-ref: TColStd_Array1OfInteger, TColStd_Array1OfReal
 
 /// Array of integers (1-indexed, OCCT style).
-/// occt: TColStd_Array1OfInteger
+// occt-ref: TColStd_Array1OfInteger
 #[derive(Clone, Debug)]
 pub struct TColStdArray1OfInteger {
     pub lower: usize,
@@ -39,7 +40,7 @@ impl TColStdArray1OfInteger {
 }
 
 /// Array of real numbers (1-indexed, OCCT style).
-/// occt: TColStd_Array1OfReal
+// occt-ref: TColStd_Array1OfReal
 #[derive(Clone, Debug)]
 pub struct TColStdArray1OfReal {
     pub lower: usize,

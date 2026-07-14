@@ -20,7 +20,7 @@
 /// A single extrema result: a pair of closest (or farthest) points, one on
 /// each geometric entity, together with the distance between them and the
 /// corresponding parameter values.
-// occt: extrema result point pair — returned by GeomAPI_ExtremaCurveCurve and
+// occt-note: extrema result point pair — returned by GeomAPI_ExtremaCurveCurve and
 //       GeomAPI_ExtremaCurveSurface
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GeomExtremaResult {
@@ -44,7 +44,7 @@ impl GeomExtremaResult {
     /// - `distance` — distance between the two points
     /// - `param1`   — parameter on the first entity
     /// - `param2`   — parameter on the second entity
-    // occt: GeomAPI_ExtremaCurveCurve::NearestPoints / ::Points
+    // occt-ref: GeomAPI_ExtremaCurveCurve // ::NearestPoints / ::Points
     pub fn new(
         pt1: [f64; 3],
         pt2: [f64; 3],
@@ -56,25 +56,25 @@ impl GeomExtremaResult {
     }
 
     /// The 3D point on the first entity.
-    // occt: GeomAPI_ExtremaCurveCurve::NearestPoints(P1, P2) — P1
+    // occt-ref: GeomAPI_ExtremaCurveCurve // ::NearestPoints(P1, P2) — P1
     pub fn pt1(&self) -> [f64; 3] {
         self.pt1
     }
 
     /// The 3D point on the second entity.
-    // occt: GeomAPI_ExtremaCurveCurve::NearestPoints(P1, P2) — P2
+    // occt-ref: GeomAPI_ExtremaCurveCurve // ::NearestPoints(P1, P2) — P2
     pub fn pt2(&self) -> [f64; 3] {
         self.pt2
     }
 
     /// The distance between `pt1` and `pt2`.
-    // occt: GeomAPI_ExtremaCurveCurve::LowerDistance
+    // occt-ref: GeomAPI_ExtremaCurveCurve // ::LowerDistance
     pub fn distance(&self) -> f64 {
         self.distance
     }
 
     /// The `(param1, param2)` parameter pair for this extremum.
-    // occt: GeomAPI_ExtremaCurveCurve::Parameters(Index, U1, U2)
+    // occt-ref: GeomAPI_ExtremaCurveCurve // ::Parameters(Index, U1, U2)
     pub fn parameters(&self) -> (f64, f64) {
         (self.param1, self.param2)
     }
@@ -90,7 +90,7 @@ impl GeomExtremaResult {
 /// The `perform` method is a stub that injects `nb` synthetic results, each
 /// with `distance = 1.0`, so that callers can exercise the full API without a
 /// real numerical solver.
-// occt: GeomAPI_ExtremaCurveCurve stub
+// occt-ref: GeomAPI_ExtremaCurveCurve // stub
 #[derive(Clone, Debug)]
 pub struct GeomApiExtremaCurveCurve {
     /// All extrema results found (or injected by the stub).
@@ -101,7 +101,7 @@ pub struct GeomApiExtremaCurveCurve {
 
 impl GeomApiExtremaCurveCurve {
     /// Construct a new, un-performed extrema computer.
-    // occt: GeomAPI_ExtremaCurveCurve::GeomAPI_ExtremaCurveCurve()
+    // occt-ref: GeomAPI_ExtremaCurveCurve // ::GeomAPI_ExtremaCurveCurve()
     pub fn new() -> Self {
         Self { results: Vec::new(), is_done: false }
     }
@@ -111,7 +111,7 @@ impl GeomApiExtremaCurveCurve {
     ///
     /// In a full implementation this would accept the two curves and solve the
     /// minimax system numerically (OCCT delegates to `Extrema_ExtCC`).
-    // occt: GeomAPI_ExtremaCurveCurve::Perform (stub — no real solver)
+    // occt-ref: GeomAPI_ExtremaCurveCurve // ::Perform (stub — no real solver)
     pub fn perform(&mut self, nb: usize) {
         self.results.clear();
         for i in 0..nb {
@@ -128,20 +128,20 @@ impl GeomApiExtremaCurveCurve {
     }
 
     /// `IsDone()` — true if `perform` has been called successfully.
-    // occt: GeomAPI_ExtremaCurveCurve::IsDone
+    // occt-ref: GeomAPI_ExtremaCurveCurve // ::IsDone
     pub fn is_done(&self) -> bool {
         self.is_done
     }
 
     /// `NbExtrema()` — total number of extrema found.
-    // occt: GeomAPI_ExtremaCurveCurve::NbExtrema
+    // occt-ref: GeomAPI_ExtremaCurveCurve // ::NbExtrema
     pub fn nb_extrema(&self) -> usize {
         self.results.len()
     }
 
     /// `Points(Index)` / `Distance(Index)` accessor — returns the i-th result
     /// (0-based index).  Returns `None` if out of range.
-    // occt: GeomAPI_ExtremaCurveCurve::Points / ::Distance (1-based in OCCT)
+    // occt-ref: GeomAPI_ExtremaCurveCurve // ::Points / ::Distance (1-based in OCCT)
     pub fn result(&self, i: usize) -> &GeomExtremaResult {
         &self.results[i]
     }
@@ -153,7 +153,7 @@ impl GeomApiExtremaCurveCurve {
     ///
     /// In a real implementation the pair with the globally smallest distance
     /// would be identified.
-    // occt: GeomAPI_ExtremaCurveCurve::LowerDistanceParameters (index form)
+    // occt-ref: GeomAPI_ExtremaCurveCurve // ::LowerDistanceParameters (index form)
     pub fn lower_distance_indices(&self) -> (usize, usize) {
         if self.results.is_empty() {
             return (0, 0);
@@ -170,7 +170,7 @@ impl GeomApiExtremaCurveCurve {
     }
 
     /// `LowerDistance()` — the minimum distance among all extrema.
-    // occt: GeomAPI_ExtremaCurveCurve::LowerDistance
+    // occt-ref: GeomAPI_ExtremaCurveCurve // ::LowerDistance
     pub fn lower_distance(&self) -> f64 {
         self.results
             .iter()
@@ -194,7 +194,7 @@ impl Default for GeomApiExtremaCurveCurve {
 ///
 /// The `perform` method is a stub that sets `is_done = true` and stores a
 /// single synthetic result with `distance = 1.0`.
-// occt: GeomAPI_ExtremaCurveSurface stub
+// occt-ref: GeomAPI_ExtremaCurveSurface // stub
 #[derive(Clone, Debug)]
 pub struct GeomApiExtremaCurveSurface {
     /// The single nearest-result (or stub result).
@@ -205,7 +205,7 @@ pub struct GeomApiExtremaCurveSurface {
 
 impl GeomApiExtremaCurveSurface {
     /// Construct a new, un-performed extrema computer.
-    // occt: GeomAPI_ExtremaCurveSurface::GeomAPI_ExtremaCurveSurface()
+    // occt-ref: GeomAPI_ExtremaCurveSurface // ::GeomAPI_ExtremaCurveSurface()
     pub fn new() -> Self {
         Self {
             result: GeomExtremaResult::new([0.0, 0.0, 0.0], [1.0, 0.0, 0.0], 1.0, 0.0, 0.0),
@@ -219,7 +219,7 @@ impl GeomApiExtremaCurveSurface {
     /// In a full implementation this would accept the curve and surface and
     /// solve the minimax system numerically (OCCT delegates to
     /// `Extrema_ExtCS`).
-    // occt: GeomAPI_ExtremaCurveSurface::Perform (stub — no real solver)
+    // occt-ref: GeomAPI_ExtremaCurveSurface // ::Perform (stub — no real solver)
     pub fn perform(&mut self) {
         self.result = GeomExtremaResult::new(
             [0.0, 0.0, 0.0],
@@ -232,37 +232,37 @@ impl GeomApiExtremaCurveSurface {
     }
 
     /// `IsDone()` — true if `perform` has been called successfully.
-    // occt: GeomAPI_ExtremaCurveSurface::IsDone
+    // occt-ref: GeomAPI_ExtremaCurveSurface // ::IsDone
     pub fn is_done(&self) -> bool {
         self.is_done
     }
 
     /// `NbExtrema()` — always 1 after a successful `perform` (stub).
-    // occt: GeomAPI_ExtremaCurveSurface::NbExtrema
+    // occt-ref: GeomAPI_ExtremaCurveSurface // ::NbExtrema
     pub fn nb_extrema(&self) -> usize {
         if self.is_done { 1 } else { 0 }
     }
 
     /// `PointOnCurve()` — the point on the curve at the nearest extremum.
-    // occt: GeomAPI_ExtremaCurveSurface::NearestPoints — curve side
+    // occt-ref: GeomAPI_ExtremaCurveSurface // ::NearestPoints — curve side
     pub fn point_on_curve(&self) -> [f64; 3] {
         self.result.pt1()
     }
 
     /// `PointOnSurface()` — the point on the surface at the nearest extremum.
-    // occt: GeomAPI_ExtremaCurveSurface::NearestPoints — surface side
+    // occt-ref: GeomAPI_ExtremaCurveSurface // ::NearestPoints — surface side
     pub fn point_on_surface(&self) -> [f64; 3] {
         self.result.pt2()
     }
 
     /// `LowerDistance()` — the minimum distance found.
-    // occt: GeomAPI_ExtremaCurveSurface::LowerDistance
+    // occt-ref: GeomAPI_ExtremaCurveSurface // ::LowerDistance
     pub fn lower_distance(&self) -> f64 {
         self.result.distance()
     }
 
     /// The full result record (point pair, distance, parameters).
-    // occt: GeomAPI_ExtremaCurveSurface combined accessor
+    // occt-ref: GeomAPI_ExtremaCurveSurface // combined accessor
     pub fn result(&self) -> &GeomExtremaResult {
         &self.result
     }

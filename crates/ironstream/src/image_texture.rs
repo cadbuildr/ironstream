@@ -1,5 +1,5 @@
 // FILE: image_texture.rs
-// occt: Image_Texture, Image_PixMapData, Image_PixMap (texture loading stubs)
+// occt-note: Image_Texture, Image_PixMapData, Image_PixMap (texture loading stubs)
 
 /// Pixel format encoding.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -41,7 +41,7 @@ impl PixelFormat {
     pub fn is_alpha(&self) -> bool { matches!(self, Self::Rgba8 | Self::Rgba16f | Self::Rgba32f) }
 }
 
-// occt: Image_PixMapData — raw pixel data buffer
+// occt: Image_PixMapData // — raw pixel data buffer
 #[derive(Clone, Debug)]
 pub struct PixMapData {
     pub width: usize,
@@ -111,7 +111,7 @@ impl Default for TextureFilter {
     fn default() -> Self { Self::Linear }
 }
 
-// occt: Image_Texture — a texture referencing pixmap data or a file path
+// occt: Image_Texture // — a texture referencing pixmap data or a file path
 #[derive(Clone, Debug)]
 pub struct ImageTexture {
     pub id: u32,

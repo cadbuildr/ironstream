@@ -30,7 +30,7 @@ const TWO_PI: f64 = 2.0 * PI;
 /// An elementary, non-parameterised 2D ellipse (`gp_Elips2d`): a local frame
 /// (`gp_Ax22d`) whose origin is the centre, plus a major and a minor radius.
 #[derive(Clone, Copy, Debug)]
-// occt: gp_Elips2d
+// occt-ref: gp_Elips2d
 pub struct Elips2d {
     position: Ax22d2,
     major_radius: f64,
@@ -97,7 +97,7 @@ impl Elips2d {
 /// Stores its local coordinate system (`Ax22d2`, the OCCT `gp_Ax22d pos` of
 /// `Geom2d_Conic`) and its major/minor radii. The parametrisation is
 /// `P(U) = O + MajorRadius*cos(U)*XDir + MinorRadius*sin(U)*YDir`.
-// occt: Geom2d_Ellipse
+// occt-ref: Geom2d_Ellipse
 #[derive(Clone, Copy, Debug)]
 pub struct Geom2dEllipse {
     pos: Ax22d2,

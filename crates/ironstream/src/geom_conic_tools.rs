@@ -288,7 +288,7 @@ impl GCE2dMakeArcOfParabola {
 /// A 2D circle defined by a center point and a radius.
 ///
 /// Models the GCE2d_MakeCircle construction helper from OCCT.
-// occt: GCE2d_MakeCircle
+// occt-ref: GCE2d_MakeCircle
 #[derive(Debug, Clone)]
 pub struct Circle2d {
     /// Center of the circle `[cx, cy]`.
@@ -304,7 +304,7 @@ impl Circle2d {
     /// * `cx` - X coordinate of the center.
     /// * `cy` - Y coordinate of the center.
     /// * `r`  - Radius (should be > 0 for a valid circle).
-    // occt: GCE2d_MakeCircle
+    // occt-ref: GCE2d_MakeCircle
     pub fn new(cx: f64, cy: f64, r: f64) -> Self {
         Self {
             center: [cx, cy],
@@ -348,7 +348,7 @@ impl Circle2d {
 /// ```
 ///
 /// Models the GCE2d_MakeEllipse construction helper from OCCT.
-// occt: GCE2d_MakeEllipse
+// occt-ref: GCE2d_MakeEllipse
 #[derive(Debug, Clone)]
 pub struct Ellipse2d {
     /// Center of the ellipse `[cx, cy]`.
@@ -369,7 +369,7 @@ impl Ellipse2d {
     /// * `cy` - Y coordinate of the center.
     /// * `a`  - Semi-major axis.
     /// * `b`  - Semi-minor axis.
-    // occt: GCE2d_MakeEllipse
+    // occt-ref: GCE2d_MakeEllipse
     pub fn new(cx: f64, cy: f64, a: f64, b: f64) -> Self {
         Self {
             center: [cx, cy],

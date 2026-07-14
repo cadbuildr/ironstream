@@ -1,5 +1,6 @@
 // FILE: top_ope_b_rep_ds_indexed_data_map_of_vertex_point.rs
-// occt: TopOpeBRepDS_IndexedDataMapOfVertexPoint, TopOpeBRepDS_Point, TopOpeBRepDS_Vertex
+// occt: TopOpeBRepDS_IndexedDataMapOfVertexPoint
+// occt-ref: TopOpeBRepDS_Point, TopOpeBRepDS_Vertex
 
 /// Point: 3D point representation.
 #[derive(Clone, Debug)]

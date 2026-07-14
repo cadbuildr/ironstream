@@ -1,7 +1,7 @@
 // FILE: geom_lcs.rs
-// occt: Geom_LocalCoordinateSystem, TopLoc_Datum3D, TopLoc_Location extensions
+// occt-note: Geom_LocalCoordinateSystem, TopLoc_Datum3D, TopLoc_Location extensions
 
-// occt: Geom_LocalCoordinateSystem (approximated by Geom_Axis2Placement)
+// occt-note: Geom_LocalCoordinateSystem (approximated by Geom_Axis2Placement)
 /// A local coordinate system in 3-D: origin + X axis + Y axis (Z = X cross Y).
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct LocalCS {
@@ -56,7 +56,7 @@ impl LocalCS {
     }
 }
 
-// occt: TopLoc_Datum3D (represents a simple placement)
+// occt-ref: TopLoc_Datum3D // (represents a simple placement)
 #[derive(Clone, Copy, Debug)]
 pub struct Datum3D {
     pub lcs: LocalCS,

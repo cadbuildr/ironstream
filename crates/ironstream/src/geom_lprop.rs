@@ -26,12 +26,12 @@ use crate::geom_line::GeomLine;
 /// Mirrors OCCT's `GeomLProp_CurveTool` — a purely static adaptor that
 /// dispatches D0/D1/D2/D3 and parameter-range queries to the concrete curve
 /// type through the `Curve` enum.
-// occt: GeomLProp_CurveTool
+// occt-ref: GeomLProp_CurveTool
 #[derive(Clone, Debug)]
 pub struct CurveTool;
 
 /// The concrete curve kinds that `CurveTool` and `CLProps` can operate on.
-// occt: Handle(Geom_Curve) variants
+// occt-note: Handle(Geom_Curve) variants
 #[derive(Clone, Debug)]
 pub enum Curve {
     /// An infinite straight line.
@@ -122,7 +122,7 @@ impl CurveTool {
 // ---------------------------------------------------------------------------
 
 /// The concrete surface kinds that `SurfaceTool` and `SLProps` can operate on.
-// occt: Handle(Geom_Surface) variants
+// occt-note: Handle(Geom_Surface) variants
 #[derive(Clone, Debug)]
 pub enum Surface {
     /// A B-spline / NURBS surface.
@@ -164,7 +164,7 @@ pub enum Surface {
 ///
 /// Mirrors OCCT's `GeomLProp_SurfaceTool` — a static adaptor that dispatches
 /// D1/D2/DN queries to the concrete surface.
-// occt: GeomLProp_SurfaceTool
+// occt-ref: GeomLProp_SurfaceTool
 #[derive(Clone, Debug)]
 pub struct SurfaceTool;
 

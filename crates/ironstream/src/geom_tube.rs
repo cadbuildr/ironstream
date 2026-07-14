@@ -1,9 +1,9 @@
 // FILE: geom_tube.rs
-// occt: BRepPrimAPI_MakeCylinder, BRepPrimAPI_MakeTorus
+// occt-ref: BRepPrimAPI_MakeCylinder, BRepPrimAPI_MakeTorus
 
 use std::f64::consts::PI;
 
-// occt: BRepPrimAPI_MakeCylinder
+// occt-ref: BRepPrimAPI_MakeCylinder
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Cylinder {
     pub base_center: [f64; 3],
@@ -41,7 +41,7 @@ impl Cylinder {
     }
 }
 
-// occt: BRepPrimAPI_MakeTorus
+// occt-ref: BRepPrimAPI_MakeTorus
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Torus {
     pub center: [f64; 3],

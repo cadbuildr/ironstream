@@ -1,11 +1,12 @@
 // FILE: ncollection_btree.rs
-// occt: NCollection_IndexedMap, NCollection_IndexedDataMap,
+// occt: NCollection_IndexedMap
+// occt-ref: NCollection_IndexedDataMap
 //       NCollection_DataMap, NCollection_Map
 
 use std::collections::HashMap;
 
 /// A map where each unique item also gets a stable 1-based index.
-/// occt: NCollection_IndexedMap<TheKey>
+/// occt-note: NCollection_IndexedMap<TheKey>
 #[derive(Clone, Debug)]
 pub struct NCollIndexedMap {
     items: Vec<u32>,
@@ -54,7 +55,7 @@ impl NCollIndexedMap {
 }
 
 /// A map where each unique key maps to a value AND has a stable 1-based index.
-/// occt: NCollection_IndexedDataMap<TheKey, TheItem>
+/// occt-note: NCollection_IndexedDataMap<TheKey, TheItem>
 #[derive(Clone, Debug)]
 pub struct NCollIndexedDataMap {
     keys: Vec<u32>,
@@ -102,7 +103,7 @@ impl NCollIndexedDataMap {
 }
 
 /// General key→value map.
-/// occt: NCollection_DataMap<TheKey, TheItem>
+/// occt-note: NCollection_DataMap<TheKey, TheItem>
 #[derive(Clone, Debug, Default)]
 pub struct NCollDataMap {
     map: HashMap<u32, u32>,
@@ -126,7 +127,7 @@ impl NCollDataMap {
 }
 
 /// A set of unique keys (no values).
-/// occt: NCollection_Map<TheKey>
+/// occt-note: NCollection_Map<TheKey>
 #[derive(Clone, Debug, Default)]
 pub struct NCollMap {
     set: std::collections::HashSet<u32>,

@@ -8,7 +8,7 @@
 
 /// Result of a 3-D curve approximation (`Approx_Curve3d::Curve()`).
 ///
-// occt: Approx_Curve3d result container
+// occt-ref: Approx_Curve3d // result container
 #[derive(Clone, Debug)]
 pub struct ApproxCurve3dResult {
     /// 3-D control poles of the approximated B-spline curve.
@@ -87,7 +87,7 @@ impl Default for ApproxCurve3dResult {
 ///
 /// Mirrors the API of `Approx_Curve3d` from OpenCASCADE Technology.
 ///
-// occt: Approx_Curve3d
+// occt-ref: Approx_Curve3d
 #[derive(Clone, Debug)]
 pub struct ApproxCurve3d {
     /// Maximum allowed approximation tolerance.
@@ -158,7 +158,7 @@ impl ApproxCurve3d {
 
 /// Result of a 2-D curve approximation.
 ///
-// occt: Approx_Curve2dOn3dSurface result container
+// occt-note: Approx_Curve2dOn3dSurface result container
 #[derive(Clone, Debug)]
 pub struct ApproxCurve2dResult {
     /// 2-D control poles of the approximated B-spline curve.

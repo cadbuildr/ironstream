@@ -30,15 +30,15 @@
 /// matrix uses the convention `I[row][col]` where the diagonal entries hold
 /// the second moments (Ixx, Iyy, Izz) and the off-diagonal entries hold the
 /// products of inertia.
-// occt: GProp_GProps
+// occt-ref: GProp_GProps
 #[derive(Clone, Debug, PartialEq)]
 pub struct GProps {
     /// Total scalar measure (volume, area, or arc-length depending on context).
-    // occt: GProp_GProps::Mass
+    // occt-ref: GProp_GProps // ::Mass
     pub mass: f64,
 
     /// Centre of mass (weighted centroid) as `[x, y, z]`.
-    // occt: GProp_GProps::CentreOfMass
+    // occt-ref: GProp_GProps // ::CentreOfMass
     pub centre_of_mass: [f64; 3],
 
     /// Second-moment inertia matrix relative to the centre of mass.
@@ -49,14 +49,14 @@ pub struct GProps {
     ///  [ Ixy  Iyy  Iyz ]
     ///  [ Ixz  Iyz  Izz ]
     /// ```
-    // occt: GProp_GProps::MatrixOfInertia
+    // occt-ref: GProp_GProps // ::MatrixOfInertia
     pub inertia: [[f64; 3]; 3],
 }
 
 impl GProps {
     /// Create an empty accumulator with zero mass, origin centroid, and zero
     /// inertia matrix.
-    // occt: GProp_GProps::GProp_GProps()
+    // occt-ref: GProp_GProps // ::GProp_GProps()
     pub fn new() -> Self {
         GProps {
             mass: 0.0,
@@ -75,7 +75,7 @@ impl GProps {
     ///
     /// * `other`   — properties to add.
     /// * `density` — scalar multiplier applied to `other.mass` before adding.
-    // occt: GProp_GProps::Add(GProps, density)
+    // occt-ref: GProp_GProps // ::Add(GProps, density)
     pub fn add(&mut self, other: &GProps, density: f64) {
         let other_mass = other.mass * density;
         let total = self.mass + other_mass;
@@ -100,13 +100,13 @@ impl GProps {
     }
 
     /// Total scalar measure (volume, area, or arc-length).
-    // occt: GProp_GProps::Mass
+    // occt-ref: GProp_GProps // ::Mass
     pub fn mass(&self) -> f64 {
         self.mass
     }
 
     /// Centre of mass as `[x, y, z]`.
-    // occt: GProp_GProps::CentreOfMass
+    // occt-ref: GProp_GProps // ::CentreOfMass
     pub fn centre_of_mass(&self) -> [f64; 3] {
         self.centre_of_mass
     }
@@ -126,7 +126,7 @@ impl Default for GProps {
 /// gravity (COG).
 ///
 /// Mirrors the data extracted from `BRepGProp::VolumeProperties` in OCCT.
-// occt: BRepGProp
+// occt-ref: BRepGProp
 #[derive(Clone, Debug, PartialEq)]
 pub struct VolumeProps {
     /// Enclosed volume of the solid.
@@ -142,7 +142,7 @@ impl VolumeProps {
     /// In this stub the `shape` argument is a string token that names the
     /// solid; real integration will be wired to the tessellating kernel.
     /// Returns zeroed properties until then.
-    // occt: BRepGProp::VolumeProperties
+    // occt-ref: BRepGProp // ::VolumeProperties
     pub fn from_shape(_shape: &str) -> Self {
         VolumeProps {
             volume: 0.0,
@@ -152,7 +152,7 @@ impl VolumeProps {
 
     /// Returns `true` when the computed volume is strictly positive, indicating
     /// that the shape is a non-degenerate closed solid.
-    // occt: (validity check on BRepGProp result)
+    // occt-note: (validity check on BRepGProp result)
     pub fn is_valid(&self) -> bool {
         self.volume > 0.0
     }
@@ -166,7 +166,7 @@ impl VolumeProps {
 /// of gravity.
 ///
 /// Mirrors the data extracted from `BRepGProp::SurfaceProperties` in OCCT.
-// occt: BRepGProp
+// occt-ref: BRepGProp
 #[derive(Clone, Debug, PartialEq)]
 pub struct SurfaceProps {
     /// Total surface area.
@@ -182,7 +182,7 @@ impl SurfaceProps {
     /// In this stub the `shape` argument is a string token that names the
     /// solid; real integration will be wired to the tessellating kernel.
     /// Returns zeroed properties until then.
-    // occt: BRepGProp::SurfaceProperties
+    // occt-ref: BRepGProp // ::SurfaceProperties
     pub fn from_shape(_shape: &str) -> Self {
         SurfaceProps {
             area: 0.0,
@@ -201,7 +201,7 @@ impl SurfaceProps {
 /// The centre of mass is the arc-length-weighted centroid of all edges.
 ///
 /// Mirrors `BRepGProp::LinearProperties(shape, props)` from OCCT.
-// occt: BRepGProp
+// occt-ref: BRepGProp
 pub fn linear_props(_shape: &str) -> GProps {
     // Stub: returns zeroed properties.  Wire to the edge-integration loop in
     // `brep_gprop::BRepGProp::linear_properties` once topology is unified.
@@ -214,7 +214,7 @@ pub fn linear_props(_shape: &str) -> GProps {
 /// The centre of mass is the area-weighted centroid of all triangles.
 ///
 /// Mirrors `BRepGProp::SurfaceProperties(shape, props)` from OCCT.
-// occt: BRepGProp
+// occt-ref: BRepGProp
 pub fn surface_props(_shape: &str) -> GProps {
     // Stub: returns zeroed properties.  Wire to the triangle-integration loop
     // in `brep_gprop::BRepGProp::surface_properties` once topology is unified.
@@ -227,7 +227,7 @@ pub fn surface_props(_shape: &str) -> GProps {
 /// The centre of mass is the volume-weighted centroid.
 ///
 /// Mirrors `BRepGProp::VolumeProperties(shape, props)` from OCCT.
-// occt: BRepGProp
+// occt-ref: BRepGProp
 pub fn volume_props(_shape: &str) -> GProps {
     // Stub: returns zeroed properties.  Wire to the divergence-theorem
     // integration in `brep_gprop::BRepGProp::volume_properties` once topology

@@ -1,5 +1,6 @@
 // FILE: top_ope_b_rep_array1_of_line_inter.rs
-// occt: TopOpeBRep_Array1OfLineInter, TopOpeBRep_LineInter
+// occt: TopOpeBRep_Array1OfLineInter
+// occt-ref: TopOpeBRep_LineInter
 
 /// LineInter: Represents a line of intersection.
 #[derive(Clone, Debug)]

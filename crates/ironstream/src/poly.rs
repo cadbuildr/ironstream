@@ -228,7 +228,7 @@ impl Poly_Array1OfTriangle {
 ///
 /// Mirrors `Poly_Triangulation` from OpenCascade's `Poly` package.
 /// All vertex/triangle indices are **1-based**.
-// occt: Poly_Triangulation
+// occt-ref: Poly_Triangulation
 #[derive(Clone, Debug)]
 pub struct Poly_Triangulation {
     /// 3D node positions (1-based: index `1..=nb_nodes`).
@@ -545,7 +545,7 @@ impl Poly_Triangulation {
 ///
 /// After construction the adjacency data is built once in O(T) time and then
 /// available in O(degree) per query.
-// occt: Poly_Connect
+// occt-ref: Poly_Connect
 pub struct Poly_Connect {
     /// Number of nodes in the mesh.
     nb_nodes: usize,

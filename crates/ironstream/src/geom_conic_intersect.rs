@@ -1,5 +1,6 @@
 // FILE: geom_conic_intersect.rs
-// occt: IntAna_QuadQuadGeo, IntAna_Curve, IntAna_Int3Pln, IntAna_IntConicQuad
+// occt: IntAna_QuadQuadGeo, IntAna_Int3Pln, IntAna_IntConicQuad
+// occt-ref: IntAna_Curve
 
 use std::f64::consts::PI;
 
@@ -29,7 +30,7 @@ impl IntResult {
     pub fn has_intersection(&self) -> bool { self.nb_solutions > 0 }
 }
 
-// occt: IntAna_IntConicQuad — conic vs planar quadric
+// occt: IntAna_IntConicQuad // — conic vs planar quadric
 pub struct IntConicQuad;
 
 impl IntConicQuad {
@@ -70,7 +71,7 @@ impl IntConicQuad {
     }
 }
 
-// occt: IntAna_Int3Pln — intersection of 3 planes
+// occt: IntAna_Int3Pln // — intersection of 3 planes
 pub struct Int3Pln;
 
 impl Int3Pln {
@@ -86,7 +87,7 @@ impl Int3Pln {
     }
 }
 
-// occt: IntAna_QuadQuadGeo — quadric vs quadric (sphere/plane/cylinder)
+// occt: IntAna_QuadQuadGeo // — quadric vs quadric (sphere/plane/cylinder)
 pub struct QuadQuadGeo;
 
 impl QuadQuadGeo {

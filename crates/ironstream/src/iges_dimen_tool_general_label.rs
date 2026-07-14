@@ -1,5 +1,5 @@
 // FILE: iges_dimen_tool_general_label.rs
-// occt: IGESDimen_dimentoolgenerallabel
+// occt-ref: IGESDimen_dimentoolgenerallabel
 
 pub struct IGESDimen_dimentoolgenerallabel;
 

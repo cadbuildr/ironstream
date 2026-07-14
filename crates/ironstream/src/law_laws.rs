@@ -1,5 +1,6 @@
 // FILE: law_laws.rs
-// occt: Law_Laws, Law_ListIteratorOfLaws
+// occt: Law_Laws
+// occt-ref: Law_ListIteratorOfLaws
 
 /// Deprecated alias for NCollection_List<opencascade::handle<Law_Function>>.
 /// Maintains backward compatibility. Use Vec or collections directly in new code.

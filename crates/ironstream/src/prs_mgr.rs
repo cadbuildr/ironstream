@@ -1,5 +1,5 @@
 // FILE: prs_mgr.rs
-// occt: PrsMgr_PresentationManager, PrsMgr_Presentation,
+// occt: PrsMgr_PresentationManager, PrsMgr_Presentation
 //       PrsMgr_PresentableObject, PrsMgr_TypeOfPresentation3d
 
 /// Type of 3D presentation.
@@ -25,7 +25,7 @@ impl Default for HighlightMode {
     fn default() -> Self { Self::Normal }
 }
 
-// occt: PrsMgr_Presentation — a single presentation (mode + structure) for an object
+// occt: PrsMgr_Presentation // — a single presentation (mode + structure) for an object
 #[derive(Clone, Debug)]
 pub struct Presentation {
     pub id: u32,
@@ -57,7 +57,7 @@ impl Presentation {
     pub fn mark_updated(&mut self) { self.update_needed = false; }
 }
 
-// occt: PrsMgr_PresentableObject — any object that can be presented
+// occt: PrsMgr_PresentableObject // — any object that can be presented
 #[derive(Clone, Debug)]
 pub struct PresentableObject {
     pub id: u32,

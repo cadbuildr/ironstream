@@ -1,11 +1,11 @@
 // FILE: ais_dim_length.rs
-// occt: AIS_LengthDimension, AIS_AngleDimension, AIS_RadiusDimension,
+// occt-ref: PrsDim_LengthDimension, PrsDim_AngleDimension, PrsDim_RadiusDimension
 //       AIS_DiameterDimension
 
 use std::f64::consts::PI;
 
 /// Type of distance measurement.
-/// occt: AIS_TypeOfDist
+// occt-ref: PrsDim_TypeOfDist
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum AisTypeOfDist {
     TwoPoints,
@@ -19,7 +19,7 @@ impl Default for AisTypeOfDist {
 }
 
 /// Length dimension: distance between two 3D points.
-/// occt: AIS_LengthDimension
+// occt-ref: PrsDim_LengthDimension
 #[derive(Clone, Debug)]
 pub struct AisLengthDimension {
     pub dim_id: u32,
@@ -70,7 +70,7 @@ impl AisLengthDimension {
 }
 
 /// Angle dimension: angle at a vertex between two edges.
-/// occt: AIS_AngleDimension
+// occt-ref: PrsDim_AngleDimension
 #[derive(Clone, Debug)]
 pub struct AisAngleDimension {
     pub dim_id: u32,
@@ -113,7 +113,7 @@ impl AisAngleDimension {
 }
 
 /// Radius dimension: radius of a circle/arc.
-/// occt: AIS_RadiusDimension
+// occt-ref: PrsDim_RadiusDimension
 #[derive(Clone, Debug)]
 pub struct AisRadiusDimension {
     pub dim_id: u32,

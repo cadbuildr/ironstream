@@ -11,13 +11,13 @@
 //!
 //! This module is zero-dependency: it uses only `std` (`f64::sqrt`).
 
-// occt: Geom2d_OffsetCurve
+// occt-ref: Geom2d_OffsetCurve
 
 /// A 2D offset curve identified by the name of its basis curve and a signed
 /// offset distance.
 ///
 /// Corresponds to `Geom2d_OffsetCurve` in OpenCASCADE Technology.
-// occt: Geom2d_OffsetCurve
+// occt-ref: Geom2d_OffsetCurve
 #[derive(Clone, Debug, PartialEq)]
 pub struct OffsetCurve2d {
     /// Name identifying the basis curve (e.g. `"circle_1"`).

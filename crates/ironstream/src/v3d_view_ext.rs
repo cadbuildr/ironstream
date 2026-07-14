@@ -1,5 +1,5 @@
 // FILE: v3d_view_ext.rs
-// occt: V3d_View extended, V3d_Camera, Graphic3d_Camera
+// occt-ref: V3d_View // extended, V3d_Camera, Graphic3d_Camera
 
 /// Projection type for a camera.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -30,7 +30,7 @@ impl Default for StereoModel {
     fn default() -> Self { Self::Anaglyph }
 }
 
-// occt: Graphic3d_Camera (V3d_Camera) — camera used for 3D view rendering
+// occt-ref: Graphic3d_Camera // (V3d_Camera) — camera used for 3D view rendering
 #[derive(Clone, Debug)]
 pub struct Graphic3dCamera {
     pub projection: ProjectionType,
@@ -97,7 +97,7 @@ impl Graphic3dCamera {
     }
 }
 
-// occt: V3d_View extended — viewport configuration on top of a camera
+// occt-ref: V3d_View // extended — viewport configuration on top of a camera
 #[derive(Clone, Debug)]
 pub struct V3dViewExt {
     pub camera: Graphic3dCamera,

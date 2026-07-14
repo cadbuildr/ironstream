@@ -1,5 +1,5 @@
 // FILE: app_cont_function.rs
-// occt: AppContFunction
+// occt-ref: AppContFunction
 
 //! Approximation and constraint handling class.
 pub struct AppContFunction {

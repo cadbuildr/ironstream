@@ -1,5 +1,5 @@
 // FILE: b_rep_fill_location_law.rs
-// occt: Brepfilllocationlaw
+// occt-ref: Brepfilllocationlaw
 
 #[derive(Clone, Debug)]
 pub struct Brepfilllocationlaw;

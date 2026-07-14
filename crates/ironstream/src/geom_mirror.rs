@@ -68,7 +68,7 @@ const fn mat4_identity() -> [[f64; 4]; 4] {
 ///
 /// Mirrors a point `p` across the plane by the Householder reflection formula:
 /// `p' = p - 2 * dot(p - origin, n) * n`
-// occt: mirror plane (gp_Ax2 / BRepBuilderAPI_Transform planar symmetry)
+// occt-note: mirror plane (gp_Ax2 / BRepBuilderAPI_Transform planar symmetry)
 #[derive(Clone, Copy, Debug)]
 pub struct MirrorPlane {
     origin: [f64; 3],
@@ -125,7 +125,7 @@ impl MirrorPlane {
 /// Reflects a point across the infinite line (axis) in 3-D space by keeping
 /// the component along the axis direction and negating the two orthogonal
 /// components (relative to the closest point on the axis).
-// occt: mirror axis (gp_Ax1 / BRepBuilderAPI_Transform axial symmetry)
+// occt-note: mirror axis (gp_Ax1 / BRepBuilderAPI_Transform axial symmetry)
 #[derive(Clone, Copy, Debug)]
 pub struct MirrorAxis {
     origin:    [f64; 3],
@@ -191,7 +191,7 @@ impl MirrorAxis {
 /// `BRepBuilderAPI_Transform`: an affine map `p' = M * [p | 1]`.
 ///
 /// The bottom row is always `[0, 0, 0, 1]` for affine transforms.
-// occt: gp_Trsf 4×4 homogeneous transform (BRepBuilderAPI_Transform)
+// occt-ref: gp_Trsf // 4×4 homogeneous transform (BRepBuilderAPI_Transform)
 #[derive(Clone, Copy, Debug)]
 pub struct TransformMatrix {
     pub mat: [[f64; 4]; 4],

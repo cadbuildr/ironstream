@@ -1,5 +1,6 @@
 // FILE: ch_fi_k_part_rst_map.rs
-// occt: ChFiKPart_RstMap, ChFiKPart_DataMapIteratorOfRstMap
+// occt: ChFiKPart_RstMap
+// occt-ref: ChFiKPart_DataMapIteratorOfRstMap
 
 //! Deprecated type aliases for backward compatibility.
 //! Use HashMap<i32, Arc<Adaptor2dCurve2d>> directly instead.

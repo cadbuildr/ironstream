@@ -1,5 +1,5 @@
 // FILE: extrema_g_gen_ext_cc.rs
-// occt: EXTREMAG_GEN_EXT_CC
+// occt-ref: EXTREMAG_GEN_EXT_CC
 
 pub struct Extremaggenextcc {
     done: bool,

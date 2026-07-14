@@ -36,7 +36,7 @@ pub type Dir2d = Pnt2d;
 /// rotated `+90°` (a direct / counter-clockwise frame); with `sense = false`
 /// it is rotated `-90°` (an indirect / clockwise frame).
 #[derive(Clone, Copy, Debug)]
-// occt: gp_Ax22d
+// occt-ref: gp_Ax22d
 pub struct Ax22d2 {
     location: Pnt2d,
     x_direction: Dir2d,
@@ -100,7 +100,7 @@ impl Ax22d2 {
 /// An elementary, non-parameterised 2D circle (`gp_Circ2d`): a local frame
 /// (`gp_Ax22d`) whose origin is the centre, plus a radius.
 #[derive(Clone, Copy, Debug)]
-// occt: gp_Circ2d
+// occt-ref: gp_Circ2d
 pub struct Circ2d {
     position: Ax22d2,
     radius: f64,
@@ -141,7 +141,7 @@ impl Circ2d {
 /// Stores its local coordinate system (`Ax22d2`, the OCCT `gp_Ax22d pos` of
 /// `Geom2d_Conic`) and its radius. The parametrisation is
 /// `P(U) = O + R*cos(U)*XDir + R*sin(U)*YDir`.
-// occt: Geom2d_Circle
+// occt-ref: Geom2d_Circle
 #[derive(Clone, Copy, Debug)]
 pub struct Geom2dCircle {
     pos: Ax22d2,

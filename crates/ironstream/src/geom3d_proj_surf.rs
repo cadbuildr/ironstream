@@ -1,5 +1,5 @@
 // FILE: geom3d_proj_surf.rs
-// occt: GeomAPI_ProjectPointOnSurface, GeomAPI_ProjectPointOnCurve,
+// occt-ref: GeomAPI_ProjectPointOnSurface, GeomAPI_ProjectPointOnCurve
 //       GeomAPI_ExtremaCurveSurface, GeomAPI_ExtremaCurveCurve
 
 /// A single projection result (parameter + distance).
@@ -18,7 +18,7 @@ impl ProjResult {
 }
 
 /// Projects a 3D point onto a parametric surface.
-/// occt: GeomAPI_ProjectPointOnSurface
+// occt-ref: GeomAPI_ProjectPointOnSurface
 #[derive(Clone, Debug)]
 pub struct GeomApiProjectPointOnSurface {
     pub surface_id: u32,
@@ -88,7 +88,7 @@ impl GeomApiProjectPointOnSurface {
 }
 
 /// Projects a 3D point onto a parametric curve.
-/// occt: GeomAPI_ProjectPointOnCurve
+// occt-ref: GeomAPI_ProjectPointOnCurve
 #[derive(Clone, Debug)]
 pub struct GeomApiProjectPointOnCurve {
     pub curve_id: u32,
@@ -140,7 +140,7 @@ impl GeomApiProjectPointOnCurve {
 }
 
 /// Extrema between two curves.
-/// occt: GeomAPI_ExtremaCurveCurve
+// occt-ref: GeomAPI_ExtremaCurveCurve
 #[derive(Clone, Debug, Default)]
 pub struct GeomApiExtremaCurveCurve {
     pub curve1_id: u32,
@@ -169,7 +169,7 @@ impl GeomApiExtremaCurveCurve {
 }
 
 /// Extrema between a curve and surface.
-/// occt: GeomAPI_ExtremaCurveSurface
+// occt-ref: GeomAPI_ExtremaCurveSurface
 #[derive(Clone, Debug, Default)]
 pub struct GeomApiExtremaCurveSurface {
     pub curve_id: u32,

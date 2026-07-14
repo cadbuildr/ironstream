@@ -92,7 +92,7 @@ impl BooleanResult {
     }
 }
 
-// occt: BRepAlgoAPI_Section result
+// occt: BRepAlgoAPI_Section // result
 pub struct BooleanSectionResult {
     nb_edges: usize,
     nb_vertices: usize,
@@ -133,7 +133,7 @@ impl Default for BooleanSectionResult {
     }
 }
 
-// occt: BRepAlgoAPI_Section — compute section between two shapes
+// occt: BRepAlgoAPI_Section // — compute section between two shapes
 pub struct BooleanSection {
     pub approximation: bool,
     pub result: BooleanSectionResult,
@@ -160,7 +160,7 @@ impl BooleanSection {
     }
 }
 
-// occt: BRepAlgoAPI_Splitter result
+// occt: BRepAlgoAPI_Splitter // result
 pub struct BooleanSplitResult {
     nb_parts: usize,
     is_done: bool,
@@ -194,7 +194,7 @@ impl Default for BooleanSplitResult {
     }
 }
 
-// occt: BRepAlgoAPI_Splitter — splits shapes by tools
+// occt: BRepAlgoAPI_Splitter // — splits shapes by tools
 pub struct BooleanSplitter {
     pub nb_arguments: usize,
     pub nb_tools: usize,

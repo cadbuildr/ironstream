@@ -44,7 +44,7 @@ fn vec_cross(a: [f64; 3], b: [f64; 3]) -> [f64; 3] {
 ///
 /// Setters normalise the tangent and normal vectors automatically.
 ///
-// occt: LProp_CLProps / BRep_CurveRepresentation
+// occt-note: LProp_CLProps / BRep_CurveRepresentation
 #[derive(Debug, Clone, PartialEq)]
 pub struct FrenetFrame {
     parameter: f64,
@@ -57,7 +57,7 @@ pub struct FrenetFrame {
 
 impl FrenetFrame {
     /// Construct a new frame at the given curve parameter with all vectors zeroed.
-    // occt: LProp_CLProps
+    // occt-ref: LProp_CLProps
     pub fn new(parameter: f64) -> Self {
         Self {
             parameter,
@@ -147,7 +147,7 @@ impl FrenetFrame {
 /// - Curvature: 0
 /// - Torsion: 0
 ///
-// occt: LProp_CLProps
+// occt-ref: LProp_CLProps
 pub fn frenet_line(t: f64, direction: [f64; 3], origin: [f64; 3]) -> FrenetFrame {
     let unit_dir = vec_normalize(direction);
     let mut f = FrenetFrame::new(t);
@@ -179,7 +179,7 @@ pub fn frenet_line(t: f64, direction: [f64; 3], origin: [f64; 3]) -> FrenetFrame
 /// - `κ = 1/r` (or 0 for degenerate `r = 0`)
 /// - `τ = 0`
 ///
-// occt: LProp_CLProps / Geom_Circle
+// occt-note: LProp_CLProps / Geom_Circle
 pub fn frenet_circle(t: f64, radius: f64, center: [f64; 3]) -> FrenetFrame {
     let ct = t.cos();
     let st = t.sin();

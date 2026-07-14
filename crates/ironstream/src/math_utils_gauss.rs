@@ -299,7 +299,7 @@ fn compute_gauss_legendre(n: usize, points: &mut Vector, weights: &mut Vector) -
     true
 }
 
-// occt: MathUtils_GetGaussPointsAndWeights
+// occt-ref: MathUtils_GetGaussPointsAndWeights
 /// Get ordered Gauss-Legendre points and weights for given order.
 /// Points are returned in ascending order on [-1, 1].
 ///

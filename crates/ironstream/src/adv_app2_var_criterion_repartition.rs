@@ -1,5 +1,5 @@
 // FILE: adv_app2_var_criterion_repartition.rs
-// occt: AdvApp2VarCriterionRepartition
+// occt-ref: AdvApp2VarCriterionRepartition
 
 //! Approximation and constraint handling class.
 pub struct AdvApp2VarCriterionRepartition {

@@ -1,5 +1,5 @@
 // FILE: shape_prim_api.rs
-// occt: BRepPrimAPI_MakeBox, BRepPrimAPI_MakeCylinder, BRepPrimAPI_MakeSphere,
+// occt-ref: BRepPrimAPI_MakeBox, BRepPrimAPI_MakeCylinder, BRepPrimAPI_MakeSphere
 //       BRepPrimAPI_MakeCone, BRepPrimAPI_MakeTorus
 
 /// Status returned by primitive make algorithms.
@@ -59,7 +59,7 @@ fn next_id() -> u32 {
     NEXT_PRIM_ID.fetch_add(1, std::sync::atomic::Ordering::Relaxed)
 }
 
-// occt: BRepPrimAPI_MakeBox — solid box aligned with (or placed at) an axis system
+// occt-ref: BRepPrimAPI_MakeBox // — solid box aligned with (or placed at) an axis system
 #[derive(Clone, Debug)]
 pub struct MakeBox {
     pub axes: PrimAxes,
@@ -99,7 +99,7 @@ impl MakeBox {
     }
 }
 
-// occt: BRepPrimAPI_MakeCylinder
+// occt-ref: BRepPrimAPI_MakeCylinder
 #[derive(Clone, Debug)]
 pub struct MakeCylinder {
     pub axes: PrimAxes,
@@ -150,7 +150,7 @@ impl MakeCylinder {
     pub fn lateral_area(&self) -> f64 { self.radius * self.angle * self.height }
 }
 
-// occt: BRepPrimAPI_MakeSphere
+// occt-ref: BRepPrimAPI_MakeSphere
 #[derive(Clone, Debug)]
 pub struct MakeSphere {
     pub center: [f64; 3],
@@ -207,7 +207,7 @@ impl MakeSphere {
     pub fn surface_area(&self) -> f64 { 4.0 * std::f64::consts::PI * self.radius * self.radius }
 }
 
-// occt: BRepPrimAPI_MakeCone
+// occt-ref: BRepPrimAPI_MakeCone
 #[derive(Clone, Debug)]
 pub struct MakeCone {
     pub axes: PrimAxes,
@@ -239,7 +239,7 @@ impl MakeCone {
             id: next_id(),
             // Lateral face plus one planar cap per non-degenerate radius:
             // a truncated cone has 3 faces, a pointed cone (one radius null) has 2.
-            // occt: BRepPrim_Cone builds Top/Bottom faces only for non-zero radii.
+            // occt: BRepPrim_Cone // builds Top/Bottom faces only for non-zero radii.
             nb_faces: 1
                 + usize::from(self.radius1 > 0.0)
                 + usize::from(self.radius2 > 0.0),
@@ -256,7 +256,7 @@ impl MakeCone {
     }
 }
 
-// occt: BRepPrimAPI_MakeTorus
+// occt-ref: BRepPrimAPI_MakeTorus
 #[derive(Clone, Debug)]
 pub struct MakeTorus {
     pub axes: PrimAxes,

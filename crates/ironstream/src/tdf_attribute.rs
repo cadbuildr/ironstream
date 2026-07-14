@@ -4,11 +4,11 @@
 //! label/attribute data model, mirroring OpenCascade's `TDF` and `TDataStd`
 //! packages. Zero dependencies; std only.
 
-// occt: TDF_Attribute / TDataStd
+// occt: TDF_Attribute // / TDataStd
 
 /// Discriminant for the concrete attribute kind stored on a TDF label.
 ///
-// occt: attribute type enum — String, Integer, Real, BooleanArray, ExtString, Guid
+// occt-note: attribute type enum — String, Integer, Real, BooleanArray, ExtString, Guid
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum TdfAttrType {
     /// Corresponds to `TDataStd_Name` / `TDataStd_AsciiString`.
@@ -31,7 +31,7 @@ pub enum TdfAttrType {
 
 /// A string attribute stored on a TDF label.
 ///
-// occt: TDataStd_Name / TDataStd_AsciiString — string attribute; fields: value String
+// occt-ref: TDataStd_Name // / TDataStd_AsciiString — string attribute; fields: value String
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct TdfStringAttr {
     value: String,
@@ -67,7 +67,7 @@ impl TdfStringAttr {
 
 /// An integer attribute stored on a TDF label.
 ///
-// occt: TDataStd_Integer — integer attribute; fields: value i64
+// occt-ref: TDataStd_Integer // — integer attribute; fields: value i64
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct TdfIntegerAttr {
     value: i64,
@@ -101,7 +101,7 @@ impl TdfIntegerAttr {
 
 /// A real-number attribute stored on a TDF label.
 ///
-// occt: TDataStd_Real — real number attribute; fields: value f64
+// occt-ref: TDataStd_Real // — real number attribute; fields: value f64
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct TdfRealAttr {
     value: f64,
@@ -136,7 +136,7 @@ impl TdfRealAttr {
 /// A tagged union of the concrete attribute types that can be attached to a
 /// TDF label.
 ///
-// occt: TDF_Attribute — union of the above
+// occt: TDF_Attribute // — union of the above
 #[derive(Clone, Debug, PartialEq)]
 pub enum TdfAttribute {
     /// A string attribute (`TDataStd_Name` / `TDataStd_AsciiString`).

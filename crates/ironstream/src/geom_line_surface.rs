@@ -76,7 +76,7 @@ fn any_orthogonal(v: [f64; 3]) -> [f64; 3] {
 /// Parameterization: `P(t) = origin + t * direction`.
 ///
 /// Mirrors the essential interface of OpenCascade's `Geom_Line`.
-// occt: Geom_Line
+// occt-ref: Geom_Line
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GeomLine {
     /// The origin point of the line (the position at parameter `t = 0`).
@@ -136,7 +136,7 @@ impl GeomLine {
 /// `normal` and to each other.
 ///
 /// Mirrors the essential interface of OpenCascade's `Geom_Plane`.
-// occt: Geom_Plane
+// occt-ref: Geom_Plane
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GeomPlane {
     /// The origin (location) of the plane.

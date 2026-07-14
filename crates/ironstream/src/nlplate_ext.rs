@@ -1,5 +1,6 @@
 // FILE: nlplate_ext.rs
-// occt: NLPlate_HGPPConstraint, NLPlate_HPG0Constraint, NLPlate_HPG1Constraint,
+// occt: NLPlate_HPG0Constraint, NLPlate_HPG1Constraint
+// occt-ref: NLPlate_HGPPConstraint
 //       NLPlate_NLPlate
 
 /// Order of geometrical constraint (G0=position, G1=tangency, G2=curvature).
@@ -26,7 +27,7 @@ impl Default for ConstraintType {
     fn default() -> Self { Self::Point }
 }
 
-// occt: NLPlate_HPG0Constraint — positional (G0) constraint: prescribes 3D point
+// occt: NLPlate_HPG0Constraint // — positional (G0) constraint: prescribes 3D point
 #[derive(Clone, Debug, Default)]
 pub struct HPG0Constraint {
     pub uv: [f64; 2],
@@ -48,7 +49,7 @@ impl HPG0Constraint {
     pub fn nb_uv_params(&self) -> usize { 1 }
 }
 
-// occt: NLPlate_HPG1Constraint — first-derivative (G1) constraint: tangent plane
+// occt: NLPlate_HPG1Constraint // — first-derivative (G1) constraint: tangent plane
 #[derive(Clone, Debug)]
 pub struct HPG1Constraint {
     pub base: HPG0Constraint,
@@ -70,7 +71,7 @@ impl HPG1Constraint {
     pub fn uv_params(&self) -> [f64; 2] { self.base.uv }
 }
 
-// occt: NLPlate_HGPPConstraint — general (possibly higher-order) point-plus constraint
+// occt-ref: NLPlate_HGPPConstraint // — general (possibly higher-order) point-plus constraint
 #[derive(Clone, Debug)]
 pub struct HGPPConstraint {
     pub uv: [f64; 2],
@@ -113,7 +114,7 @@ impl HGPPConstraint {
     pub fn has_g2(&self) -> bool { self.curvature.is_some() }
 }
 
-// occt: NLPlate_NLPlate — fills a surface with constraints using nonlinear plate theory
+// occt-ref: NLPlate_NLPlate // — fills a surface with constraints using nonlinear plate theory
 #[derive(Clone, Debug, Default)]
 pub struct NLPlate {
     pub g0_constraints: Vec<HPG0Constraint>,

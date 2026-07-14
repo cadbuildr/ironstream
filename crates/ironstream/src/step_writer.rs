@@ -20,7 +20,7 @@ use std::io;
 /// Mirrors OCCT's `IFSelect_ReturnStatus` enumeration, adding an `Error`
 /// variant that carries a diagnostic message for failures that originate
 /// inside IronStream (e.g. filesystem errors).
-// occt: IFSelect_ReturnStatus
+// occt-ref: IFSelect_ReturnStatus
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum StepReturnStatus {
     /// The operation completed successfully.
@@ -85,12 +85,12 @@ impl fmt::Display for StepReturnStatus {
 /// | `STEPControl_Writer::Transfer()`  | `StepWriter::transfer()`     |
 /// | `STEPControl_Writer::Write()`     | `StepWriter::write()`        |
 /// | `IFSelect_ReturnStatus`           | `StepReturnStatus`           |
-// occt: STEPControl_Writer
+// occt-ref: STEPControl_Writer
 #[derive(Debug, Clone)]
 pub struct StepWriter {
     /// Staged shape tokens.  Each string is written verbatim as one DATA-
     /// section line when `write` is called.
-    // occt: STEPControl_Writer (internal shape list)
+    // occt-ref: STEPControl_Writer // (internal shape list)
     pub shapes: Vec<String>,
     /// STEP schema name embedded in the `FILE_SCHEMA` header.
     pub schema: String,
@@ -108,7 +108,7 @@ impl StepWriter {
     /// assert_eq!(w.schema, "CONFIG_CONTROL_DESIGN");
     /// assert!(w.shapes.is_empty());
     /// ```
-    // occt: STEPControl_Writer::STEPControl_Writer()
+    // occt-ref: STEPControl_Writer // ::STEPControl_Writer()
     pub fn new() -> Self {
         Self {
             shapes: Vec::new(),
@@ -126,7 +126,7 @@ impl StepWriter {
     /// let w = StepWriter::with_schema("AUTOMOTIVE_DESIGN");
     /// assert_eq!(w.schema, "AUTOMOTIVE_DESIGN");
     /// ```
-    // occt: STEPControl_Writer (schema configuration)
+    // occt-ref: STEPControl_Writer // (schema configuration)
     pub fn with_schema(schema: &str) -> Self {
         Self {
             shapes: Vec::new(),
@@ -148,7 +148,7 @@ impl StepWriter {
     /// w.add_shape("CLOSED_SHELL('box',())");
     /// assert_eq!(w.shape_count(), 1);
     /// ```
-    // occt: STEPControl_Writer::Transfer() — staging phase
+    // occt-ref: STEPControl_Writer // ::Transfer() — staging phase
     pub fn add_shape(&mut self, s: &str) {
         self.shapes.push(s.to_string());
     }
@@ -169,7 +169,7 @@ impl StepWriter {
     /// assert_eq!(w.transfer(""), StepReturnStatus::Void);
     /// assert_eq!(w.shape_count(), 1);
     /// ```
-    // occt: STEPControl_Writer::Transfer(shape, mode, compgraph)
+    // occt-ref: STEPControl_Writer // ::Transfer(shape, mode, compgraph)
     pub fn transfer(&mut self, s: &str) -> StepReturnStatus {
         let trimmed = s.trim();
         if trimmed.is_empty() {
@@ -195,7 +195,7 @@ impl StepWriter {
     /// let status = w.write("/tmp/out.step");
     /// assert!(status.is_ok());
     /// ```
-    // occt: STEPControl_Writer::Write(filename)
+    // occt-ref: STEPControl_Writer // ::Write(filename)
     pub fn write(&self, path: &str) -> StepReturnStatus {
         if self.shapes.is_empty() {
             return StepReturnStatus::Void;
@@ -220,7 +220,7 @@ impl StepWriter {
     /// w.add_shape("CLOSED_SHELL('t',())");
     /// assert_eq!(w.shape_count(), 2);
     /// ```
-    // occt: STEPControl_Writer (no direct equivalent; related to NbShapes)
+    // occt-ref: STEPControl_Writer // (no direct equivalent; related to NbShapes)
     pub fn shape_count(&self) -> usize {
         self.shapes.len()
     }
@@ -284,7 +284,7 @@ impl Default for StepWriter {
 /// let status = write_step_file(&shapes, "/tmp/assembly.step");
 /// assert!(status.is_ok());
 /// ```
-// occt: STEPControl_Writer (utility usage pattern)
+// occt-ref: STEPControl_Writer // (utility usage pattern)
 pub fn write_step_file(shapes: &[String], path: &str) -> StepReturnStatus {
     if shapes.is_empty() {
         return StepReturnStatus::Void;

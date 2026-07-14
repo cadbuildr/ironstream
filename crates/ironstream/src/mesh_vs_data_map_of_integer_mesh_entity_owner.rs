@@ -1,5 +1,6 @@
 // FILE: mesh_vs_data_map_of_integer_mesh_entity_owner.rs
-// occt: MeshVS_DataMapOfIntegerMeshEntityOwner, MeshVS_DataMapIteratorOfDataMapOfIntegerMeshEntityOwner
+// occt: MeshVS_DataMapOfIntegerMeshEntityOwner
+// occt-ref: MeshVS_DataMapIteratorOfDataMapOfIntegerMeshEntityOwner
 
 use std::collections::HashMap;
 use std::rc::Rc;

@@ -1,9 +1,9 @@
 // FILE: solid_from_shell.rs
-// occt: BRepClass3d_SolidClassifier, BRepBuilderAPI_MakeSolid,
+// occt-ref: BRepClass3d_SolidClassifier, BRepBuilderAPI_MakeSolid
 //       ShapeFix_Solid, Solid_DataTools
 
 /// Result of a solid classification test.
-/// occt: TopAbs_State
+// occt-ref: TopAbs_State
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Default)]
 pub enum SolidClassificationState {
     #[default]
@@ -20,7 +20,7 @@ impl SolidClassificationState {
 }
 
 /// Solid building utility.
-/// occt: BRepBuilderAPI_MakeSolid / BRepClass3d_SolidClassifier
+// occt-ref: BRepBuilderAPI_MakeSolid // / BRepClass3d_SolidClassifier
 #[derive(Clone, Debug)]
 pub struct SolidMaker {
     pub solid_id: u32,
@@ -56,7 +56,7 @@ impl SolidMaker {
 }
 
 /// Point-in-solid classifier.
-/// occt: BRepClass3d_SolidClassifier (stub)
+// occt-ref: BRepClass3d_SolidClassifier // (stub)
 #[derive(Clone, Debug)]
 pub struct SolidClassifier {
     pub solid_id: u32,
@@ -85,7 +85,7 @@ impl SolidClassifier {
 }
 
 /// Solid data utilities: consistency checks.
-/// occt: ShapeFix_Solid, Solid_DataTools
+// occt-ref: ShapeFix_Solid, Solid_DataTools
 #[derive(Clone, Debug, Default)]
 pub struct SolidDataTools;
 

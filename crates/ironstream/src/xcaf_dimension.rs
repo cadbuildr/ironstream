@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/xcaf_dimension.rs
 
-// occt: XCAFDimTolObjects_DimensionType — classifies a dimension or tolerance
+// occt: XCAFDimTolObjects_DimensionType // — classifies a dimension or tolerance
 // annotation stored in an XDE document label.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum DimTolType {
@@ -34,7 +34,7 @@ pub enum DimTolType {
     PositionTolerance,
 }
 
-// occt: dimension/tolerance entry — a single annotated dimension or tolerance
+// occt-note: dimension/tolerance entry — a single annotated dimension or tolerance
 // record attached to a shape label, mirroring XCAFDoc_DimTolTool's per-entry
 // data model (label + value + limits + optional description).
 #[derive(Clone, Debug)]
@@ -103,7 +103,7 @@ impl DimTolEntry {
     }
 }
 
-// occt: XCAFDoc_DimTolTool — manages a collection of dimension and tolerance
+// occt: XCAFDoc_DimTolTool // — manages a collection of dimension and tolerance
 // entries stored in an XDE document, providing creation, lookup, and
 // type-filtered queries.
 pub struct DimTolTool {

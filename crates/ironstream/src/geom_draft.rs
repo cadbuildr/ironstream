@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/geom_draft.rs
 
-// occt: draft face spec — fields: label String, angle f64, direction [f64;3], neutral_plane_dist f64
+// occt-note: draft face spec — fields: label String, angle f64, direction [f64;3], neutral_plane_dist f64
 pub struct DraftFace {
     label: String,
     angle: f64,
@@ -39,7 +39,7 @@ impl DraftFace {
     }
 }
 
-// occt: BRepOffsetAPI_DraftAngle status
+// occt-ref: BRepOffsetAPI_DraftAngle // status
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum DraftStatus {
     NoError,
@@ -49,7 +49,7 @@ pub enum DraftStatus {
     NotDone,
 }
 
-// occt: draft operation result
+// occt-note: draft operation result
 pub struct DraftResult {
     status: DraftStatus,
     nb_faces_modified: usize,
@@ -90,7 +90,7 @@ impl Default for DraftResult {
     }
 }
 
-// occt: BRepOffsetAPI_DraftAngle
+// occt-ref: BRepOffsetAPI_DraftAngle
 pub struct MakeDraftAngle {
     faces: Vec<DraftFace>,
     result: DraftResult,

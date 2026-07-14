@@ -1,5 +1,5 @@
 // FILE: tprs_std.rs
-// occt: TPrsStd_AISPresentation, TPrsStd_AISViewer, TPrsStd_Driver,
+// occt: TPrsStd_AISPresentation, TPrsStd_AISViewer, TPrsStd_Driver
 //       TPrsStd_DriverTable
 
 /// Display mode for AIS presentations.

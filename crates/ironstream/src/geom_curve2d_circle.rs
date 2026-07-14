@@ -22,7 +22,7 @@ const TWO_PI: f64 = 2.0 * PI;
 /// Stores the centre as a 2-element array and the radius as a scalar.  The
 /// parametrisation `P(U) = center + [r*cos(U), r*sin(U)]` follows OCCT's
 /// convention for `Geom2d_Circle`.
-// occt: Geom2d_Circle
+// occt-ref: Geom2d_Circle
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Circle2dCurve {
     /// Centre of the circle `[cx, cy]`.

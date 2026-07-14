@@ -1,5 +1,5 @@
 // FILE: math_utils.rs
-// occt: MathUtils_Config, MathUtils_ScalarResult
+// occt-ref: MathUtils_Config, MathUtils_ScalarResult
 
 //! Modern math solver types and result structures for root finding and optimization.
 //! Ported from OCCT MathUtils types.

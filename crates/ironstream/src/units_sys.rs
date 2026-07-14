@@ -1,9 +1,10 @@
 // FILE: units_sys.rs
-// occt: UnitsAPI, Units_UnitSentence, Units_Dimensions, Units_MathSentence,
+// occt: Units_UnitSentence, Units_MathSentence
+// occt-ref: UnitsAPI, Units_Dimensions
 //       Units_Lexicon, Units_Token
 
 /// Dimension type of a physical quantity.
-/// occt: Units_Dimensions
+// occt-ref: Units_Dimensions
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum DimensionKind {
     Dimensionless,
@@ -54,7 +55,7 @@ impl Unit {
 }
 
 /// Registry of units.
-/// occt: UnitsAPI / Units_UnitSentence
+// occt-ref: UnitsAPI // / Units_UnitSentence
 #[derive(Clone, Debug)]
 pub struct UnitsRegistry {
     units: Vec<Unit>,
@@ -128,7 +129,7 @@ impl Default for UnitsRegistry {
 }
 
 /// OCCT units API (static access).
-/// occt: UnitsAPI
+// occt-ref: UnitsAPI
 pub struct UnitsApi;
 
 impl UnitsApi {

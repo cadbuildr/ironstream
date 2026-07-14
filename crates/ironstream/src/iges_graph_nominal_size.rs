@@ -1,5 +1,5 @@
 // FILE: iges_graph_nominal_size.rs
-// occt: IGESGraph_Unominalsize
+// occt-ref: IGESGraph_Unominalsize
 
 pub struct UnominalUsize {
     entity_type: i32,

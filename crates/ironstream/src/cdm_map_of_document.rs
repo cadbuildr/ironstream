@@ -1,5 +1,6 @@
 // FILE: cdm_map_of_document.rs
-// occt: CDM_MapOfDocument, CDM_MapIteratorOfMapOfDocument
+// occt: CDM_MapOfDocument
+// occt-ref: CDM_MapIteratorOfMapOfDocument
 
 //! Deprecated type aliases for backward compatibility.
 //! Use HashSet<Arc<CdmDocument>> directly instead.

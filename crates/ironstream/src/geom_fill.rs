@@ -682,7 +682,7 @@ pub enum PipeError {
 ///
 /// The resulting surface is a B-spline surface: the U direction follows the
 /// spine and the V direction is the circular cross-section.
-// occt: GeomFill_Pipe
+// occt-ref: GeomFill_Pipe
 #[derive(Clone, Debug)]
 pub struct GeomFillPipe {
     /// The spine curve (centre line).
@@ -898,7 +898,7 @@ fn compute_frenet_frames(
 ///
 /// Mirrors `GeomFill_BoundWithSurf` / `GeomAbs_Shape` used in constrained
 /// filling.
-// occt: GeomAbs_Shape (used for constraint order)
+// occt: GeomAbs_Shape // (used for constraint order)
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub enum ConstraintOrder {
     /// `G0` — positional constraint (C0 continuity).

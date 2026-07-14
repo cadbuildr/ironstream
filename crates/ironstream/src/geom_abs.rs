@@ -1,6 +1,6 @@
 // FILE: geom_abs.rs
 
-// occt: GeomAbs_CurveType
+// occt-ref: GeomAbs_CurveType
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum CurveType {
     Line,
@@ -14,7 +14,7 @@ pub enum CurveType {
     OtherCurve,
 }
 
-// occt: GeomAbs_SurfaceType
+// occt-ref: GeomAbs_SurfaceType
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum SurfaceType {
     Plane,
@@ -30,7 +30,7 @@ pub enum SurfaceType {
     OtherSurface,
 }
 
-// occt: GeomAbs_Shape
+// occt-ref: GeomAbs_Shape
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum Shape {
     C0,

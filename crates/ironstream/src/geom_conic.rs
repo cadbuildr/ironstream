@@ -1,5 +1,6 @@
 // FILE: geom_conic.rs
-// occt: Geom_Conic, Geom_Parabola, Geom_Hyperbola,
+// occt: Geom_Conic
+// occt-ref: Geom_Parabola, Geom_Hyperbola
 //       Geom_OffsetCurve (not geom_offset_curve.rs), Geom_TrimmedCurve
 
 use std::f64::consts::PI;
@@ -30,7 +31,7 @@ impl ConicParams {
 }
 
 /// Parabola: x²= 4py in standard position.
-/// occt: Geom_Parabola
+// occt-ref: Geom_Parabola
 #[derive(Clone, Debug)]
 pub struct GeomParabola {
     pub params: ConicParams,
@@ -77,7 +78,7 @@ impl GeomParabola {
 }
 
 /// Hyperbola: x²/a² - y²/b² = 1.
-/// occt: Geom_Hyperbola
+// occt-ref: Geom_Hyperbola
 #[derive(Clone, Debug)]
 pub struct GeomHyperbola {
     pub params: ConicParams,
@@ -143,7 +144,7 @@ impl GeomHyperbola {
 }
 
 /// Trimmed curve: restricts another curve to [first, last].
-/// occt: Geom_TrimmedCurve
+// occt-ref: Geom_TrimmedCurve
 #[derive(Clone, Debug)]
 pub struct GeomTrimmedCurve {
     pub basis_curve_id: u32,
@@ -188,7 +189,7 @@ impl GeomTrimmedCurve {
 }
 
 /// Offset curve: offset of a basis curve by a given distance along normal.
-/// occt: Geom_OffsetCurve (extended version)
+// occt-ref: Geom_OffsetCurve // (extended version)
 #[derive(Clone, Debug)]
 pub struct GeomOffsetCurveExt {
     pub basis_curve_id: u32,

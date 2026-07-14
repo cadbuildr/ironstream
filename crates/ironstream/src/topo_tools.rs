@@ -1,6 +1,6 @@
 // FILE: crates/ironstream/src/topo_tools.rs
 
-// occt: TopTools_MapOfShape
+// occt-ref: TopTools_MapOfShape
 pub struct TopToolsMapOfShape {
     entries: std::collections::HashSet<String>,
 }
@@ -44,7 +44,7 @@ impl Default for TopToolsMapOfShape {
     }
 }
 
-// occt: TopTools_ListOfShape
+// occt-ref: TopTools_ListOfShape
 pub struct TopToolsListOfShape {
     shapes: std::collections::VecDeque<String>,
 }
@@ -95,7 +95,7 @@ impl Default for TopToolsListOfShape {
     }
 }
 
-// occt: TopTools_SequenceOfShape
+// occt-ref: TopTools_SequenceOfShape
 pub struct TopToolsSequenceOfShape {
     shapes: Vec<String>,
 }

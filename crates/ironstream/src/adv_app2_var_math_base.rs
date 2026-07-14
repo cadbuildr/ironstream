@@ -1,5 +1,5 @@
 // FILE: adv_app2_var_math_base.rs
-// occt: AdvApp2VarMathBase
+// occt-ref: AdvApp2VarMathBase
 
 //! Approximation and constraint handling class.
 pub struct AdvApp2VarMathBase {

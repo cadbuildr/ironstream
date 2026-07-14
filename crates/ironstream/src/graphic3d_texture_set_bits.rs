@@ -1,6 +1,6 @@
 // FILE: graphic3d_texture_set_bits.rs
 // occt: Graphic3d_TextureSetBits
-// occt: Graphic3d_TextureUnit
+// occt-ref: Graphic3d_TextureUnit
 
 /// Texture unit enumeration.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]

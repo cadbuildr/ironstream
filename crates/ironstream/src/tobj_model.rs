@@ -1,5 +1,5 @@
 // FILE: tobj_model.rs
-// occt: TObj_Model, TObj_Object, TObj_Partition, TObj_TNameContainer,
+// occt: TObj_Model, TObj_Object, TObj_Partition, TObj_TNameContainer
 //       TObj_ObjectIterator
 
 use std::collections::HashMap;
@@ -17,7 +17,7 @@ impl Default for TObjType {
     fn default() -> Self { Self::Leaf }
 }
 
-// occt: TObj_Object — base class for all TObj objects
+// occt: TObj_Object // — base class for all TObj objects
 #[derive(Clone, Debug)]
 pub struct TObjObject {
     pub id: u32,
@@ -53,7 +53,7 @@ impl TObjObject {
     pub fn is_in_model(&self) -> bool { self.is_alive }
 }
 
-// occt: TObj_Partition — a named group of objects within a model
+// occt: TObj_Partition // — a named group of objects within a model
 #[derive(Clone, Debug)]
 pub struct TObjPartition {
     pub id: u32,
@@ -73,7 +73,7 @@ impl TObjPartition {
     pub fn contains(&self, obj_id: u32) -> bool { self.object_ids.contains(&obj_id) }
 }
 
-// occt: TObj_TNameContainer — maps string names to object IDs within a model
+// occt: TObj_TNameContainer // — maps string names to object IDs within a model
 #[derive(Clone, Debug, Default)]
 pub struct TNameContainer {
     pub names: HashMap<String, u32>,
@@ -168,7 +168,7 @@ impl TObjModel {
     }
 }
 
-// occt: TObj_ObjectIterator — iterates live objects in a partition
+// occt: TObj_ObjectIterator // — iterates live objects in a partition
 pub struct TObjObjectIterator<'a> {
     model: &'a TObjModel,
     ids: Vec<u32>,

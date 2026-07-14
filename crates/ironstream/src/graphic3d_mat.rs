@@ -1,6 +1,6 @@
 // FILE: crates/ironstream/src/graphic3d_mat.rs
 
-// occt: Graphic3d_NameOfMaterial
+// occt-ref: Graphic3d_NameOfMaterial
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum MaterialName {
     Brass,
@@ -15,7 +15,7 @@ pub enum MaterialName {
     UserDefined,
 }
 
-// occt: Graphic3d_MaterialAspect
+// occt-ref: Graphic3d_MaterialAspect
 #[derive(Clone, Debug)]
 pub struct MaterialAspect {
     pub name: MaterialName,
@@ -134,7 +134,7 @@ impl MaterialAspect {
     }
 }
 
-// occt: Graphic3d_BSDF
+// occt-ref: Graphic3d_BSDF
 /// Bidirectional Scattering Distribution Function coefficients used for
 /// physically-based rendering in OCCT's PBR pipeline.
 #[derive(Clone, Debug)]

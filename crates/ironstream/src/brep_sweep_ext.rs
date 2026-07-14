@@ -170,7 +170,7 @@ impl SweepIterator {
 ///
 /// Loosely corresponds to the constructor parameters accepted by the various
 /// `BRepOffsetAPI_MakePipe*` / `BRepSweep_*` classes in OCCT.
-// occt: BRepSweep_Trsf (parameter bundle)
+// occt: BRepSweep_Trsf // (parameter bundle)
 #[derive(Clone, Debug, PartialEq)]
 pub struct SweepParams {
     /// Name / tag of the spine wire that guides the sweep.

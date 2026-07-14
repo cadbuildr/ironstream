@@ -1,7 +1,7 @@
 // FILE: brep_section.rs
-// occt: BRepAlgoAPI_Section, BRepBuilderAPI_MakeEdge (from intersection curve)
+// occt-note: BRepAlgoAPI_Section, BRepBuilderAPI_MakeEdge (from intersection curve)
 
-// occt: BRepAlgoAPI_Section
+// occt-ref: BRepAlgoAPI_Section
 /// Computes the intersection curve between two shapes.
 #[derive(Clone, Debug)]
 pub struct SectionOperation {
@@ -73,7 +73,7 @@ impl SectionOperation {
     pub fn nb_edges(&self) -> usize { self.result_curves.len() }
 }
 
-// occt: BOPAlgo_Section
+// occt-ref: BOPAlgo_Section
 /// BOP-based section (same concept, different implementation path).
 pub type BopSection = SectionOperation;
 

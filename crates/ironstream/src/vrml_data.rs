@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/vrml_data.rs
 
-// occt: VrmlData node type — enum Shape, Appearance, Material, IndexedFaceSet,
+// occt-note: VrmlData node type — enum Shape, Appearance, Material, IndexedFaceSet,
 //       Coordinate, Normal, TextureCoordinate, Group, Transform, Unknown
 /// Mirrors the node-type discriminants from the OCCT VrmlData package.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -17,7 +17,7 @@ pub enum VrmlDataNodeType {
     Unknown,
 }
 
-// occt: VrmlData_Material — PBR-adjacent surface appearance descriptor
+// occt-ref: VrmlData_Material // — PBR-adjacent surface appearance descriptor
 /// Stores the surface-appearance fields from a VRML Material node.
 #[derive(Debug, Clone)]
 pub struct VrmlDataMaterial {
@@ -110,7 +110,7 @@ impl VrmlDataMaterial {
     }
 }
 
-// occt: VrmlData_IndexedFaceSet stub — mesh geometry
+// occt-ref: VrmlData_IndexedFaceSet // stub — mesh geometry
 /// Holds the per-face index soup produced by a VRML IndexedFaceSet node.
 #[derive(Debug, Clone)]
 pub struct VrmlDataIndexedFaceSet {
@@ -166,7 +166,7 @@ impl Default for VrmlDataIndexedFaceSet {
     }
 }
 
-// occt: VrmlData_Scene — VRML scene container
+// occt-ref: VrmlData_Scene // — VRML scene container
 /// Top-level VRML scene holding face sets and materials.
 #[derive(Debug, Clone)]
 pub struct VrmlDataScene {

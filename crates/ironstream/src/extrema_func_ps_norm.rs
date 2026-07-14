@@ -1,5 +1,5 @@
 // FILE: extrema_func_ps_norm.rs
-// occt: EXTREMAFUNC_PS_NORM
+// occt-ref: EXTREMAFUNC_PS_NORM
 
 pub struct Extremafuncpsnorm {
     done: bool,

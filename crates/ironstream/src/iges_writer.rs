@@ -9,7 +9,7 @@
 use std::fs;
 use std::io::Write as IoWrite;
 
-// occt: IGESControl_Writer — transfer mode controlling how BRep topology is
+// occt-ref: IGESControl_Writer // — transfer mode controlling how BRep topology is
 // mapped to IGES entities.
 /// Transfer mode used when adding shapes to the writer.
 ///
@@ -18,23 +18,23 @@ use std::io::Write as IoWrite;
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum IgesMode {
     /// Exact BRep representation (type 186 Manifold Solid BRep Object).
-    // occt: IGESControl_Writer mode BRep (0)
+    // occt-ref: IGESControl_Writer // mode BRep (0)
     BRep,
     /// Facetted BRep — triangulated approximation of solid geometry.
-    // occt: IGESControl_Writer mode FacettedBRep (1)
+    // occt-ref: IGESControl_Writer // mode FacettedBRep (1)
     FacettedBRep,
     /// Surface of revolution (entity type 162).
-    // occt: IGESControl_Writer mode SurfaceOfRevolution (2)
+    // occt-ref: IGESControl_Writer // mode SurfaceOfRevolution (2)
     SurfaceOfRevolution,
     /// Trimmed parametric surfaces (entity type 144).
-    // occt: IGESControl_Writer mode Trimmed (3)
+    // occt-ref: IGESControl_Writer // mode Trimmed (3)
     Trimmed,
     /// Wire-frame geometry — curves only, no surfaces.
-    // occt: IGESControl_Writer mode WireFrame (4)
+    // occt-ref: IGESControl_Writer // mode WireFrame (4)
     WireFrame,
 }
 
-// occt: IGESControl_Writer
+// occt-ref: IGESControl_Writer
 /// Stub IGES file writer that accumulates shape descriptors and serialises
 /// them to a minimal IGES text file.
 ///
@@ -50,11 +50,11 @@ pub enum IgesMode {
 /// assert_eq!(w.shape_count(), 1);
 /// ```
 pub struct IgesWriter {
-    // occt: IGESControl_Writer shape sequence
+    // occt-ref: IGESControl_Writer // shape sequence
     pub shapes: Vec<String>,
-    // occt: IGESControl_Writer write mode
+    // occt-ref: IGESControl_Writer // write mode
     pub mode: IgesMode,
-    // occt: IGESControl_Writer units string (e.g. "MM", "INCH")
+    // occt-ref: IGESControl_Writer // units string (e.g. "MM", "INCH")
     pub units: String,
 }
 
@@ -63,7 +63,7 @@ impl IgesWriter {
 
     /// Creates an [`IgesWriter`] with default settings: [`IgesMode::BRep`] and
     /// millimetre units.
-    // occt: IGESControl_Writer::IGESControl_Writer()
+    // occt-ref: IGESControl_Writer // ::IGESControl_Writer()
     pub fn new() -> Self {
         Self {
             shapes: Vec::new(),
@@ -74,7 +74,7 @@ impl IgesWriter {
 
     /// Consumes `self`, sets the write mode to `m`, and returns the updated
     /// writer.  Intended for builder-style construction.
-    // occt: IGESControl_Writer write-mode setter
+    // occt-ref: IGESControl_Writer // write-mode setter
     pub fn with_mode(mut self, m: IgesMode) -> Self {
         self.mode = m;
         self
@@ -82,7 +82,7 @@ impl IgesWriter {
 
     /// Consumes `self`, sets the units string to `u`, and returns the updated
     /// writer.  Intended for builder-style construction.
-    // occt: IGESControl_Writer units setter
+    // occt-ref: IGESControl_Writer // units setter
     pub fn with_units(mut self, u: &str) -> Self {
         self.units = u.to_string();
         self
@@ -94,7 +94,7 @@ impl IgesWriter {
     ///
     /// In a full implementation `s` would be a reference to a BRep shape;
     /// here we record the debug label for stub purposes.
-    // occt: IGESControl_Writer::AddShape
+    // occt-ref: IGESControl_Writer // ::AddShape
     pub fn add_shape(&mut self, s: &str) {
         self.shapes.push(s.to_string());
     }
@@ -102,7 +102,7 @@ impl IgesWriter {
     // ------------------------------- queries -------------------------------
 
     /// Returns the number of shapes registered with this writer.
-    // occt: IGESControl_Writer::NbShapes (conceptual)
+    // occt-ref: IGESControl_Writer // ::NbShapes (conceptual)
     pub fn shape_count(&self) -> usize {
         self.shapes.len()
     }
@@ -116,7 +116,7 @@ impl IgesWriter {
     /// produces one stub Directory Entry / Parameter Data pair.
     ///
     /// Returns `Err(String)` if the file cannot be created or written.
-    // occt: IGESControl_Writer::Write
+    // occt-ref: IGESControl_Writer // ::Write
     pub fn write(&self, path: &str) -> Result<(), String> {
         let mut file = fs::File::create(path)
             .map_err(|e| format!("iges_writer: cannot create '{}': {}", path, e))?;
@@ -256,7 +256,7 @@ fn chrono_stub() -> &'static str {
     "2026-01-01T00:00:00"
 }
 
-// occt: IGESData_IGESEntity (simplified write-side view)
+// occt-ref: IGESData_IGESEntity // (simplified write-side view)
 /// A single IGES entity ready for serialisation, identified by a numeric
 /// entity type code and a free-text label.
 ///
@@ -264,10 +264,10 @@ fn chrono_stub() -> &'static str {
 /// from OCCT — just enough structure to emit a valid Parameter Data line.
 pub struct IgesEntity {
     /// IGES entity type number (e.g. 110 = line, 116 = point, 186 = BRep solid).
-    // occt: IGESData_IGESEntity::TypeNumber
+    // occt-ref: IGESData_IGESEntity // ::TypeNumber
     pub entity_type: u32,
     /// Human-readable label stored in the Directory Entry label field.
-    // occt: IGESData_IGESEntity label
+    // occt-ref: IGESData_IGESEntity // label
     pub label: String,
 }
 
@@ -275,7 +275,7 @@ impl IgesEntity {
     // ----------------------------- constructors ----------------------------
 
     /// Creates a new [`IgesEntity`] with the given entity type code and label.
-    // occt: IGESData_IGESEntity constructor
+    // occt-ref: IGESData_IGESEntity // constructor
     pub fn new(etype: u32, label: &str) -> Self {
         Self {
             entity_type: etype,
@@ -292,7 +292,7 @@ impl IgesEntity {
     /// <entity_type>,<label>;
     /// ```
     /// padded to 72 characters and terminated with a newline.
-    // occt: IGESData_IGESEntity serialisation (IGESData_IGESWriter concept)
+    // occt-ref: IGESData_IGESEntity // serialisation (IGESData_IGESWriter concept)
     pub fn to_iges_line(&self) -> String {
         let data = format!("{},{};", self.entity_type, self.label);
         format!("{:<72}\n", data)

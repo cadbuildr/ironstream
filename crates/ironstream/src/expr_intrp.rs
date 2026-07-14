@@ -1,10 +1,10 @@
 // FILE: expr_intrp.rs
-// occt: Expr_NumericValue, Expr_NamedUnknown, Expr_Sum,
+// occt: Expr_NumericValue, Expr_NamedUnknown, Expr_Sum
 //       Expr_Product, Expr_Exponent, Expr_UnaryMinus,
 //       Expr_Sine, Expr_Cosine, ExprIntrp_GenExp
 
 /// A symbolic expression node.
-/// occt: Expr_GeneralExpression (simplified)
+/// occt: Expr_GeneralExpression // (simplified)
 #[derive(Clone, Debug, PartialEq)]
 pub enum Expr {
     /// Constant numeric value.

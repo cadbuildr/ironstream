@@ -1,5 +1,5 @@
 // FILE: extrema_g_curve_locator.rs
-// occt: EXTREMAG_CURVE_LOCATOR
+// occt-ref: EXTREMAG_CURVE_LOCATOR
 
 pub struct Extremagcurvelocator {
     done: bool,

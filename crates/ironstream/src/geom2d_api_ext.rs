@@ -18,7 +18,7 @@ impl Default for Geom2dApiPtsToBSplineParams {
     }
 }
 
-// occt: Geom2dAPI_PointsToBSpline
+// occt-ref: Geom2dAPI_PointsToBSpline
 pub struct Geom2dApiPointsToBSpline {
     points: Vec<[f64; 2]>,
     params: Geom2dApiPtsToBSplineParams,
@@ -77,7 +77,7 @@ impl Geom2dApiPointsToBSpline {
     }
 }
 
-// occt: Geom2dAPI_Interpolate
+// occt-ref: Geom2dAPI_Interpolate
 pub struct Geom2dApiInterpolate {
     points: Vec<[f64; 2]>,
     is_periodic: bool,

@@ -2,7 +2,7 @@
 
 use std::collections::HashMap;
 
-// occt: TDF_Label — a node in the OCAF label tree
+// occt: TDF_Label // — a node in the OCAF label tree
 /// A single node in the OCAF attribute/data tree.
 ///
 /// Each entry holds a numeric `tag`, a dot-colon entry path string (e.g. `"0:1:2"`),
@@ -84,7 +84,7 @@ impl TdfEntry {
 
 // ---------------------------------------------------------------------------
 
-// occt: TDF_Data — the label tree (document root)
+// occt-ref: TDF_Data // — the label tree (document root)
 /// The whole OCAF label tree rooted at entry `"0"`.
 ///
 /// Labels are stored in a flat `Vec` and looked up by their entry string.

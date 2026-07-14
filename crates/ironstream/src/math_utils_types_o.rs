@@ -1,5 +1,5 @@
 // FILE: math_utils_types_o.rs
-// occt: MathUtils::Status, MathUtils::ScalarResult, MathUtils::PolyResult, MathUtils::VectorResult, MathUtils::LinearResult
+// occt-note: MathUtils::Status, MathUtils::ScalarResult, MathUtils::PolyResult, MathUtils::VectorResult, MathUtils::LinearResult
 
 /// Computation status for all math solvers.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

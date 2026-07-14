@@ -1,5 +1,5 @@
 // FILE: app_def_res_constraint_of_the_gradient.rs
-// occt: AppDefResConstraint3
+// occt-ref: AppDefResConstraint3
 
 //! Approximation and constraint handling class.
 pub struct AppDefResConstraint3 {

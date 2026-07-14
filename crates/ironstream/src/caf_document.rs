@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/caf_document.rs
 
-// occt: TDocStd_Document
+// occt-ref: TDocStd_Document
 /// A label (node) inside a CAF document, identified by a dot-separated entry
 /// path (e.g. `"0:1:2"`) and a numeric tag.
 ///
@@ -40,7 +40,7 @@ impl CafLabel {
     }
 }
 
-// occt: TDocStd_Document
+// occt-ref: TDocStd_Document
 /// An OCAF-style CAF document that owns a flat list of labels.
 ///
 /// Mirrors `TDocStd_Document`.
@@ -113,7 +113,7 @@ impl CafDocument {
     }
 }
 
-// occt: TDocStd_Application
+// occt-ref: TDocStd_Application
 /// Application-level manager that owns a collection of open CAF documents.
 ///
 /// Mirrors `TDocStd_Application`.

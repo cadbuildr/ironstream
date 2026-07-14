@@ -1,9 +1,9 @@
 // FILE: de_step_cfg.rs
-// occt: DE_StepConfiguration, DE_IgesConfiguration, DE_ConfigurationNode,
+// occt-ref: DE_StepConfiguration, DE_IgesConfiguration, DE_ConfigurationNode
 //       DE_ShapeFixParameters
 
 /// STEP schema variant for reading/writing.
-/// occt: STEPControl_SchemaName
+// occt-ref: STEPControl_SchemaName
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum StepSchema {
     Ap203,
@@ -44,7 +44,7 @@ impl Default for IgesReadMode {
 }
 
 /// STEP read/write configuration.
-/// occt: DE_StepConfiguration / DE_ConfigurationNode
+/// occt-note: DE_StepConfiguration / DE_ConfigurationNode
 #[derive(Clone, Debug)]
 pub struct DeStepConfig {
     pub schema: StepSchema,
@@ -99,7 +99,7 @@ impl DeStepConfig {
 }
 
 /// IGES read/write configuration.
-/// occt: DE_IgesConfiguration
+// occt-ref: DE_IgesConfiguration
 #[derive(Clone, Debug)]
 pub struct DeIgesConfig {
     pub read_mode: IgesReadMode,
@@ -141,7 +141,7 @@ impl DeIgesConfig {
 }
 
 /// Shape fix parameters for import cleanup.
-/// occt: DE_ShapeFixParameters
+// occt-ref: DE_ShapeFixParameters
 #[derive(Clone, Debug)]
 pub struct DeShapeFixParams {
     pub fix_solid: bool,

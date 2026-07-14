@@ -1,7 +1,8 @@
 // FILE: image_pixmap.rs
-// occt: Image_PixMap, Image_AlienPixMap, Image_SupportedFormats
+// occt: Image_PixMap
+// occt-ref: Image_AlienPixMap, Image_SupportedFormats
 
-// occt: Image_Format
+// occt-ref: Image_Format
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ImageFormat {
     Gray,
@@ -92,7 +93,7 @@ impl PixMap {
     }
 }
 
-// occt: Image_AlienPixMap
+// occt-ref: Image_AlienPixMap
 /// Pixel map that can be loaded from / saved to image files (stub).
 #[derive(Clone, Debug)]
 pub struct AlienPixMap {
@@ -118,7 +119,7 @@ impl AlienPixMap {
     pub fn height(&self) -> u32 { self.base.height }
 }
 
-// occt: Image_SupportedFormats
+// occt-ref: Image_SupportedFormats
 /// Reports which image file formats are supported.
 #[derive(Clone, Debug, Default)]
 pub struct SupportedFormats {

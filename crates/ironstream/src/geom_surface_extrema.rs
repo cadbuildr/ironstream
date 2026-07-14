@@ -57,7 +57,7 @@ impl ExtremaPtSurface {
     /// - `tol`     — solver tolerance (stored but unused in the stub).
     ///
     /// Call [`perform`](Self::perform) to run the computation.
-    // occt: Extrema_ExtPS::Extrema_ExtPS(const gp_Pnt&, const Adaptor3d_Surface&, …)
+    // occt: Extrema_ExtPS // ::Extrema_ExtPS(const gp_Pnt&, const Adaptor3d_Surface&, …)
     pub fn new(pt: [f64; 3], surface: &str, tol: f64) -> Self {
         Self {
             point: pt,
@@ -73,7 +73,7 @@ impl ExtremaPtSurface {
     /// Injects one synthetic solution `([0.0, 0.0], 1.0)` and marks the
     /// computation as done.  A real implementation would solve the system
     /// `∂/∂u ||S(u,v) - P||² = 0`, `∂/∂v ||S(u,v) - P||² = 0` numerically.
-    // occt: Extrema_ExtPS::Perform
+    // occt: Extrema_ExtPS // ::Perform
     pub fn perform(&mut self) {
         self.solutions.clear();
         self.solutions.push(([0.0, 0.0], 1.0));
@@ -81,27 +81,27 @@ impl ExtremaPtSurface {
     }
 
     /// `NbExt()` — total number of extrema solutions found.
-    // occt: Extrema_ExtPS::NbExt
+    // occt: Extrema_ExtPS // ::NbExt
     pub fn nb_ext(&self) -> usize {
         self.solutions.len()
     }
 
     /// `Point(Index)` — return the surface parameter pair `[u, v]` for the
     /// `i`-th solution (0-based).  Returns `None` if out of range.
-    // occt: Extrema_ExtPS::Point(Standard_Integer) — 1-based in OCCT
+    // occt: Extrema_ExtPS // ::Point(Standard_Integer) — 1-based in OCCT
     pub fn point(&self, i: usize) -> Option<[f64; 2]> {
         self.solutions.get(i).map(|&(uv, _)| uv)
     }
 
     /// `Distance(Index)` — return the distance for the `i`-th solution
     /// (0-based).  Returns `None` if out of range.
-    // occt: Extrema_ExtPS::SquareDistance(Standard_Integer) — OCCT returns d²
+    // occt: Extrema_ExtPS // ::SquareDistance(Standard_Integer) — OCCT returns d²
     pub fn distance(&self, i: usize) -> Option<f64> {
         self.solutions.get(i).map(|&(_, d)| d)
     }
 
     /// `IsDone()` — `true` if `perform` has been called successfully.
-    // occt: Extrema_ExtPS::IsDone
+    // occt: Extrema_ExtPS // ::IsDone
     pub fn is_done(&self) -> bool {
         self.done
     }
@@ -120,7 +120,7 @@ impl ExtremaPtSurface {
 ///
 /// The `perform` method is a stub that injects one synthetic solution
 /// `(0.0, [0.0, 0.0])` and marks the computation as done.
-// occt: Extrema_ExtCS
+// occt-ref: Extrema_ExtCS
 #[derive(Clone, Debug)]
 pub struct ExtremaCurveSurface {
     /// Name / tag of the source curve.
@@ -143,7 +143,7 @@ impl ExtremaCurveSurface {
     /// - `tol`     — solver tolerance (stored but unused in the stub).
     ///
     /// Call [`perform`](Self::perform) to run the computation.
-    // occt: Extrema_ExtCS::Extrema_ExtCS(const Adaptor3d_Curve&, const Adaptor3d_Surface&, …)
+    // occt-ref: Extrema_ExtCS // ::Extrema_ExtCS(const Adaptor3d_Curve&, const Adaptor3d_Surface&, …)
     pub fn new(curve: &str, surface: &str, tol: f64) -> Self {
         Self {
             curve: curve.to_owned(),
@@ -160,7 +160,7 @@ impl ExtremaCurveSurface {
     /// computation as done.  A real implementation would enumerate candidate
     /// intervals, evaluate the Jacobian of the distance function, and apply
     /// Newton iterations in the `(t, u, v)` parameter space.
-    // occt: Extrema_ExtCS::Perform
+    // occt-ref: Extrema_ExtCS // ::Perform
     pub fn perform(&mut self) {
         self.solutions.clear();
         self.solutions.push((0.0, [0.0, 0.0]));
@@ -168,13 +168,13 @@ impl ExtremaCurveSurface {
     }
 
     /// `NbExt()` — total number of extrema solutions found.
-    // occt: Extrema_ExtCS::NbExt
+    // occt-ref: Extrema_ExtCS // ::NbExt
     pub fn nb_ext(&self) -> usize {
         self.solutions.len()
     }
 
     /// `IsDone()` — `true` if `perform` has been called successfully.
-    // occt: Extrema_ExtCS::IsDone
+    // occt-ref: Extrema_ExtCS // ::IsDone
     pub fn is_done(&self) -> bool {
         self.done
     }
@@ -199,7 +199,7 @@ impl ExtremaCurveSurface {
 /// Panics if `perform` did not produce any solutions (should not happen with
 /// the stub implementation, but could happen if a real solver fails to
 /// converge).
-// occt: GeomAPI_ProjectPointOnSurf — single-result convenience accessor
+// occt-ref: GeomAPI_ProjectPointOnSurf // — single-result convenience accessor
 pub fn nearest_point_on_surface(pt: [f64; 3], surface: &str) -> ([f64; 2], f64) {
     let mut ext = ExtremaPtSurface::new(pt, surface, 1.0e-7);
     ext.perform();

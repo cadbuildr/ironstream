@@ -189,7 +189,7 @@ impl ColGeom2dSeqGeom {
     }
 }
 
-// occt: TColGeom2d_Array1OfBoundedCurve
+// occt-ref: TColGeom2d_Array1OfBoundedCurve
 #[derive(Clone, Debug)]
 pub struct ColGeom2d1dBoundedCurve {
     data: Vec<Option<String>>,

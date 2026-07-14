@@ -3,7 +3,7 @@
 // Orientation and state primitives for boundary-representation topology.
 // Models TopAbs_Orientation and BRep_Builder orientation semantics from OCCT.
 
-// occt: TopAbs_Orientation
+// occt-ref: TopAbs_Orientation
 /// Describes the relative orientation of a topological shape with respect
 /// to its parent.  The four values mirror TopAbs_Orientation exactly.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -43,7 +43,7 @@ impl Orientation {
     }
 }
 
-// occt: TopAbs_State
+// occt-ref: TopAbs_State
 /// Classifies the position of a point or sub-shape relative to a shape.
 /// Mirrors `TopAbs_State` from OCCT.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -58,7 +58,7 @@ pub enum State {
     Unknown,
 }
 
-// occt: BRep_Builder
+// occt-ref: BRep_Builder
 /// A named topological shape together with its orientation.
 ///
 /// Models the shape-with-orientation concept used throughout `BRep_Builder`
@@ -135,7 +135,7 @@ impl OrientedShape {
 /// | *        | External | External |
 ///
 /// `Internal` / `External` always take precedence, with `o1` checked first.
-// occt: TopAbs_Orientation
+// occt-ref: TopAbs_Orientation
 pub fn compose_orientations(o1: &Orientation, o2: &Orientation) -> Orientation {
     match (o1, o2) {
         (Orientation::Internal, _) => Orientation::Internal,

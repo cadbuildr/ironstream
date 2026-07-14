@@ -1,5 +1,5 @@
 // FILE: iges_geom_flash.rs
-// occt: IGESGeom_Uflash
+// occt-ref: IGESGeom_Uflash
 
 pub struct Uflash {
     entity_type: i32,

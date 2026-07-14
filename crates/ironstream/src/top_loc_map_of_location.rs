@@ -1,5 +1,6 @@
 // FILE: top_loc_map_of_location.rs
-// occt: TopLoc_MapOfLocation, TopLoc_Location, TopLoc_MapIteratorOfMapOfLocation
+// occt: TopLoc_MapOfLocation
+// occt-ref: TopLoc_Location, TopLoc_MapIteratorOfMapOfLocation
 
 use std::collections::HashSet;
 

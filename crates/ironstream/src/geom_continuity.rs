@@ -17,7 +17,7 @@
 ///
 /// The ordering matches OCCT so that variants compare correctly with `<`/`>`:
 /// `C0 < G1 < C1 < G2 < C2 < C3 < CN`.
-// occt: GeomAbs_Shape
+// occt-ref: GeomAbs_Shape
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum GeomContinuity {
     /// Positional (G⁰/C⁰): curves/surfaces touch but tangents may differ.
@@ -82,7 +82,7 @@ impl GeomContinuity {
 /// identifier and a tolerance, and provides the standard `IsOk` / `LRP1` /
 /// `LRP2` query interface as stubs that return analytically trivial but
 /// type-correct values.
-// occt: Geom_OsculatingSurface
+// occt-ref: Geom_OsculatingSurface
 #[derive(Debug, Clone)]
 pub struct OsculatingSurface {
     /// Identifier or name of the underlying base surface.

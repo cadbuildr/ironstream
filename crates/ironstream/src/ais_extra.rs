@@ -9,7 +9,7 @@ pub enum AisTypeOfAxis {
     UnknownAxis,
 }
 
-// occt: AIS_Trihedron
+// occt-ref: AIS_Trihedron
 pub struct AisTrihedron {
     pub position: [f64; 3],
     pub size: f64,
@@ -68,7 +68,7 @@ impl AisTrihedron {
     }
 }
 
-// occt: AIS_Plane
+// occt-ref: AIS_Plane
 pub struct AisPlane {
     pub origin: [f64; 3],
     pub normal: [f64; 3],
@@ -117,7 +117,7 @@ impl AisPlane {
     }
 }
 
-// occt: AIS_Axis
+// occt-ref: AIS_Axis
 pub struct AisAxis {
     pub origin: [f64; 3],
     pub direction: [f64; 3],
@@ -162,7 +162,7 @@ impl AisAxis {
     }
 }
 
-// occt: AIS_DimensionType
+// occt-ref: AIS_DimensionType
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum AisDimensionType {
     Length,
@@ -171,7 +171,7 @@ pub enum AisDimensionType {
     Diameter,
 }
 
-// occt: AIS_Dimension
+// occt-ref: PrsDim_Dimension
 pub struct AisDimension {
     pub dim_type: AisDimensionType,
     pub value: f64,

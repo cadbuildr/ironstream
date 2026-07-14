@@ -1,4 +1,4 @@
-// occt: TColgp_SequenceOfPnt
+// occt-ref: TColgp_SequenceOfPnt
 /// A sequence of 3D points, modelled after TColgp_SequenceOfPnt.
 /// Points are stored as `[f64; 3]` arrays (x, y, z).
 pub struct SeqOfPnt {
@@ -69,7 +69,7 @@ impl Default for SeqOfPnt {
     }
 }
 
-// occt: TColStd_SequenceOfReal
+// occt-ref: TColStd_SequenceOfReal
 /// A sequence of real (floating-point) values, modelled after TColStd_SequenceOfReal.
 pub struct SeqOfReal {
     pub data: Vec<f64>,

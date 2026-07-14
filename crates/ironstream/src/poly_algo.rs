@@ -1,5 +1,6 @@
 // FILE: poly_algo.rs
-// occt: Poly_MergeNodesTool, Poly_CoherencePatch, Poly_SelfIntersectionNodeFilter
+// occt: Poly_MergeNodesTool
+// occt-ref: Poly_CoherencePatch, Poly_SelfIntersectionNodeFilter
 
 /// Merges coincident nodes in a polygon mesh within a tolerance.
 /// occt: Poly_MergeNodesTool
@@ -44,7 +45,7 @@ impl PolyMergeNodesTool {
 }
 
 /// Coherence patch: set of triangles sharing a common edge (for manifold checks).
-/// occt: Poly_CoherencePatch (simplified)
+/// occt-note: Poly_CoherencePatch (simplified)
 #[derive(Clone, Debug, Default)]
 pub struct PolyCoherencePatch {
     pub triangles: Vec<[usize; 3]>,    // each triangle: 3 node indices
@@ -87,7 +88,7 @@ impl PolyCoherencePatch {
 }
 
 /// Removes nodes that are inside self-intersecting regions.
-/// occt: Poly_SelfIntersectionNodeFilter (stub)
+/// occt-note: Poly_SelfIntersectionNodeFilter (stub)
 #[derive(Clone, Debug, Default)]
 pub struct PolySelfIntersectionNodeFilter {
     pub removed_ids: Vec<usize>,
@@ -114,7 +115,7 @@ impl PolySelfIntersectionNodeFilter {
 }
 
 /// Computes polygon mesh quality metrics.
-/// occt: Poly_Triangulation quality accessors
+// occt-ref: Poly_Triangulation // quality accessors
 #[derive(Clone, Debug, Default)]
 pub struct PolyMeshQuality {
     pub min_edge_length: f64,

@@ -1,5 +1,6 @@
 // FILE: top_ope_b_rep_tool_data_map_of_shape_list_of_c2_df.rs
-// occt: TopOpeBRepTool_DataMapOfShapeListOfC2DF, TopOpeBRepTool_C2DF
+// occt: TopOpeBRepTool_DataMapOfShapeListOfC2DF
+// occt-ref: TopOpeBRepTool_C2DF
 
 use std::collections::HashMap;
 

@@ -1,8 +1,8 @@
 // FILE: math_prog.rs
-// occt: math_BFGS, math_GlobOptMin, math_FunctionSetRoot
+// occt-ref: math_BFGS, math_GlobOptMin, math_FunctionSetRoot
 
 /// Status of a math solver.
-/// occt: math solver status
+// occt-ref: math // solver status
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum MathSolverStatus {
     NotDone,
@@ -16,7 +16,7 @@ impl Default for MathSolverStatus {
 }
 
 /// BFGS unconstrained minimizer (stub).
-/// occt: math_BFGS
+// occt-ref: math_BFGS
 #[derive(Clone, Debug)]
 pub struct MathBfgs {
     pub nb_variables: usize,
@@ -72,7 +72,7 @@ impl MathBfgs {
 }
 
 /// Global optimization via branch-and-bound (stub).
-/// occt: math_GlobOptMin
+// occt-ref: math_GlobOptMin
 #[derive(Clone, Debug)]
 pub struct MathGlobOptMin {
     pub nb_variables: usize,
@@ -130,7 +130,7 @@ impl MathGlobOptMin {
 }
 
 /// Non-linear system root finder (stub).
-/// occt: math_FunctionSetRoot
+// occt-ref: math_FunctionSetRoot
 #[derive(Clone, Debug)]
 pub struct MathFunctionSetRoot {
     pub nb_equations: usize,

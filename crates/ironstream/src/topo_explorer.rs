@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/topo_explorer.rs
 
-// occt: TopAbs_ShapeEnum
+// occt-ref: TopAbs_ShapeEnum
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum TopoShapeType {
     Compound,
@@ -14,7 +14,7 @@ pub enum TopoShapeType {
     Shape,
 }
 
-// occt: shape reference stub
+// occt-note: shape reference stub
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct TopoShapeStub {
     label: String,
@@ -38,7 +38,7 @@ impl TopoShapeStub {
     }
 }
 
-// occt: TopExp_Explorer
+// occt-ref: TopExp_Explorer
 pub struct TopoExplorer {
     shapes: Vec<TopoShapeStub>,
     current: usize,
@@ -100,7 +100,7 @@ impl Default for TopoExplorer {
 }
 
 /// Return every shape from `parent` whose type matches `shape_type`.
-// occt: TopExp::MapShapes stub
+// occt-ref: TopExp // ::MapShapes stub
 pub fn map_shapes(parent: &[TopoShapeStub], shape_type: TopoShapeType) -> Vec<TopoShapeStub> {
     parent
         .iter()

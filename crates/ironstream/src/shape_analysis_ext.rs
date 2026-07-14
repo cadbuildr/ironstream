@@ -1,5 +1,5 @@
 // FILE: shape_analysis_ext.rs
-// occt: ShapeAnalysis_Edge, ShapeAnalysis_Surface, ShapeAnalysis_Wire,
+// occt-ref: ShapeAnalysis_Edge, ShapeAnalysis_Surface, ShapeAnalysis_Wire
 //       ShapeAnalysis_WireOrder, ShapeAnalysis_CheckSmallFace,
 //       ShapeAnalysis_ShapeContents
 
@@ -45,7 +45,7 @@ impl WireGap {
     pub fn is_closed(&self, tol: f64) -> bool { self.gap_distance <= tol }
 }
 
-// occt: ShapeAnalysis_Wire
+// occt-ref: ShapeAnalysis_Wire
 #[derive(Clone, Debug, Default)]
 pub struct WireAnalysis {
     pub wire_id: u32,
@@ -77,7 +77,7 @@ impl WireAnalysis {
     pub fn nb_self_intersections(&self) -> usize { self.self_intersections.len() }
 }
 
-// occt: ShapeAnalysis_WireOrder
+// occt-ref: ShapeAnalysis_WireOrder
 #[derive(Clone, Debug, Default)]
 pub struct WireOrder {
     pub edges: Vec<(u32, [f64; 3], [f64; 3])>,   // (edge_id, start, end)
@@ -101,7 +101,7 @@ impl WireOrder {
     pub fn is_ordered(&self) -> bool { self.is_done }
 }
 
-// occt: ShapeAnalysis_Surface
+// occt-ref: ShapeAnalysis_Surface
 #[derive(Clone, Debug)]
 pub struct SurfaceAnalysis {
     pub surface_id: u32,
@@ -152,7 +152,7 @@ impl SurfaceAnalysis {
     }
 }
 
-// occt: ShapeAnalysis_CheckSmallFace
+// occt-ref: ShapeAnalysis_CheckSmallFace
 #[derive(Clone, Debug, Default)]
 pub struct SmallFaceCheck {
     pub small_faces: Vec<u32>,

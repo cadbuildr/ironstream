@@ -1,5 +1,6 @@
 // FILE: tdf_label_list.rs
-// occt: TDF_LabelList, TDF_ListIteratorOfLabelList
+// occt: TDF_LabelList
+// occt-ref: TDF_ListIteratorOfLabelList
 
 //! Deprecated typedef for TDF_LabelList.
 //!

@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/geom2d_api_inter.rs
 
-// occt: intersection result point — holds a 2D point and the two curve parameters that produced it
+// occt-note: intersection result point — holds a 2D point and the two curve parameters that produced it
 #[derive(Clone, Debug)]
 pub struct Geom2dIntersectionPoint {
     point: [f64; 2],
@@ -26,7 +26,7 @@ impl Geom2dIntersectionPoint {
     }
 }
 
-// occt: intersection segment result — bounded overlap region between two curves
+// occt-note: intersection segment result — bounded overlap region between two curves
 #[derive(Clone, Debug)]
 pub struct Geom2dIntersectionSegment {
     pt1: Geom2dIntersectionPoint,
@@ -47,7 +47,7 @@ impl Geom2dIntersectionSegment {
     }
 }
 
-// occt: Geom2dAPI_InterCurveCurve — intersection query result container
+// occt-ref: Geom2dAPI_InterCurveCurve // — intersection query result container
 pub struct Geom2dInterCurveCurve {
     points: Vec<Geom2dIntersectionPoint>,
     segments: Vec<Geom2dIntersectionSegment>,

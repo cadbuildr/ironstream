@@ -11,7 +11,7 @@ use std::f64::consts::TAU;
 
 // ─────────────────────────────── RevolParams ────────────────────────────────
 
-// occt: BRepPrimAPI_MakeRevol params
+// occt-ref: BRepPrimAPI_MakeRevol // params
 /// Parameters describing a revolution operation around an axis.
 ///
 /// Mirrors the constructor arguments of `BRepPrimAPI_MakeRevol`:
@@ -75,7 +75,7 @@ impl RevolParams {
 
 // ─────────────────────────────── RevolResult ────────────────────────────────
 
-// occt: revol result
+// occt-note: revol result
 /// Result produced by a revolution build step.
 ///
 /// Mirrors the shape-topology output of `BRepPrimAPI_MakeRevol::Build()`:
@@ -132,7 +132,7 @@ impl Default for RevolResult {
 
 // ─────────────────────────────── MakeRevol ──────────────────────────────────
 
-// occt: BRepPrimAPI_MakeRevol
+// occt-ref: BRepPrimAPI_MakeRevol
 /// Builder for a solid of revolution.
 ///
 /// Mirrors `BRepPrimAPI_MakeRevol`: takes [`RevolParams`] and computes topology

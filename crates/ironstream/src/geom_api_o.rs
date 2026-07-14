@@ -1,5 +1,5 @@
 // FILE: geom_api_o.rs
-// occt: GeomAPI
+// occt-ref: GeomAPI
 
 /// Geometry API package providing high-level interface for geometry operations
 pub struct GeomAPI;

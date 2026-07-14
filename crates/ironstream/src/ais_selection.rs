@@ -1,5 +1,5 @@
 // FILE: ais_selection.rs
-// occt: AIS_Selection, AIS_SelectionScheme, AIS_NListOfEntityOwner,
+// occt: AIS_Selection, AIS_SelectionScheme, AIS_NListOfEntityOwner
 //       SelectMgr_EntityOwner, SelectMgr_Selection, SelectMgr_IndexedMapOfOwner
 
 /// Selection scheme (how new picks combine with existing selection).
@@ -161,7 +161,7 @@ impl AisSelection {
     }
 }
 
-// occt: SelectMgr_IndexedMapOfOwner
+// occt-ref: SelectMgr_IndexedMapOfOwner
 #[derive(Clone, Debug, Default)]
 pub struct IndexedMapOfOwner {
     pub entries: Vec<EntityOwner>,

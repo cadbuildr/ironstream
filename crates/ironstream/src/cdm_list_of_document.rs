@@ -1,5 +1,6 @@
 // FILE: cdm_list_of_document.rs
-// occt: CDM_ListOfDocument, CDM_ListIteratorOfListOfDocument
+// occt: CDM_ListOfDocument
+// occt-ref: CDM_ListIteratorOfListOfDocument
 
 //! Deprecated type aliases for backward compatibility.
 //! Use VecDeque<Arc<CdmDocument>> directly instead.

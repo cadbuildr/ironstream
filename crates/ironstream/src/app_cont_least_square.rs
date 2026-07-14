@@ -1,5 +1,5 @@
 // FILE: app_cont_least_square.rs
-// occt: AppContLeastSquare
+// occt-ref: AppContLeastSquare
 
 //! Approximation and constraint handling class.
 pub struct AppContLeastSquare {

@@ -1,5 +1,5 @@
 // FILE: loc_ops.rs
-// occt: TopLoc_Location, TopLoc_Datum3D, BRep_TShape location management
+// occt-note: TopLoc_Location, TopLoc_Datum3D, BRep_TShape location management
 
 /// A 4×4 homogeneous transformation stored row-major.
 #[derive(Clone, Debug, PartialEq)]
@@ -55,7 +55,7 @@ impl Default for Mat4d {
     fn default() -> Self { Self::identity() }
 }
 
-// occt: TopLoc_Datum3D — a single location (transformation matrix)
+// occt-ref: TopLoc_Datum3D // — a single location (transformation matrix)
 #[derive(Clone, Debug)]
 pub struct TopLocDatum3d {
     pub id: u32,
@@ -69,7 +69,7 @@ impl TopLocDatum3d {
     pub fn matrix(&self) -> &Mat4d { &self.matrix }
 }
 
-// occt: TopLoc_Location — chain of transformations (datum + power + next)
+// occt-ref: TopLoc_Location // — chain of transformations (datum + power + next)
 #[derive(Clone, Debug, Default)]
 pub struct TopLocLocation {
     pub datums: Vec<(TopLocDatum3d, i32)>,  // (datum, power)

@@ -41,7 +41,7 @@ impl HullVertex {
 /// `perform()` stores every input point as a `HullVertex` (stub: no actual
 /// incremental-gift-wrap or quickhull is performed).  `faces` is left empty.
 ///
-// occt: BRepMesh_ConvexHull
+// occt-ref: BRepMesh_ConvexHull
 #[derive(Debug, Clone, PartialEq)]
 pub struct ConvexHull3D {
     vertices: Vec<HullVertex>,
@@ -134,7 +134,7 @@ impl Default for ConvexHull3D {
 /// `perform()` stores every input point (stub: no actual Graham scan).
 /// `area_approx()` applies the shoelace formula over the stored points.
 ///
-// occt: BRepMesh_ConvexHull (2-D variant)
+// occt-note: BRepMesh_ConvexHull (2-D variant)
 #[derive(Debug, Clone, PartialEq)]
 pub struct ConvexHull2D {
     points: Vec<[f64; 2]>,

@@ -9,7 +9,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 /// A directed line-segment edge that can be part of a wire.
-// occt: edge in wire — BRepBuilderAPI_MakeWire stores TopoDS_Edge handles;
+// occt-note: edge in wire — BRepBuilderAPI_MakeWire stores TopoDS_Edge handles;
 //       here each edge is identified by an application-supplied `id` and
 //       carries its own geometry (start / end 3-D points).
 #[derive(Clone, Debug, PartialEq)]
@@ -23,7 +23,7 @@ pub struct WireEdge {
 impl WireEdge {
     /// Create a new edge with the given application `id`, `start`, and `end`
     /// points.  `is_reversed` is `false` by default.
-    // occt: BRepBuilderAPI_MakeWire::Add(const TopoDS_Edge&)
+    // occt-ref: BRepBuilderAPI_MakeWire // ::Add(const TopoDS_Edge&)
     pub fn new(id: usize, start: [f64; 3], end: [f64; 3]) -> Self {
         Self { id, start, end, is_reversed: false }
     }
@@ -44,7 +44,7 @@ impl WireEdge {
     }
 
     /// Euclidean length of the edge.
-    // occt: BRep_Tool::EdgeLength / GCPnts_AbscissaPoint
+    // occt-ref: BRep_Tool // ::EdgeLength / GCPnts_AbscissaPoint
     pub fn length(&self) -> f64 {
         let dx = self.end[0] - self.start[0];
         let dy = self.end[1] - self.start[1];
@@ -54,7 +54,7 @@ impl WireEdge {
 
     /// Return a copy of the edge with `start` and `end` swapped and
     /// `is_reversed` toggled.
-    // occt: TopoDS_Edge::Reversed() — reverses the shape orientation
+    // occt-ref: TopoDS_Edge // ::Reversed() — reverses the shape orientation
     pub fn reversed(&self) -> WireEdge {
         WireEdge {
             id: self.id,
@@ -66,7 +66,7 @@ impl WireEdge {
 
     /// Whether this edge has been reversed relative to its original
     /// construction orientation.
-    // occt: TopoDS_Shape::Orientation() == TopAbs_REVERSED
+    // occt-ref: TopoDS_Shape // ::Orientation() == TopAbs_REVERSED
     pub fn is_reversed(&self) -> bool {
         self.is_reversed
     }
@@ -77,20 +77,20 @@ impl WireEdge {
 // ─────────────────────────────────────────────────────────────────────────────
 
 /// Outcome of a [`WireBuilder`] session.
-// occt: BRepBuilderAPI_WireError enum
+// occt-ref: BRepBuilderAPI_WireError // enum
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum WireBuilderStatus {
     /// The wire is valid and all edges are connected.
-    // occt: BRepBuilderAPI_WireDone
+    // occt-ref: BRepBuilderAPI_WireDone
     WireDone,
     /// No edges have been added yet.
-    // occt: BRepBuilderAPI_EmptyWire
+    // occt-ref: BRepBuilderAPI_EmptyWire
     EmptyWire,
     /// An added edge could not be connected to the existing wire.
-    // occt: BRepBuilderAPI_DisconnectedWire
+    // occt-ref: BRepBuilderAPI_DisconnectedWire
     DisconnectedWire,
     /// More than two edges share a vertex, making the wire non-manifold.
-    // occt: BRepBuilderAPI_NonManifoldWire
+    // occt-ref: BRepBuilderAPI_NonManifoldWire
     NonManifoldWire,
 }
 
@@ -104,14 +104,14 @@ pub enum WireBuilderStatus {
 /// edges are added one at a time; the builder checks that each new edge
 /// connects (within [`CONNECTIVITY_TOL`]) to the tail of the growing wire,
 /// reversing it automatically when the reversed orientation connects instead.
-// occt: BRepBuilderAPI_MakeWire
+// occt-ref: BRepBuilderAPI_MakeWire
 pub struct WireBuilder {
     edges: Vec<WireEdge>,
     status: WireBuilderStatus,
 }
 
 /// Tolerance used for vertex-coincidence checks (≈ modelling precision).
-// occt: Precision::Confusion() defaults to 1e-7
+// occt-ref: Precision // ::Confusion() defaults to 1e-7
 pub const CONNECTIVITY_TOL: f64 = 1e-7;
 
 /// Return the squared Euclidean distance between two 3-D points.
@@ -129,7 +129,7 @@ fn pts_coincide(a: [f64; 3], b: [f64; 3]) -> bool {
 
 impl WireBuilder {
     /// Create an empty builder.  Initial status is [`WireBuilderStatus::EmptyWire`].
-    // occt: BRepBuilderAPI_MakeWire()
+    // occt-note: BRepBuilderAPI_MakeWire()
     pub fn new() -> Self {
         Self { edges: Vec::new(), status: WireBuilderStatus::EmptyWire }
     }
@@ -143,7 +143,7 @@ impl WireBuilder {
     ///   appended in reversed orientation.
     /// * If neither end connects, the status becomes
     ///   [`WireBuilderStatus::DisconnectedWire`] and the edge is **not** added.
-    // occt: BRepBuilderAPI_MakeWire::Add(const TopoDS_Edge&)
+    // occt-ref: BRepBuilderAPI_MakeWire // ::Add(const TopoDS_Edge&)
     pub fn add(&mut self, e: WireEdge) {
         if self.status == WireBuilderStatus::DisconnectedWire
             || self.status == WireBuilderStatus::NonManifoldWire
@@ -179,13 +179,13 @@ impl WireBuilder {
     }
 
     /// Current build status.
-    // occt: BRepBuilderAPI_MakeWire::Error()
+    // occt-ref: BRepBuilderAPI_MakeWire // ::Error()
     pub fn status(&self) -> WireBuilderStatus {
         self.status
     }
 
     /// `true` when the status is [`WireBuilderStatus::WireDone`].
-    // occt: BRepBuilderAPI_Command::IsDone()
+    // occt-ref: BRepBuilderAPI_Command // ::IsDone()
     pub fn is_done(&self) -> bool {
         self.status == WireBuilderStatus::WireDone
     }
@@ -195,7 +195,7 @@ impl WireBuilder {
     /// otherwise set [`WireBuilderStatus::DisconnectedWire`].
     ///
     /// Has no effect on an empty wire.
-    // occt: BRepLib::BuildCurve3d / wire closure check in BRepBuilderAPI
+    // occt-ref: BRepLib // ::BuildCurve3d / wire closure check in BRepBuilderAPI
     pub fn close(&mut self) {
         if self.edges.is_empty() {
             return;
@@ -210,14 +210,14 @@ impl WireBuilder {
     }
 
     /// Sum of the lengths of all edges in the wire.
-    // occt: wire-walking with GCPnts_AbscissaPoint to sum curve lengths
+    // occt-note: wire-walking with GCPnts_AbscissaPoint to sum curve lengths
     pub fn total_length(&self) -> f64 {
         self.edges.iter().map(|e| e.length()).sum()
     }
 
     /// `true` when the wire is non-empty, currently done, and the last edge's
     /// end coincides with the first edge's start.
-    // occt: BRep_Tool::IsClosed(const TopoDS_Wire&)
+    // occt-ref: BRep_Tool // ::IsClosed(const TopoDS_Wire&)
     pub fn is_closed(&self) -> bool {
         if self.edges.len() < 2 {
             return false;

@@ -142,7 +142,7 @@ fn rgb_to_hls(r: f32, g: f32, b: f32) -> (f32, f32, f32) {
 impl QuantityColor {
     /// Construct from `(r, g, b)` components; each channel is clamped to
     /// `[0, 1]`.
-    // occt: Quantity_Color::Quantity_Color(r, g, b, Quantity_TOC_RGB)
+    // occt: Quantity_Color // ::Quantity_Color(r, g, b, Quantity_TOC_RGB)
     #[inline]
     pub fn new(r: f32, g: f32, b: f32) -> Self {
         Self {
@@ -160,7 +160,7 @@ impl QuantityColor {
     /// let orange = QuantityColor::from_hex(0xFF_88_00);
     /// assert!((orange.r() - 1.0).abs() < 1e-6);
     /// ```
-    // occt: Quantity_Color::Quantity_Color(theHex)
+    // occt: Quantity_Color // ::Quantity_Color(theHex)
     pub fn from_hex(hex: u32) -> Self {
         let r = ((hex >> 16) & 0xFF) as f32 / 255.0;
         let g = ((hex >> 8)  & 0xFF) as f32 / 255.0;
@@ -175,7 +175,7 @@ impl QuantityColor {
     /// `"gray"`.
     ///
     /// Returns `None` for unrecognised names.
-    // occt: Quantity_Color::ColorFromName
+    // occt: Quantity_Color // ::ColorFromName
     pub fn from_name(name: &str) -> Option<Self> {
         NAMED_COLORS
             .iter()
@@ -204,7 +204,7 @@ impl QuantityColor {
     }
 
     /// RGBA with `alpha = 1.0`.
-    // occt: Quantity_Color has no built-in alpha; added for convenience.
+    // occt: Quantity_Color // has no built-in alpha; added for convenience.
     #[inline]
     pub fn rgba(&self) -> [f32; 4] {
         [self.r, self.g, self.b, 1.0]
@@ -213,7 +213,7 @@ impl QuantityColor {
     // -- Conversions ---------------------------------------------------------
 
     /// Pack as `0xRRGGBB`.
-    // occt: Quantity_Color::PackedColor / StringName
+    // occt: Quantity_Color // ::PackedColor / StringName
     pub fn to_hex(&self) -> u32 {
         let r = (self.r * 255.0).round() as u32;
         let g = (self.g * 255.0).round() as u32;
@@ -224,7 +224,7 @@ impl QuantityColor {
     /// Convert to HLS `(hue_deg, lightness, saturation)`.
     ///
     /// Hue is in `[0, 360)`, lightness and saturation are in `[0, 1]`.
-    // occt: Quantity_Color::HlsValues
+    // occt: Quantity_Color // ::HlsValues
     pub fn to_hls(&self) -> (f32, f32, f32) {
         rgb_to_hls(self.r, self.g, self.b)
     }
@@ -232,7 +232,7 @@ impl QuantityColor {
     /// Construct from HLS `(hue_deg, lightness, saturation)`.
     ///
     /// Channels are clamped after conversion.
-    // occt: Quantity_Color::Quantity_Color(h, l, s, Quantity_TOC_HLS)
+    // occt: Quantity_Color // ::Quantity_Color(h, l, s, Quantity_TOC_HLS)
     pub fn from_hls(h: f32, l: f32, s: f32) -> Self {
         let (r, g, b) = hls_to_rgb(h, l.clamp(0.0, 1.0), s.clamp(0.0, 1.0));
         Self::new(r, g, b)
@@ -240,7 +240,7 @@ impl QuantityColor {
 
     /// Reverse-lookup: return the canonical name if this color matches one of
     /// the ten named colors within a per-channel tolerance of `1/255`.
-    // occt: Quantity_Color::StringName
+    // occt: Quantity_Color // ::StringName
     pub fn name(&self) -> Option<&'static str> {
         NAMED_COLORS.iter().find(|e| {
             (e.r - self.r).abs() <= NAME_TOL
@@ -254,7 +254,7 @@ impl QuantityColor {
     /// conversion and is left to higher-level callers).
     ///
     /// Returns a value in `[0, sqrt(3)]`; identical colors give `0.0`.
-    // occt: Quantity_Color::Distance (CIEDE2000 note — simplified here)
+    // occt: Quantity_Color // ::Distance (CIEDE2000 note — simplified here)
     pub fn delta_e(&self, other: &QuantityColor) -> f32 {
         let dr = self.r - other.r;
         let dg = self.g - other.g;

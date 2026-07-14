@@ -1,6 +1,6 @@
 // FILE: brep_algo_bool.rs
 
-// occt: BOPAlgo_Operation
+// occt-ref: BOPAlgo_Operation
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum BoolOpType {
     Fuse,
@@ -68,7 +68,7 @@ impl BRepAlgoBoolOp {
     }
 }
 
-// occt: BRepAlgoAPI_Fuse
+// occt-ref: BRepAlgoAPI_Fuse
 pub struct BRepAlgoFuse {
     inner: BRepAlgoBoolOp,
 }
@@ -119,7 +119,7 @@ impl Default for BRepAlgoFuse {
     }
 }
 
-// occt: BRepAlgoAPI_Common
+// occt-ref: BRepAlgoAPI_Common
 pub struct BRepAlgoCommon {
     inner: BRepAlgoBoolOp,
 }
@@ -170,7 +170,7 @@ impl Default for BRepAlgoCommon {
     }
 }
 
-// occt: BRepAlgoAPI_Cut
+// occt-ref: BRepAlgoAPI_Cut
 pub struct BRepAlgoCut {
     inner: BRepAlgoBoolOp,
 }
@@ -221,7 +221,7 @@ impl Default for BRepAlgoCut {
     }
 }
 
-// occt: BRepAlgoAPI_Section
+// occt-ref: BRepAlgoAPI_Section
 pub struct BRepAlgoSection {
     inner: BRepAlgoBoolOp,
 }

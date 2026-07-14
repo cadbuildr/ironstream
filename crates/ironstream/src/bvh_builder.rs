@@ -8,7 +8,7 @@ use crate::bvh_binary_tree::{BvhBox, BvhVecN};
 
 /// Base transient class for BVH builders.
 /// Provides common configuration and state for all BVH builder implementations.
-/// occt: BVH_BuilderTransient
+// occt-ref: BVH_BuilderTransient
 #[derive(Clone)]
 pub struct BvhBuilderTransient {
     /// Maximum depth of constructed BVH
@@ -53,12 +53,12 @@ impl BvhBuilderTransient {
 }
 
 /// Abstract interface for geometric object sets that can be organized into a BVH.
-/// occt: BVH_Set (marker interface)
+// occt-ref: BVH_Set // (marker interface)
 /// This is a marker trait used to indicate a type supports BVH construction.
 pub trait BvhBuildSetMarker: Send + Sync {}
 
 /// Abstract interface for BVH trees that can be constructed by builders.
-/// occt: BVH_Tree (buildable interface)
+// occt-ref: BVH_Tree // (buildable interface)
 /// This is a marker trait used to indicate a type supports BVH construction.
 pub trait BvhBuildableTreeMarker: Send + Sync {}
 

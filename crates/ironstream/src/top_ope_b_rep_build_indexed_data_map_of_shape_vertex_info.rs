@@ -1,5 +1,6 @@
 // FILE: top_ope_b_rep_build_indexed_data_map_of_shape_vertex_info.rs
-// occt: TopOpeBRepBuild_IndexedDataMapOfShapeVertexInfo, TopOpeBRepBuild_VertexInfo
+// occt: TopOpeBRepBuild_IndexedDataMapOfShapeVertexInfo
+// occt-ref: TopOpeBRepBuild_VertexInfo
 
 use std::collections::HashMap;
 

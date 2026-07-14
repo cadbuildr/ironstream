@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/xcaf_validation.rs
 
-// occt: XCAFDoc_VisMaterial — PBR physically-based rendering material with base color,
+// occt-ref: XCAFDoc_VisMaterial // — PBR physically-based rendering material with base color,
 // emissive factor, metallic/roughness workflow, and alpha cut-off.
 #[derive(Clone, Debug)]
 pub struct VisMaterial {
@@ -46,7 +46,7 @@ impl VisMaterial {
     }
 }
 
-// occt: XCAFDoc_VisMaterialTool — manages a collection of VisMaterial entries
+// occt: XCAFDoc_VisMaterialTool // — manages a collection of VisMaterial entries
 // and provides lookup by name.
 pub struct VisMaterialTool {
     pub materials: Vec<VisMaterial>,

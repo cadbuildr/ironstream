@@ -13,7 +13,7 @@ use std::f64::consts::PI;
 /// Builder that extrudes a planar base profile linearly along a direction
 /// vector, producing a prismatic solid.
 ///
-// occt: BRepPrimAPI_MakePrism
+// occt-ref: BRepPrimAPI_MakePrism
 #[derive(Debug, Clone)]
 pub struct PrismBuilder {
     /// Name / identifier for the base profile.
@@ -28,7 +28,7 @@ impl PrismBuilder {
     /// Construct a new `PrismBuilder` from a base profile name, a direction
     /// vector, and a height.
     ///
-    // occt: BRepPrimAPI_MakePrism::BRepPrimAPI_MakePrism
+    // occt-ref: BRepPrimAPI_MakePrism // ::BRepPrimAPI_MakePrism
     pub fn new(base: &str, dir: [f64; 3], h: f64) -> Self {
         Self {
             base: base.to_owned(),
@@ -42,7 +42,7 @@ impl PrismBuilder {
     /// In a full implementation this would return a `TopoDS_Shape` equivalent;
     /// here it returns a `String` tag suitable for downstream stub processing.
     ///
-    // occt: BRepPrimAPI_MakePrism::Shape
+    // occt-ref: BRepPrimAPI_MakePrism // ::Shape
     pub fn build(&self) -> String {
         format!(
             "Prism(base={}, dir=[{:.6},{:.6},{:.6}], h={:.6})",
@@ -56,7 +56,7 @@ impl PrismBuilder {
     /// for stub purposes (area = 1 by convention when the base is a name-only
     /// reference).  A real implementation would integrate the face area.
     ///
-    // occt: BRepPrimAPI_MakePrism volume utility
+    // occt-ref: BRepPrimAPI_MakePrism // volume utility
     pub fn volume(&self) -> f64 {
         let dir_len = (self.direction[0].powi(2)
             + self.direction[1].powi(2)
@@ -74,7 +74,7 @@ impl PrismBuilder {
 /// Builder that revolves a planar base profile about an axis through a given
 /// angle, producing a solid of revolution.
 ///
-// occt: BRepPrimAPI_MakeRevol
+// occt-ref: BRepPrimAPI_MakeRevol
 #[derive(Debug, Clone)]
 pub struct RevolBuilder {
     /// Name / identifier for the base profile.
@@ -89,7 +89,7 @@ impl RevolBuilder {
     /// Construct a new `RevolBuilder` from a base profile name, an axis
     /// direction vector, and a revolution angle in radians.
     ///
-    // occt: BRepPrimAPI_MakeRevol::BRepPrimAPI_MakeRevol
+    // occt-ref: BRepPrimAPI_MakeRevol // ::BRepPrimAPI_MakeRevol
     pub fn new(base: &str, axis: [f64; 3], angle: f64) -> Self {
         Self {
             base: base.to_owned(),
@@ -102,7 +102,7 @@ impl RevolBuilder {
     ///
     /// A full implementation would return a `TopoDS_Shape` equivalent.
     ///
-    // occt: BRepPrimAPI_MakeRevol::Shape
+    // occt-ref: BRepPrimAPI_MakeRevol // ::Shape
     pub fn build(&self) -> String {
         let full = (self.angle - 2.0 * PI).abs() < 1e-6;
         format!(
@@ -125,7 +125,7 @@ impl RevolBuilder {
 /// swept solid.
 ///
 /// Mirrors `BRepOffsetAPI_MakePipe` / `BRepBuilderAPI_MakeSweep` from OCCT.
-// occt: BRepPrimAPI_MakePrism (generalized sweep variant)
+// occt-ref: BRepPrimAPI_MakePrism // (generalized sweep variant)
 #[derive(Debug, Clone)]
 pub struct SweepBuilder {
     /// Name / identifier for the base profile.
@@ -138,7 +138,7 @@ impl SweepBuilder {
     /// Construct a new `SweepBuilder` from a base profile name and a spine
     /// curve name.
     ///
-    // occt: BRepOffsetAPI_MakePipe::BRepOffsetAPI_MakePipe
+    // occt-ref: BRepOffsetAPI_MakePipe // ::BRepOffsetAPI_MakePipe
     pub fn new(base: &str, spine: &str) -> Self {
         Self {
             base: base.to_owned(),
@@ -148,7 +148,7 @@ impl SweepBuilder {
 
     /// Build the swept solid and return a human-readable descriptor.
     ///
-    // occt: BRepOffsetAPI_MakePipe::Shape
+    // occt-ref: BRepOffsetAPI_MakePipe // ::Shape
     pub fn build(&self) -> String {
         format!("Sweep(base={}, spine={})", self.base, self.spine)
     }
@@ -161,7 +161,7 @@ impl SweepBuilder {
 /// Build an axis-aligned box with extents `(dx, dy, dz)` starting from the
 /// origin and return a human-readable descriptor.
 ///
-// occt: BRepPrimAPI_MakeBox
+// occt-ref: BRepPrimAPI_MakeBox
 pub fn make_box(dx: f64, dy: f64, dz: f64) -> String {
     format!("Box(dx={:.6}, dy={:.6}, dz={:.6})", dx, dy, dz)
 }
@@ -169,7 +169,7 @@ pub fn make_box(dx: f64, dy: f64, dz: f64) -> String {
 /// Build a right circular cylinder with radius `r` and height `h`, axis +Z
 /// from the origin, and return a human-readable descriptor.
 ///
-// occt: BRepPrimAPI_MakeCylinder
+// occt-ref: BRepPrimAPI_MakeCylinder
 pub fn make_cylinder(r: f64, h: f64) -> String {
     format!("Cylinder(r={:.6}, h={:.6})", r, h)
 }

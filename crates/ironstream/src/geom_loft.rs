@@ -11,7 +11,7 @@
 //!
 //! All implementations are self-contained and contain **no unsafe code**.
 
-// occt: BRepOffsetAPI_ThruSections (package boundary)
+// occt-ref: BRepOffsetAPI_ThruSections // (package boundary)
 
 // ---------------------------------------------------------------------------
 // LoftSection
@@ -22,7 +22,7 @@
 /// Each section carries a human-readable label, the number of poles (control
 /// points) on its profile curve, whether it represents a closed wire (vs.\ an
 /// open edge), and the parameter position along the lofting direction.
-// occt: one loft cross-section
+// occt-note: one loft cross-section
 #[derive(Clone, Debug)]
 pub struct LoftSection {
     /// Descriptive label (e.g. `"section_0"`).
@@ -88,7 +88,7 @@ impl LoftSection {
 /// Construction parameters for a [`ThruSections`] loft.
 ///
 /// Mirrors the flags accepted by `BRepOffsetAPI_ThruSections`.
-// occt: BRepOffsetAPI_ThruSections params
+// occt-ref: BRepOffsetAPI_ThruSections // params
 #[derive(Clone, Debug)]
 pub struct LoftParams {
     /// If `true` the result is capped to form a solid; otherwise a shell.
@@ -154,7 +154,7 @@ impl Default for LoftParams {
 ///
 /// After [`ThruSections::build`] succeeds, callers query face and edge counts
 /// through this object.
-// occt: loft result
+// occt-note: loft result
 #[derive(Clone, Debug)]
 pub struct LoftResult {
     /// Whether the build has completed successfully.
@@ -226,7 +226,7 @@ impl Default for LoftResult {
 ///          + nb_sections × nb_poles_of_first_section
 /// ```
 /// When no sections have been added the counts remain zero.
-// occt: BRepOffsetAPI_ThruSections
+// occt-ref: BRepOffsetAPI_ThruSections
 #[derive(Clone, Debug)]
 pub struct ThruSections {
     /// Ordered list of cross-section profiles.

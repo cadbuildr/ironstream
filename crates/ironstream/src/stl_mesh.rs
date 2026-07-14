@@ -20,7 +20,7 @@
 /// A single STL triangle: one face normal and three vertex positions, all in
 /// single-precision floating point as the STL specification requires.
 ///
-// occt: StlMesh_TriangleFace
+// occt-ref: StlMesh_TriangleFace
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct StlTriangle {
     normal: [f32; 3],
@@ -51,7 +51,7 @@ impl StlTriangle {
 /// An ordered collection of [`StlTriangle`]s that together form one coherent
 /// surface patch (domain) within an [`StlMesh`].
 ///
-// occt: StlMesh_MeshDomain
+// occt-ref: StlMesh_MeshDomain
 #[derive(Clone, Debug, Default)]
 pub struct StlMeshDomain {
     triangles: Vec<StlTriangle>,
@@ -95,7 +95,7 @@ impl StlMeshDomain {
 /// In OCCT a mesh may be split into domains (one per shell in the original
 /// solid), though most STL files contain exactly one domain.
 ///
-// occt: StlMesh_Mesh
+// occt-ref: StlMesh_Mesh
 #[derive(Clone, Debug)]
 pub struct StlMesh {
     name: String,

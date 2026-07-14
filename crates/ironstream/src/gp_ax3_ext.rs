@@ -1,10 +1,10 @@
 // FILE: rust/ironstream/crates/ironstream/src/gp_ax3_ext.rs
 
-// occt: gp_Dir — unit direction vector (zero-dependency port)
+// occt-ref: gp_Dir // — unit direction vector (zero-dependency port)
 /// A 3D unit direction vector.
 ///
 /// Always stored normalized so that `x²+y²+z² == 1`.
-// occt: gp_Dir
+// occt-ref: gp_Dir
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GpDir {
     x: f64,
@@ -54,7 +54,7 @@ impl GpDir {
     }
 
     /// Return the direction with all components negated.
-    // occt: gp_Dir::Reversed()
+    // occt-ref: gp_Dir // ::Reversed()
     #[inline]
     pub fn reversed(&self) -> GpDir {
         GpDir {
@@ -65,7 +65,7 @@ impl GpDir {
     }
 
     /// Dot product; equals `cos(angle(self, other))` for unit directions.
-    // occt: gp_Dir::Dot(Other)
+    // occt-ref: gp_Dir // ::Dot(Other)
     #[inline]
     pub fn dot(&self, other: &GpDir) -> f64 {
         self.x * other.x + self.y * other.y + self.z * other.z
@@ -75,7 +75,7 @@ impl GpDir {
     ///
     /// # Panics
     /// Panics if the result is the null vector (parallel or anti-parallel input).
-    // occt: gp_Dir::Crossed(Other)
+    // occt-ref: gp_Dir // ::Crossed(Other)
     #[inline]
     pub fn cross(&self, other: &GpDir) -> GpDir {
         let cx = self.y * other.z - self.z * other.y;
@@ -85,14 +85,14 @@ impl GpDir {
     }
 
     /// Unsigned angle in `[0, π]` radians between `self` and `other`.
-    // occt: gp_Dir::Angle(Other)
+    // occt-ref: gp_Dir // ::Angle(Other)
     #[inline]
     pub fn angle(&self, other: &GpDir) -> f64 {
         self.dot(other).clamp(-1.0, 1.0).acos()
     }
 
     /// True when `self` and `other` are parallel or anti-parallel within `tol` radians.
-    // occt: gp_Dir::IsParallel(Other, AngularTolerance)
+    // occt-ref: gp_Dir // ::IsParallel(Other, AngularTolerance)
     #[inline]
     pub fn is_parallel(&self, other: &GpDir, tol: f64) -> bool {
         let a = self.angle(other);
@@ -101,7 +101,7 @@ impl GpDir {
 
     /// True when `self` and `other` are perpendicular within `tol` radians
     /// (i.e. `|angle - π/2| ≤ tol`).
-    // occt: gp_Dir::IsNormal(Other, AngularTolerance)
+    // occt-ref: gp_Dir // ::IsNormal(Other, AngularTolerance)
     #[inline]
     pub fn is_normal(&self, other: &GpDir, tol: f64) -> bool {
         (self.angle(other) - std::f64::consts::FRAC_PI_2).abs() <= tol
@@ -110,9 +110,9 @@ impl GpDir {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-// occt: gp_Ax1 — axis defined by a location point and a unit direction
+// occt-ref: gp_Ax1 // — axis defined by a location point and a unit direction
 /// An axis in 3D space: a location (point) and a unit direction.
-// occt: gp_Ax1
+// occt-ref: gp_Ax1
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GpAx1Ext {
     location: [f64; 3],
@@ -159,7 +159,7 @@ impl GpAx1Ext {
     }
 
     /// Return a new axis with the direction reversed (location unchanged).
-    // occt: gp_Ax1::Reversed()
+    // occt-ref: gp_Ax1 // ::Reversed()
     #[inline]
     pub fn reversed(&self) -> GpAx1Ext {
         GpAx1Ext {
@@ -172,7 +172,7 @@ impl GpAx1Ext {
     ///
     /// `ang_tol`: angular tolerance for direction comparison (radians).
     /// `lin_tol`: linear tolerance for distance from `other`'s origin to `self`'s line.
-    // occt: gp_Ax1::IsCoaxial(Other, AngularTolerance, LinearTolerance)
+    // occt-ref: gp_Ax1 // ::IsCoaxial(Other, AngularTolerance, LinearTolerance)
     pub fn is_coaxial(&self, other: &GpAx1Ext, ang_tol: f64, lin_tol: f64) -> bool {
         if !self.direction.is_parallel(&other.direction, ang_tol) {
             return false;
@@ -191,14 +191,14 @@ impl GpAx1Ext {
     }
 
     /// True when `self` and `other` are parallel or anti-parallel within `tol` radians.
-    // occt: gp_Ax1::IsParallel(Other, AngularTolerance)
+    // occt-ref: gp_Ax1 // ::IsParallel(Other, AngularTolerance)
     #[inline]
     pub fn is_parallel(&self, other: &GpAx1Ext, tol: f64) -> bool {
         self.direction.is_parallel(&other.direction, tol)
     }
 
     /// Unsigned angle in `[0, π]` radians between the directions of `self` and `other`.
-    // occt: gp_Ax1::Angle(Other)
+    // occt-ref: gp_Ax1 // ::Angle(Other)
     #[inline]
     pub fn angle(&self, other: &GpAx1Ext) -> f64 {
         self.direction.angle(&other.direction)
@@ -207,12 +207,12 @@ impl GpAx1Ext {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-// occt: gp_Ax3 — right-handed coordinate frame (origin + X/Y/Z directions)
+// occt-ref: gp_Ax3 // — right-handed coordinate frame (origin + X/Y/Z directions)
 /// A right-handed 3D coordinate frame: origin, X direction, Y direction, Z direction.
 ///
 /// On construction `y_direction` is computed as `z × x` so the frame is always
 /// right-handed.
-// occt: gp_Ax3
+// occt-ref: gp_Ax3
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GpAx3Ext {
     origin: [f64; 3],
@@ -276,14 +276,14 @@ impl GpAx3Ext {
     }
 
     /// Always returns `true`: this frame is always right-handed by construction.
-    // occt: gp_Ax3::Direct()
+    // occt-ref: gp_Ax3 // ::Direct()
     #[inline]
     pub fn is_direct(&self) -> bool {
         true
     }
 
     /// Unsigned angle in `[0, π]` radians between the Z axes of `self` and `other`.
-    // occt: gp_Ax3::Angle(Other) — angle between Z directions
+    // occt-ref: gp_Ax3 // ::Angle(Other) — angle between Z directions
     #[inline]
     pub fn angle(&self, other: &GpAx3Ext) -> f64 {
         self.z_direction.angle(&other.z_direction)

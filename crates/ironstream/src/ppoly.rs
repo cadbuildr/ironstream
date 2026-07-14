@@ -1,7 +1,7 @@
 // FILE: ppoly.rs
-// occt: PPoly_Polygon3D, PPoly_Triangle, PPoly_Triangulation
+// occt-ref: PPoly_Polygon3D, PPoly_Triangle, PPoly_Triangulation
 
-// occt: PPoly_Triangle
+// occt-ref: PPoly_Triangle
 /// A triangle defined by three vertex indices.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct PPolyTriangle {
@@ -24,7 +24,7 @@ impl PPolyTriangle {
     }
 }
 
-// occt: PPoly_Polygon3D
+// occt-ref: PPoly_Polygon3D
 /// A 3-D polygon (polyline) with optional parametric data.
 #[derive(Clone, Debug)]
 pub struct PPolyPolygon3D {
@@ -53,7 +53,7 @@ impl PPolyPolygon3D {
     }
 }
 
-// occt: PPoly_Triangulation
+// occt-ref: PPoly_Triangulation
 /// Persistent triangulation: a set of 3-D nodes and indexed triangles.
 #[derive(Clone, Debug)]
 pub struct PPolyTriangulation {

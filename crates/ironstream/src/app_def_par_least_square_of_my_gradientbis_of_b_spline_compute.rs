@@ -1,5 +1,5 @@
 // FILE: app_def_par_least_square_of_my_gradientbis_of_b_spline_compute.rs
-// occt: AppDefParLeastSquare2
+// occt-ref: AppDefParLeastSquare2
 
 //! Approximation and constraint handling class.
 pub struct AppDefParLeastSquare2 {

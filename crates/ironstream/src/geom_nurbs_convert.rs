@@ -218,7 +218,7 @@ fn uniform_open_knots(degree: usize, n_poles: usize) -> Vec<f64> {
 ///
 /// Mirrors the data model of `Geom_BSplineCurve` from OpenCascade, using a
 /// flat (repeated) knot vector together with weighted control points.
-// occt: GeomConvert
+// occt-ref: GeomConvert
 #[derive(Clone, Debug)]
 pub struct NurbsCurve {
     /// Polynomial degree of the curve.
@@ -404,7 +404,7 @@ impl NurbsSurface {
 /// default degree-3 straight-line curve from `[0,0,0]` to `[1,0,0]`.
 ///
 /// Mirrors `GeomConvert::CurveToBSplineCurve` from OpenCascade.
-// occt: GeomConvert
+// occt-ref: GeomConvert
 pub fn curve_to_nurbs(curve: &str) -> NurbsCurve {
     match curve.to_ascii_lowercase().trim() {
         // Unit circle arc approximated as a degree-2 rational NURBS (exact).
@@ -472,7 +472,7 @@ pub fn curve_to_nurbs(curve: &str) -> NurbsCurve {
 /// default bilinear (degree-1 × degree-1) planar patch in the XY plane.
 ///
 /// Mirrors `GeomConvert::SurfaceToBSplineSurface` from OpenCascade.
-// occt: GeomConvert
+// occt-ref: GeomConvert
 pub fn surface_to_nurbs(surface: &str) -> NurbsSurface {
     match surface.to_ascii_lowercase().trim() {
         // Bilinear planar patch (unit square in XY plane).

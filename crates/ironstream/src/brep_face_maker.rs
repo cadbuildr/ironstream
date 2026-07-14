@@ -7,7 +7,7 @@
 // FaceError
 // ---------------------------------------------------------------------------
 
-// occt: BRepBuilderAPI_FaceError — error codes returned by BRepBuilderAPI_MakeFace::Error()
+// occt-ref: BRepBuilderAPI_FaceError // — error codes returned by BRepBuilderAPI_MakeFace::Error()
 /// Error codes produced by [`FaceMaker`].
 ///
 /// Mirrors the `BRepBuilderAPI_FaceError` enumeration from OCCT:
@@ -20,16 +20,16 @@
 /// | `ParametersOutOfRange`   | `BRepBuilderAPI_ParametersOutOfRange`                     |
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum FaceError {
-    // occt: BRepBuilderAPI_NoFace — no face has been built yet
+    // occt-note: BRepBuilderAPI_NoFace — no face has been built yet
     /// No face has been constructed.
     NoFace,
-    // occt: BRepBuilderAPI_NotPlanar — the wire does not lie on a plane
+    // occt-note: BRepBuilderAPI_NotPlanar — the wire does not lie on a plane
     /// The wire does not define a planar contour.
     NotPlanar,
-    // occt: BRepBuilderAPI_CurveProjectionFailed — PCurve computation failed
+    // occt-note: BRepBuilderAPI_CurveProjectionFailed — PCurve computation failed
     /// Projection of a curve onto the surface failed.
     CurveProjectionFailed,
-    // occt: BRepBuilderAPI_ParametersOutOfRange — UV bounds are invalid
+    // occt-note: BRepBuilderAPI_ParametersOutOfRange — UV bounds are invalid
     /// The supplied UV parameter bounds are out of range.
     ParametersOutOfRange,
 }
@@ -38,7 +38,7 @@ pub enum FaceError {
 // FaceMaker
 // ---------------------------------------------------------------------------
 
-// occt: BRepBuilderAPI_MakeFace
+// occt-ref: BRepBuilderAPI_MakeFace
 /// Stub builder mirroring `BRepBuilderAPI_MakeFace`.
 ///
 /// Constructs a topological face from a wire boundary, a planar surface
@@ -48,11 +48,11 @@ pub enum FaceError {
 /// succeeds.
 #[derive(Debug, Clone)]
 pub struct FaceMaker {
-    // occt: BRepBuilderAPI_MakeFace — resulting TopoDS_Face handle (stub: label string)
+    // occt-ref: BRepBuilderAPI_MakeFace // — resulting TopoDS_Face handle (stub: label string)
     pub face: String,
-    // occt: BRepBuilderAPI_MakeFace::Error
+    // occt-ref: BRepBuilderAPI_MakeFace // ::Error
     pub error: Option<FaceError>,
-    // occt: BRepBuilderAPI_MakeFace::IsDone
+    // occt-ref: BRepBuilderAPI_MakeFace // ::IsDone
     pub done: bool,
 }
 
@@ -64,7 +64,7 @@ impl FaceMaker {
     /// non-empty wire label.
     ///
     /// Mirrors `BRepBuilderAPI_MakeFace(const TopoDS_Wire&, Standard_Boolean)`.
-    // occt: BRepBuilderAPI_MakeFace(const TopoDS_Wire& W, Standard_Boolean OnlyPlane)
+    // occt-note: BRepBuilderAPI_MakeFace(const TopoDS_Wire& W, Standard_Boolean OnlyPlane)
     pub fn from_wire(wire: &str) -> Self {
         if wire.is_empty() {
             return Self {
@@ -85,7 +85,7 @@ impl FaceMaker {
     ///
     /// Mirrors `BRepBuilderAPI_MakeFace(const gp_Pln&)` where the plane is
     /// built from the supplied `origin` and `normal`.
-    // occt: BRepBuilderAPI_MakeFace(const gp_Pln& P)
+    // occt-note: BRepBuilderAPI_MakeFace(const gp_Pln& P)
     pub fn from_plane(origin: [f64; 3], normal: [f64; 3]) -> Self {
         Self {
             face: format!(
@@ -103,7 +103,7 @@ impl FaceMaker {
     ///
     /// The cylinder is assumed to be axis-aligned along Z with its base at the
     /// origin.  Mirrors `BRepBuilderAPI_MakeFace(const gp_Cylinder&, Standard_Real, Standard_Real)`.
-    // occt: BRepBuilderAPI_MakeFace(const gp_Cylinder& C, Standard_Real P1, Standard_Real P2)
+    // occt-note: BRepBuilderAPI_MakeFace(const gp_Cylinder& C, Standard_Real P1, Standard_Real P2)
     pub fn from_cylinder(r: f64, h: f64) -> Self {
         if r <= 0.0 || h <= 0.0 {
             return Self {
@@ -123,7 +123,7 @@ impl FaceMaker {
     /// to `self` for method chaining.
     ///
     /// Mirrors `BRepBuilderAPI_MakeFace::Add(const TopoDS_Wire&)`.
-    // occt: BRepBuilderAPI_MakeFace::Add(const TopoDS_Wire& W)
+    // occt-ref: BRepBuilderAPI_MakeFace // ::Add(const TopoDS_Wire& W)
     pub fn add_wire(&mut self, wire: &str) -> &mut Self {
         if self.done && !wire.is_empty() {
             let existing = self.face.trim_end_matches(')').to_string();
@@ -135,7 +135,7 @@ impl FaceMaker {
     /// Return a reference to the label of the constructed face.
     ///
     /// Mirrors `BRepBuilderAPI_MakeFace::Face()`.
-    // occt: BRepBuilderAPI_MakeFace::Face() -> const TopoDS_Face&
+    // occt-ref: BRepBuilderAPI_MakeFace // ::Face() -> const TopoDS_Face&
     pub fn face(&self) -> &str {
         &self.face
     }
@@ -143,7 +143,7 @@ impl FaceMaker {
     /// Return `true` when the face was successfully constructed.
     ///
     /// Mirrors `BRepBuilderAPI_MakeFace::IsDone()`.
-    // occt: BRepBuilderAPI_MakeFace::IsDone() -> Standard_Boolean
+    // occt-ref: BRepBuilderAPI_MakeFace // ::IsDone() -> Standard_Boolean
     pub fn is_done(&self) -> bool {
         self.done
     }
@@ -151,7 +151,7 @@ impl FaceMaker {
     /// Return the error code if construction failed, or `None` on success.
     ///
     /// Mirrors `BRepBuilderAPI_MakeFace::Error()`.
-    // occt: BRepBuilderAPI_MakeFace::Error() -> BRepBuilderAPI_FaceError
+    // occt-ref: BRepBuilderAPI_MakeFace // ::Error() -> BRepBuilderAPI_FaceError
     pub fn error(&self) -> Option<&FaceError> {
         self.error.as_ref()
     }
@@ -166,7 +166,7 @@ impl FaceMaker {
 /// Convenience wrapper around [`FaceMaker::from_wire`] that returns the face
 /// label directly, mirroring typical single-call usage of
 /// `BRepBuilderAPI_MakeFace(wire, Standard_True).Face()`.
-// occt: BRepBuilderAPI_MakeFace(const TopoDS_Wire&, Standard_Boolean) — convenience
+// occt-note: BRepBuilderAPI_MakeFace(const TopoDS_Wire&, Standard_Boolean) — convenience
 pub fn make_planar_face(wire: &str) -> String {
     FaceMaker::from_wire(wire).face
 }
@@ -177,7 +177,7 @@ pub fn make_planar_face(wire: &str) -> String {
 /// rectangle `[u1, u2] × [v1, v2]` in the plane's own UV coordinate system.
 ///
 /// Mirrors `BRepBuilderAPI_MakeFace(const gp_Pln&, u1, u2, v1, v2)`.
-// occt: BRepBuilderAPI_MakeFace(const gp_Pln& P, Standard_Real u1, Standard_Real u2, Standard_Real v1, Standard_Real v2)
+// occt-note: BRepBuilderAPI_MakeFace(const gp_Pln& P, Standard_Real u1, Standard_Real u2, Standard_Real v1, Standard_Real v2)
 pub fn make_face_from_plane(
     origin: [f64; 3],
     normal: [f64; 3],

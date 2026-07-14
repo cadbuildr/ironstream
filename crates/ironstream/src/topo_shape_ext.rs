@@ -1,8 +1,9 @@
 // FILE: topo_shape_ext.rs
-// occt: BRepTools_History, ShapeExtend_Status, ShapeExtend_BasicMsgRegistrator
+// occt: BRepTools_History, ShapeExtend_BasicMsgRegistrator
+// occt-ref: ShapeExtend_Status
 
 /// Extended status of a shape operation.
-/// occt: ShapeExtend_Status
+// occt-ref: ShapeExtend_Status
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ShapeExtendStatus {
     OK,
@@ -127,7 +128,7 @@ impl BrepToolsHistory {
 }
 
 /// Shape transfer result (maps old to new shape ids).
-/// occt: BRepTools_Modifier / Transfer patterns
+// occt-ref: BRepTools_Modifier // / Transfer patterns
 #[derive(Clone, Debug, Default)]
 pub struct BrepShapeMapper {
     pub map: Vec<(u32, u32)>,

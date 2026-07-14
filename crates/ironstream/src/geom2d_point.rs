@@ -18,7 +18,7 @@ use crate::gp2d::{Pnt2d, Trsf2d};
 ///
 /// Wraps a [`Pnt2d`] (`gp_Pnt2d`) and provides the full OCCT
 /// `Geom2d_CartesianPoint` API.
-// occt: Geom2d_CartesianPoint
+// occt-ref: Geom2d_CartesianPoint
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct CartesianPoint2d {
     pnt: Pnt2d,

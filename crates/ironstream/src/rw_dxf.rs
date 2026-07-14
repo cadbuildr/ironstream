@@ -1,7 +1,7 @@
 // FILE: rw_dxf.rs
-// occt: RWMesh_CafReader (DXF variant), DXF entities (DxfLine, DxfArc, DxfCircle, DxfPolyline)
+// occt: RWMesh_CafReader // (DXF variant), DXF entities (DxfLine, DxfArc, DxfCircle, DxfPolyline)
 
-// occt: DXF entity types
+// occt-note: DXF entity types
 #[derive(Clone, Debug, PartialEq)]
 pub enum DxfEntity {
     Line(DxfLine),
@@ -61,7 +61,7 @@ pub struct DxfInsert {
     pub layer: String,
 }
 
-// occt: DXF reader
+// occt-note: DXF reader
 #[derive(Clone, Debug, Default)]
 pub struct DxfReader {
     pub entities: Vec<DxfEntity>,

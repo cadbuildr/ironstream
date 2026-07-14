@@ -1,7 +1,7 @@
 // FILE: brep_extrude.rs
-// occt: BRepFeat_MakePrism, BRepFeat_MakeDPrism, BRepFeat_MakeLinearForm
+// occt-ref: BRepFeat_MakePrism, BRepFeat_MakeDPrism, BRepFeat_MakeLinearForm
 
-// occt: BRepFeat_MakePrism
+// occt-ref: BRepFeat_MakePrism
 /// Extrudes a face/wire along a direction to create a prism feature.
 #[derive(Clone, Debug)]
 pub struct MakePrism {
@@ -42,7 +42,7 @@ impl MakePrism {
     }
 }
 
-// occt: BRepFeat_MakeDPrism
+// occt-ref: BRepFeat_MakeDPrism
 /// Draft-angle prism: extrudes with a taper angle.
 #[derive(Clone, Debug)]
 pub struct MakeDPrism {
@@ -66,7 +66,7 @@ impl MakeDPrism {
     }
 }
 
-// occt: BRepFeat_MakeLinearForm
+// occt-ref: BRepFeat_MakeLinearForm
 /// Rib/slot linear form feature.
 #[derive(Clone, Debug)]
 pub struct MakeLinearForm {
@@ -86,7 +86,7 @@ impl MakeLinearForm {
     pub fn nb_spine_pts(&self) -> usize { self.spine.len() }
 }
 
-// occt: BRepFeat_MakeRevol
+// occt-ref: BRepFeat_MakeRevol
 /// Revolution feature around an axis.
 #[derive(Clone, Debug)]
 pub struct MakeRevol {

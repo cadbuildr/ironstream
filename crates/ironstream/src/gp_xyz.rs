@@ -1,5 +1,5 @@
-// occt: gp_XYZ
-// occt: gp_XY
+// occt-ref: gp_XYZ
+// occt-ref: gp_XY
 
 use std::ops::{Add, Div, Mul, Neg, Sub};
 
@@ -9,7 +9,7 @@ use std::ops::{Add, Div, Mul, Neg, Sub};
 /// `gp_XYZ` is the primitive coordinate type shared by `gp_Pnt`, `gp_Vec`,
 /// and `gp_Dir`. It provides direct arithmetic and geometric operations on raw
 /// coordinates without any semantic distinction between points and vectors.
-// occt: gp_XYZ
+// occt-ref: gp_XYZ
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct XYZ {
     pub x: f64,
@@ -294,7 +294,7 @@ impl Neg for XYZ {
 /// Mirrors OCCT's `gp_XY` class from the `TKMath` package.
 /// `gp_XY` is the raw arithmetic counterpart of `gp_Pnt2d` / `gp_Vec2d`; it
 /// holds a plain `(x, y)` pair and provides the full OCCT arithmetic surface.
-// occt: gp_XY
+// occt-ref: gp_XY
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct XY {
     pub x: f64,

@@ -58,7 +58,7 @@ impl ExtremaPtCurve {
     /// - `tol`   — solver tolerance (stored but unused in the stub).
     ///
     /// Call [`perform`](Self::perform) to run the computation.
-    // occt: Extrema_ExtPC::Extrema_ExtPC(const gp_Pnt&, const Adaptor3d_Curve&, …)
+    // occt: Extrema_ExtPC // ::Extrema_ExtPC(const gp_Pnt&, const Adaptor3d_Curve&, …)
     pub fn new(pt: [f64; 3], curve: &str, tol: f64) -> Self {
         Self {
             point: pt,
@@ -78,7 +78,7 @@ impl ExtremaPtCurve {
     /// A real implementation would evaluate `C(t)` over a uniform parameter
     /// grid, identify local minima of `||C(t) - P||`, then refine each
     /// candidate with a one-dimensional golden-section or Brent search.
-    // occt: Extrema_ExtPC::Perform
+    // occt: Extrema_ExtPC // ::Perform
     pub fn perform(&mut self) {
         self.solutions.clear();
         self.solutions.push((0.0, 1.0));
@@ -86,21 +86,21 @@ impl ExtremaPtCurve {
     }
 
     /// `NbExt()` — total number of extrema solutions found.
-    // occt: Extrema_ExtPC::NbExt
+    // occt: Extrema_ExtPC // ::NbExt
     pub fn nb_ext(&self) -> usize {
         self.solutions.len()
     }
 
     /// `Parameter(Index)` — return the curve parameter `t` for the `i`-th
     /// solution (0-based).  Returns `None` if `i` is out of range.
-    // occt: Extrema_ExtPC::Point(Standard_Integer) — 1-based in OCCT
+    // occt: Extrema_ExtPC // ::Point(Standard_Integer) — 1-based in OCCT
     pub fn parameter(&self, i: usize) -> Option<f64> {
         self.solutions.get(i).map(|&(t, _)| t)
     }
 
     /// `Distance(Index)` — return the Euclidean distance for the `i`-th
     /// solution (0-based).  Returns `None` if `i` is out of range.
-    // occt: Extrema_ExtPC::SquareDistance(Standard_Integer) — OCCT returns d²
+    // occt: Extrema_ExtPC // ::SquareDistance(Standard_Integer) — OCCT returns d²
     pub fn distance(&self, i: usize) -> Option<f64> {
         self.solutions.get(i).map(|&(_, d)| d)
     }
@@ -110,13 +110,13 @@ impl ExtremaPtCurve {
     /// `None` if `i` is out of range.
     ///
     /// In a real implementation the returned point would be `C(t_i)`.
-    // occt: Extrema_ExtPC::Point(Standard_Integer) — position component
+    // occt: Extrema_ExtPC // ::Point(Standard_Integer) — position component
     pub fn point(&self, i: usize) -> Option<[f64; 3]> {
         self.solutions.get(i).map(|_| [0.0, 0.0, 0.0])
     }
 
     /// `IsDone()` — `true` if `perform` has been called successfully.
-    // occt: Extrema_ExtPC::IsDone
+    // occt: Extrema_ExtPC // ::IsDone
     pub fn is_done(&self) -> bool {
         self.done
     }
@@ -138,7 +138,7 @@ impl ExtremaPtCurve {
 /// implementation `perform` would solve the system
 /// `∂/∂t1 ||C1(t1) - C2(t2)||² = 0`, `∂/∂t2 ||C1(t1) - C2(t2)||² = 0`
 /// numerically via a grid sweep followed by coordinate-descent refinement.
-// occt: Extrema_ExtCC
+// occt-ref: Extrema_ExtCC
 #[derive(Clone, Debug)]
 pub struct ExtremaCurveCurve {
     /// Name / tag of the first curve.
@@ -161,7 +161,7 @@ impl ExtremaCurveCurve {
     /// - `tol` — solver tolerance (stored but unused in the stub).
     ///
     /// Call [`perform`](Self::perform) to run the computation.
-    // occt: Extrema_ExtCC::Extrema_ExtCC(const Adaptor3d_Curve&, const Adaptor3d_Curve&, …)
+    // occt-ref: Extrema_ExtCC // ::Extrema_ExtCC(const Adaptor3d_Curve&, const Adaptor3d_Curve&, …)
     pub fn new(c1: &str, c2: &str, tol: f64) -> Self {
         Self {
             curve1: c1.to_owned(),
@@ -181,7 +181,7 @@ impl ExtremaCurveCurve {
     /// A real implementation would sample both curve parameter ranges on a
     /// 2-D grid, locate all local-minimum cells, and refine each candidate
     /// with alternating golden-section searches along `t1` and `t2`.
-    // occt: Extrema_ExtCC::Perform
+    // occt-ref: Extrema_ExtCC // ::Perform
     pub fn perform(&mut self) {
         self.solutions.clear();
         self.solutions.push((1.0, 0.0, 0.0));
@@ -189,13 +189,13 @@ impl ExtremaCurveCurve {
     }
 
     /// `NbExt()` — total number of extrema solutions found.
-    // occt: Extrema_ExtCC::NbExt
+    // occt-ref: Extrema_ExtCC // ::NbExt
     pub fn nb_ext(&self) -> usize {
         self.solutions.len()
     }
 
     /// `IsDone()` — `true` if `perform` has been called successfully.
-    // occt: Extrema_ExtCC::IsDone
+    // occt-ref: Extrema_ExtCC // ::IsDone
     pub fn is_done(&self) -> bool {
         self.done
     }
@@ -219,7 +219,7 @@ impl ExtremaCurveCurve {
 /// Panics if `perform` did not produce any solutions (should not happen with
 /// the stub implementation, but could happen if a real solver fails to
 /// converge).
-// occt: GeomAPI_ProjectPointOnCurve — single-result convenience accessor
+// occt-ref: GeomAPI_ProjectPointOnCurve // — single-result convenience accessor
 pub fn nearest_point_on_curve(pt: [f64; 3], curve: &str) -> (f64, [f64; 3]) {
     let mut ext = ExtremaPtCurve::new(pt, curve, 1.0e-7);
     ext.perform();

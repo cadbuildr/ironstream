@@ -1,7 +1,7 @@
 // FILE: geom_approx_ext.rs
-// occt: Approx_FitAndDivide, Approx_SameParameter, Approx_CurveOnSurface
+// occt-ref: Approx_FitAndDivide, Approx_SameParameter, Approx_CurveOnSurface
 
-// occt: Approx_FitAndDivide
+// occt-ref: Approx_FitAndDivide
 /// Fits a set of points to a B-Spline curve by adaptive subdivision.
 #[derive(Clone, Debug)]
 pub struct FitAndDivide {
@@ -39,7 +39,7 @@ impl FitAndDivide {
     pub fn error(&self) -> f64 { 0.0 }
 }
 
-// occt: Approx_SameParameter
+// occt-ref: Approx_SameParameter
 /// Reparameterizes a curve so that its parameter matches arc-length.
 #[derive(Clone, Debug)]
 pub struct SameParameter {
@@ -74,7 +74,7 @@ impl SameParameter {
     pub fn tolerance_reached(&self) -> f64 { self.tol }
 }
 
-// occt: Approx_CurveOnSurface
+// occt-ref: Approx_CurveOnSurface
 /// Approximates a 2D curve embedded on a surface as a 3D B-Spline.
 #[derive(Clone, Debug)]
 pub struct CurveOnSurface {
@@ -114,7 +114,7 @@ impl CurveOnSurface {
     pub fn max_error_3d(&self) -> f64 { self.max_error_3d }
 }
 
-// occt: Approx_ParametrizationType
+// occt-ref: Approx_ParametrizationType
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ParametrizationType {
     ChordLength,

@@ -70,7 +70,7 @@ impl Default for BopAlgoCheckerSI {
     }
 }
 
-// occt: BOPAlgo_Builder
+// occt-ref: BOPAlgo_Builder
 pub struct BopAlgoBuilder {
     operation: BopAlgoOperation,
     fuzzy_value: f64,

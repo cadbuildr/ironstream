@@ -1,7 +1,7 @@
 // FILE: b_rep_class3d_bnd_box_tree.rs
 // occt: BRepClass3d_BndBoxTree
-// occt: BRepClass3d_BndBoxTreeSelectorPoint
-// occt: BRepClass3d_BndBoxTreeSelectorLine
+// occt-ref: BRepClass3d_BndBoxTreeSelectorPoint
+// occt-ref: BRepClass3d_BndBoxTreeSelectorLine
 
 /// Tree selector for point-box collisions
 pub struct BndBoxTreeSelectorPoint {

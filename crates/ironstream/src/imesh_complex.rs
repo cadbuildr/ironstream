@@ -1,5 +1,6 @@
 // FILE: imesh_complex.rs
-// occt: IMeshData_Face, IMeshData_Edge, IMeshData_Curve, IMeshData_Model,
+// occt: IMeshData_Model
+// occt-ref: IMeshData_Face, IMeshData_Edge, IMeshData_Curve
 //       BRepMesh_Triangle, BRepMesh_Vertex, BRepMesh_Edge
 
 /// A mesh vertex with 2D UV and 3D position.

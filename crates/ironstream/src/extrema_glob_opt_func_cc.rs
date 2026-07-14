@@ -1,5 +1,5 @@
 // FILE: extrema_glob_opt_func_cc.rs
-// occt: Extrema_GlobOptFuncCCC0, Extrema_GlobOptFuncCCC1, Extrema_GlobOptFuncCCC2
+// occt-ref: Extrema_GlobOptFuncCCC0, Extrema_GlobOptFuncCCC1, Extrema_GlobOptFuncCCC2
 
 /// Function which calculates Euclidean distance between point on curve and point on other curve (C0 continuity).
 pub struct ExtremaGlobOptFuncCc0 {

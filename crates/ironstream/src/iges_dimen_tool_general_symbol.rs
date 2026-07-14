@@ -1,5 +1,5 @@
 // FILE: iges_dimen_tool_general_symbol.rs
-// occt: IGESDimen_dimentoolgeneralsymbol
+// occt-ref: IGESDimen_dimentoolgeneralsymbol
 
 pub struct IGESDimen_dimentoolgeneralsymbol;
 

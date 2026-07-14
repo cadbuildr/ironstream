@@ -1,8 +1,8 @@
 // FILE: topo_edge.rs
-// occt: TopoDS_Edge, TopoDS_EdgeIterator, TopoDsEdgeBuilder
+// occt-ref: TopoDS_Edge, TopoDS_EdgeIterator, TopoDsEdgeBuilder
 
 /// Edge: 1D topology element.
-/// occt: TopoDS_Edge
+// occt-ref: TopoDS_Edge
 #[derive(Clone, Debug)]
 pub struct TopoDsEdge {
     pub edge_id: u32,
@@ -45,7 +45,7 @@ impl Default for TopoDsEdge {
 }
 
 /// Iterator over edges.
-/// occt: TopoDS_EdgeIterator
+// occt-ref: TopoDS_EdgeIterator
 #[derive(Clone, Debug)]
 pub struct TopoDsEdgeIterator {
     pub edges: Vec<u32>,
@@ -98,7 +98,7 @@ impl Default for TopoDsEdgeIterator {
 }
 
 /// Edge builder.
-/// occt: TopoDsEdgeBuilder (simplified as BRepBuilderAPI_MakeEdge)
+/// occt-note: TopoDsEdgeBuilder (simplified as BRepBuilderAPI_MakeEdge)
 #[derive(Clone, Debug)]
 pub struct TopoDsEdgeBuilder {
     pub edge: TopoDsEdge,

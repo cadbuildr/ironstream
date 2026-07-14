@@ -55,7 +55,7 @@ fn trsf2d_scale_factor(t: &Trsf2d) -> f64 {
 /// The axis of symmetry runs along the "X Direction", the tangent at the vertex
 /// along the "Y Direction".
 #[derive(Clone, Copy, Debug)]
-// occt: gp_Parab2d
+// occt-ref: gp_Parab2d
 pub struct Parab2d {
     position: Ax22d2,
     focal: f64,

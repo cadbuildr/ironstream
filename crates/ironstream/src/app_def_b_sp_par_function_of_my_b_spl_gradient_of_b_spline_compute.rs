@@ -1,5 +1,5 @@
 // FILE: app_def_b_sp_par_function_of_my_b_spl_gradient_of_b_spline_compute.rs
-// occt: AppDefBSpParFunction
+// occt-ref: AppDefBSpParFunction
 
 //! Approximation and constraint handling class.
 pub struct AppDefBSpParFunction {

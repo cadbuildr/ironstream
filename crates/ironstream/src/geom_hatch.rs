@@ -27,7 +27,7 @@
 ///
 /// The interval is always normalised so that `u_start <= u_end`.
 ///
-// occt: HatchGen_Domain
+// occt-ref: HatchGen_Domain
 #[derive(Clone, Debug, PartialEq)]
 pub struct HatchDomain {
     /// Lower parameter bound of the domain on the hatch line.

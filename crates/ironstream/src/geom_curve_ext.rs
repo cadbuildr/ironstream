@@ -1,5 +1,5 @@
 // FILE: geom_curve_ext.rs
-// occt: Geom_TrimmedCurve, Geom_OffsetCurve, Geom_Transformation
+// occt-ref: Geom_TrimmedCurve, Geom_OffsetCurve, Geom_Transformation
 
 /// Status of a geometric curve operation.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -19,7 +19,7 @@ impl CurveExtStatus {
     pub fn is_ok(&self) -> bool { *self == CurveExtStatus::Ok }
 }
 
-// occt: Geom_Transformation — 4x4 affine transformation for geometric objects
+// occt-ref: Geom_Transformation // — 4x4 affine transformation for geometric objects
 #[derive(Clone, Debug)]
 pub struct GeomTransformation {
     pub matrix: [[f64; 4]; 4],
@@ -99,7 +99,7 @@ impl GeomTransformation {
     }
 }
 
-// occt: Geom_TrimmedCurve — wraps a curve and restricts it to [first, last]
+// occt-ref: Geom_TrimmedCurve // — wraps a curve and restricts it to [first, last]
 #[derive(Clone, Debug)]
 pub struct GeomTrimmedCurve {
     pub basis_curve_id: u32,
@@ -139,7 +139,7 @@ impl GeomTrimmedCurve {
     pub fn reversed_parameter(&self, t: f64) -> f64 { self.first + self.last - t }
 }
 
-// occt: Geom_OffsetCurve — a curve offset by a fixed distance along a given direction
+// occt-ref: Geom_OffsetCurve // — a curve offset by a fixed distance along a given direction
 #[derive(Clone, Debug)]
 pub struct GeomOffsetCurve {
     pub basis_curve_id: u32,

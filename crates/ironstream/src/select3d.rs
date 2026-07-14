@@ -35,7 +35,7 @@ impl Select3dSensitiveEntity for Select3dSensitivePoint {
     }
 }
 
-// occt: Select3D_SensitiveBox
+// occt-ref: Select3D_SensitiveBox
 #[derive(Clone, Copy, Debug)]
 pub struct Select3dSensitiveBox {
     pub min: [f64; 3],
@@ -67,7 +67,7 @@ impl Select3dSensitiveEntity for Select3dSensitiveBox {
     }
 }
 
-// occt: Select3D_SensitiveSphere
+// occt-ref: Select3D_SensitiveSphere
 #[derive(Clone, Copy, Debug)]
 pub struct Select3dSensitiveSphere {
     pub center: [f64; 3],
@@ -97,7 +97,7 @@ impl Select3dSensitiveEntity for Select3dSensitiveSphere {
     }
 }
 
-// occt: SelectMgr_SelectionManager
+// occt-ref: SelectMgr_SelectionManager
 pub struct SelectMgrSelectionManager {
     entities: Vec<Box<dyn Select3dSensitiveEntity>>,
 }

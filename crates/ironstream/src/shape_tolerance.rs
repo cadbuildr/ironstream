@@ -18,20 +18,20 @@
 
 /// Identifies the kind of topological entity that owns a tolerance value.
 ///
-/// // occt: ShapeAnalysis_ShapeTolerance type — enum Vertex, Edge, Face, Overall
+/// // occt: ShapeAnalysis_ShapeTolerance // type — enum Vertex, Edge, Face, Overall
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum ToleranceType {
     /// A point-like topological vertex.
-    // occt: TopAbs_VERTEX
+    // occt-ref: TopAbs_VERTEX
     Vertex,
     /// A curve-like topological edge.
-    // occt: TopAbs_EDGE
+    // occt-ref: TopAbs_EDGE
     Edge,
     /// A surface-like topological face.
-    // occt: TopAbs_FACE
+    // occt-ref: TopAbs_FACE
     Face,
     /// An aggregate tolerance covering the whole shape.
-    // occt: ShapeAnalysis_ShapeTolerance — global/overall tolerance
+    // occt: ShapeAnalysis_ShapeTolerance // — global/overall tolerance
     Overall,
 }
 
@@ -42,7 +42,7 @@ pub enum ToleranceType {
 /// A single tolerance record: a human-readable label, the entity type, and
 /// the tolerance value (in the same length units as the model).
 ///
-/// // occt: tolerance record — fields: label String, tolerance_type ToleranceType, value f64
+/// // occt-note: tolerance record — fields: label String, tolerance_type ToleranceType, value f64
 #[derive(Clone, Debug)]
 pub struct ToleranceEntry {
     label: String,
@@ -92,7 +92,7 @@ impl ToleranceEntry {
 #[derive(Clone, Debug, Default)]
 pub struct ShapeToleranceAnalysis {
     /// All tolerance entries added to this analysis.
-    // occt: internal NCollection_Sequence<entry> — stored in insertion order
+    // occt-note: internal NCollection_Sequence<entry> — stored in insertion order
     pub entries: Vec<ToleranceEntry>,
 }
 
@@ -106,7 +106,7 @@ impl ShapeToleranceAnalysis {
 
     /// Append a tolerance entry.
     ///
-    /// // occt: ShapeAnalysis_ShapeTolerance::AddTolerance
+    /// // occt: ShapeAnalysis_ShapeTolerance // ::AddTolerance
     pub fn add(&mut self, e: ToleranceEntry) {
         self.entries.push(e);
     }
@@ -115,7 +115,7 @@ impl ShapeToleranceAnalysis {
     ///
     /// Returns `f64::INFINITY` when there are no entries.
     ///
-    /// // occt: ShapeAnalysis_ShapeTolerance::Tolerance (mode = 1 → min)
+    /// // occt: ShapeAnalysis_ShapeTolerance // ::Tolerance (mode = 1 → min)
     pub fn min_tolerance(&self) -> f64 {
         self.entries
             .iter()
@@ -127,7 +127,7 @@ impl ShapeToleranceAnalysis {
     ///
     /// Returns `f64::NEG_INFINITY` when there are no entries.
     ///
-    /// // occt: ShapeAnalysis_ShapeTolerance::Tolerance (mode = 2 → max)
+    /// // occt: ShapeAnalysis_ShapeTolerance // ::Tolerance (mode = 2 → max)
     pub fn max_tolerance(&self) -> f64 {
         self.entries
             .iter()
@@ -139,7 +139,7 @@ impl ShapeToleranceAnalysis {
     ///
     /// Returns `0.0` when there are no entries.
     ///
-    /// // occt: ShapeAnalysis_ShapeTolerance::Tolerance (mode = 0 → average)
+    /// // occt: ShapeAnalysis_ShapeTolerance // ::Tolerance (mode = 0 → average)
     pub fn mean_tolerance(&self) -> f64 {
         let n = self.entries.len();
         if n == 0 {
@@ -151,7 +151,7 @@ impl ShapeToleranceAnalysis {
 
     /// Return the tolerance values for all entries whose type matches `t`.
     ///
-    /// // occt: ShapeAnalysis_ShapeTolerance::Tolerance filtered by shape type
+    /// // occt: ShapeAnalysis_ShapeTolerance // ::Tolerance filtered by shape type
     pub fn tolerance_for_type(&self, t: ToleranceType) -> Vec<f64> {
         self.entries
             .iter()
@@ -162,7 +162,7 @@ impl ShapeToleranceAnalysis {
 
     /// Number of entries in the analysis.
     ///
-    /// // occt: ShapeAnalysis_ShapeTolerance::NbTolerance
+    /// // occt: ShapeAnalysis_ShapeTolerance // ::NbTolerance
     pub fn nb_entries(&self) -> usize {
         self.entries.len()
     }
@@ -173,7 +173,7 @@ impl ShapeToleranceAnalysis {
     ///
     /// Panics if `i >= self.nb_entries()`.
     ///
-    /// // occt: ShapeAnalysis_ShapeTolerance::Tolerance(i)
+    /// // occt: ShapeAnalysis_ShapeTolerance // ::Tolerance(i)
     pub fn entry(&self, i: usize) -> &ToleranceEntry {
         &self.entries[i]
     }
@@ -189,7 +189,7 @@ impl ShapeToleranceAnalysis {
 /// stored tolerances by a uniform factor (e.g. unit conversion from mm to
 /// inches: `scale_factor = 1.0 / 25.4`).
 ///
-/// // occt: ShapeFix_ShapeTolerance::SetTolerance
+/// // occt: ShapeFix_ShapeTolerance // ::SetTolerance
 pub fn update_tolerances(entries: &mut Vec<ToleranceEntry>, scale_factor: f64) {
     for e in entries.iter_mut() {
         e.value *= scale_factor;

@@ -1,7 +1,8 @@
 // FILE: geom_nurbs_ext.rs
-// occt: BSplCLib_Cache, GeomConvert_BSplineSurfaceToBezierSurface, GeomConvert_BSplineCurveToBezierCurve
+// occt: BSplCLib_Cache
+// occt-ref: GeomConvert_BSplineSurfaceToBezierSurface, GeomConvert_BSplineCurveToBezierCurve
 
-// occt: GeomConvert_BSplineCurveToBezierCurve
+// occt-ref: GeomConvert_BSplineCurveToBezierCurve
 /// Converts a B-Spline curve into a sequence of Bezier arcs.
 #[derive(Clone, Debug)]
 pub struct BSplineCurveToBezier {
@@ -50,7 +51,7 @@ impl BSplineCurveToBezier {
     pub fn arc(&self, i: usize) -> Option<&BezierArc> { self.arcs.get(i.saturating_sub(1)) }
 }
 
-// occt: GeomConvert_BSplineSurfaceToBezierSurface
+// occt-ref: GeomConvert_BSplineSurfaceToBezierSurface
 /// Converts a B-Spline surface into a grid of Bezier patches.
 #[derive(Clone, Debug)]
 pub struct BSplineSurfaceToBezier {

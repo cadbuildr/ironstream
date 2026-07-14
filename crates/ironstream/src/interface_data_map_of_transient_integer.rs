@@ -1,5 +1,6 @@
 // FILE: interface_data_map_of_transient_integer.rs
-// occt: Interface_DataMapOfTransientInteger, Interface_DataMapIteratorOfDataMapOfTransientInteger
+// occt: Interface_DataMapOfTransientInteger
+// occt-ref: Interface_DataMapIteratorOfDataMapOfTransientInteger
 
 use std::collections::BTreeMap;
 

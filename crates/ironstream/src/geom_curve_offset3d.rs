@@ -13,7 +13,7 @@
 //!
 //! This module is zero-dependency: it uses only `std` (`f64::sqrt`).
 
-// occt: Geom_OffsetCurve
+// occt-ref: Geom_OffsetCurve
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Internal helpers
@@ -48,7 +48,7 @@ fn normalize3(v: [f64; 3]) -> [f64; 3] {
 /// offset distance, and an offset direction vector.
 ///
 /// Corresponds to `Geom_OffsetCurve` in OpenCASCADE Technology.
-// occt: Geom_OffsetCurve
+// occt-ref: Geom_OffsetCurve
 #[derive(Clone, Debug, PartialEq)]
 pub struct OffsetCurve3d {
     /// Name identifying the basis curve (e.g. `"circle_1"`).

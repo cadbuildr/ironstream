@@ -13,20 +13,20 @@
 //! - evaluates (u, v) from the parameter `t` via piecewise-linear interpolation,
 //! - lifts (u, v) to 3-D using a caller-supplied surface normal.
 
-// occt: Geom_CurveOnSurface — a 2D curve lifted to 3D via a surface map
+// occt-note: Geom_CurveOnSurface — a 2D curve lifted to 3D via a surface map
 
 /// Classification of a curve-on-surface role.
-// occt: curve-on-surface type — enum Pcurve2d, Restriction, Boundary
+// occt-note: curve-on-surface type — enum Pcurve2d, Restriction, Boundary
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum CurveOnSurfaceType {
     /// A general parametric (p-curve) stored in the surface parameter space.
-    // occt: Pcurve2d
+    // occt-ref: Pcurve2d
     Pcurve2d,
     /// A restriction curve that bounds a region on the surface.
-    // occt: Restriction
+    // occt-ref: Restriction
     Restriction,
     /// A boundary curve that forms part of the surface's natural boundary.
-    // occt: Boundary
+    // occt-ref: Boundary
     Boundary,
 }
 
@@ -37,32 +37,32 @@ pub enum CurveOnSurfaceType {
 /// matching OCCT's separation of the two parameter components.  The knot vector
 /// and multiplicities follow the usual B-spline convention: `knots` holds the
 /// **distinct** breakpoints and `mults` their repetition counts.
-// occt: Geom_CurveOnSurface — a 2D curve lifted to 3D via a surface map
+// occt-note: Geom_CurveOnSurface — a 2D curve lifted to 3D via a surface map
 #[derive(Clone, Debug)]
 pub struct CurveOnSurface {
     /// U-coordinates of the 2-D control polygon in surface parameter space.
-    // occt: u_poles
+    // occt-ref: u_poles
     pub u_poles: Vec<f64>,
     /// V-coordinates of the 2-D control polygon in surface parameter space.
-    // occt: v_poles
+    // occt-ref: v_poles
     pub v_poles: Vec<f64>,
     /// Distinct knot values (strictly increasing).
-    // occt: knots
+    // occt-ref: knots
     pub knots: Vec<f64>,
     /// Multiplicity of each distinct knot.
-    // occt: mults
+    // occt-ref: mults
     pub mults: Vec<u32>,
     /// Polynomial degree of the B-spline basis.
-    // occt: degree
+    // occt-ref: degree
     pub degree: u32,
     /// Whether the curve is periodic.
-    // occt: is_periodic
+    // occt-ref: is_periodic
     pub is_periodic: bool,
     /// Tag identifying the kind of carrier surface (e.g. `"Plane"`, `"Cylinder"`).
-    // occt: surface_type
+    // occt-ref: surface_type
     pub surface_type: String,
     /// Role of this curve on the surface.
-    // occt: curve_type
+    // occt-ref: curve_type
     pub curve_type: CurveOnSurfaceType,
 }
 
@@ -76,7 +76,7 @@ impl CurveOnSurface {
     /// * `mults`        – Multiplicity of each breakpoint.
     /// * `degree`       – Polynomial degree.
     /// * `surface_type` – Human-readable surface tag (e.g. `"Plane"`).
-    // occt: Geom_CurveOnSurface constructor
+    // occt-note: Geom_CurveOnSurface constructor
     pub fn new(
         u_poles: Vec<f64>,
         v_poles: Vec<f64>,
@@ -98,49 +98,49 @@ impl CurveOnSurface {
     }
 
     /// Number of control poles.
-    // occt: NbPoles
+    // occt-ref: NbPoles
     pub fn nb_poles(&self) -> usize {
         self.u_poles.len()
     }
 
     /// Return the U-component of the i-th pole (0-based index).
-    // occt: Pole (U component)
+    // occt-note: Pole (U component)
     pub fn u_pole(&self, i: usize) -> f64 {
         self.u_poles[i]
     }
 
     /// Return the V-component of the i-th pole (0-based index).
-    // occt: Pole (V component)
+    // occt-note: Pole (V component)
     pub fn v_pole(&self, i: usize) -> f64 {
         self.v_poles[i]
     }
 
     /// Polynomial degree of the B-spline basis.
-    // occt: Degree
+    // occt-ref: Degree
     pub fn degree(&self) -> u32 {
         self.degree
     }
 
     /// Whether the curve is periodic.
-    // occt: IsPeriodic
+    // occt-ref: IsPeriodic
     pub fn is_periodic(&self) -> bool {
         self.is_periodic
     }
 
     /// Role of this curve on the surface.
-    // occt: CurveType (custom extension)
+    // occt-note: CurveType (custom extension)
     pub fn curve_type(&self) -> CurveOnSurfaceType {
         self.curve_type
     }
 
     /// First valid parameter value (the minimum knot).
-    // occt: FirstParameter
+    // occt-ref: FirstParameter
     pub fn first_param(&self) -> f64 {
         self.knots.first().copied().unwrap_or(0.0)
     }
 
     /// Last valid parameter value (the maximum knot).
-    // occt: LastParameter
+    // occt-ref: LastParameter
     pub fn last_param(&self) -> f64 {
         self.knots.last().copied().unwrap_or(0.0)
     }
@@ -153,7 +153,7 @@ impl CurveOnSurface {
     /// the knot span, and linearly interpolates the two bracketing poles.
     ///
     /// A future revision may replace this with full de-Boor evaluation.
-    // occt: Value / D0 — evaluate 2D point on surface parameter domain
+    // occt-note: Value / D0 — evaluate 2D point on surface parameter domain
     pub fn evaluate_uv(&self, t: f64) -> (f64, f64) {
         let n = self.u_poles.len();
         if n == 0 {
@@ -201,7 +201,7 @@ impl CurveOnSurface {
     /// direction — specifically `[u * nx, v * ny, (u + v) * nz]` where
     /// `(nx, ny, nz) = surface_normal` — as a placeholder for the real surface
     /// evaluation that would require a concrete surface object.
-    // occt: Value / D0 lifted to 3D — real impl calls surface->Value(u,v)
+    // occt-note: Value / D0 lifted to 3D — real impl calls surface->Value(u,v)
     pub fn evaluate_3d(&self, t: f64, surface_normal: [f64; 3]) -> [f64; 3] {
         let (u, v) = self.evaluate_uv(t);
         let [nx, ny, nz] = surface_normal;

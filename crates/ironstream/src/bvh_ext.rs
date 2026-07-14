@@ -1,9 +1,9 @@
 // FILE: bvh_ext.rs
-// occt: BVH_Box<T,N>, BVH_Ray<T,N>, BVH_Tree<T,N>,
+// occt-note: BVH_Box<T,N>, BVH_Ray<T,N>, BVH_Tree<T,N>,
 //       BVH_PrimitiveSet3d
 
 /// A 3D axis-aligned bounding box for BVH nodes.
-/// occt: BVH_Box<Standard_ShortReal, 3>
+/// occt-note: BVH_Box<Standard_ShortReal, 3>
 #[derive(Clone, Copy, Debug)]
 pub struct BvhBox3d {
     pub min: [f32; 3],
@@ -73,7 +73,7 @@ impl BvhBox3d {
 }
 
 /// A 3D ray for BVH intersection tests.
-/// occt: BVH_Ray<Standard_ShortReal, 3>
+/// occt-note: BVH_Ray<Standard_ShortReal, 3>
 #[derive(Clone, Copy, Debug)]
 pub struct BvhRay3d {
     pub origin: [f32; 3],
@@ -111,7 +111,7 @@ impl BvhRay3d {
 }
 
 /// A BVH tree node.
-/// occt: BVH_Tree node
+// occt-ref: BVH_Tree // node
 #[derive(Clone, Debug)]
 pub struct BvhNode {
     pub bounding_box: BvhBox3d,
@@ -137,7 +137,7 @@ impl BvhNode {
 }
 
 /// A flat BVH tree over triangles.
-/// occt: BVH_Tree<Standard_ShortReal, 3> / BVH_PrimitiveSet3d
+/// occt-note: BVH_Tree<Standard_ShortReal, 3> / BVH_PrimitiveSet3d
 #[derive(Clone, Debug, Default)]
 pub struct BvhTree3d {
     pub nodes: Vec<BvhNode>,

@@ -1,5 +1,6 @@
 // FILE: caf_storage.rs
-// occt: CDF_Store, CDF_MetaData, CDF_Session, CDF_Directory
+// occt: CDF_Store, CDF_Directory
+// occt-ref: CDF_MetaData, CDF_Session
 
 use std::collections::HashMap;
 
@@ -42,7 +43,7 @@ impl CdfStorageFormat {
     }
 }
 
-// occt: CDF_MetaData — identity record for a document in a repository
+// occt-note: CDF_MetaData — identity record for a document in a repository
 #[derive(Clone, Debug, Default)]
 pub struct CdfMetaData {
     pub folder: String,
@@ -75,7 +76,7 @@ impl CdfMetaData {
     pub fn document_name(&self) -> &str { &self.document_name }
 }
 
-// occt: CDF_Store — manages store/retrieve for one document
+// occt: CDF_Store // — manages store/retrieve for one document
 #[derive(Clone, Debug)]
 pub struct CdfStore {
     pub doc_id: u32,
@@ -116,7 +117,7 @@ impl CdfStore {
     pub fn path(&self) -> String { self.meta.full_path() }
 }
 
-// occt: CDF_Directory — list of documents in a repository
+// occt: CDF_Directory // — list of documents in a repository
 #[derive(Clone, Debug, Default)]
 pub struct CdfDirectory {
     pub entries: Vec<CdfMetaData>,
@@ -143,7 +144,7 @@ impl CdfDirectory {
     pub fn nb_stored_documents(&self) -> usize { self.entries.iter().filter(|m| m.is_stored).count() }
 }
 
-// occt: CDF_Session — manages the active set of open documents
+// occt-note: CDF_Session — manages the active set of open documents
 #[derive(Clone, Debug, Default)]
 pub struct CdfSession {
     pub documents: HashMap<u32, CdfStore>,

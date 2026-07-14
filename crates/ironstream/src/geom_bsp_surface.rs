@@ -18,7 +18,7 @@
 /// (both 0-based).  The grid dimensions are determined at construction time
 /// from `u_degree` / `v_degree` and the knot vectors supplied via
 /// [`BspSurface::set_u_knots`] / [`BspSurface::set_v_knots`].
-// occt: Geom_BSplineSurface
+// occt-ref: Geom_BSplineSurface
 #[derive(Clone, Debug)]
 pub struct BspSurface {
     pub u_degree: u32,

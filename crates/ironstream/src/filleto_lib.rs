@@ -1,5 +1,5 @@
 // FILE: filleto_lib.rs
-// occt: BRepFilletAPI_MakeFillet, BRepFilletAPI_MakeChamfer (additional API)
+// occt-note: BRepFilletAPI_MakeFillet, BRepFilletAPI_MakeChamfer (additional API)
 
 /// Status of a fillet/chamfer operation.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -52,7 +52,7 @@ impl FilletEdge {
     }
 }
 
-// occt: BRepFilletAPI_MakeFillet — rounds edges of a solid
+// occt-ref: BRepFilletAPI_MakeFillet // — rounds edges of a solid
 #[derive(Clone, Debug)]
 pub struct BrepFilletMakeFillet {
     pub solid_id: u32,
@@ -130,7 +130,7 @@ impl ChamferEdge {
     }
 }
 
-// occt: BRepFilletAPI_MakeChamfer — chamfers edges of a solid
+// occt-ref: BRepFilletAPI_MakeChamfer // — chamfers edges of a solid
 #[derive(Clone, Debug)]
 pub struct BrepFilletMakeChamfer {
     pub solid_id: u32,

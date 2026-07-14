@@ -1,8 +1,9 @@
 // FILE: mesh_smooth.rs
-// occt: BRepMesh_FastDiscret, BRepMesh_Context, IMeshAlgo_Mesher
+// occt: BRepMesh_FastDiscret, BRepMesh_Context
+// occt-ref: IMeshAlgo_Mesher
 
 /// Meshing status.
-/// occt: BRepMesh_FastDiscret status
+/// occt: BRepMesh_FastDiscret // status
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum MeshStatus {
     Empty,
@@ -16,7 +17,7 @@ impl Default for MeshStatus {
 }
 
 /// Mesh discretization parameters.
-/// occt: BRepMesh_FastDiscret::Parameters
+/// occt: BRepMesh_FastDiscret // ::Parameters
 #[derive(Clone, Debug)]
 pub struct MeshingParams {
     pub linear_deflection: f64,
@@ -134,7 +135,7 @@ impl BrepMeshContext {
 }
 
 /// Laplacian mesh smoothing (stub).
-/// occt: No direct class, but used in repair pipelines
+/// occt-note: No direct class, but used in repair pipelines
 #[derive(Clone, Debug)]
 pub struct MeshLaplacianSmoother {
     pub nb_iterations: usize,

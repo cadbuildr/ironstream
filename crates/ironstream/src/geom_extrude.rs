@@ -15,7 +15,7 @@
 
 // ─────────────────────────────── ExtrudeParams ──────────────────────────────
 
-// occt: BRepPrimAPI_MakePrism
+// occt-ref: BRepPrimAPI_MakePrism
 /// Parameters describing a linear extrusion (prism) operation.
 ///
 /// Mirrors the constructor arguments of `BRepPrimAPI_MakePrism`: the source
@@ -57,7 +57,7 @@ impl ExtrudeParams {
     /// * `dir`       — extrusion direction (need not be normalised; stored
     ///                 as-is, normalisation is the caller's responsibility).
     /// * `len`       — extrusion length (absolute value is used).
-    // occt: BRepPrimAPI_MakePrism::BRepPrimAPI_MakePrism
+    // occt-ref: BRepPrimAPI_MakePrism // ::BRepPrimAPI_MakePrism
     pub fn new(profile: &str, dir: [f64; 3], len: f64) -> Self {
         Self {
             profile: profile.to_owned(),
@@ -72,7 +72,7 @@ impl ExtrudeParams {
     ///
     /// When `b` is `true` the profile is extruded in both the positive and
     /// negative direction by `length / 2` each.
-    // occt: BRepPrimAPI_MakePrism (Copy / both-directions flag)
+    // occt-ref: BRepPrimAPI_MakePrism // (Copy / both-directions flag)
     pub fn both_directions(mut self, b: bool) -> Self {
         self.both_dir = b;
         self
@@ -81,7 +81,7 @@ impl ExtrudeParams {
 
 // ─────────────────────────────── ExtrudeResult ──────────────────────────────
 
-// occt: BRepPrimAPI_MakePrism
+// occt-ref: BRepPrimAPI_MakePrism
 /// Result produced by a linear extrusion build step.
 ///
 /// Mirrors the shape-level output of `BRepPrimAPI_MakePrism::Shape()`:
@@ -109,7 +109,7 @@ pub struct ExtrudeResult {
 
 impl ExtrudeResult {
     /// Construct an extrusion result from a shape token and volume.
-    // occt: BRepPrimAPI_MakePrism::Shape / IsDone
+    // occt-ref: BRepPrimAPI_MakePrism // ::Shape / IsDone
     pub fn new(shape: &str, volume: f64) -> Self {
         Self {
             shape: shape.to_owned(),
@@ -121,7 +121,7 @@ impl ExtrudeResult {
     ///
     /// Validity requires that the shape token is non-empty **and** the volume
     /// is strictly positive, mirroring `BRepPrimAPI_MakePrism::IsDone()`.
-    // occt: BRepPrimAPI_MakePrism::IsDone
+    // occt-ref: BRepPrimAPI_MakePrism // ::IsDone
     pub fn is_valid(&self) -> bool {
         !self.shape.is_empty() && self.volume > 0.0
     }
@@ -129,7 +129,7 @@ impl ExtrudeResult {
 
 // ─────────────────────────────── FeatExtrude ────────────────────────────────
 
-// occt: BRepFeat_MakePrism
+// occt-ref: BRepFeat_MakePrism
 /// Feature-level linear extrusion builder.
 ///
 /// Mirrors `BRepFeat_MakePrism`: takes a face identifier, an extrusion
@@ -160,7 +160,7 @@ impl FeatExtrude {
     /// * `face`  — identifier of the source face.
     /// * `dir`   — extrusion direction (stored as-is).
     /// * `depth` — extrusion depth; absolute value is used.
-    // occt: BRepFeat_MakePrism::BRepFeat_MakePrism
+    // occt-ref: BRepFeat_MakePrism // ::BRepFeat_MakePrism
     pub fn new(face: &str, dir: [f64; 3], depth: f64) -> Self {
         Self {
             face: face.to_owned(),
@@ -177,7 +177,7 @@ impl FeatExtrude {
     /// yields an invalid result.
     ///
     /// Mirrors `BRepFeat_MakePrism::Perform()` + `Shape()`.
-    // occt: BRepFeat_MakePrism::Shape
+    // occt-ref: BRepFeat_MakePrism // ::Shape
     pub fn build(self) -> ExtrudeResult {
         if self.depth < 1e-12 || self.face.is_empty() {
             return ExtrudeResult::new("", 0.0);
@@ -212,7 +212,7 @@ impl FeatExtrude {
 /// assert!(res.is_valid());
 /// assert!((res.volume - 8.0).abs() < 1e-12);
 /// ```
-// occt: BRepPrimAPI_MakePrism (free-function convenience wrapper)
+// occt-ref: BRepPrimAPI_MakePrism // (free-function convenience wrapper)
 pub fn extrude_profile(profile: &str, dir: [f64; 3], len: f64) -> ExtrudeResult {
     let len = len.abs();
     if profile.is_empty() || len < 1e-12 {

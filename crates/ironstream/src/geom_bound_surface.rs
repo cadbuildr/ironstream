@@ -3,7 +3,7 @@
 //! `GeomAbs_Surface` parametric-bounds machinery, `GeomLProp_SLProps`, and
 //! `GeomLProp_CLProps`.
 
-// occt: GeomAbs_Surface bounding box — parametric bounds
+// occt-note: GeomAbs_Surface bounding box — parametric bounds
 /// Parametric bounding box for a surface: stores the [u_min, u_max] x
 /// [v_min, v_max] domain of a surface parameter space.
 ///
@@ -71,7 +71,7 @@ impl GeomBoundBox {
     }
 }
 
-// occt: GeomLProp_SLProps — surface local props at a point
+// occt-ref: GeomLProp_SLProps // — surface local props at a point
 /// Local surface properties evaluated at a `(u, v)` parameter point.
 ///
 /// Mirrors `GeomLProp_SLProps` from OpenCascade's `ModelingAlgorithms`
@@ -153,7 +153,7 @@ impl GeomSurfaceProperties {
     }
 }
 
-// occt: GeomLProp_CLProps — curve local props
+// occt-ref: GeomLProp_CLProps // — curve local props
 /// Local curve properties evaluated at a parameter value.
 ///
 /// Mirrors `GeomLProp_CLProps` from OpenCascade's `ModelingAlgorithms`

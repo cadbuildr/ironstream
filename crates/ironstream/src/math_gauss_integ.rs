@@ -18,7 +18,7 @@
 //! Supported orders: 1 – 61 (exact values from tabulated data; larger orders
 //! are rounded down to 61).
 
-// occt: math_GaussSingleIntegration
+// occt-ref: math_GaussSingleIntegration
 
 // ---------------------------------------------------------------------------
 // Public trait
@@ -36,7 +36,7 @@ pub trait MathFunction {
 // math_GaussSingleIntegration
 // ---------------------------------------------------------------------------
 
-// occt: math_GaussSingleIntegration
+// occt-ref: math_GaussSingleIntegration
 /// Gauss-Legendre numerical integration of a scalar function `F` over a
 /// finite interval `[Lower, Upper]`.
 ///

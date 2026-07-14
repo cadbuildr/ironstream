@@ -1,5 +1,6 @@
 // FILE: graphic3d_texture.rs
-// occt: Graphic3d_TextureRoot, Graphic3d_Texture2D, Graphic3d_TextureParams,
+// occt: Graphic3d_TextureRoot, Graphic3d_Texture2D
+// occt-ref: Graphic3d_TextureParams
 //       Graphic3d_TextureEnv, Graphic3d_TextureUnit
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -34,7 +35,7 @@ pub enum TextureUnit {
     PbrOcclusion,
 }
 
-// occt: Graphic3d_TextureParams
+// occt-ref: Graphic3d_TextureParams
 #[derive(Clone, Debug)]
 pub struct TextureParams {
     pub filter: TextureFilter,
@@ -129,7 +130,7 @@ impl Texture2D {
     pub fn params_mut(&mut self) -> &mut TextureParams { &mut self.root.params }
 }
 
-// occt: Graphic3d_TextureEnv — environment (cube or sphere) map
+// occt: Graphic3d_TextureEnv // — environment (cube or sphere) map
 #[derive(Clone, Debug)]
 pub struct TextureEnv {
     pub path: String,

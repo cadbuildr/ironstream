@@ -1,5 +1,5 @@
 // FILE: aspect_window_o.rs
-// occt: Aspect_Window
+// occt-ref: Aspect_Window
 
 use std::sync::Arc;
 

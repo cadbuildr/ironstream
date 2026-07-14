@@ -1,11 +1,12 @@
 // FILE: law_linear.rs
-// occt: Law_Linear, Law_Constant, Law_Interpol, Law_Composite,
+// occt: Law_Linear, Law_Constant
+// occt-ref: Law_Interpol, Law_Composite
 //       Law_Function (abstract), Law_BSplineKnotSplit
 
 use std::f64::consts::PI;
 
 /// Abstract law function interface.
-/// occt: Law_Function
+// occt-ref: Law_Function
 pub trait LawFunction: Send + Sync {
     fn value(&self, x: f64) -> f64;
     fn d1(&self, x: f64) -> (f64, f64);
@@ -81,7 +82,7 @@ impl LawFunction for LawConstant {
 }
 
 /// Piecewise linear interpolating law through a set of (x, v) knots.
-/// occt: Law_Interpol
+// occt-ref: Law_Interpol
 #[derive(Clone, Debug)]
 pub struct LawInterpol {
     pub knots: Vec<f64>,
@@ -147,7 +148,7 @@ impl LawFunction for LawInterpol {
 }
 
 /// S-curve (smooth) law: cubic Hermite interpolation at endpoints.
-/// occt: Law_S (Law_Interpol with tangent conditions)
+/// occt: Law_S // (Law_Interpol with tangent conditions)
 #[derive(Clone, Debug)]
 pub struct LawS {
     pub x0: f64,
@@ -193,7 +194,7 @@ impl LawFunction for LawS {
 }
 
 /// Composite law: a sequence of law segments chained by parameter.
-/// occt: Law_Composite
+// occt-ref: Law_Composite
 #[derive(Clone, Debug, Default)]
 pub struct LawComposite {
     /// Each segment: (x_start, x_end, constant_value_stub)

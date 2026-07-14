@@ -1,5 +1,5 @@
 // FILE: extrema_ext_p_el_c2d.rs
-// occt: EXTREMAEXT_P_EL_C2D
+// occt-ref: EXTREMAEXT_P_EL_C2D
 
 pub struct Extremaextpelc2d {
     done: bool,

@@ -126,7 +126,7 @@ impl std::fmt::Display for STEPControl_StepModelType {
 ///
 /// The raw text of the entity body is preserved verbatim so that entities
 /// can be round-tripped without loss even if they are not fully interpreted.
-// occt: (no direct equivalent; internally OCCT uses a hierarchy under
+// occt-note: (no direct equivalent; internally OCCT uses a hierarchy under
 //        Standard_Transient / StepData_StepModel)
 #[derive(Debug, Clone, PartialEq)]
 pub struct StepEntity {
@@ -408,7 +408,7 @@ impl STEPControl_Reader {
     }
 
     /// Convenience alias: same as `model()`.
-    // occt: STEPControl_Reader::StepModel()
+    // occt: STEPControl_Reader // ::StepModel()
     pub fn step_model(&self) -> &StepModel {
         &self.model
     }
@@ -416,7 +416,7 @@ impl STEPControl_Reader {
     // --- Transfer ------------------------------------------------------------
 
     /// Number of root entities available for transfer.
-    // occt: STEPControl_Reader::NbRootsForTransfer()
+    // occt: STEPControl_Reader // ::NbRootsForTransfer()
     pub fn nb_roots_for_transfer(&self) -> usize {
         self.roots.len()
     }
@@ -425,7 +425,7 @@ impl STEPControl_Reader {
     ///
     /// Returns `RetDone` when the entity was successfully transferred,
     /// `RetFail` for an out-of-range rank or unloaded reader.
-    // occt: STEPControl_Reader::TransferRoot(num)
+    // occt: STEPControl_Reader // ::TransferRoot(num)
     pub fn transfer_root(&mut self, rank: usize) -> IFSelect_ReturnStatus {
         if !self.loaded {
             return IFSelect_ReturnStatus::RetFail;
@@ -445,7 +445,7 @@ impl STEPControl_Reader {
     /// Transfer all root entities.
     ///
     /// Returns the number of successfully transferred roots.
-    // occt: STEPControl_Reader::TransferRoots()
+    // occt: STEPControl_Reader // ::TransferRoots()
     pub fn transfer_roots(&mut self) -> usize {
         if !self.loaded {
             return 0;
@@ -462,7 +462,7 @@ impl STEPControl_Reader {
     // --- Shape access --------------------------------------------------------
 
     /// Number of shapes (transferred entities) currently available.
-    // occt: STEPControl_Reader::NbShapes()
+    // occt: STEPControl_Reader // ::NbShapes()
     pub fn nb_shapes(&self) -> usize {
         self.transferred.len()
     }
@@ -470,7 +470,7 @@ impl STEPControl_Reader {
     /// Access a transferred entity by its 1-based index.
     ///
     /// Returns `None` for an out-of-range index.
-    // occt: STEPControl_Reader::Shape(num) → TopoDS_Shape
+    // occt: STEPControl_Reader // ::Shape(num) → TopoDS_Shape
     pub fn shape(&self, rank: usize) -> Option<&StepEntity> {
         if rank == 0 || rank > self.transferred.len() {
             return None;
@@ -483,7 +483,7 @@ impl STEPControl_Reader {
     /// Mirrors OCCT's `OneShape()` which merges everything into a single
     /// `TopoDS_Compound`.  Here we return the entity list as a logical
     /// "compound".
-    // occt: STEPControl_Reader::OneShape() → TopoDS_Shape
+    // occt: STEPControl_Reader // ::OneShape() → TopoDS_Shape
     pub fn one_shape(&self) -> Vec<&StepEntity> {
         self.transferred.iter().collect()
     }
@@ -506,7 +506,7 @@ impl STEPControl_Reader {
     }
 
     /// Emit a human-readable summary of load checks to `out`.
-    // occt: STEPControl_Reader::PrintCheckLoad(failsonly, mode)
+    // occt: STEPControl_Reader // ::PrintCheckLoad(failsonly, mode)
     pub fn print_check_load(&self) -> String {
         let mut s = String::new();
         s.push_str(&format!(
@@ -524,7 +524,7 @@ impl STEPControl_Reader {
     }
 
     /// Emit a human-readable summary of transfer checks to `out`.
-    // occt: STEPControl_Reader::PrintCheckTransfer(failsonly, mode)
+    // occt: STEPControl_Reader // ::PrintCheckTransfer(failsonly, mode)
     pub fn print_check_transfer(&self) -> String {
         format!(
             "Transferred shapes: {}/{}\n",
@@ -582,7 +582,7 @@ impl Default for STEPControl_Reader {
 /// | `SetTolerance(tol)`             | `set_tolerance(tol)`               |
 /// | `UnsetTolerance()`              | `unset_tolerance()`                |
 /// | `PrintStatsTransfer(…)`         | `print_stats_transfer()`           |
-// occt: STEPControl_Writer
+// occt-ref: STEPControl_Writer
 pub struct STEPControl_Writer {
     /// Entities staged for writing.
     model: StepModel,
@@ -623,7 +623,7 @@ impl STEPControl_Writer {
     // --- Configuration -------------------------------------------------------
 
     /// Set the active write mode (schema / representation type).
-    // occt: STEPControl_Writer::SetMode(mode)
+    // occt-ref: STEPControl_Writer // ::SetMode(mode)
     pub fn set_mode(&mut self, mode: STEPControl_StepModelType) {
         self.mode = mode;
     }
@@ -635,13 +635,13 @@ impl STEPControl_Writer {
 
     /// Set a tolerance override that will be embedded in the
     /// `UNCERTAINTY_MEASURE_WITH_UNIT` entity.
-    // occt: STEPControl_Writer::SetTolerance(tol)
+    // occt-ref: STEPControl_Writer // ::SetTolerance(tol)
     pub fn set_tolerance(&mut self, tol: f64) {
         self.tolerance = Some(tol);
     }
 
     /// Remove the tolerance override (the default 1e-6 m will be used).
-    // occt: STEPControl_Writer::UnsetTolerance()
+    // occt-ref: STEPControl_Writer // ::UnsetTolerance()
     pub fn unset_tolerance(&mut self) {
         self.tolerance = None;
     }
@@ -680,7 +680,7 @@ impl STEPControl_Writer {
     /// The entity is assigned a new sequential id if its current id is 0.
     /// Returns `RetDone` on success, `RetError` when the entity keyword is
     /// empty.
-    // occt: STEPControl_Writer::Transfer(shape, mode, compgraph)
+    // occt-ref: STEPControl_Writer // ::Transfer(shape, mode, compgraph)
     pub fn transfer_entity(&mut self, mut entity: StepEntity) -> IFSelect_ReturnStatus {
         if entity.keyword.is_empty() {
             return IFSelect_ReturnStatus::RetError;
@@ -715,7 +715,7 @@ impl STEPControl_Writer {
     ///
     /// In OCCT, `Write(filename)` writes to disk.  Here we return the STEP
     /// string directly.
-    // occt: STEPControl_Writer::Write(filename)
+    // occt-ref: STEPControl_Writer // ::Write(filename)
     pub fn write_file(&self) -> String {
         self.write_file_named("unnamed")
     }
@@ -775,7 +775,7 @@ impl STEPControl_Writer {
     }
 
     /// Emit a human-readable statistics summary.
-    // occt: STEPControl_Writer::PrintStatsTransfer(what, mode)
+    // occt-ref: STEPControl_Writer // ::PrintStatsTransfer(what, mode)
     pub fn print_stats_transfer(&self) -> String {
         format!(
             "Entities staged: {}, Mode: {}, Tolerance: {:.2E}\n",

@@ -102,7 +102,7 @@ fn sub3(a: [f64; 3], b: [f64; 3]) -> [f64; 3] {
 // Public type
 // ---------------------------------------------------------------------------
 
-// occt: Geom_ToroidalSurface
+// occt-ref: Geom_ToroidalSurface
 /// Analytic toroidal surface in 3-D space.
 ///
 /// Parameterized as:

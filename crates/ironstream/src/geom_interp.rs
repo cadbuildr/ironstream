@@ -22,7 +22,7 @@
 /// `load()` fits a clamped cubic B-spline (degree 3) through every supplied
 /// point using chord-length parameterisation and stores the resulting control
 /// poles and knot vector.
-// occt: GeomAPI_Interpolate
+// occt-ref: GeomAPI_Interpolate
 #[derive(Clone, Debug)]
 pub struct Interpolate3d {
     /// Input point sequence (at least two points required by `load()`).

@@ -28,7 +28,7 @@ use std::f64::consts::PI;
 ///          center[1] + radius * sin(U)]
 /// ```
 /// The curve is closed and periodic with period `2π`.
-// occt: Geom2d_Circle
+// occt-ref: Geom2d_Circle
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Circle2dGeom {
     /// Centre of the circle (`gp_Pnt2d` / `Location()`).
@@ -85,7 +85,7 @@ impl Circle2dGeom {
 ///          center[1] + minor_radius * sin(U)]
 /// ```
 /// The curve is closed and periodic with period `2π`.
-// occt: Geom2d_Ellipse
+// occt-ref: Geom2d_Ellipse
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Ellipse2dGeom {
     /// Centre of the ellipse (`gp_Pnt2d` / `Location()`).
@@ -157,7 +157,7 @@ impl Ellipse2dGeom {
 ///          center[1] + imag_radius * sinh(U)]
 /// ```
 /// The curve is open and not periodic.
-// occt: Geom2d_Hyperbola
+// occt-ref: Geom2d_Hyperbola
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Hyperbola2d {
     /// Centre of the hyperbola (mid-point between vertices of the two branches).
@@ -213,7 +213,7 @@ impl Hyperbola2d {
 ///          vertex[1] + U]
 /// ```
 /// The curve is open and not periodic.
-// occt: Geom2d_Parabola
+// occt-ref: Geom2d_Parabola
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Parabola2dGeom {
     /// The focus of the parabola.

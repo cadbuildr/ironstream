@@ -1,5 +1,6 @@
 // FILE: step_to_topo_ds_point_vertex_map.rs
-// occt: StepToTopoDS_PointVertexMap, StepToTopoDS_DataMapIteratorOfPointVertexMap
+// occt: StepToTopoDS_PointVertexMap
+// occt-ref: StepToTopoDS_DataMapIteratorOfPointVertexMap
 
 use std::collections::HashMap;
 

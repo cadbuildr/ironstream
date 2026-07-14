@@ -1,5 +1,5 @@
 // FILE: b_rep_fill_compatible_wires.rs
-// occt: Brepfillcompatiblewires
+// occt-ref: Brepfillcompatiblewires
 
 #[derive(Clone, Debug)]
 pub struct Brepfillcompatiblewires;

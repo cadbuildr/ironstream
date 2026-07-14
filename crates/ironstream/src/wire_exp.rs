@@ -1,5 +1,5 @@
 // FILE: wire_exp.rs
-// occt: BRepTools_WireExplorer, BRepTools_ReShape
+// occt-ref: BRepTools_WireExplorer, BRepTools_ReShape
 
 /// Orientation of an edge within a wire.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -48,7 +48,7 @@ impl ExploredEdge {
     }
 }
 
-// occt: BRepTools_WireExplorer — traverses edges of a wire in order
+// occt-ref: BRepTools_WireExplorer // — traverses edges of a wire in order
 #[derive(Clone, Debug, Default)]
 pub struct WireExplorer {
     pub wire_id: u32,
@@ -112,7 +112,7 @@ pub struct Substitution {
     pub orientation: EdgeOrientation,
 }
 
-// occt: BRepTools_ReShape — replaces or removes sub-shapes in a shape
+// occt-ref: BRepTools_ReShape // — replaces or removes sub-shapes in a shape
 #[derive(Clone, Debug, Default)]
 pub struct ReShape {
     pub substitutions: Vec<Substitution>,

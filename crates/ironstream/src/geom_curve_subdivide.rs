@@ -10,27 +10,27 @@
 // KnotInsertResult
 // ---------------------------------------------------------------------------
 
-/// occt: result of knot insertion into a B-spline curve
+/// occt-note: result of knot insertion into a B-spline curve
 ///
 /// Holds the knot vector (distinct knots + multiplicities) and poles of the
 /// resulting curve after a single knot insertion.  When `is_done` is `false`
 /// the fields carry the *original* curve data unchanged.
 #[derive(Debug, Clone)]
 pub struct KnotInsertResult {
-    /// occt: new distinct knot values after insertion
+    /// occt-note: new distinct knot values after insertion
     pub new_knots: Vec<f64>,
-    /// occt: knot multiplicities parallel to `new_knots`
+    /// occt-note: knot multiplicities parallel to `new_knots`
     pub new_mults: Vec<u32>,
-    /// occt: control polygon poles of the resulting curve
+    /// occt-note: control polygon poles of the resulting curve
     pub new_poles: Vec<[f64; 3]>,
-    /// occt: polynomial degree (unchanged by knot insertion)
+    /// occt-note: polynomial degree (unchanged by knot insertion)
     pub degree: u32,
-    /// occt: whether the algorithm succeeded
+    /// occt-note: whether the algorithm succeeded
     pub is_done: bool,
 }
 
 impl KnotInsertResult {
-    /// occt: construct a default (not-done) result
+    /// occt-note: construct a default (not-done) result
     pub fn new() -> Self {
         KnotInsertResult {
             new_knots: Vec::new(),
@@ -41,22 +41,22 @@ impl KnotInsertResult {
         }
     }
 
-    /// occt: true if the algorithm completed without error
+    /// occt-note: true if the algorithm completed without error
     pub fn is_done(&self) -> bool {
         self.is_done
     }
 
-    /// occt: number of distinct knots in the result
+    /// occt-note: number of distinct knots in the result
     pub fn nb_knots(&self) -> usize {
         self.new_knots.len()
     }
 
-    /// occt: number of control poles in the result
+    /// occt-note: number of control poles in the result
     pub fn nb_poles(&self) -> usize {
         self.new_poles.len()
     }
 
-    /// occt: zero-based access to the `i`-th control pole
+    /// occt-note: zero-based access to the `i`-th control pole
     ///
     /// Panics if `i >= nb_poles()`.
     pub fn pole(&self, i: usize) -> [f64; 3] {
@@ -74,7 +74,7 @@ impl Default for KnotInsertResult {
 // BSplineCurveSubdivider
 // ---------------------------------------------------------------------------
 
-/// occt: GeomConvert_BSplineCurveKnotInsertion
+// occt-ref: GeomConvert_BSplineCurveKnotInsertion
 ///
 /// Subdivides a B-spline curve by inserting knots or splitting the parameter
 /// domain.  The curve is represented in the standard OCCT form:
@@ -85,18 +85,18 @@ impl Default for KnotInsertResult {
 /// * `degree` — polynomial degree
 #[derive(Debug, Clone)]
 pub struct BSplineCurveSubdivider {
-    /// occt: control poles of the input curve
+    /// occt-note: control poles of the input curve
     pub poles: Vec<[f64; 3]>,
-    /// occt: distinct knot values of the input curve
+    /// occt-note: distinct knot values of the input curve
     pub knots: Vec<f64>,
-    /// occt: knot multiplicities parallel to `knots`
+    /// occt-note: knot multiplicities parallel to `knots`
     pub mults: Vec<u32>,
-    /// occt: polynomial degree of the input curve
+    /// occt-note: polynomial degree of the input curve
     pub degree: u32,
 }
 
 impl BSplineCurveSubdivider {
-    /// occt: construct from poles, knots, multiplicities and degree
+    /// occt-note: construct from poles, knots, multiplicities and degree
     pub fn new(
         poles: Vec<[f64; 3]>,
         knots: Vec<f64>,
@@ -106,17 +106,17 @@ impl BSplineCurveSubdivider {
         BSplineCurveSubdivider { poles, knots, mults, degree }
     }
 
-    /// occt: number of control poles
+    /// occt-note: number of control poles
     pub fn nb_poles(&self) -> usize {
         self.poles.len()
     }
 
-    /// occt: polynomial degree
+    /// occt-note: polynomial degree
     pub fn degree(&self) -> u32 {
         self.degree
     }
 
-    /// occt: GeomConvert_BSplineCurveKnotInsertion — insert knot `t`
+    /// occt-note: GeomConvert_BSplineCurveKnotInsertion — insert knot `t`
     ///
     /// Stub implementation:
     /// * If `t` is already present as a distinct knot, the current curve state
@@ -156,7 +156,7 @@ impl BSplineCurveSubdivider {
         }
     }
 
-    /// occt: split the curve at parameter `t`, returning two sub-curve results
+    /// occt-note: split the curve at parameter `t`, returning two sub-curve results
     ///
     /// Stub implementation: partitions the poles at approximately the midpoint
     /// of the pole array.  Each half carries a copy of the original knot vector

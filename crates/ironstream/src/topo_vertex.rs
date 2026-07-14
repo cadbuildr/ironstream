@@ -1,8 +1,8 @@
 // FILE: topo_vertex.rs
-// occt: TopoDS_Vertex, TopoDS_Edge, TopoDS_Face, TopoDS_Wire
+// occt-ref: TopoDS_Vertex, TopoDS_Edge, TopoDS_Face, TopoDS_Wire
 
 /// TopoDS_Vertex: a 0-dimensional topological shape.
-/// occt: TopoDS_Vertex
+// occt-ref: TopoDS_Vertex
 #[derive(Clone, Debug, PartialEq)]
 pub struct TopoVertex {
     pub shape_id: u32,
@@ -29,7 +29,7 @@ impl TopoVertex {
 }
 
 /// TopoDS_Edge: a 1-dimensional topological shape (a curve).
-/// occt: TopoDS_Edge
+// occt-ref: TopoDS_Edge
 #[derive(Clone, Debug, PartialEq)]
 pub struct TopoEdge {
     pub shape_id: u32,
@@ -73,7 +73,7 @@ impl TopoEdge {
 }
 
 /// TopoDS_Face: a 2-dimensional topological shape (a bounded surface).
-/// occt: TopoDS_Face
+// occt-ref: TopoDS_Face
 #[derive(Clone, Debug, PartialEq)]
 pub struct TopoFace {
     pub shape_id: u32,
@@ -109,7 +109,7 @@ impl TopoFace {
 }
 
 /// TopoDS_Wire: an ordered sequence of edges forming a connected curve.
-/// occt: TopoDS_Wire
+// occt-ref: TopoDS_Wire
 #[derive(Clone, Debug, PartialEq)]
 pub struct TopoWire {
     pub shape_id: u32,

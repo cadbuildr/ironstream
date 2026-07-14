@@ -1,9 +1,10 @@
 // FILE: resource_mgr.rs
-// occt: Resource_Manager, Resource_DataMapOfAsciiStringAsciiString
+// occt: Resource_DataMapOfAsciiStringAsciiString
+// occt-ref: Resource_Manager
 
 use std::collections::HashMap;
 
-// occt: Resource_Manager
+// occt-ref: Resource_Manager
 #[derive(Clone, Debug, Default)]
 pub struct ResourceManager {
     pub name: String,

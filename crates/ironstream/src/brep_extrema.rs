@@ -53,13 +53,13 @@ use crate::top_exp::{
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum BRepExtrema_SupportType {
     /// The extremal point coincides with a topological vertex.
-    // occt: BRepExtrema_IsVertex
+    // occt-ref: BRepExtrema_IsVertex
     IsVertex,
     /// The extremal point lies in the interior of an edge (a curve segment).
-    // occt: BRepExtrema_IsOnEdge
+    // occt-ref: BRepExtrema_IsOnEdge
     IsOnEdge,
     /// The extremal point lies in the interior of a face (a surface patch).
-    // occt: BRepExtrema_IsInFace
+    // occt-ref: BRepExtrema_IsInFace
     IsInFace,
 }
 

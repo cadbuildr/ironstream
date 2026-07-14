@@ -1,9 +1,10 @@
 // FILE: prs3d_root.rs
-// occt: Prs3d_Root, Prs3d_Drawer, Prs3d_Presentation,
+// occt: Prs3d_Root
+// occt-ref: Prs3d_Drawer, Prs3d_Presentation
 //       Prs3d_PresentationShadow
 
 /// Presentation mode enumeration.
-/// occt: Prs3d_DisplayMode (subset)
+/// occt-note: Prs3d_DisplayMode (subset)
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Default)]
 pub enum Prs3dDisplayMode {
     #[default]
@@ -19,7 +20,7 @@ impl Prs3dDisplayMode {
 }
 
 /// Presentation attribute drawer: consolidates all graphic attributes.
-/// occt: Prs3d_Drawer
+// occt-ref: Prs3d_Drawer
 #[derive(Clone, Debug)]
 pub struct Prs3dDrawer {
     pub drawer_id: u32,
@@ -57,7 +58,7 @@ impl Prs3dDrawer {
 }
 
 /// Presentation: group of drawable primitives.
-/// occt: Prs3d_Presentation
+// occt-ref: Prs3d_Presentation
 #[derive(Clone, Debug)]
 pub struct Prs3dPresentation {
     pub pres_id: u32,

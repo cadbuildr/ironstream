@@ -1,5 +1,5 @@
 // FILE: adv_app2_var_evaluator_func2_var.rs
-// occt: AdvApp2VarEvaluatorFunc2Var
+// occt-ref: AdvApp2VarEvaluatorFunc2Var
 
 //! Approximation and constraint handling class.
 pub struct AdvApp2VarEvaluatorFunc2Var {

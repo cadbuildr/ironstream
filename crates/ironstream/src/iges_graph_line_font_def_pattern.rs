@@ -1,5 +1,5 @@
 // FILE: iges_graph_line_font_def_pattern.rs
-// occt: IGESGraph_Ulinefontdefpattern
+// occt-ref: IGESGraph_Ulinefontdefpattern
 
 pub struct UlineUfontUdefUpattern {
     entity_type: i32,

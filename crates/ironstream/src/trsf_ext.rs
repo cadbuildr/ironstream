@@ -1,8 +1,8 @@
 // FILE: trsf_ext.rs
-// occt: gp_GTrsf, gp_GTrsf2d, TopLoc_Datum3D
+// occt-ref: gp_GTrsf, gp_GTrsf2d, TopLoc_Datum3D
 
 /// A general (non-orthogonal) 3D transformation.
-/// occt: gp_GTrsf
+// occt-ref: gp_GTrsf
 #[derive(Clone, Debug)]
 pub struct GpGTrsf {
     /// Affine matrix (3×4: columns 0-2 are linear, column 3 is translation).
@@ -87,7 +87,7 @@ impl GpGTrsf {
 }
 
 /// A general (non-orthogonal) 2D transformation.
-/// occt: gp_GTrsf2d
+// occt-ref: gp_GTrsf2d
 #[derive(Clone, Debug)]
 pub struct GpGTrsf2d {
     /// 2×3 matrix (rows 0-1, cols 0-1 linear, col 2 translation).
@@ -136,7 +136,7 @@ impl GpGTrsf2d {
 }
 
 /// A local coordinate system datum (position in 3D space).
-/// occt: TopLoc_Datum3D
+// occt-ref: TopLoc_Datum3D
 #[derive(Clone, Debug)]
 pub struct TopLocDatum3d {
     pub name: String,
@@ -163,7 +163,7 @@ impl TopLocDatum3d {
 }
 
 /// Location stack (list of accumulated datums).
-/// occt: TopLoc_Location
+// occt-ref: TopLoc_Location
 #[derive(Clone, Debug, Default)]
 pub struct TopLocLocation {
     pub datums: Vec<TopLocDatum3d>,

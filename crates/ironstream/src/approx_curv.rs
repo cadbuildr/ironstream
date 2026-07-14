@@ -1,5 +1,5 @@
 // FILE: approx_curv.rs
-// occt: Approx_Curve2d, Approx_Curve3d, Approx_CurvlinFunc, GeomAPI_PointsToBSpline,
+// occt-ref: Approx_Curve2d, Approx_Curve3d, Approx_CurvlinFunc, GeomAPI_PointsToBSpline
 //       GeomAPI_Interpolate (curve approximation)
 
 use std::f64::consts::PI;
@@ -25,7 +25,7 @@ impl ApproxResult {
     pub fn is_accurate(&self, tol: f64) -> bool { self.is_done && self.max_error < tol }
 }
 
-// occt: GeomAPI_PointsToBSpline
+// occt-ref: GeomAPI_PointsToBSpline
 #[derive(Clone, Debug)]
 pub struct PointsToBSpline {
     pub points: Vec<[f64; 3]>,
@@ -83,7 +83,7 @@ impl PointsToBSpline {
     }
 }
 
-// occt: GeomAPI_Interpolate — exact interpolation through points
+// occt-ref: GeomAPI_Interpolate // — exact interpolation through points
 #[derive(Clone, Debug)]
 pub struct CurveInterpolate {
     pub points: Vec<[f64; 3]>,
@@ -117,7 +117,7 @@ impl CurveInterpolate {
     }
 }
 
-// occt: Approx_CurvlinFunc — arc-length parameterization helper
+// occt-ref: Approx_CurvlinFunc // — arc-length parameterization helper
 #[derive(Clone, Debug)]
 pub struct CurvlinFunc {
     pub pole_count: usize,

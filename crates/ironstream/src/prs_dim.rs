@@ -1,5 +1,5 @@
 // FILE: prs_dim.rs
-// occt: PrsDim_AngleDimension, PrsDim_LengthDimension, PrsDim_RadiusDimension
+// occt-ref: PrsDim_AngleDimension, PrsDim_LengthDimension, PrsDim_RadiusDimension
 
 use std::f64::consts::PI;
 
@@ -12,7 +12,7 @@ pub enum DimensionType {
     Distance,
 }
 
-// occt: PrsDim_Dimension (base)
+// occt-ref: PrsDim_Dimension // (base)
 #[derive(Clone, Debug)]
 pub struct DimensionBase {
     pub dim_type: DimensionType,
@@ -31,7 +31,7 @@ impl DimensionBase {
     }
 }
 
-// occt: PrsDim_LengthDimension
+// occt-ref: PrsDim_LengthDimension
 #[derive(Clone, Debug)]
 pub struct LengthDimension {
     pub base: DimensionBase,
@@ -58,7 +58,7 @@ impl LengthDimension {
     pub fn display_value(&self) -> f64 { self.base.display_value() }
 }
 
-// occt: PrsDim_AngleDimension
+// occt-ref: PrsDim_AngleDimension
 #[derive(Clone, Debug)]
 pub struct AngleDimension {
     pub base: DimensionBase,
@@ -82,7 +82,7 @@ impl AngleDimension {
     pub fn angle_degrees(&self) -> f64 { self.base.value * 180.0 / PI }
 }
 
-// occt: PrsDim_RadiusDimension
+// occt-ref: PrsDim_RadiusDimension
 #[derive(Clone, Debug)]
 pub struct RadiusDimension {
     pub base: DimensionBase,
@@ -100,7 +100,7 @@ impl RadiusDimension {
     pub fn diameter(&self) -> f64 { self.base.value * 2.0 }
 }
 
-// occt: PrsDim_DiameterDimension
+// occt-ref: PrsDim_DiameterDimension
 #[derive(Clone, Debug)]
 pub struct DiameterDimension {
     pub base: DimensionBase,

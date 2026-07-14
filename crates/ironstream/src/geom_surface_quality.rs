@@ -1,7 +1,8 @@
 // FILE: geom_surface_quality.rs
-// occt: ShapeAnalysis_Surface, GeomLib_CheckBSplineCurve, GeomLib_IsBoundedCurve
+// occt: GeomLib_CheckBSplineCurve
+// occt-ref: ShapeAnalysis_Surface, GeomLib_IsBoundedCurve
 
-// occt: ShapeAnalysis_Surface
+// occt-ref: ShapeAnalysis_Surface
 /// Analyzes parametric surface quality and find UV bounds.
 #[derive(Clone, Debug)]
 pub struct SurfaceAnalysis {
@@ -80,7 +81,7 @@ impl CheckBSplineCurve {
     pub fn max_deviation(&self) -> f64 { self.max_error }
 }
 
-// occt: GeomLib_IsBoundedCurve
+// occt-ref: GeomLib_IsBoundedCurve
 /// Returns whether a curve has finite parameter domain.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum CurveBoundedness {
@@ -100,7 +101,7 @@ pub fn is_bounded(t_min: f64, t_max: f64) -> CurveBoundedness {
     }
 }
 
-// occt: ShapeAnalysis_Curve
+// occt-ref: ShapeAnalysis_Curve
 #[derive(Clone, Debug)]
 pub struct CurveAnalysis {
     pub pts: Vec<[f64; 3]>,

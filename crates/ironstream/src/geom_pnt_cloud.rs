@@ -1,5 +1,5 @@
 // FILE: geom_pnt_cloud.rs
-// occt: Graphic3d_ArrayOfPoints, RWMesh point cloud, spatial statistics
+// occt-note: Graphic3d_ArrayOfPoints, RWMesh point cloud, spatial statistics
 
 /// A point cloud with optional normals and colors.
 #[derive(Clone, Debug, Default)]

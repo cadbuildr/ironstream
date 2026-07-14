@@ -77,7 +77,7 @@ impl ConnTransform {
     }
 }
 
-// occt: AIS_ConnectedInteractive — displays a referenced object at a transformed position
+// occt: AIS_ConnectedInteractive // — displays a referenced object at a transformed position
 #[derive(Clone, Debug)]
 pub struct AisConnectedInteractive {
     pub id: u32,
@@ -137,7 +137,7 @@ pub struct ConnectionEntry {
     pub connection_id: u32,
 }
 
-// occt: AIS_MultipleConnectedInteractive — aggregates several connected references
+// occt: AIS_MultipleConnectedInteractive // — aggregates several connected references
 #[derive(Clone, Debug, Default)]
 pub struct AisMultipleConnected {
     pub id: u32,

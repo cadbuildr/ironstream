@@ -1,7 +1,7 @@
 // FILE: geom_abs_curve.rs
-// occt: GeomAbs_CurveType, GeomAbs_SurfaceType, GeomAbs_Shape, GeomAbs_JoinType
+// occt-ref: GeomAbs_CurveType, GeomAbs_SurfaceType, GeomAbs_Shape, GeomAbs_JoinType
 
-// occt: GeomAbs_CurveType
+// occt-ref: GeomAbs_CurveType
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum CurveType {
     Line,
@@ -39,7 +39,7 @@ impl CurveType {
     }
 }
 
-// occt: GeomAbs_SurfaceType
+// occt-ref: GeomAbs_SurfaceType
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum SurfaceType {
     Plane,
@@ -81,7 +81,7 @@ impl SurfaceType {
     }
 }
 
-// occt: GeomAbs_Shape (continuity)
+// occt-ref: GeomAbs_Shape // (continuity)
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub enum ShapeContinuity {
     C0,  // geometric continuity (position)
@@ -104,7 +104,7 @@ impl ShapeContinuity {
     }
 }
 
-// occt: GeomAbs_JoinType (fillet/chamfer join)
+// occt-ref: GeomAbs_JoinType // (fillet/chamfer join)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum JoinType {
     Arc,
@@ -112,7 +112,7 @@ pub enum JoinType {
     Intersection,
 }
 
-// occt: GeomAbs_IsoType
+// occt-ref: GeomAbs_IsoType
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum IsoType {
     IsoU,
@@ -120,7 +120,7 @@ pub enum IsoType {
     NoneIso,
 }
 
-// occt: GeomAbs_BSplKnotDistribution
+// occt-ref: GeomAbs_BSplKnotDistribution
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum KnotDistribution {
     NonUniform,

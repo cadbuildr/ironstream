@@ -1,8 +1,9 @@
 // FILE: shape_construct.rs
-// occt: ShapeConstruct_Polyline, ShapeConstruct_ProjectionPeriodic, ShapeConstruct_Curve
+// occt: ShapeConstruct_Curve
+// occt-ref: ShapeConstruct_Polyline, ShapeConstruct_ProjectionPeriodic
 
 /// Polyline: sequence of connected points.
-/// occt: ShapeConstruct_Polyline
+// occt-ref: ShapeConstruct_Polyline
 #[derive(Clone, Debug)]
 pub struct ShapeConstructPolyline {
     pub points: Vec<[f64; 3]>,
@@ -64,7 +65,7 @@ impl Default for ShapeConstructPolyline {
 }
 
 /// Projection: periodic curve parameters.
-/// occt: ShapeConstruct_ProjectionPeriodic
+// occt-ref: ShapeConstruct_ProjectionPeriodic
 #[derive(Clone, Debug)]
 pub struct ShapeConstructProjectionPeriodic {
     pub start_param: f64,
@@ -165,7 +166,7 @@ impl Default for ShapeConstructCurve {
 }
 
 /// Curve approximation parameters.
-/// occt: ShapeConstruct_ApproximationParams
+// occt-ref: ShapeConstruct_ApproximationParams
 #[derive(Clone, Debug)]
 pub struct ShapeConstructApproximationParams {
     pub max_degree: usize,

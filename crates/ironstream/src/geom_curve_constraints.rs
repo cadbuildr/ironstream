@@ -1,4 +1,4 @@
-// occt: AppDef_MultiPointConstraint
+// occt-ref: AppDef_MultiPointConstraint
 // occt: AppParCurves_MultiCurve
 
 /// Specifies the continuity order imposed at a constraint point.
@@ -14,7 +14,7 @@ pub enum ConstraintOrder {
     C2,
 }
 
-// occt: AppDef_MultiPointConstraint
+// occt-ref: AppDef_MultiPointConstraint
 /// A set of 3-D points that must all be approximated at the same parameter
 /// value, together with a continuity order and an optional weight.
 ///

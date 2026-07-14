@@ -1,5 +1,5 @@
 // FILE: xcaf_doc_ext.rs
-// occt: XCAFDoc_DocumentTool, XCAFDoc_ColorTool (extended), XCAFDoc_ShapeTool (extended)
+// occt-note: XCAFDoc_DocumentTool, XCAFDoc_ColorTool (extended), XCAFDoc_ShapeTool (extended)
 
 use std::collections::HashMap;
 
@@ -38,7 +38,7 @@ impl DocToolStatus {
     pub fn is_ok(&self) -> bool { *self == DocToolStatus::Ok }
 }
 
-// occt: XCAFDoc_DocumentTool — creates and retrieves standard XCAF tools on a TDocStd_Document
+// occt-ref: XCAFDoc_DocumentTool // — creates and retrieves standard XCAF tools on a TDocStd_Document
 #[derive(Clone, Debug, Default)]
 pub struct XcafDocumentTool {
     pub doc_id: u32,
@@ -84,7 +84,7 @@ impl XcafDocumentTool {
     pub fn has_color_tool(&self) -> bool { self.color_tool_label.is_some() }
 }
 
-// occt: XCAFDoc_ColorTool extended — assigns/retrieves colors on shapes
+// occt-ref: XCAFDoc_ColorTool // extended — assigns/retrieves colors on shapes
 #[derive(Clone, Debug, Default)]
 pub struct XcafColorToolExt {
     pub label: u32,
@@ -137,7 +137,7 @@ impl XcafColorToolExt {
     pub fn get_colors(&self) -> Vec<u32> { self.colors.keys().copied().collect() }
 }
 
-// occt: XCAFDoc_ShapeTool extended — BOM traversal, free shapes, components
+// occt-ref: XCAFDoc_ShapeTool // extended — BOM traversal, free shapes, components
 #[derive(Clone, Debug, Default)]
 pub struct XcafShapeToolExt {
     pub label: u32,

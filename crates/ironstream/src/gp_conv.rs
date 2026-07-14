@@ -1,5 +1,5 @@
 // FILE: gp_conv.rs
-// occt: gp_GTrsf, gp_GTrsf2d, gp_TrsfForm, gp_Mat, gp_Mat2d
+// occt-ref: gp_GTrsf, gp_GTrsf2d, gp_TrsfForm, gp_Mat, gp_Mat2d
 
 use std::f64::consts::PI;
 
@@ -21,7 +21,7 @@ impl Default for TrsfForm {
     fn default() -> Self { Self::Identity }
 }
 
-// occt: gp_Mat — 3×3 matrix (row-major)
+// occt-ref: gp_Mat // — 3×3 matrix (row-major)
 #[derive(Clone, Copy, Debug)]
 pub struct GpMat {
     pub data: [[f64; 3]; 3],
@@ -106,7 +106,7 @@ impl GpMat {
     }
 }
 
-// occt: gp_Mat2d — 2×2 matrix
+// occt-ref: gp_Mat2d // — 2×2 matrix
 #[derive(Clone, Copy, Debug)]
 pub struct GpMat2d {
     pub data: [[f64;2];2],
@@ -161,7 +161,7 @@ impl GpMat2d {
     }
 }
 
-// occt: gp_GTrsf — general (not necessarily orthogonal) 3D transformation
+// occt-ref: gp_GTrsf // — general (not necessarily orthogonal) 3D transformation
 #[derive(Clone, Debug)]
 pub struct GpGTrsf {
     pub matrix: GpMat,
@@ -227,7 +227,7 @@ impl GpGTrsf {
     pub fn form(&self) -> TrsfForm { self.form }
 }
 
-// occt: gp_GTrsf2d — general 2D transformation
+// occt-ref: gp_GTrsf2d // — general 2D transformation
 #[derive(Clone, Debug)]
 pub struct GpGTrsf2d {
     pub matrix: GpMat2d,

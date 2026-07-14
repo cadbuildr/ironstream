@@ -1,8 +1,8 @@
 // FILE: rust/ironstream/crates/ironstream/src/message_progress.rs
 
-// occt: Message_ProgressRange — zero-dependency port of OCCT's progress tracking
+// occt-ref: Message_ProgressRange // — zero-dependency port of OCCT's progress tracking
 
-/// // occt: Message_ProgressRange state — enum NotStarted, InProgress, Completed, Aborted
+// occt-ref: Message_ProgressRange // state — enum NotStarted, InProgress, Completed, Aborted
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum MessageProgressState {
     NotStarted,
@@ -11,7 +11,7 @@ pub enum MessageProgressState {
     Aborted,
 }
 
-/// // occt: Message_ProgressRange — tracks a fraction of work done
+// occt-ref: Message_ProgressRange // — tracks a fraction of work done
 #[derive(Debug, Clone)]
 pub struct MessageProgressRange {
     name: String,
@@ -92,7 +92,7 @@ impl MessageProgressRange {
     }
 }
 
-/// // occt: Message_ProgressScope — nested progress composed of weighted ranges
+// occt-ref: Message_ProgressScope // — nested progress composed of weighted ranges
 #[derive(Debug, Clone)]
 pub struct MessageProgressScope {
     name: String,

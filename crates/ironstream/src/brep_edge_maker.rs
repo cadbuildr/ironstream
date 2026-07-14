@@ -6,7 +6,7 @@
 // EdgeMaker
 // ---------------------------------------------------------------------------
 
-// occt: BRepBuilderAPI_MakeEdge
+// occt-ref: BRepBuilderAPI_MakeEdge
 /// Stub builder mirroring `BRepBuilderAPI_MakeEdge`.
 ///
 /// Constructs a topological edge from a geometric curve description (line,
@@ -15,9 +15,9 @@
 /// geometry; `done` is set to `true` once construction succeeds.
 #[derive(Debug, Clone)]
 pub struct EdgeMaker {
-    // occt: BRepBuilderAPI_MakeEdge — resulting TopoDS_Edge handle (stub: label string)
+    // occt-ref: BRepBuilderAPI_MakeEdge // — resulting TopoDS_Edge handle (stub: label string)
     pub edge: String,
-    // occt: BRepBuilderAPI_MakeEdge::IsDone
+    // occt-ref: BRepBuilderAPI_MakeEdge // ::IsDone
     pub done: bool,
 }
 
@@ -26,7 +26,7 @@ impl EdgeMaker {
     /// segment.
     ///
     /// Mirrors `BRepBuilderAPI_MakeEdge(gp_Pnt, gp_Pnt)`.
-    // occt: BRepBuilderAPI_MakeEdge(const gp_Pnt& P1, const gp_Pnt& P2)
+    // occt-note: BRepBuilderAPI_MakeEdge(const gp_Pnt& P1, const gp_Pnt& P2)
     pub fn from_line(p1: [f64; 3], p2: [f64; 3]) -> Self {
         let edge = format!(
             "line({},{},{})-({},{},{})",
@@ -39,7 +39,7 @@ impl EdgeMaker {
     /// start/end angles (in radians).
     ///
     /// Mirrors `BRepBuilderAPI_MakeEdge(Handle(Geom_Circle), Standard_Real, Standard_Real)`.
-    // occt: BRepBuilderAPI_MakeEdge(const Handle(Geom_Circle)&, Standard_Real U1, Standard_Real U2)
+    // occt-note: BRepBuilderAPI_MakeEdge(const Handle(Geom_Circle)&, Standard_Real U1, Standard_Real U2)
     pub fn from_circle(center: [f64; 3], r: f64, u1: f64, u2: f64) -> Self {
         let edge = format!(
             "circle(center=({},{},{}),r={},u1={},u2={})",
@@ -54,7 +54,7 @@ impl EdgeMaker {
     /// `u2` are the first and last parameters.
     ///
     /// Mirrors `BRepBuilderAPI_MakeEdge(Handle(Geom_Curve), Standard_Real, Standard_Real)`.
-    // occt: BRepBuilderAPI_MakeEdge(const Handle(Geom_Curve)&, Standard_Real U1, Standard_Real U2)
+    // occt-note: BRepBuilderAPI_MakeEdge(const Handle(Geom_Curve)&, Standard_Real U1, Standard_Real U2)
     pub fn from_curve(curve: &str, u1: f64, u2: f64) -> Self {
         let edge = format!("curve({},u1={},u2={})", curve, u1, u2);
         Self { edge, done: true }
@@ -63,7 +63,7 @@ impl EdgeMaker {
     /// Return a reference to the label of the constructed edge.
     ///
     /// Mirrors `BRepBuilderAPI_MakeEdge::Edge()`.
-    // occt: BRepBuilderAPI_MakeEdge::Edge() -> const TopoDS_Edge&
+    // occt-ref: BRepBuilderAPI_MakeEdge // ::Edge() -> const TopoDS_Edge&
     pub fn edge(&self) -> &str {
         &self.edge
     }
@@ -71,7 +71,7 @@ impl EdgeMaker {
     /// Return `true` when the edge was successfully constructed.
     ///
     /// Mirrors `BRepBuilderAPI_MakeEdge::IsDone()`.
-    // occt: BRepBuilderAPI_MakeEdge::IsDone() -> Standard_Boolean
+    // occt-ref: BRepBuilderAPI_MakeEdge // ::IsDone() -> Standard_Boolean
     pub fn is_done(&self) -> bool {
         self.done
     }
@@ -81,16 +81,16 @@ impl EdgeMaker {
 // VertexMaker
 // ---------------------------------------------------------------------------
 
-// occt: BRepBuilderAPI_MakeVertex
+// occt-ref: BRepBuilderAPI_MakeVertex
 /// Stub builder mirroring `BRepBuilderAPI_MakeVertex`.
 ///
 /// Wraps a single 3-D point as a topological vertex.  `vertex` carries the
 /// point coordinates; `done` is set to `true` on construction.
 #[derive(Debug, Clone)]
 pub struct VertexMaker {
-    // occt: BRepBuilderAPI_MakeVertex — resulting TopoDS_Vertex (stub: point coords)
+    // occt-ref: BRepBuilderAPI_MakeVertex // — resulting TopoDS_Vertex (stub: point coords)
     pub vertex: [f64; 3],
-    // occt: BRepBuilderAPI_MakeVertex::IsDone
+    // occt-ref: BRepBuilderAPI_MakeVertex // ::IsDone
     pub done: bool,
 }
 
@@ -98,7 +98,7 @@ impl VertexMaker {
     /// Construct a vertex from a 3-D point.
     ///
     /// Mirrors `BRepBuilderAPI_MakeVertex(const gp_Pnt& P)`.
-    // occt: BRepBuilderAPI_MakeVertex(const gp_Pnt& P)
+    // occt-note: BRepBuilderAPI_MakeVertex(const gp_Pnt& P)
     pub fn new(pt: [f64; 3]) -> Self {
         Self { vertex: pt, done: true }
     }
@@ -106,7 +106,7 @@ impl VertexMaker {
     /// Return the coordinates of the constructed vertex.
     ///
     /// Mirrors `BRepBuilderAPI_MakeVertex::Vertex()`.
-    // occt: BRepBuilderAPI_MakeVertex::Vertex() -> const TopoDS_Vertex&
+    // occt-ref: BRepBuilderAPI_MakeVertex // ::Vertex() -> const TopoDS_Vertex&
     pub fn vertex(&self) -> [f64; 3] {
         self.vertex
     }
@@ -114,7 +114,7 @@ impl VertexMaker {
     /// Return `true` when the vertex was successfully constructed.
     ///
     /// Mirrors `BRepBuilderAPI_MakeVertex::IsDone()`.
-    // occt: BRepBuilderAPI_MakeVertex::IsDone() -> Standard_Boolean
+    // occt-ref: BRepBuilderAPI_MakeVertex // ::IsDone() -> Standard_Boolean
     pub fn is_done(&self) -> bool {
         self.done
     }
@@ -129,7 +129,7 @@ impl VertexMaker {
 /// Convenience wrapper around [`EdgeMaker::from_line`] that returns the edge
 /// label directly, mirroring typical single-call usage of
 /// `BRepBuilderAPI_MakeEdge(P1, P2).Edge()`.
-// occt: BRepBuilderAPI_MakeEdge(const gp_Pnt& P1, const gp_Pnt& P2) — convenience
+// occt-note: BRepBuilderAPI_MakeEdge(const gp_Pnt& P1, const gp_Pnt& P2) — convenience
 pub fn make_edge_line(p1: [f64; 3], p2: [f64; 3]) -> String {
     EdgeMaker::from_line(p1, p2).edge
 }
@@ -139,7 +139,7 @@ pub fn make_edge_line(p1: [f64; 3], p2: [f64; 3]) -> String {
 /// Convenience wrapper around [`EdgeMaker::from_circle`] that returns the edge
 /// label directly, mirroring typical single-call usage of
 /// `BRepBuilderAPI_MakeEdge(circle, u1, u2).Edge()`.
-// occt: BRepBuilderAPI_MakeEdge(const Handle(Geom_Circle)&, U1, U2) — convenience
+// occt-note: BRepBuilderAPI_MakeEdge(const Handle(Geom_Circle)&, U1, U2) — convenience
 pub fn make_edge_arc(center: [f64; 3], r: f64, u1: f64, u2: f64) -> String {
     EdgeMaker::from_circle(center, r, u1, u2).edge
 }

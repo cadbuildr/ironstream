@@ -28,7 +28,7 @@
 /// so that evaluation can clamp or report the active domain.
 ///
 /// Mirrors the interface of `Geom_RectangularTrimmedSurface`.
-// occt: Geom_RectangularTrimmedSurface
+// occt-ref: Geom_RectangularTrimmedSurface
 pub struct TrimmedSurface {
     /// Name / identifier of the basis surface being trimmed.
     pub basis: String,
@@ -98,7 +98,7 @@ impl TrimmedSurface {
 /// descriptor / handle, matching the abstract base class role played by
 /// `Geom_SweptSurface` in OCCT (which stores the basis curve and sweep
 /// direction but defers concrete evaluation to its subclasses).
-// occt: Geom_SweptSurface
+// occt-ref: Geom_SweptSurface
 pub struct SweptSurface {
     /// Name / identifier of the profile curve (the cross-section being swept).
     pub profile: String,
@@ -142,7 +142,7 @@ impl SweptSurface {
 /// distance along `direction`.
 ///
 /// Mirrors `Geom_SurfaceOfLinearExtrusion`.
-// occt: Geom_SweptSurface
+// occt-ref: Geom_SweptSurface
 pub struct ExtrusionSurface {
     /// The profile polyline as an ordered sequence of 3-D points.
     pub profile: Vec<[f64; 3]>,

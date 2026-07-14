@@ -1,5 +1,6 @@
 // FILE: math_nlopt.rs
-// occt: math_BFGS, math_FunctionSetRoot, math_GlobOptMin,
+// occt: math_FunctionSetRoot
+// occt-ref: math_BFGS, math_GlobOptMin
 //       math_NewtonMinimum, math_PSO
 
 /// Status of an optimization/root-finding run.
@@ -45,7 +46,7 @@ impl FunctionValue {
     }
 }
 
-// occt: math_BFGS (Broyden–Fletcher–Goldfarb–Shanno)
+// occt-ref: math_BFGS // (Broyden–Fletcher–Goldfarb–Shanno)
 #[derive(Clone, Debug)]
 pub struct MathBfgs {
     pub nb_variables: usize,
@@ -135,7 +136,7 @@ impl FunctionSetRoot {
     pub fn max_residual(&self) -> f64 { self.residual.iter().cloned().fold(0.0f64, f64::max) }
 }
 
-// occt: math_GlobOptMin
+// occt-ref: math_GlobOptMin
 #[derive(Clone, Debug)]
 pub struct GlobOptMin {
     pub nb_variables: usize,
@@ -180,7 +181,7 @@ impl GlobOptMin {
     pub fn minimum(&self) -> f64 { self.min_value }
 }
 
-// occt: math_NewtonMinimum
+// occt-ref: math_NewtonMinimum
 #[derive(Clone, Debug)]
 pub struct NewtonMinimum {
     pub nb_variables: usize,
@@ -220,7 +221,7 @@ impl NewtonMinimum {
     pub fn minimum(&self) -> f64 { self.min_value }
 }
 
-// occt: math_PSO (Particle Swarm Optimization)
+// occt-ref: math_PSO // (Particle Swarm Optimization)
 #[derive(Clone, Debug)]
 pub struct MathPso {
     pub nb_variables: usize,

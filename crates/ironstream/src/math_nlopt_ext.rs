@@ -1,5 +1,5 @@
 // FILE: math_nlopt_ext.rs
-// occt: math_NewtonFunctionRoot, math_MultipleVarFunction,
+// occt: math_NewtonFunctionRoot, math_MultipleVarFunction
 //       math_FunctionRoots, math_GaussSingleIntegration
 
 /// Status of a nonlinear solver run.
@@ -83,7 +83,7 @@ impl MathNewtonFunctionRoot {
 }
 
 /// Finds all roots of a function on [x_min, x_max] by bracketed Newton.
-/// occt: math_FunctionRoots
+// occt-ref: math_FunctionRoots
 #[derive(Clone, Debug)]
 pub struct MathFunctionRoots {
     pub x_min: f64,
@@ -169,7 +169,7 @@ impl MathFunctionRoots {
 }
 
 /// Gauss quadrature single integration.
-/// occt: math_GaussSingleIntegration
+// occt-ref: math_GaussSingleIntegration
 #[derive(Clone, Debug)]
 pub struct MathGaussSingleIntegration {
     pub x_min: f64,

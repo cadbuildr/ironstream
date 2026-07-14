@@ -1,5 +1,6 @@
 // FILE: geom_lib_tool.rs
-// occt: GeomLib_Tool, GeomLib_CheckBSplineCurve, GeomLib_AdjustExtremity,
+// occt: GeomLib_Tool
+// occt-ref: GeomLib_CheckBSplineCurve, GeomLib_AdjustExtremity
 //       GeomLib_DenominatorMultiplier
 
 /// Result of a geometry library check operation.
@@ -19,7 +20,7 @@ impl GeomLibCheckResult {
 }
 
 /// Checks a B-spline curve for degenerate tangents and invalid weights.
-/// occt: GeomLib_CheckBSplineCurve
+// occt-ref: GeomLib_CheckBSplineCurve
 #[derive(Clone, Debug)]
 pub struct GeomLibCheckBSplineCurve {
     pub curve_id: u32,
@@ -60,7 +61,7 @@ impl GeomLibCheckBSplineCurve {
 }
 
 /// Adjusts tangent vectors at curve extremities to avoid oscillations.
-/// occt: GeomLib_AdjustExtremity
+// occt-ref: GeomLib_AdjustExtremity
 #[derive(Clone, Debug)]
 pub struct GeomLibAdjustExtremity {
     pub first_tangent: [f64; 3],

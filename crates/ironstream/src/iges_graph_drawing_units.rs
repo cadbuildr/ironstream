@@ -1,5 +1,5 @@
 // FILE: iges_graph_drawing_units.rs
-// occt: IGESGraph_Udrawingunits
+// occt-ref: IGESGraph_Udrawingunits
 
 pub struct UdrawingUunits {
     entity_type: i32,

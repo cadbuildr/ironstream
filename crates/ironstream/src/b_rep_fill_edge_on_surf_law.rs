@@ -1,5 +1,5 @@
 // FILE: b_rep_fill_edge_on_surf_law.rs
-// occt: Brepfilledgeonsurflaw
+// occt-ref: Brepfilledgeonsurflaw
 
 #[derive(Clone, Debug)]
 pub struct Brepfilledgeonsurflaw;

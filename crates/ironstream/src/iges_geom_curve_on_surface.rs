@@ -1,5 +1,5 @@
 // FILE: iges_geom_curve_on_surface.rs
-// occt: IGESGeom_Ucurveonsurface
+// occt-ref: IGESGeom_Ucurveonsurface
 
 pub struct UcurveUonUsurface {
     entity_type: i32,

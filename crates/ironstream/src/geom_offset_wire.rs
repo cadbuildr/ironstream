@@ -152,20 +152,20 @@ fn compute_offset_2d(pts: &[[f64; 2]], dist: f64) -> Vec<[f64; 2]> {
 /// Strategy for joining adjacent offset edges at corners.
 ///
 /// Mirrors OCCT's `GeomAbs_JoinType` as used by `BRepOffsetAPI_MakeOffset`.
-// occt: BRepOffsetAPI_MakeOffset (GeomAbs_JoinType)
+// occt-ref: BRepOffsetAPI_MakeOffset // (GeomAbs_JoinType)
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum JoinType {
     /// Insert a circular arc at convex corners.
     /// Mirrors `GeomAbs_Arc`.
-    // occt: GeomAbs_Arc
+    // occt-ref: GeomAbs_Arc
     Arc,
     /// Extend and intersect adjacent offset edges at corners.
     /// Mirrors `GeomAbs_Intersection`.
-    // occt: GeomAbs_Intersection
+    // occt-ref: GeomAbs_Intersection
     Intersection,
     /// Join by a tangent line segment at corners.
     /// Mirrors `GeomAbs_Tangent`.
-    // occt: GeomAbs_Tangent
+    // occt-ref: GeomAbs_Tangent
     Tangent,
 }
 
@@ -189,7 +189,7 @@ pub enum JoinType {
 ///     .build();
 /// assert_eq!(result.len(), 4);
 /// ```
-// occt: BRepOffsetAPI_MakeOffset
+// occt-ref: BRepOffsetAPI_MakeOffset
 #[derive(Debug, Clone)]
 pub struct WireOffset {
     /// Input closed polygon (2-D points).
@@ -206,7 +206,7 @@ impl WireOffset {
     /// Create a new `WireOffset` builder with default join type `Intersection`.
     ///
     /// Mirrors `BRepOffsetAPI_MakeOffset::BRepOffsetAPI_MakeOffset(wire, dist)`.
-    // occt: BRepOffsetAPI_MakeOffset::BRepOffsetAPI_MakeOffset
+    // occt-ref: BRepOffsetAPI_MakeOffset // ::BRepOffsetAPI_MakeOffset
     pub fn new(wire: Vec<[f64; 2]>, dist: f64) -> Self {
         Self {
             wire,
@@ -219,7 +219,7 @@ impl WireOffset {
     /// Set the corner join strategy, consuming and returning `self`.
     ///
     /// Mirrors `BRepOffsetAPI_MakeOffset::SetJoin`.
-    // occt: BRepOffsetAPI_MakeOffset::SetJoin
+    // occt-ref: BRepOffsetAPI_MakeOffset // ::SetJoin
     pub fn with_join(mut self, j: JoinType) -> Self {
         self.join_type = j;
         self.result = None; // invalidate cache
@@ -232,7 +232,7 @@ impl WireOffset {
     /// recomputing.
     ///
     /// Mirrors `BRepOffsetAPI_MakeOffset::Build` / `Shape`.
-    // occt: BRepOffsetAPI_MakeOffset::Build
+    // occt-ref: BRepOffsetAPI_MakeOffset // ::Build
     pub fn build(&mut self) -> Vec<[f64; 2]> {
         if self.result.is_none() {
             // Arc and Tangent joins are structurally identical to Intersection
@@ -246,7 +246,7 @@ impl WireOffset {
     /// Return `true` if `build()` produced a non-empty result.
     ///
     /// Mirrors `BRepOffsetAPI_MakeOffset::IsDone`.
-    // occt: BRepOffsetAPI_MakeOffset::IsDone
+    // occt-ref: BRepOffsetAPI_MakeOffset // ::IsDone
     pub fn is_done(&mut self) -> bool {
         !self.build().is_empty()
     }
@@ -287,7 +287,7 @@ impl SimpleOffset {
     /// Create a new `SimpleOffset` builder.
     ///
     /// Mirrors `BRepOffset_MakeSimpleOffset::BRepOffset_MakeSimpleOffset(shape, offset)`.
-    // occt: BRepOffset_MakeSimpleOffset::BRepOffset_MakeSimpleOffset
+    // occt: BRepOffset_MakeSimpleOffset // ::BRepOffset_MakeSimpleOffset
     pub fn new(shape: &str, offset: f64) -> Self {
         Self {
             shape: shape.to_owned(),
@@ -301,7 +301,7 @@ impl SimpleOffset {
     /// The stub appends `"+offset=<value>"` to the input shape string.
     ///
     /// Mirrors `BRepOffset_MakeSimpleOffset::Build` / `GetResultShape`.
-    // occt: BRepOffset_MakeSimpleOffset::Build
+    // occt: BRepOffset_MakeSimpleOffset // ::Build
     pub fn build(&mut self) -> String {
         if self.result.is_none() {
             // Stub: annotate the shape string with the applied offset.
@@ -313,7 +313,7 @@ impl SimpleOffset {
     /// Return `true` if `build()` has been called and produced a result.
     ///
     /// Mirrors `BRepOffset_MakeSimpleOffset::IsDone`.
-    // occt: BRepOffset_MakeSimpleOffset::IsDone
+    // occt: BRepOffset_MakeSimpleOffset // ::IsDone
     pub fn is_done(&mut self) -> bool {
         let r = self.build();
         !r.is_empty()
@@ -345,7 +345,7 @@ impl SimpleOffset {
 /// // Expect a 4-point polygon shifted outward by 1 unit on all sides.
 /// assert_eq!(expanded.len(), 4);
 /// ```
-// occt: BRepOffsetAPI_MakeOffset (free-function convenience wrapper)
+// occt-ref: BRepOffsetAPI_MakeOffset // (free-function convenience wrapper)
 pub fn offset_closed_wire(pts: &[[f64; 2]], dist: f64) -> Vec<[f64; 2]> {
     compute_offset_2d(pts, dist)
 }

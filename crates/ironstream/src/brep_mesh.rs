@@ -24,7 +24,7 @@ use crate::top_exp::{TopoDS_Edge, TopoDS_Face, TopoDS_Shape, TopoDS_Wire};
 /// Meshing quality parameters.
 ///
 /// Mirrors `IMeshData_Parameters` / `BRepMesh_FastDiscret_Params` from OCCT.
-// occt: IMeshData_Parameters
+// occt-ref: IMeshData_Parameters
 #[derive(Clone, Debug)]
 pub struct IMeshData_Parameters {
     /// Linear deflection: maximum allowed distance between mesh chord and
@@ -114,7 +114,7 @@ impl Default for IMeshData_Parameters {
 /// node array.
 ///
 /// Indices are 0-based (unlike OCCT's 1-based convention; callers may adjust).
-// occt: Poly_Triangle
+// occt-ref: Poly_Triangle
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Poly_Triangle {
     pub n1: usize,
@@ -146,7 +146,7 @@ impl Poly_Triangle {
 /// that index them.
 ///
 /// Mirrors `Poly_Triangulation` from OCCT.
-// occt: Poly_Triangulation
+// occt-ref: Poly_Triangulation
 #[derive(Clone, Debug)]
 pub struct Poly_Triangulation {
     /// 3-D node positions.
@@ -615,7 +615,7 @@ fn collect_face_triangulations(
 // ---------------------------------------------------------------------------
 
 /// Meshing algorithm identifier.
-// occt: BRepMesh_DiscretFactory (algorithm selection)
+// occt: BRepMesh_DiscretFactory // (algorithm selection)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum MeshAlgorithm {
     /// The built-in "Standard" incremental mesher (default).

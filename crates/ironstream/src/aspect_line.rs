@@ -1,5 +1,5 @@
 // FILE: aspect_line.rs
-// occt: Aspect_TypeOfLine, Aspect_TypeOfMarker, Aspect_TypeOfDisplayText,
+// occt-ref: Aspect_TypeOfLine, Aspect_TypeOfMarker, Aspect_TypeOfDisplayText
 //       Aspect_TypeOfDeflection, Aspect_HatchStyle
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]

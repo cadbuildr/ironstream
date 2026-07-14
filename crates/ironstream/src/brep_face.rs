@@ -1,8 +1,8 @@
 // FILE: brep_face.rs
-// occt: TopoDsFace, BRepAdaptor_Face, BRepBuilderAPI_MakeFace
+// occt-ref: TopoDsFace, BRepAdaptor_Face, BRepBuilderAPI_MakeFace
 
 /// Face orientation and type info.
-/// occt: TopoDsFace
+// occt-ref: TopoDsFace
 #[derive(Clone, Debug)]
 pub struct TopoDsFace {
     pub face_id: u32,
@@ -38,7 +38,7 @@ impl Default for TopoDsFace {
 }
 
 /// Face adaptor: parameter space information.
-/// occt: BRepAdaptor_Face
+// occt-ref: BRepAdaptor_Face
 #[derive(Clone, Debug)]
 pub struct BRepAdaptorFace {
     pub face_id: u32,
@@ -87,7 +87,7 @@ impl Default for BRepAdaptorFace {
 }
 
 /// Wire explorer: iterate over edges of a face.
-/// occt: BRepTools_WireExplorer
+// occt-ref: BRepTools_WireExplorer
 #[derive(Clone, Debug)]
 pub struct BRepToolsWireExplorer {
     pub face_id: u32,
@@ -136,7 +136,7 @@ impl Default for BRepToolsWireExplorer {
 }
 
 /// Make face from wire(s).
-/// occt: BRepBuilderAPI_MakeFace
+// occt-ref: BRepBuilderAPI_MakeFace
 #[derive(Clone, Debug)]
 pub struct BRepBuilderApiMakeFace {
     pub surface_id: u32,

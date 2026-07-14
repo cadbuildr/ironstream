@@ -1,8 +1,9 @@
 // FILE: law_interpol.rs
-// occt: Law_BSpFunc, Law_Function, Law_Interpol, Law_Linear
+// occt: Law_Interpol
+// occt-ref: Law_BSpFunc, Law_Function, Law_Linear
 
 /// Parametric law function: parameter -> value mapping.
-/// occt: Law_Function
+// occt-ref: Law_Function
 #[derive(Clone, Debug)]
 pub struct LawFunction {
     pub param_min: f64,
@@ -42,7 +43,7 @@ impl Default for LawFunction {
 }
 
 /// Linear law: slope and intercept.
-/// occt: Law_Linear
+// occt-ref: Law_Linear
 #[derive(Clone, Debug)]
 pub struct LawLinear {
     pub slope: f64,
@@ -66,7 +67,7 @@ impl Default for LawLinear {
 }
 
 /// B-spline function: parametric curve.
-/// occt: Law_BSpFunc
+// occt-ref: Law_BSpFunc
 #[derive(Clone, Debug)]
 pub struct LawBSpFunc {
     pub degree: usize,

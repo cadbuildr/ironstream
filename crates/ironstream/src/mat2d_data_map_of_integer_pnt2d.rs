@@ -1,5 +1,6 @@
 // FILE: mat2d_data_map_of_integer_pnt2d.rs
-// occt: MAT2d_DataMapOfIntegerPnt2d, MAT2d_DataMapIteratorOfDataMapOfIntegerPnt2d
+// occt: MAT2d_DataMapOfIntegerPnt2d
+// occt-ref: MAT2d_DataMapIteratorOfDataMapOfIntegerPnt2d
 
 use std::collections::BTreeMap;
 

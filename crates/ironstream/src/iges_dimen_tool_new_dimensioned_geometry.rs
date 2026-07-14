@@ -1,5 +1,5 @@
 // FILE: iges_dimen_tool_new_dimensioned_geometry.rs
-// occt: IGESDimen_dimentoolnewdimensionedgeometry
+// occt-ref: IGESDimen_dimentoolnewdimensionedgeometry
 
 pub struct IGESDimen_dimentoolnewdimensionedgeometry;
 

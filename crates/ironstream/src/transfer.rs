@@ -288,7 +288,7 @@ impl Default for Transfer_VoidBinder {
 // ---------------------------------------------------------------------------
 
 /// Error returned by transfer process operations.
-// occt: Transfer_Failure (represented as exception in OCCT)
+// occt-note: Transfer_Failure (represented as exception in OCCT)
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct TransferError {
     /// Human-readable description.

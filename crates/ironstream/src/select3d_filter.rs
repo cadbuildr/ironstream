@@ -1,12 +1,13 @@
 // FILE: select3d_filter.rs
-// occt: SelectMgr_Filter, SelectMgr_CompositionFilter, SelectMgr_EntityOwner
+// occt: SelectMgr_Filter, SelectMgr_CompositionFilter
+// occt-ref: SelectMgr_EntityOwner
 
 // occt: SelectMgr_Filter
 pub trait SelectionFilter: Send + Sync {
     fn is_ok(&self, entity_idx: usize) -> bool;
 }
 
-// occt: SelectMgr_TypeFilter
+// occt-ref: SelectMgr_TypeFilter
 #[derive(Clone, Debug)]
 pub struct TypeFilter {
     pub accepted_type: u32,
@@ -22,7 +23,7 @@ impl SelectionFilter for TypeFilter {
     }
 }
 
-// occt: SelectMgr_CompositionFilter (AND)
+// occt: SelectMgr_CompositionFilter // (AND)
 pub struct AndFilter {
     filters: Vec<Box<dyn SelectionFilter>>,
 }
@@ -67,7 +68,7 @@ impl Default for OrFilter {
     fn default() -> Self { Self::new() }
 }
 
-// occt: SelectMgr_EntityOwner
+// occt-ref: SelectMgr_EntityOwner
 #[derive(Clone, Debug)]
 pub struct EntityOwner {
     pub entity_idx: usize,
@@ -84,7 +85,7 @@ impl EntityOwner {
     pub fn is_selected(&self) -> bool { self.selected }
 }
 
-// occt: SelectMgr_Selection
+// occt-ref: SelectMgr_Selection
 #[derive(Clone, Debug)]
 pub struct Selection {
     pub mode: i32,

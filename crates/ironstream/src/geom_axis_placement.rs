@@ -30,7 +30,7 @@ fn cross(a: [f64; 3], b: [f64; 3]) -> [f64; 3] {
 
 // ── GeomAxis1Pl ──────────────────────────────────────────────────────────────
 
-// occt: Geom_Axis1Placement
+// occt-ref: Geom_Axis1Placement
 /// An axis placement in 3D space: a location point and a unit direction.
 ///
 /// Corresponds to OCCT's `Geom_Axis1Placement`, which wraps `gp_Ax1`.
@@ -104,7 +104,7 @@ impl GeomAxis1Pl {
 
 // ── GeomAxis2Pl ──────────────────────────────────────────────────────────────
 
-// occt: Geom_Axis2Placement
+// occt-ref: Geom_Axis2Placement
 /// A right-handed 3D coordinate system: location, X axis, Y axis, Z axis.
 ///
 /// Corresponds to OCCT's `Geom_Axis2Placement`, which wraps `gp_Ax2`.

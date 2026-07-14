@@ -1,8 +1,9 @@
 // FILE: topo_ds_comp.rs
-// occt: TopoDS_Compound, TopoDS_CompSolid, BRep_Builder, BRepBuilderAPI_MakeVertex
+// occt: BRepBuilderAPI_MakeVertex
+// occt-ref: TopoDS_Compound, TopoDS_CompSolid, BRep_Builder
 
 /// Topology type tags for shapes.
-/// occt: TopAbs_ShapeEnum
+// occt-ref: TopAbs_ShapeEnum
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Default)]
 pub enum TopAbsShapeEnum {
     Compound,
@@ -18,7 +19,7 @@ pub enum TopAbsShapeEnum {
 }
 
 /// Orientation of a shape in a composite.
-/// occt: TopAbs_Orientation
+// occt-ref: TopAbs_Orientation
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum TopAbsOrientation {
     #[default]
@@ -59,7 +60,7 @@ impl TopoDsShapeEntry {
 }
 
 /// A compound shape containing a list of sub-shapes.
-/// occt: TopoDS_Compound
+// occt-ref: TopoDS_Compound
 #[derive(Clone, Debug, Default)]
 pub struct TopoDsCompound {
     pub children: Vec<TopoDsShapeEntry>,
@@ -84,7 +85,7 @@ impl TopoDsCompound {
 }
 
 /// A compound solid (connected solid regions).
-/// occt: TopoDS_CompSolid
+// occt-ref: TopoDS_CompSolid
 #[derive(Clone, Debug, Default)]
 pub struct TopoDsCompSolid {
     pub solid_ids: Vec<u32>,
@@ -103,7 +104,7 @@ impl TopoDsCompSolid {
 }
 
 /// Builder for BRep compound shapes.
-/// occt: BRep_Builder
+// occt-ref: BRep_Builder
 #[derive(Clone, Debug, Default)]
 pub struct BrepBuilder {
     pub next_id: u32,
@@ -171,7 +172,7 @@ impl BrepBuilderMakeVertex {
 }
 
 /// Wire (closed edge loop) builder.
-/// occt: BRepBuilderAPI_MakeWire
+// occt-ref: BRepBuilderAPI_MakeWire
 #[derive(Clone, Debug, Default)]
 pub struct BrepBuilderMakeWire {
     pub edge_ids: Vec<u32>,

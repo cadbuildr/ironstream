@@ -1,5 +1,5 @@
 // FILE: pcdm.rs
-// occt: PCDM_Document, PCDM_RetrievalDriver, PCDM_StorageDriver,
+// occt: PCDM_Document, PCDM_RetrievalDriver, PCDM_StorageDriver
 //       PCDM_ReadWriter, PCDM_DriverError
 
 /// Storage/retrieval driver error codes.
@@ -47,7 +47,7 @@ impl PcdmError {
     }
 }
 
-// occt: PCDM_Document — base class for all persistent (stored) documents
+// occt: PCDM_Document // — base class for all persistent (stored) documents
 #[derive(Clone, Debug)]
 pub struct PcdmDocument {
     pub name: String,
@@ -96,7 +96,7 @@ impl Default for PcdmDocument {
     fn default() -> Self { Self::new("Untitled", "XmlOcaf") }
 }
 
-// occt: PCDM_RetrievalDriver — reads document from file
+// occt: PCDM_RetrievalDriver // — reads document from file
 #[derive(Clone, Debug, Default)]
 pub struct RetrievalDriver {
     pub supported_formats: Vec<String>,
@@ -135,7 +135,7 @@ impl RetrievalDriver {
     pub fn schema_name(&self) -> &str { "StandardSchema" }
 }
 
-// occt: PCDM_StorageDriver — writes document to file
+// occt: PCDM_StorageDriver // — writes document to file
 #[derive(Clone, Debug, Default)]
 pub struct StorageDriver {
     pub supported_formats: Vec<String>,
@@ -173,7 +173,7 @@ impl StorageDriver {
     pub fn schema_name(&self) -> &str { "StandardSchema" }
 }
 
-// occt: PCDM_ReadWriter — utility that delegates to reader/writer pair
+// occt: PCDM_ReadWriter // — utility that delegates to reader/writer pair
 #[derive(Clone, Debug, Default)]
 pub struct ReadWriter {
     pub reader: RetrievalDriver,

@@ -6,22 +6,22 @@
 //! label, mirroring the way OCCT builds a composite spring geometry from a chain
 //! of `Geom_TrimmedCurve` segments.
 
-// occt: Geom_TrimmedCurve segment
+// occt-ref: Geom_TrimmedCurve // segment
 /// One trimmed-curve segment of a spring: a closed parameter interval
 /// `[u_start, u_end]` with an identifying label.
 ///
 /// Mirrors a single `Geom_TrimmedCurve` node inside a spring assembly.
-// occt: Geom_TrimmedCurve
+// occt-ref: Geom_TrimmedCurve
 #[derive(Clone, Debug)]
 pub struct SpringCurveSegment {
     /// Parameter at the start of the trim.
-    // occt: Geom_TrimmedCurve::FirstParameter
+    // occt-ref: Geom_TrimmedCurve // ::FirstParameter
     u_start: f64,
     /// Parameter at the end of the trim.
-    // occt: Geom_TrimmedCurve::LastParameter
+    // occt-ref: Geom_TrimmedCurve // ::LastParameter
     u_end: f64,
     /// Human-readable identifier for this segment.
-    // occt: label / user-data field on a shape
+    // occt-note: label / user-data field on a shape
     label: String,
 }
 
@@ -32,7 +32,7 @@ impl SpringCurveSegment {
     /// * `u_start` — start parameter of the trim interval.
     /// * `u_end`   — end parameter of the trim interval.
     /// * `label`   — identifying name for this segment.
-    // occt: Geom_TrimmedCurve::new (constructor)
+    // occt-ref: Geom_TrimmedCurve // ::new (constructor)
     pub fn new(u_start: f64, u_end: f64, label: &str) -> Self {
         Self {
             u_start,
@@ -42,19 +42,19 @@ impl SpringCurveSegment {
     }
 
     /// Start parameter of the trim interval.
-    // occt: Geom_TrimmedCurve::FirstParameter
+    // occt-ref: Geom_TrimmedCurve // ::FirstParameter
     pub fn u_start(&self) -> f64 {
         self.u_start
     }
 
     /// End parameter of the trim interval.
-    // occt: Geom_TrimmedCurve::LastParameter
+    // occt-ref: Geom_TrimmedCurve // ::LastParameter
     pub fn u_end(&self) -> f64 {
         self.u_end
     }
 
     /// Identifying label for this segment.
-    // occt: user-data / name field
+    // occt-note: user-data / name field
     pub fn label(&self) -> &str {
         &self.label
     }
@@ -62,13 +62,13 @@ impl SpringCurveSegment {
     /// Parametric length of this segment (`u_end − u_start`).
     ///
     /// Mirrors `Geom_TrimmedCurve::LastParameter() - FirstParameter()`.
-    // occt: Geom_TrimmedCurve parametric length
+    // occt-ref: Geom_TrimmedCurve // parametric length
     pub fn length(&self) -> f64 {
         self.u_end - self.u_start
     }
 
     /// Parameter at the midpoint of the trim interval.
-    // occt: (FirstParameter + LastParameter) / 2.0
+    // occt-note: (FirstParameter + LastParameter) / 2.0
     pub fn mid_param(&self) -> f64 {
         (self.u_start + self.u_end) * 0.5
     }
@@ -79,7 +79,7 @@ impl SpringCurveSegment {
 /// Convenience constructor — mirrors `Geom_TrimmedCurve::new`.
 ///
 /// Equivalent to `SpringCurveSegment::new(u_start, u_end, label)`.
-// occt: Geom_TrimmedCurve::new
+// occt-ref: Geom_TrimmedCurve // ::new
 pub fn trim_curve(u_start: f64, u_end: f64, label: &str) -> SpringCurveSegment {
     SpringCurveSegment::new(u_start, u_end, label)
 }
@@ -93,28 +93,28 @@ pub fn trim_curve(u_start: f64, u_end: f64, label: &str) -> SpringCurveSegment {
 /// end-to-end to describe a spring coil path.  Call [`SpringCurve::add_segment`]
 /// to append segments in order, then [`SpringCurve::build`] to finalise
 /// `total_length` and `is_closed`.
-// occt: Geom_TrimmedCurve composite (spring assembly)
+// occt-ref: Geom_TrimmedCurve // composite (spring assembly)
 #[derive(Clone, Debug)]
 pub struct SpringCurve {
     /// Ordered list of trimmed-curve segments.
-    // occt: sequence of Geom_TrimmedCurve handles
+    // occt-note: sequence of Geom_TrimmedCurve handles
     segments: Vec<SpringCurveSegment>,
     /// True when the curve forms a closed loop
     /// (`first.u_start ≈ last.u_end` within floating-point tolerance).
-    // occt: Geom_Curve::IsClosed
+    // occt-ref: Geom_Curve // ::IsClosed
     is_closed: bool,
     /// Sum of all segment parametric lengths; set by [`SpringCurve::build`].
-    // occt: total arc-length accumulator
+    // occt-note: total arc-length accumulator
     total_length: f64,
 }
 
 /// Tolerance used to decide whether the curve is closed.
-// occt: Precision::Confusion() analogue
+// occt-ref: Precision // ::Confusion() analogue
 const CLOSURE_TOL: f64 = 1e-7;
 
 impl SpringCurve {
     /// Create an empty spring curve.
-    // occt: constructor with empty segment list
+    // occt-note: constructor with empty segment list
     pub fn new() -> Self {
         Self {
             segments: Vec::new(),
@@ -124,7 +124,7 @@ impl SpringCurve {
     }
 
     /// Append a segment to the end of the curve.
-    // occt: append Geom_TrimmedCurve to composite
+    // occt-note: append Geom_TrimmedCurve to composite
     pub fn add_segment(&mut self, s: SpringCurveSegment) {
         self.segments.push(s);
     }
@@ -133,7 +133,7 @@ impl SpringCurve {
     ///
     /// `is_closed` is set to `true` when the `u_start` of the first segment is
     /// within [`CLOSURE_TOL`] of the `u_end` of the last segment.
-    // occt: Geom_TrimmedCurve composite build / IsClosed evaluation
+    // occt-ref: Geom_TrimmedCurve // composite build / IsClosed evaluation
     pub fn build(&mut self) {
         self.total_length = self.segments.iter().map(|s| s.length()).sum();
 
@@ -147,19 +147,19 @@ impl SpringCurve {
     }
 
     /// Whether the composite curve is closed.
-    // occt: Geom_Curve::IsClosed
+    // occt-ref: Geom_Curve // ::IsClosed
     pub fn is_closed(&self) -> bool {
         self.is_closed
     }
 
     /// Total parametric length (sum of all segment lengths), set by [`build`](SpringCurve::build).
-    // occt: total arc-length of composite Geom_TrimmedCurve
+    // occt-note: total arc-length of composite Geom_TrimmedCurve
     pub fn total_length(&self) -> f64 {
         self.total_length
     }
 
     /// Number of segments in the composite curve.
-    // occt: number of Geom_TrimmedCurve nodes
+    // occt-note: number of Geom_TrimmedCurve nodes
     pub fn nb_segments(&self) -> usize {
         self.segments.len()
     }
@@ -168,7 +168,7 @@ impl SpringCurve {
     ///
     /// # Panics
     /// Panics if `i >= nb_segments()`.
-    // occt: access individual Geom_TrimmedCurve by index
+    // occt-note: access individual Geom_TrimmedCurve by index
     pub fn segment(&self, i: usize) -> &SpringCurveSegment {
         &self.segments[i]
     }
@@ -179,7 +179,7 @@ impl SpringCurve {
     /// Walks the segments in order, accumulating parametric length, until the
     /// requested `arc_length` is consumed.  If `arc_length` exceeds
     /// `total_length`, the parameter of the last segment's end is returned.
-    // occt: arc-length → parameter walk over Geom_TrimmedCurve chain
+    // occt-note: arc-length → parameter walk over Geom_TrimmedCurve chain
     pub fn parameter_at_length(&self, arc_length: f64) -> f64 {
         let mut remaining = arc_length;
 

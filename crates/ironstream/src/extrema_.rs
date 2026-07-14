@@ -1,10 +1,10 @@
 // FILE: extrema_.rs
-// occt: Extrema_ExtCC (curve-curve extrema), Extrema_ExtCS (curve-surface),
+// occt-ref: Extrema_ExtCC // (curve-curve extrema), Extrema_ExtCS (curve-surface),
 //       Extrema_ExtSS (surface-surface), Extrema_ExtPC (point-curve),
 //       Extrema_ExtPS (point-surface), Extrema_POnCurv, Extrema_POnSurf
 
 /// A point on a curve with its parameter.
-/// occt: Extrema_POnCurv
+// occt-ref: Extrema_POnCurv
 #[derive(Clone, Copy, Debug)]
 pub struct ExtrPOnCurv {
     pub parameter: f64,
@@ -21,7 +21,7 @@ impl ExtrPOnCurv {
 }
 
 /// A point on a surface with its UV parameters.
-/// occt: Extrema_POnSurf
+// occt-ref: Extrema_POnSurf
 #[derive(Clone, Copy, Debug)]
 pub struct ExtrPOnSurf {
     pub u: f64,
@@ -45,7 +45,7 @@ fn dist3(a: [f64; 3], b: [f64; 3]) -> f64 {
 }
 
 /// Point to curve extrema.
-/// occt: Extrema_ExtPC
+// occt-ref: Extrema_ExtPC
 #[derive(Clone, Debug)]
 pub struct ExtremaExtPC {
     pub point: [f64; 3],
@@ -83,7 +83,7 @@ impl ExtremaExtPC {
 }
 
 /// Point to surface extrema.
-/// occt: Extrema_ExtPS
+// occt-ref: Extrema_ExtPS
 #[derive(Clone, Debug)]
 pub struct ExtremaExtPS {
     pub point: [f64; 3],
@@ -128,7 +128,7 @@ impl ExtremaExtPS {
 }
 
 /// Curve-curve extrema.
-/// occt: Extrema_ExtCC
+// occt-ref: Extrema_ExtCC
 #[derive(Clone, Debug)]
 pub struct ExtremaExtCC {
     pub curve1_id: u32,
@@ -166,7 +166,7 @@ impl ExtremaExtCC {
 }
 
 /// Curve-surface extrema.
-/// occt: Extrema_ExtCS
+// occt-ref: Extrema_ExtCS
 #[derive(Clone, Debug)]
 pub struct ExtremaExtCS {
     pub curve_id: u32,
@@ -193,7 +193,7 @@ impl ExtremaExtCS {
 }
 
 /// Surface-surface extrema.
-/// occt: Extrema_ExtSS
+// occt-ref: Extrema_ExtSS
 #[derive(Clone, Debug)]
 pub struct ExtremaExtSS {
     pub surface1_id: u32,

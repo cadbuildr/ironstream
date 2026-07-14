@@ -1,5 +1,5 @@
 // FILE: rust/ironstream/crates/ironstream/src/geom_thickness.rs
-// occt: BRepOffsetAPI_MakeThickSolid — shell-with-thickness stubs.
+// occt-ref: BRepOffsetAPI_MakeThickSolid // — shell-with-thickness stubs.
 //
 // Zero-dependency Rust stubs that mirror the public API shape of the
 // OpenCascade `BRepOffsetAPI_MakeThickSolid` family.  No geometry is
@@ -15,7 +15,7 @@
 /// and offsetting the remaining shell by a signed distance.
 ///
 /// Models `BRepOffsetAPI_MakeThickSolid(shape, facesToRemove, offset, tol)`.
-// occt: BRepOffsetAPI_MakeThickSolid
+// occt-ref: BRepOffsetAPI_MakeThickSolid
 #[derive(Clone, Debug)]
 pub struct ThickSolid {
     /// The input solid shape label.
@@ -96,7 +96,7 @@ impl ThickSolid {
 ///
 /// Corresponds to the simpler single-shell variant of the OCCT thick-solid
 /// workflow where no individual face removal is required.
-// occt: BRepOffsetAPI_MakeThickSolid (shell variant)
+// occt-ref: BRepOffsetAPI_MakeThickSolid // (shell variant)
 #[derive(Clone, Debug)]
 pub struct ShellThickness {
     /// Label of the input open shell.

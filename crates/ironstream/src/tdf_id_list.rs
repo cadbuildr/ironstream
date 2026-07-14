@@ -1,5 +1,6 @@
 // FILE: tdf_id_list.rs
-// occt: TDF_IDList, TDF_ListIteratorOfIDList
+// occt: TDF_IDList
+// occt-ref: TDF_ListIteratorOfIDList
 
 //! Deprecated typedef for TDF_IDList.
 //!

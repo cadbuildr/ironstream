@@ -1,9 +1,9 @@
 // FILE: top_tools_ext.rs
-// occt: TopTools_DataMapOfShapeShape, TopTools_ListOfShape, TopTools_SequenceOfShape
+// occt-ref: TopTools_DataMapOfShapeShape, TopTools_ListOfShape, TopTools_SequenceOfShape
 
 use std::collections::HashMap;
 
-// occt: TopTools_ListOfShape — ordered list of shape IDs (Vec-backed)
+// occt-ref: TopTools_ListOfShape // — ordered list of shape IDs (Vec-backed)
 #[derive(Clone, Debug, Default)]
 pub struct ListOfShape {
     data: Vec<u32>,
@@ -28,7 +28,7 @@ impl ListOfShape {
     }
 }
 
-// occt: TopTools_SequenceOfShape — indexed sequence of shape IDs (1-based)
+// occt-ref: TopTools_SequenceOfShape // — indexed sequence of shape IDs (1-based)
 #[derive(Clone, Debug, Default)]
 pub struct SequenceOfShape {
     data: Vec<u32>,
@@ -62,7 +62,7 @@ impl SequenceOfShape {
     }
 }
 
-// occt: TopTools_DataMapOfShapeShape — maps shape IDs to shape IDs
+// occt-ref: TopTools_DataMapOfShapeShape // — maps shape IDs to shape IDs
 #[derive(Clone, Debug, Default)]
 pub struct DataMapOfShapeShape {
     map: HashMap<u32, u32>,
@@ -81,7 +81,7 @@ impl DataMapOfShapeShape {
     pub fn values(&self) -> Vec<u32> { self.map.values().copied().collect() }
 }
 
-// occt: TopTools_DataMapOfShapeListOfShape — maps shape IDs to lists of shape IDs
+// occt: TopTools_DataMapOfShapeListOfShape // — maps shape IDs to lists of shape IDs
 #[derive(Clone, Debug, Default)]
 pub struct DataMapOfShapeListOfShape {
     map: HashMap<u32, Vec<u32>>,

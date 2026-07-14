@@ -10,7 +10,7 @@
 // ── Vec2d ─────────────────────────────────────────────────────────────────────
 
 /// A 2D vector with arbitrary magnitude.
-// occt: gp_Vec2d
+// occt-ref: gp_Vec2d
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Vec2d {
     pub x: f64,
@@ -148,7 +148,7 @@ impl std::ops::Neg for Vec2d {
 // ── Dir2d ─────────────────────────────────────────────────────────────────────
 
 /// A 2D unit-direction vector. Always normalised; wraps a `Vec2d`.
-// occt: gp_Dir2d
+// occt-ref: gp_Dir2d
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Dir2d {
     pub v: Vec2d,

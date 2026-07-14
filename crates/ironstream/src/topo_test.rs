@@ -15,7 +15,7 @@
 /// Mirrors OCCT's `BRep_Check` status enumeration.  `Ok` / `NoError` both
 /// mean the shape passed all checks; the remaining variants name specific
 /// failure modes.
-// occt: BRep_Check status
+// occt-note: BRep_Check status
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum BrepCheckStatus {
     /// Shape passed all checks — no errors detected.
@@ -59,7 +59,7 @@ impl BrepCheckStatus {
 ///
 /// Each entry records the kind of problem (`status`) and a human-readable
 /// identifier for the shape on which the problem was detected (`shape_label`).
-// occt: BRepCheck error entry
+// occt-ref: BRepCheck // error entry
 #[derive(Debug, Clone)]
 pub struct BrepCheckError {
     status: BrepCheckStatus,
@@ -97,7 +97,7 @@ impl BrepCheckError {
 ///
 /// After analysis, a result holds zero or more [`BrepCheckError`] entries.
 /// An empty error list means the shape is valid.
-// occt: BRepCheck_Result
+// occt-ref: BRepCheck_Result
 #[derive(Debug, Clone)]
 pub struct BrepCheckResult {
     shape_label: String,
@@ -150,7 +150,7 @@ impl BrepCheckResult {
 /// to validate; the resulting [`BrepCheckResult`] is both returned and stored
 /// inside the analyzer so that [`is_valid`] / [`nb_results`] reflect the full
 /// session.
-// occt: BRepCheck_Analyzer
+// occt-ref: BRepCheck_Analyzer
 #[derive(Debug, Default)]
 pub struct BrepCheckAnalyzer {
     results: Vec<BrepCheckResult>,

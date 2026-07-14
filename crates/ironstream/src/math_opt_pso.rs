@@ -4,7 +4,7 @@
 use std::f64;
 
 /// Initialization mode for PSO particles.
-// occt: PSOInitMode
+// occt-ref: PSOInitMode
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum PSOInitMode {
     RandomOnly,      // All particles randomly initialized (default)
@@ -13,7 +13,7 @@ pub enum PSOInitMode {
 }
 
 /// Boundary handling mode for particles leaving the search space.
-// occt: PSOBoundaryMode
+// occt-ref: PSOBoundaryMode
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum PSOBoundaryMode {
     Clamp,   // Clamp to bound, reverse velocity with -0.5 damping (default)
@@ -22,7 +22,7 @@ pub enum PSOBoundaryMode {
 }
 
 /// Inertia weight schedule.
-// occt: PSOInertiaSchedule
+// occt-ref: PSOInertiaSchedule
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum PSOInertiaSchedule {
     Constant,   // Fixed omega (default)
@@ -30,7 +30,7 @@ pub enum PSOInertiaSchedule {
 }
 
 /// Seed particle for PSO initialization.
-// occt: PSOSeedParticle
+// occt-ref: PSOSeedParticle
 #[derive(Clone, Debug)]
 pub struct PSOSeedParticle {
     pub position: Vec<f64>,
@@ -59,7 +59,7 @@ impl PSOSeedParticle {
 }
 
 /// Statistics collected during PSO execution.
-// occt: PSOStats
+// occt-ref: PSOStats
 #[derive(Clone, Debug)]
 pub struct PSOStats {
     pub nb_function_evals: usize,
@@ -92,7 +92,7 @@ impl Default for PSOStats {
 }
 
 /// Configuration for Particle Swarm Optimization.
-// occt: PSOConfig
+// occt-ref: PSOConfig
 #[derive(Clone, Debug)]
 pub struct PSOConfig {
     pub nb_particles: usize,
@@ -164,7 +164,7 @@ impl Default for PSOConfig {
 }
 
 /// Result type for PSO optimization
-// occt: VectorResult
+// occt-ref: VectorResult
 #[derive(Clone, Debug)]
 pub struct VectorResult {
     pub solution: Vec<f64>,

@@ -78,7 +78,7 @@ impl CurveNetwork {
     /// This mirrors the role of `GeomFill_Filling` in assembling constraint
     /// points and `GeomFill_CurveAndDerivative` in evaluating each curve's
     /// position (and optionally derivative) at those points.
-    // occt: GeomFill_CurveAndDerivative
+    // occt-ref: GeomFill_CurveAndDerivative
     pub fn build(&self) -> Vec<[f64; 3]> {
         // Gather all points.
         let all: Vec<[f64; 3]> = self.curves.iter().flat_map(|c| c.iter().copied()).collect();
@@ -140,7 +140,7 @@ impl CurveNetwork {
 /// Mirrors the `GeomFill_CurveAndDerivative` notion of a curve together with
 /// its first derivative, wrapped in the constraint layer used by
 /// `GeomFill_Filling`.
-// occt: GeomFill_CurveAndDerivative
+// occt-ref: GeomFill_CurveAndDerivative
 #[derive(Clone, Debug, PartialEq)]
 pub struct NetworkConstraint {
     /// Index of the target curve inside the [`CurveNetwork`].
@@ -204,7 +204,7 @@ impl NetworkConstraint {
 /// Mirrors the top-level fitting step performed by `GeomFill_Filling` after
 /// all `GeomFill_CurveAndDerivative` objects have been registered.
 // occt: GeomFill_Filling
-// occt: GeomFill_CurveAndDerivative
+// occt-ref: GeomFill_CurveAndDerivative
 pub fn interpolate_network(curves: &[Vec<[f64; 3]>], tol: f64) -> Vec<[f64; 3]> {
     let mut net = CurveNetwork::new(tol);
     for c in curves {

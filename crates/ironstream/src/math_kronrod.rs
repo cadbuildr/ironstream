@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/math_kronrod.rs
 
-// occt: math_KronrodSingleIntegration — Gauss-Kronrod 15-point quadrature on [a,b]
+// occt: math_KronrodSingleIntegration // — Gauss-Kronrod 15-point quadrature on [a,b]
 /// Numerical integration using the G7K15 Gauss-Kronrod quadrature rule.
 pub struct MathKronrodIntegration {
     pub value: f64,

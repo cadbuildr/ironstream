@@ -1,5 +1,6 @@
 // FILE: v3d_window.rs
-// occt: V3d_View, V3d_Viewer, V3d_Window, V3d_Camera, V3d_DirectionalLight, V3d_PointLight
+// occt: V3d_View, V3d_DirectionalLight
+// occt-ref: V3d_Viewer, V3d_Window, V3d_Camera, V3d_PointLight
 
 /// Projection type for 3D view.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -31,7 +32,7 @@ pub enum LightType {
     Spot,
 }
 
-// occt: V3d_Camera
+// occt-ref: V3d_Camera
 #[derive(Clone, Debug)]
 pub struct V3dCamera {
     pub eye: [f64; 3],
@@ -127,7 +128,7 @@ impl V3dLight {
     pub fn is_ambient(&self) -> bool { self.light_type == LightType::Ambient }
 }
 
-// occt: V3d_Window (abstract)
+// occt-note: V3d_Window (abstract)
 #[derive(Clone, Debug)]
 pub struct V3dWindow {
     pub width: u32,
@@ -223,7 +224,7 @@ impl V3dView {
     pub fn aspect_ratio(&self) -> f64 { self.window.aspect_ratio() }
 }
 
-// occt: V3d_Viewer
+// occt-ref: V3d_Viewer
 #[derive(Clone, Debug, Default)]
 pub struct V3dViewer {
     pub views: Vec<V3dView>,

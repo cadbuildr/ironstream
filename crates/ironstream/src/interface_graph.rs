@@ -1,5 +1,5 @@
 // FILE: interface_graph.rs
-// occt: Interface_Graph, Interface_ShareTool, Interface_EntityIterator,
+// occt: Interface_Graph, Interface_ShareTool, Interface_EntityIterator
 //       Interface_GeneralLib
 
 /// Status of an entity within a transfer graph.
@@ -23,7 +23,7 @@ impl InterfaceEntityStatus {
 }
 
 /// A single entity node in the interface graph.
-/// occt: Interface_Graph entity entry
+/// occt: Interface_Graph // entity entry
 #[derive(Clone, Debug)]
 pub struct InterfaceEntityNode {
     pub entity_id: u32,

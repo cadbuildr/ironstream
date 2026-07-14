@@ -122,13 +122,13 @@ impl LawInterpolate {
     }
 }
 
-// occt: Law_S
+// occt-ref: Law_S
 /// S-shaped ramp law that maps the interval `[first, last]` smoothly from 0
 /// to 1 using the smooth-step polynomial 3t² − 2t³.
 ///
 /// Outside the interval the law clamps to 0 (below `first`) or 1 (above
 /// `last`).
-// occt: Law_S
+// occt-ref: Law_S
 #[derive(Clone, Debug)]
 pub struct LawS {
     first: f64,
