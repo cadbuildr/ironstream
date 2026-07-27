@@ -13,6 +13,8 @@ Guardrails (hard failures):
   5. tests layout         — every tests/occt_suite/*.rs is wired into main.rs or
                             excluded with a reason; top-level tests/ stays small
   6. marker hygiene       — delegates to check_markers.py --check
+  7. quarantine freshness — a module listed in quarantine.txt must be absent
+                            from src (else it was re-integrated and the list lies)
 
 Metrics (reported, never failing): unsafe-file count, local primitive
 re-definitions (struct Pnt / fn cross / fn dot / EPS consts outside gp).
@@ -180,12 +182,31 @@ def metrics() -> None:
           f"local_fn_dot={local_dot} local_eps_consts={local_eps}")
 
 
+def check_quarantine_fresh() -> None:
+    """A quarantined module must be ABSENT from src — else the list is stale."""
+    path = os.path.join(HERE, "quarantine.txt")
+    if not os.path.exists(path):
+        return
+    for line in read(path).splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        stem = line.split()[0]
+        if stem.endswith(".rs"):
+            stem = stem[:-3]
+        if os.path.exists(os.path.join(SRC, stem + ".rs")):
+            fail("quarantine",
+                 f"{stem} is listed in parity/quarantine.txt but exists in "
+                 f"src/ — it was re-integrated; remove its line")
+
+
 def main() -> int:
     check_zero_dep()
     check_leakage()
     check_files_and_mods()
     check_tests_layout()
     check_markers()
+    check_quarantine_fresh()
     metrics()
     if FAILURES:
         print(f"\n{len(FAILURES)} guardrail violation(s):", file=sys.stderr)

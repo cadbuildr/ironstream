@@ -29,7 +29,10 @@ the class's API shape with tests; depth varies from full algorithms to typed
 stubs. The per-operation tables below (with the honesty rule) and the ported
 OCCT test suite are the faithfulness record. Modules that fail their ported
 tests are removed from src and listed in `parity/quarantine.txt`, not counted,
-and queued for honest fixes.
+and queued for honest fixes — that backlog is currently **empty**: every module
+in src builds and its ported tests pass. (Test modules excluded from the suite
+binary are tracked separately in `parity/suite_exclusions.txt`; there are 3,
+all needing a genuine re-port against re-split modules.)
 
 ## Foundation maths
 

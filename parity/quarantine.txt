@@ -1,63 +1,15 @@
-convert_sequence_of_array1_of_poles Convert_SequenceOfArray1OfPoles test-fail
-convert_sequence_of_array1_of_poles2d Convert_SequenceOfArray1OfPoles2d test-fail
-db_rep DBRep build-error
-db_rep_drawable_shape DBRep_DrawableShape build-error
-ddf DDF build-error
-de_validation_utils DE_ValidationUtils test-fail
-deobj_provider DEOBJ_Provider build-error
-deply_provider DEPLY_Provider build-error
-dexcaf_provider DEXCAF_Provider build-error
-draw_dim_radius DrawDim_Radius build-error
-draw_main Draw_Main build-error
-draw_tr_surf DrawTrSurf build-error
-expr_function_derivative Expr_FunctionDerivative build-error
-expr_sign Expr_Sign test-fail
-expr_sine Expr_Sine test-fail
-expr_sinh Expr_Sinh test-fail
-expr_square Expr_Square test-fail
-iges_geom_copious_data_o IGESGeom_CopiousData build-error
-iges_select_update_creation_date IGESSelect_UpdateCreationDate test-fail
-iges_select_update_last_change IGESSelect_UpdateLastChange test-fail
-iges_solid_tool_selected_component IGESSolid_ToolSelectedComponent test-fail
-iges_solid_tool_shell IGESSolid_ToolShell build-error
-iges_solid_tool_solid_assembly IGESSolid_ToolSolidAssembly test-fail
-iges_solid_tool_solid_instance IGESSolid_ToolSolidInstance test-fail
-iges_solid_tool_solid_of_linear_extrusion IGESSolid_ToolSolidOfLinearExtrusion test-fail
-iges_solid_tool_solid_of_revolution IGESSolid_ToolSolidOfRevolution test-fail
-iges_solid_tool_sphere IGESSolid_ToolSphere test-fail
-iges_solid_tool_spherical_surface IGESSolid_ToolSphericalSurface test-fail
-iges_solid_tool_toroidal_surface IGESSolid_ToolToroidalSurface test-fail
-resource_convert_unicode Resource_ConvertUnicode build-error
-rw_mesh_coordinate_system_converter RWMesh_CoordinateSystemConverter test-fail
-select_mgr_axis_intersector SelectMgr_AxisIntersector build-error
-select_mgr_bvh_thread_pool SelectMgr_BVHThreadPool build-error
-select_mgr_sequence_of_selection SelectMgr_SequenceOfSelection build-error
-shape_fix_sequence_of_wire_segment ShapeFix_SequenceOfWireSegment build-error
-std_l_persistent_tree_node StdLPersistent_TreeNode test-fail
-std_obj_mgt_persistent StdObjMgt_Persistent test-fail
-std_prs_bnd_box StdPrs_BndBox test-fail
-std_storage_sequence_of_roots StdStorage_SequenceOfRoots build-error
-step_ap203_h_array1_of_person_organization_item StepAP203_HArray1OfPersonOrganizationItem build-error
-step_ap203_h_array1_of_specified_item StepAP203_HArray1OfSpecifiedItem build-error
-step_ap203_h_array1_of_start_request_item StepAP203_HArray1OfStartRequestItem build-error
-step_ap203_h_array1_of_work_item StepAP203_HArray1OfWorkItem build-error
-step_ap214_h_array1_of_approval_item StepAP214_HArray1OfApprovalItem build-error
-step_ap214_h_array1_of_auto_design_date_and_person_item StepAP214_HArray1OfAutoDesignDateAndPersonItem build-error
-step_basic_role_association StepBasic_RoleAssociation test-fail
-step_basic_si_unit_and_area_unit StepBasic_SiUnitAndAreaUnit build-error
-step_basic_si_unit_and_length_unit StepBasic_SiUnitAndLengthUnit build-error
-xcaf_doc_assembly_item_ref XCAFDoc_AssemblyItemRef build-error
-xcaf_doc_clipping_plane_tool XCAFDoc_ClippingPlaneTool build-error
-xcaf_doc_graph_node XCAFDoc_GraphNode build-error
-xcaf_doc_note_balloon XCAFDoc_NoteBalloon build-error
-xcaf_doc_note_comment XCAFDoc_NoteComment build-error
-xml_m_data_std_real_list_driver XmlMDataStd_RealListDriver build-error
-xml_mxcaf_doc_note_comment_driver XmlMXCAFDoc_NoteCommentDriver test-fail
-xml_mxcaf_doc_note_driver XmlMXCAFDoc_NoteDriver build-error
-xml_mxcaf_doc_vis_material_tool_driver XmlMXCAFDoc_VisMaterialToolDriver test-fail
-xml_t_obj_drivers_int_sparse_array_driver XmlTObjDrivers_IntSparseArrayDriver test-fail
-xml_t_obj_drivers_model_driver XmlTObjDrivers_ModelDriver test-fail
-xml_t_obj_drivers_object_driver XmlTObjDrivers_ObjectDriver test-fail
-xml_t_obj_drivers_reference_driver XmlTObjDrivers_ReferenceDriver test-fail
-xml_t_obj_drivers_xyz_driver XmlTObjDrivers_XYZDriver test-fail
-xml_xcaf_drivers_document_storage_driver XmlXCAFDrivers_DocumentStorageDriver test-fail
+# Modules removed from crates/ironstream/src because they failed to build or
+# failed their ported OCCT tests, queued for honest fixes. Not counted by
+# parity.py (a removed module carries no `// occt:` marker).
+#
+# Format: <module_stem> <OCCT_Class> <build-error|test-fail>
+#
+# Invariant, enforced by parity/guardrails.py: a module listed here must NOT
+# exist in src/. When a quarantined module is fixed and re-integrated, delete
+# its line. (The previous 63 entries were all fixed and re-integrated in later
+# rescue rounds but never removed from this list; cleared 2026-07 during the
+# audit remediation.)
+#
+# The backlog is currently EMPTY — every ported module in src builds and its
+# ported tests pass. Test modules excluded from the suite are tracked
+# separately in parity/suite_exclusions.txt.
