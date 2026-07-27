@@ -1,5 +1,5 @@
 // FILE: geom_axis_tool.rs
-// occt: gp_Ax1, gp_Ax2, gp_Ax3, gp_Trsf axis placement and transformation
+// occt-note: gp_Ax1, gp_Ax2, gp_Ax3, gp_Trsf axis placement and transformation
 
 /// Axis 1: a point and a direction (infinite line, no up-vector).
 #[derive(Clone, Copy, Debug)]

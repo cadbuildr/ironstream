@@ -1,9 +1,9 @@
 // FILE: ldom_xml.rs
-// occt: LDOM_Document, LDOM_Element, LDOM_Attr, LDOM_Node,
+// occt: LDOM_Document, LDOM_Element, LDOM_Attr, LDOM_Node
 //       LDOM_Text, LDOM_NodeList
 
 /// A node type in the LDOM tree.
-/// occt: LDOM_Node::NodeType
+/// occt: LDOM_Node // ::NodeType
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Default)]
 pub enum LdomNodeType {
     #[default]
@@ -31,7 +31,7 @@ impl LdomAttr {
 }
 
 /// A single DOM node: either element, text, or comment.
-/// occt: LDOM_Node / LDOM_Element / LDOM_Text
+/// occt: LDOM_Node // / LDOM_Element / LDOM_Text
 #[derive(Clone, Debug)]
 pub struct LdomNode {
     pub node_type: LdomNodeType,

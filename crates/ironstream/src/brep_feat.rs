@@ -42,7 +42,7 @@ use std::f64::consts::PI;
 ///
 /// Mirrors `BRepFeat_ModeType` / the sign convention in OCCT's
 /// `BRepFeat_MakePrism::Perform`.
-// occt: BRepFeat_ModeType
+// occt-ref: BRepFeat_ModeType
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FeatMode {
     /// Additive: tool is fused with the base (boss, pad, …).
@@ -92,7 +92,7 @@ impl BRepFeat_MakePrism {
     /// * `profile`   — the planar sketch (cross-section) to extrude.
     /// * `direction` — extrusion vector (length encodes depth).
     /// * `mode`      — `Add` to boss/pad or `Remove` to pocket.
-    // occt: BRepFeat_MakePrism::BRepFeat_MakePrism
+    // occt: BRepFeat_MakePrism // ::BRepFeat_MakePrism
     pub fn new(base: Solid, profile: Face, direction: Pnt, mode: FeatMode) -> Self {
         Self {
             base,
@@ -105,7 +105,7 @@ impl BRepFeat_MakePrism {
     }
 
     /// Override tessellation parameters (e.g. for smoother swept solids).
-    // occt: BRepFeat_MakePrism (no direct OCCT equivalent; resolution control)
+    // occt: BRepFeat_MakePrism // (no direct OCCT equivalent; resolution control)
     pub fn with_mesh_params(mut self, mp: MeshParams) -> Self {
         self.mesh_params = mp;
         self.result = None;
@@ -115,7 +115,7 @@ impl BRepFeat_MakePrism {
     /// Build and cache the result.
     ///
     /// Mirrors `BRepFeat_MakePrism::Perform()` + `Shape()`.
-    // occt: BRepFeat_MakePrism::Shape
+    // occt: BRepFeat_MakePrism // ::Shape
     pub fn build(&mut self) -> &Solid {
         if self.result.is_none() {
             self.result = Some(self.compute());
@@ -124,13 +124,13 @@ impl BRepFeat_MakePrism {
     }
 
     /// `true` iff the last build produced a non-empty result.
-    // occt: BRepFeat_MakePrism::IsDone
+    // occt: BRepFeat_MakePrism // ::IsDone
     pub fn is_done(&mut self) -> bool {
         !self.build().is_empty()
     }
 
     /// Consume and return the built solid.
-    // occt: BRepFeat_MakePrism::Shape (moved)
+    // occt: BRepFeat_MakePrism // ::Shape (moved)
     pub fn into_solid(mut self) -> Solid {
         self.compute()
     }
@@ -186,7 +186,7 @@ impl BRepFeat_MakeRevol {
     /// * `axis`    — revolution axis (`Ax1`: origin + direction).
     /// * `angle`   — sweep angle in radians (`2*PI` for full revolution).
     /// * `mode`    — `Add` or `Remove`.
-    // occt: BRepFeat_MakeRevol::BRepFeat_MakeRevol
+    // occt: BRepFeat_MakeRevol // ::BRepFeat_MakeRevol
     pub fn new(base: Solid, profile: Wire, axis: Ax1, angle: f64, mode: FeatMode) -> Self {
         Self {
             base,
@@ -207,7 +207,7 @@ impl BRepFeat_MakeRevol {
     }
 
     /// Build and cache the result.
-    // occt: BRepFeat_MakeRevol::Shape
+    // occt: BRepFeat_MakeRevol // ::Shape
     pub fn build(&mut self) -> &Solid {
         if self.result.is_none() {
             self.result = Some(self.compute());
@@ -216,7 +216,7 @@ impl BRepFeat_MakeRevol {
     }
 
     /// `true` iff the last build produced a non-empty result.
-    // occt: BRepFeat_MakeRevol::IsDone
+    // occt: BRepFeat_MakeRevol // ::IsDone
     pub fn is_done(&mut self) -> bool {
         !self.build().is_empty()
     }
@@ -276,7 +276,7 @@ impl BRepFeat_MakePipe {
     /// * `spine`  — the polyline path to sweep along.
     /// * `radius` — cross-section radius.
     /// * `mode`   — `Add` or `Remove`.
-    // occt: BRepFeat_MakePipe::BRepFeat_MakePipe
+    // occt: BRepFeat_MakePipe // ::BRepFeat_MakePipe
     pub fn new(base: Solid, spine: Wire, radius: f64, mode: FeatMode) -> Self {
         Self {
             base,
@@ -298,7 +298,7 @@ impl BRepFeat_MakePipe {
 
     /// Supply an explicit closed profile wire (in local XY-plane of the first
     /// spine frame, Z=0 for all points).  Overrides `radius`.
-    // occt: BRepFeat_MakePipe (profile override)
+    // occt: BRepFeat_MakePipe // (profile override)
     pub fn with_profile(mut self, profile: Wire) -> Self {
         self.profile = Some(profile);
         self.result = None;
@@ -306,7 +306,7 @@ impl BRepFeat_MakePipe {
     }
 
     /// Build and cache the result.
-    // occt: BRepFeat_MakePipe::Shape
+    // occt: BRepFeat_MakePipe // ::Shape
     pub fn build(&mut self) -> &Solid {
         if self.result.is_none() {
             self.result = Some(self.compute());
@@ -315,7 +315,7 @@ impl BRepFeat_MakePipe {
     }
 
     /// `true` iff the last build produced a non-empty result.
-    // occt: BRepFeat_MakePipe::IsDone
+    // occt: BRepFeat_MakePipe // ::IsDone
     pub fn is_done(&mut self) -> bool {
         !self.build().is_empty()
     }

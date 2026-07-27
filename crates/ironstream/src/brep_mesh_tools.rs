@@ -28,7 +28,7 @@
 /// assert_eq!(v.point_2d(), [0.0, 0.5]);
 /// assert_eq!(v.point_3d(), [1.0, 2.0, 3.0]);
 /// ```
-// occt: BRepMesh_Vertex
+// occt-ref: BRepMesh_Vertex
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct MeshVertex {
     /// 2-D parametric coordinates of this vertex on the host surface.
@@ -168,7 +168,7 @@ impl MeshEdge {
 /// assert_eq!(fd.nb_edges(), 1);
 /// assert_eq!(fd.nb_triangles(), 1);
 /// ```
-// occt: BRepMesh_FaceAttribute
+// occt-ref: BRepMesh_FaceAttribute
 #[derive(Clone, Debug)]
 pub struct MeshFaceData {
     /// Mesh vertices for this face.

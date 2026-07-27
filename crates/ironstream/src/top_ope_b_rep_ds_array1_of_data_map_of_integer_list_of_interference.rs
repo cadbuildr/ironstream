@@ -1,5 +1,6 @@
 // FILE: top_ope_b_rep_ds_array1_of_data_map_of_integer_list_of_interference.rs
-// occt: TopOpeBRepDS_Array1OfDataMapOfIntegerListOfInterference, TopOpeBRepDS_DataMapOfIntegerListOfInterference, TopOpeBRepDS_Interference
+// occt: TopOpeBRepDS_Array1OfDataMapOfIntegerListOfInterference
+// occt-ref: TopOpeBRepDS_DataMapOfIntegerListOfInterference, TopOpeBRepDS_Interference
 
 use std::collections::HashMap;
 

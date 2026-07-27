@@ -16,7 +16,7 @@ pub enum ShaderStageType {
 }
 
 /// A single shader stage object with source code.
-/// occt: OpenGl_ShaderObject / Graphic3d_ShaderObject
+/// occt: OpenGl_ShaderObject // / Graphic3d_ShaderObject
 #[derive(Clone, Debug)]
 pub struct OpenGlShaderObject {
     pub shader_id: u32,
@@ -56,7 +56,7 @@ pub enum UniformValue {
 }
 
 /// A linked shader program.
-/// occt: OpenGl_ShaderProgram / Graphic3d_ShaderProgram
+/// occt: OpenGl_ShaderProgram // / Graphic3d_ShaderProgram
 #[derive(Clone, Debug)]
 pub struct OpenGlShaderProgram {
     pub program_id: u32,

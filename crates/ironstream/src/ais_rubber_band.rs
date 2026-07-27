@@ -2,7 +2,7 @@
 // occt: AIS_RubberBand, AIS_ViewCube
 
 /// Shape of rubber band selection.
-/// occt: AIS_RubberBand (uses rectangle or polygon)
+/// occt: AIS_RubberBand // (uses rectangle or polygon)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum RubberBandType {
     Rectangle,

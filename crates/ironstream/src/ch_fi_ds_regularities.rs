@@ -1,5 +1,6 @@
 // FILE: ch_fi_ds_regularities.rs
-// occt: ChFiDS_Regularities, ChFiDS_ListIteratorOfRegularities
+// occt: ChFiDS_Regularities
+// occt-ref: ChFiDS_ListIteratorOfRegularities
 
 //! Deprecated type aliases for backward compatibility.
 //! Use VecDeque<ChFiDsRegul> directly instead.

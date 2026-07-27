@@ -15,7 +15,7 @@ use std::f64::consts::PI;
 // Geom2dTanArcResult
 // ---------------------------------------------------------------------------
 
-// occt: Geom2dGcc_Circ2d3Tan result — circle tangent to constraints
+// occt: Geom2dGcc_Circ2d3Tan // result — circle tangent to constraints
 /// A single solution produced by a 3-constraint tangency solver.
 ///
 /// Stores the solution circle (center + radius) and the three parameter values
@@ -77,7 +77,7 @@ impl Geom2dTanArcResult {
 // Geom2dCirc3Tan
 // ---------------------------------------------------------------------------
 
-// occt: Geom2dGcc_Circ2d3Tan — find circle tangent to 3 points (Apollonius problem stub)
+// occt: Geom2dGcc_Circ2d3Tan // — find circle tangent to 3 points (Apollonius problem stub)
 /// Solver that finds a circle passing through (tangent to) three 2-D points.
 ///
 /// The implemented case is the **circumscribed circle** of three non-collinear
@@ -224,7 +224,7 @@ impl Geom2dCirc3Tan {
 // Geom2dArcBuilder
 // ---------------------------------------------------------------------------
 
-// occt: GCE2d_MakeArcOfCircle — build 2D arc from center/radius/angles
+// occt-ref: GCE2d_MakeArcOfCircle // — build 2D arc from center/radius/angles
 /// Builder that constructs a 2-D circular arc from a center, radius and two
 /// bounding angles.
 ///

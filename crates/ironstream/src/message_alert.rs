@@ -1,5 +1,6 @@
 // FILE: message_alert.rs
-// occt: Message_Alert, Message_AlertExtended, Message_Level, Message_Msg,
+// occt: Message_Alert, Message_AlertExtended, Message_Level
+// occt-ref: Message_Msg
 //       Message_MsgFile, Message_Printer, Message_PrinterOStream, Message_Messenger
 
 /// Severity level for messages.
@@ -49,7 +50,7 @@ impl MessageAlert {
     pub fn description(&self) -> &str { &self.text }
 }
 
-// occt: Message_AlertExtended — alert with additional data
+// occt: Message_AlertExtended // — alert with additional data
 #[derive(Clone, Debug)]
 pub struct MessageAlertExtended {
     pub alert: MessageAlert,
@@ -104,7 +105,7 @@ impl MessageLevel {
     }
 }
 
-// occt: Message_Msg (localizable message template)
+// occt-ref: Message_Msg // (localizable message template)
 #[derive(Clone, Debug)]
 pub struct MessageMsg {
     pub key: String,
@@ -138,7 +139,7 @@ impl MessageMsg {
     pub fn is_empty(&self) -> bool { self.text.is_empty() }
 }
 
-// occt: Message_MsgFile (message catalog)
+// occt: Message_MsgFile // (message catalog)
 #[derive(Clone, Debug, Default)]
 pub struct MessageMsgFile {
     pub messages: std::collections::HashMap<String, String>,
@@ -162,7 +163,7 @@ impl MessageMsgFile {
     pub fn nb_messages(&self) -> usize { self.messages.len() }
 }
 
-// occt: Message_Printer (abstract output sink)
+// occt-ref: Message_Printer // (abstract output sink)
 pub trait MessagePrinter: std::fmt::Debug {
     fn send(&self, text: &str, gravity: MessageGravity);
     fn gravity_threshold(&self) -> MessageGravity;
@@ -195,7 +196,7 @@ impl InMemoryPrinter {
     pub fn clear(&mut self) { self.entries.clear(); }
 }
 
-// occt: Message_Messenger
+// occt-ref: Message_Messenger
 #[derive(Debug, Default)]
 pub struct MessageMessenger {
     pub printers: Vec<Box<dyn MessagePrinterSend>>,

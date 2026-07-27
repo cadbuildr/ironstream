@@ -31,7 +31,7 @@ impl Default for TopOpState {
     fn default() -> Self { Self::Unknown }
 }
 
-// occt: TopOpeBRep_VPointInter — a vertex/point on the intersection of two shapes
+// occt: TopOpeBRep_VPointInter // — a vertex/point on the intersection of two shapes
 #[derive(Clone, Debug, Default)]
 pub struct VPointInter {
     pub index: usize,
@@ -108,7 +108,7 @@ pub struct BuiltShape {
     pub state: TopOpState,
 }
 
-// occt: TopOpeBRepBuild_HBuilder — main builder for topological boolean/section operations
+// occt: TopOpeBRepBuild_HBuilder // — main builder for topological boolean/section operations
 #[derive(Clone, Debug, Default)]
 pub struct HBuilder {
     pub shape_a_id: u32,
@@ -159,7 +159,7 @@ impl HBuilder {
     pub fn vpoint(&self, i: usize) -> Option<&VPointInter> { self.vpoints.get(i) }
 }
 
-// occt: TopOpeBRepBuild_SolidBuilder — builds solid shapes from a topology split
+// occt: TopOpeBRepBuild_SolidBuilder // — builds solid shapes from a topology split
 #[derive(Clone, Debug, Default)]
 pub struct SolidBuilder {
     pub status: HBuilderStatus,

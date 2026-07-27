@@ -1,5 +1,6 @@
 // FILE: mat_data_map_of_integer_node.rs
-// occt: MAT_DataMapOfIntegerNode, MAT_DataMapIteratorOfDataMapOfIntegerNode
+// occt: MAT_DataMapOfIntegerNode
+// occt-ref: MAT_DataMapIteratorOfDataMapOfIntegerNode
 
 use std::collections::BTreeMap;
 

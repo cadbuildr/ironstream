@@ -1,5 +1,6 @@
 // FILE: mesh_vs_data_map_of_integer_boolean.rs
-// occt: MeshVS_DataMapOfIntegerBoolean, MeshVS_DataMapIteratorOfDataMapOfIntegerBoolean
+// occt: MeshVS_DataMapOfIntegerBoolean
+// occt-ref: MeshVS_DataMapIteratorOfDataMapOfIntegerBoolean
 
 use std::collections::HashMap;
 

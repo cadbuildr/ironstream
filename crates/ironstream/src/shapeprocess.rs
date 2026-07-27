@@ -2,7 +2,7 @@
 
 use std::collections::HashMap;
 
-// occt: ShapeProcess operation status
+// occt: ShapeProcess // operation status
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ShapeProcessOpStatus {
     NotDone,
@@ -60,7 +60,7 @@ pub trait ShapeProcessOperator: std::fmt::Debug {
     fn perform(&self, ctx: &ShapeProcessContext) -> ShapeProcessOpStatus;
 }
 
-// occt: ShapeProcess_UnitlessTOp_SameDomain
+// occt-ref: ShapeProcess_UnitlessTOp_SameDomain
 #[derive(Debug)]
 pub struct ShapeProcessSameDomainOp {
     pub linear_tol: f64,
@@ -77,7 +77,7 @@ impl ShapeProcessOperator for ShapeProcessSameDomainOp {
     }
 }
 
-// occt: ShapeProcess merge edges
+// occt: ShapeProcess // merge edges
 #[derive(Debug)]
 pub struct ShapeProcessMergeEdgesOp {
     pub tolerance: f64,
@@ -93,7 +93,7 @@ impl ShapeProcessOperator for ShapeProcessMergeEdgesOp {
     }
 }
 
-// occt: ShapeProcess_ShellContext
+// occt-ref: ShapeProcess_ShellContext
 pub struct ShapeProcessShell {
     operators: Vec<Box<dyn ShapeProcessOperator>>,
 }

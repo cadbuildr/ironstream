@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/xcaf_view.rs
 
-// occt: XCAFDoc_View — stores a named view with camera parameters
+// occt: XCAFDoc_View // — stores a named view with camera parameters
 #[derive(Clone, Debug)]
 pub struct XcafView {
     pub name: String,
@@ -37,7 +37,7 @@ impl XcafView {
     }
 }
 
-// occt: XCAFDoc_ViewTool — manages a collection of named views
+// occt: XCAFDoc_ViewTool // — manages a collection of named views
 pub struct XcafViewTool {
     pub views: Vec<XcafView>,
 }
@@ -65,7 +65,7 @@ impl XcafViewTool {
 }
 
 /// Projection type for a view.
-// occt: XCAFDoc_View (projection field)
+// occt: XCAFDoc_View // (projection field)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ProjectionType {
     Parallel,

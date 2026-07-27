@@ -7,7 +7,7 @@ pub enum AisDisplayMode {
     Shaded = 1,
 }
 
-// occt: AIS_SelectionMode
+// occt-ref: AIS_SelectionMode
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum AisSelectionMode {
     Default = 0,
@@ -74,7 +74,7 @@ impl Default for AisInteractiveObject {
     }
 }
 
-// occt: AIS_Shape
+// occt-ref: AIS_Shape
 pub struct AisShape {
     base: AisInteractiveObject,
     shape_type: String,

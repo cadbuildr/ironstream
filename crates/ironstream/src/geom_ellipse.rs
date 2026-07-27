@@ -88,7 +88,7 @@ fn basis_from_normal(normal: [f64; 3]) -> ([f64; 3], [f64; 3]) {
 ///
 /// Parametric equation: `P(U) = center + semi_major*cos(U)*x_dir +
 /// semi_minor*sin(U)*y_dir`, `U ∈ [0, 2π]`.
-// occt: Geom_Ellipse
+// occt-ref: Geom_Ellipse
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GeomEllipse {
     /// Centre of the ellipse in 3D space.

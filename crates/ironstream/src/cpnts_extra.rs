@@ -1,5 +1,5 @@
 // FILE: cpnts_extra.rs
-// occt: CPnts_AbscissaPoint, CPnts_MyRootFunction,
+// occt: CPnts_AbscissaPoint, CPnts_MyRootFunction
 //       CPnts_UniformDeflection
 
 /// Status of a curve parameterization computation.
@@ -20,7 +20,7 @@ impl CPntsStatus {
     pub fn is_done(&self) -> bool { *self == CPntsStatus::Ok }
 }
 
-// occt: CPnts_AbscissaPoint — finds the parameter value U on a curve
+// occt: CPnts_AbscissaPoint // — finds the parameter value U on a curve
 // such that the arc length from U0 to U equals a target abscissa.
 #[derive(Clone, Debug)]
 pub struct AbscissaPoint {
@@ -52,7 +52,7 @@ impl AbscissaPoint {
     pub fn length(u1: f64, u2: f64) -> f64 { (u2 - u1).abs() }
 }
 
-// occt: CPnts_UniformDeflection — distributes points along a curve
+// occt: CPnts_UniformDeflection // — distributes points along a curve
 // such that the chordal deflection is at most `deflection`.
 #[derive(Clone, Debug)]
 pub struct UniformDeflection {
@@ -108,7 +108,7 @@ impl UniformDeflection {
 }
 
 /// Uniform-abscissa (arc-length) point distribution.
-// occt: CPnts_UniformAbscissa (mirrors GCPnts_UniformAbscissa concept)
+// occt-note: CPnts_UniformAbscissa (mirrors GCPnts_UniformAbscissa concept)
 #[derive(Clone, Debug)]
 pub struct UniformAbscissa {
     pub u_start: f64,

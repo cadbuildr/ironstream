@@ -6,13 +6,13 @@
 //! addition, subtraction, scalar multiply/divide, dot product, 2-D cross
 //! magnitude, modulus, normalization, reversal, and coordinate equality.
 
-// occt: gp_XY
+// occt-ref: gp_XY
 
 /// A 2D Cartesian coordinate pair `(x, y)`.
 ///
 /// Mirrors OCCT's `gp_XY` class exactly: no unit-length invariant, no notion
 /// of "point" vs. "vector" — just raw arithmetic on two `f64` values.
-// occt: gp_XY
+// occt-ref: gp_XY
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct XY {
     pub x: f64,

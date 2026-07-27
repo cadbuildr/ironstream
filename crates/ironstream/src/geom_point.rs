@@ -14,7 +14,7 @@ use crate::gp::{Pnt, Trsf};
 ///
 /// Wraps a [`Pnt`] (`gp_Pnt`) and exposes the full `Geom_CartesianPoint` API:
 /// coordinate access, mutation, distance, and transformation.
-// occt: Geom_CartesianPoint
+// occt-ref: Geom_CartesianPoint
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GeomCartesianPoint {
     /// The underlying `gp_Pnt`.

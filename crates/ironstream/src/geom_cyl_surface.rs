@@ -25,7 +25,7 @@ use crate::gp::{Ax1, Ax3, Pnt, Trsf, Vec3};
 use crate::precision::INFINITE;
 use std::f64::consts::PI;
 
-// occt: Geom_CylindricalSurface
+// occt-ref: Geom_CylindricalSurface
 /// `Geom_CylindricalSurface` — an infinite analytic cylindrical surface.
 ///
 /// The surface is parameterized by `(U, V)` as:

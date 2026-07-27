@@ -27,7 +27,7 @@ use std::fmt;
 // math_Vector — 1-indexed (by default) vector with arbitrary bounds.
 // ===========================================================================
 
-// occt: math_Vector
+// occt-ref: math_Vector
 /// A dense vector mirroring OCCT's `math_Vector`: it carries an arbitrary
 /// inclusive index range `[lower, upper]` and is accessed with those indices.
 #[derive(Clone, Debug, PartialEq)]
@@ -87,7 +87,7 @@ impl MathVector {
 // math_Matrix — 1-indexed (by default) dense matrix with arbitrary bounds.
 // ===========================================================================
 
-// occt: math_Matrix
+// occt-ref: math_Matrix
 /// A dense matrix mirroring OCCT's `math_Matrix`: it carries arbitrary
 /// inclusive row range `[lowerRow, upperRow]` and column range
 /// `[lowerCol, upperCol]`, and is accessed with those indices.

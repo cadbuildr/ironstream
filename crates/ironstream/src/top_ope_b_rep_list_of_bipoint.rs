@@ -1,5 +1,6 @@
 // FILE: top_ope_b_rep_list_of_bipoint.rs
-// occt: TopOpeBRep_ListOfBipoint, TopOpeBRep_Bipoint
+// occt: TopOpeBRep_ListOfBipoint
+// occt-ref: TopOpeBRep_Bipoint
 
 /// Bipoint: Pair of point indices.
 #[derive(Clone, Debug)]

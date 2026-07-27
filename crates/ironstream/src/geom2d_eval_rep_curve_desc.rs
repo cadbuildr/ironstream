@@ -1,11 +1,11 @@
 // FILE: geom2d_eval_rep_curve_desc.rs
 // occt: Geom2dEval_RepCurveDesc
-// occt: Geom2dEval_RepCurveDesc::Map1d
-// occt: Geom2dEval_RepCurveDesc::Domain1d
-// occt: Geom2dEval_RepCurveDesc::Base
-// occt: Geom2dEval_RepCurveDesc::Full
-// occt: Geom2dEval_RepCurveDesc::DerivBounded
-// occt: Geom2dEval_RepCurveDesc::Mapped
+// occt: Geom2dEval_RepCurveDesc // ::Map1d
+// occt: Geom2dEval_RepCurveDesc // ::Domain1d
+// occt: Geom2dEval_RepCurveDesc // ::Base
+// occt: Geom2dEval_RepCurveDesc // ::Full
+// occt: Geom2dEval_RepCurveDesc // ::DerivBounded
+// occt: Geom2dEval_RepCurveDesc // ::Mapped
 
 const CONFUSION_THRESHOLD: f64 = 1e-7;
 

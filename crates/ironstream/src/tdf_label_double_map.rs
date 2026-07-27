@@ -1,5 +1,6 @@
 // FILE: tdf_label_double_map.rs
-// occt: TDF_LabelDoubleMap, TDF_DoubleMapIteratorOfLabelDoubleMap
+// occt: TDF_LabelDoubleMap
+// occt-ref: TDF_DoubleMapIteratorOfLabelDoubleMap
 
 //! Deprecated typedef for TDF_LabelDoubleMap.
 //!

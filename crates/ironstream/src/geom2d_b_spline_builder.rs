@@ -8,7 +8,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 /// Fitting parameters for [`Geom2dApiPointsToBSpline`].
-// occt: Geom2dAPI_PointsToBSpline params
+// occt: Geom2dAPI_PointsToBSpline // params
 #[derive(Clone, Debug)]
 pub struct Geom2dPtsSplineParams {
     /// Minimum allowed degree of the output B-spline.
@@ -24,7 +24,7 @@ pub struct Geom2dPtsSplineParams {
 impl Geom2dPtsSplineParams {
     /// Default parameters: degree\_min=3, degree\_max=8, continuity=2,
     /// tolerance=1e-6.
-    // occt: Geom2dAPI_PointsToBSpline default constructor values
+    // occt: Geom2dAPI_PointsToBSpline // default constructor values
     pub fn new() -> Self {
         Self { degree_min: 3, degree_max: 8, continuity: 2, tolerance: 1e-6 }
     }
@@ -61,7 +61,7 @@ impl Default for Geom2dPtsSplineParams {
 // ─────────────────────────────────────────────────────────────────────────────
 
 /// Result 2D B-spline curve produced by [`Geom2dApiPointsToBSpline`].
-// occt: result 2D B-spline
+// occt-note: result 2D B-spline
 #[derive(Clone, Debug)]
 pub struct Geom2dPtsSplineResult {
     /// Control points of the fitted 2D B-spline.
@@ -167,7 +167,7 @@ pub struct Geom2dApiPointsToBSpline {
 
 impl Geom2dApiPointsToBSpline {
     /// Construct the algorithm with the given parameters.
-    // occt: Geom2dAPI_PointsToBSpline(Params)
+    // occt-note: Geom2dAPI_PointsToBSpline(Params)
     pub fn new(params: Geom2dPtsSplineParams) -> Self {
         Self {
             points: Vec::new(),
@@ -177,7 +177,7 @@ impl Geom2dApiPointsToBSpline {
     }
 
     /// Add a single 2D point to the input cloud.
-    // occt: Geom2dAPI_PointsToBSpline::Add / Init
+    // occt: Geom2dAPI_PointsToBSpline // ::Add / Init
     pub fn add_point(&mut self, p: [f64; 2]) {
         self.points.push(p);
     }
@@ -186,7 +186,7 @@ impl Geom2dApiPointsToBSpline {
     ///
     /// Stub implementation: sets poles = input points, builds a uniform clamped
     /// knot vector, degree = `params.degree_min`, `is_done = true`.
-    // occt: Geom2dAPI_PointsToBSpline::Perform
+    // occt: Geom2dAPI_PointsToBSpline // ::Perform
     pub fn perform(&mut self) {
         self.result = Geom2dPtsSplineResult::new(); // reset
 

@@ -42,7 +42,7 @@ impl Default for TextureWrapMode {
     fn default() -> Self { Self::Repeat }
 }
 
-// occt: Graphic3d_TextureParams — texture mapping parameters
+// occt: Graphic3d_TextureParams // — texture mapping parameters
 #[derive(Clone, Debug, Default)]
 pub struct Graphic3dTextureParams {
     pub is_modulate: bool,
@@ -78,7 +78,7 @@ impl Graphic3dTextureParams {
     pub fn scale(&self) -> [f64; 2] { self.scale }
 }
 
-// occt: Graphic3d_MaterialAspect — surface material for rendering
+// occt: Graphic3d_MaterialAspect // — surface material for rendering
 #[derive(Clone, Debug)]
 pub struct Graphic3dMaterialAspect {
     pub name: String,
@@ -133,7 +133,7 @@ impl Graphic3dMaterialAspect {
     pub fn specular(&self) -> [f32; 3] { self.specular_color }
 }
 
-// occt: Graphic3d_Aspects — combined rendering attributes for a group
+// occt: Graphic3d_Aspects // — combined rendering attributes for a group
 #[derive(Clone, Debug)]
 pub struct Graphic3dAspects {
     pub color: [f32; 3],

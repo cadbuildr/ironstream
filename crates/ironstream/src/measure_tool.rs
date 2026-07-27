@@ -1,9 +1,10 @@
 // FILE: measure_tool.rs
-// occt: BRepGProp_Face, BRepGProp_Domain, GProp_GProps,
+// occt: BRepGProp_Face, BRepGProp_Domain
+// occt-ref: GProp_GProps
 //       GProp_PrincipalProps, BRepGProp
 
 /// Result of a mass/inertia computation.
-/// occt: GProp_GProps
+// occt-ref: GProp_GProps
 #[derive(Clone, Debug, Default)]
 pub struct GPropGProps {
     pub mass: f64,
@@ -56,7 +57,7 @@ impl GPropGProps {
 }
 
 /// Principal inertia properties.
-/// occt: GProp_PrincipalProps
+// occt-ref: GProp_PrincipalProps
 #[derive(Clone, Debug, Default)]
 pub struct GPropPrincipalProps {
     pub i1: f64,
@@ -83,7 +84,7 @@ impl GPropPrincipalProps {
 }
 
 /// BRep global properties (surface, volume, linear).
-/// occt: BRepGProp (static methods mirrored as struct)
+// occt-ref: BRepGProp // (static methods mirrored as struct)
 #[derive(Clone, Debug, Default)]
 pub struct BrepGProp;
 
@@ -123,7 +124,7 @@ impl BrepGProp {
 }
 
 /// Measurement utility: distance, angle, area, volume helpers.
-/// occt: BRepExtrema_DistShapeShape, BRepMesh_IncrementalMesh helpers
+/// occt-note: BRepExtrema_DistShapeShape, BRepMesh_IncrementalMesh helpers
 #[derive(Clone, Debug, Default)]
 pub struct MeasureTool;
 

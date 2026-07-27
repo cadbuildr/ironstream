@@ -1,5 +1,6 @@
 // FILE: bin_ocaf.rs
-// occt: BinMDF_ADriver, BinMDF_ADriverTable, BinMDF_RRelocationTable,
+// occt: BinMDF_ADriver, BinMDF_ADriverTable
+// occt-ref: BinMDF_RRelocationTable
 //       BinOCAFDrivers_DocumentRetrievalDriver
 
 /// Version stamp written at the start of a binary OCAF file.
@@ -40,7 +41,7 @@ pub enum BinMdfAttrType {
 }
 
 /// In-memory binary record for one attribute.
-/// occt: BinMDF_ADriver (result of Paste operation)
+/// occt: BinMDF_ADriver // (result of Paste operation)
 #[derive(Clone, Debug)]
 pub struct BinMdfAttributeRecord {
     pub attr_type: BinMdfAttrType,
@@ -57,7 +58,7 @@ impl BinMdfAttributeRecord {
 }
 
 /// Relocation table: maps old label id → new label id.
-/// occt: BinMDF_RRelocationTable
+// occt-ref: BinMDF_RRelocationTable
 #[derive(Clone, Debug, Default)]
 pub struct BinMdfRelocationTable {
     pub label_map: Vec<(u32, u32)>,   // (old, new)
@@ -115,7 +116,7 @@ impl BinMdfADriverTable {
 }
 
 /// Binary OCAF document writer/reader stub.
-/// occt: BinOCAFDrivers (simplified)
+/// occt-note: BinOCAFDrivers (simplified)
 #[derive(Clone, Debug)]
 pub struct BinOcafDocument {
     pub version: BinOcafVersion,

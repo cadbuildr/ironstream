@@ -1,5 +1,5 @@
 // FILE: shape_upgrade_ext.rs
-// occt: ShapeUpgrade_ShapeDivideClosed, ShapeUpgrade_FaceDivide,
+// occt: ShapeUpgrade_ShapeDivideClosed, ShapeUpgrade_FaceDivide
 //       ShapeUpgrade_ShapeConvertToBezier, ShapeUpgrade_UnifySameDomain,
 //       ShapeUpgrade_RemoveLocations, ShapeUpgrade_ShapeDivideAngle
 
@@ -147,7 +147,7 @@ impl Default for ShapeConvertToBezier {
     fn default() -> Self { Self::new() }
 }
 
-// occt: ShapeUpgrade_UnifySameDomain
+// occt-ref: ShapeUpgrade_UnifySameDomain
 #[derive(Clone, Debug)]
 pub struct UnifySameDomain {
     pub unify_faces: bool,

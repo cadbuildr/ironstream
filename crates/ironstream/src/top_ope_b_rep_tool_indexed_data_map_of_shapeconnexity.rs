@@ -1,5 +1,6 @@
 // FILE: top_ope_b_rep_tool_indexed_data_map_of_shapeconnexity.rs
-// occt: TopOpeBRepTool_IndexedDataMapOfShapeconnexity, TopOpeBRepTool_Connexity
+// occt: TopOpeBRepTool_IndexedDataMapOfShapeconnexity
+// occt-ref: TopOpeBRepTool_Connexity
 
 /// ShapeKey: Shape identifier.
 #[derive(Clone, Debug, PartialEq, Eq)]

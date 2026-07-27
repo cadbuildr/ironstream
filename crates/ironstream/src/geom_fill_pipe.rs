@@ -1,5 +1,6 @@
 // FILE: geom_fill_pipe.rs
-// occt: GeomFill_Pipe, GeomFill_Sweep, GeomFill_LocationGuide
+// occt: GeomFill_Pipe, GeomFill_LocationGuide
+// occt-ref: GeomFill_Sweep
 
 // occt: GeomFill_LocationGuide
 /// Guide-curve location for pipe/sweep computations.
@@ -71,7 +72,7 @@ impl Pipe {
     }
 }
 
-// occt: GeomFill_Sweep
+// occt-ref: GeomFill_Sweep
 /// Sweeps a section law along a law-driven path.
 #[derive(Clone, Debug)]
 pub struct Sweep {

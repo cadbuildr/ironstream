@@ -4,7 +4,7 @@
 //! Number of bins controls BVH quality at the cost of construction time.
 //! For optimal results, use 32-48 bins. Reasonable performance with 4-8 bins.
 
-// occt: BVH_Bin
+// occt-ref: BVH_Bin
 /// Stores parameters of a single bin (slice of AABB).
 #[derive(Clone, Copy, Debug)]
 pub struct BvhBin<T> {
@@ -23,7 +23,7 @@ impl<T: Default + Copy> BvhBin<T> {
     }
 }
 
-// occt: BVH_SplitPlane
+// occt-ref: BVH_SplitPlane
 /// Describes split plane candidate.
 #[derive(Clone, Copy, Debug)]
 pub struct BvhSplitPlane<T> {

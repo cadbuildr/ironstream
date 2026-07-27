@@ -1,5 +1,6 @@
 // FILE: iges_extra.rs
-// occt: IGESData_IGESEntity, IGESData_IGESModel, IGESData_Protocol,
+// occt: IGESData_Protocol
+// occt-ref: IGESData_IGESEntity, IGESData_IGESModel
 //       IGESGeom_BSplineCurve, IGESGeom_BSplineSurface, IGESGeom_TrimmedSurface,
 //       IGESData_LineFontDefTemplate, IGESData_ColorEntity
 
@@ -65,7 +66,7 @@ impl IgesEntityType {
     }
 }
 
-// occt: IGESData_IGESEntity
+// occt-ref: IGESData_IGESEntity
 #[derive(Clone, Debug)]
 pub struct IgesEntity {
     pub entity_type: IgesEntityType,
@@ -103,7 +104,7 @@ impl IgesEntity {
     pub fn add_param(&mut self, v: f64) { self.parameters.push(v); }
 }
 
-// occt: IGESGeom_BSplineCurve (entity type 126)
+// occt-ref: IGESGeom_BSplineCurve // (entity type 126)
 #[derive(Clone, Debug)]
 pub struct IgesBSplineCurve {
     pub entity: IgesEntity,
@@ -140,7 +141,7 @@ impl IgesBSplineCurve {
     }
 }
 
-// occt: IGESGeom_BSplineSurface (entity type 128)
+// occt-ref: IGESGeom_BSplineSurface // (entity type 128)
 #[derive(Clone, Debug)]
 pub struct IgesBSplineSurface {
     pub entity: IgesEntity,
@@ -181,7 +182,7 @@ impl IgesBSplineSurface {
     }
 }
 
-// occt: IGESGeom_TrimmedSurface (entity type 144)
+// occt: IGESGeom_TrimmedSurface // (entity type 144)
 #[derive(Clone, Debug)]
 pub struct IgesTrimmedSurface {
     pub entity: IgesEntity,
@@ -214,7 +215,7 @@ impl IgesTrimmedSurface {
     pub fn nb_inner(&self) -> usize { self.inner_boundaries.len() }
 }
 
-// occt: IGESData_IGESModel
+// occt-ref: IGESData_IGESModel
 #[derive(Clone, Debug, Default)]
 pub struct IgesModel {
     pub entities: Vec<IgesEntity>,
@@ -255,7 +256,7 @@ impl IgesModel {
     }
 }
 
-// occt: IGESData_ColorEntity (entity 314)
+// occt: IGESData_ColorEntity // (entity 314)
 #[derive(Clone, Debug)]
 pub struct IgesColorDef {
     pub entity: IgesEntity,

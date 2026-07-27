@@ -1,6 +1,6 @@
 // FILE: src/int_patch.rs
 
-// occt: IntPatch_Point — a point on a surface-surface intersection
+// occt: IntPatch_Point // — a point on a surface-surface intersection
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct IntPatchPoint {
     point: [f64; 3],
@@ -75,7 +75,7 @@ impl IntPatchPoint {
     }
 }
 
-// occt: IntPatch_IType — kind of intersection curve
+// occt: IntPatch_IType // — kind of intersection curve
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum IntPatchLineType {
     Lin,
@@ -88,7 +88,7 @@ pub enum IntPatchLineType {
     Unknown,
 }
 
-// occt: IntPatch_Line stub — an intersection curve between two surfaces
+// occt-ref: IntPatch_Line // stub — an intersection curve between two surfaces
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct IntPatchLine {
     line_type: IntPatchLineType,

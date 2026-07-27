@@ -46,7 +46,7 @@ fn compute_normal(a: [f64; 3], b: [f64; 3], c: [f64; 3]) -> [f64; 3] {
 /// compact 80-byte-header + little-endian binary format, or use
 /// [`StlWriter::ascii`] to write human-readable ASCII STL.
 ///
-// occt: StlAPI_Writer
+// occt-ref: StlAPI_Writer
 #[derive(Clone, Debug)]
 pub struct StlWriter {
     /// When `true` the writer emits binary STL; when `false` it emits ASCII.

@@ -1,9 +1,10 @@
 // FILE: tdata_std.rs
-// occt: TDataStd_Integer, TDataStd_Real, TDataStd_AsciiString,
+// occt: TDataStd_AsciiString
+// occt-ref: TDataStd_Integer, TDataStd_Real
 //       TDataStd_Name, TDataStd_ExtStringList, TDataStd_BooleanList
 
 /// A named integer attribute on a CAF label.
-/// occt: TDataStd_Integer
+// occt-ref: TDataStd_Integer
 #[derive(Clone, Debug)]
 pub struct TDataStdInteger {
     pub label_id: u32,
@@ -23,7 +24,7 @@ impl TDataStdInteger {
 }
 
 /// A real (f64) attribute on a CAF label.
-/// occt: TDataStd_Real
+// occt-ref: TDataStd_Real
 #[derive(Clone, Debug)]
 pub struct TDataStdReal {
     pub label_id: u32,
@@ -80,7 +81,7 @@ impl TDataStdAsciiString {
 }
 
 /// A name (wide string) attribute.
-/// occt: TDataStd_Name
+// occt-ref: TDataStd_Name
 #[derive(Clone, Debug)]
 pub struct TDataStdName {
     pub label_id: u32,
@@ -148,7 +149,7 @@ impl TDataStdBooleanList {
 }
 
 /// An integer array attribute.
-/// occt: TDataStd_IntegerArray
+// occt-ref: TDataStd_IntegerArray
 #[derive(Clone, Debug)]
 pub struct TDataStdIntegerArray {
     pub label_id: u32,

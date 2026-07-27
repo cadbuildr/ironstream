@@ -5,7 +5,7 @@
 // ---------------------------------------------------------------------------
 
 /// The law governing how cross-sections evolve along a sweep spine.
-// occt: BRepFill_SectionLaw
+// occt-ref: BRepFill_SectionLaw
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum BRepFillSectionLaw {
     Constant,
@@ -44,7 +44,7 @@ impl BRepFillSection {
 // ---------------------------------------------------------------------------
 
 /// Options controlling a BRepFill sweep operation.
-// occt: BRepFill_Sweep options
+// occt: BRepFill_Sweep // options
 pub struct BRepFillSweepOptions {
     pub law: BRepFillSectionLaw,
     pub nb_sections: u32,
@@ -68,7 +68,7 @@ impl BRepFillSweepOptions {
 // ---------------------------------------------------------------------------
 
 /// Fills a wire boundary with a B-spline surface.
-// occt: BRepFill_Filling
+// occt-ref: BRepFill_Filling
 pub struct BRepFillFilling {
     nb_constraints: u32,
     degree: u32,

@@ -40,7 +40,7 @@
 //! assert!((roots.root() - 2.0_f64.sqrt()).abs() < 1.0e-6);
 //! ```
 
-// occt: math_NewtonFunctionRoot
+// occt-ref: math_NewtonFunctionRoot
 
 use std::fmt;
 
@@ -158,7 +158,7 @@ fn newton_solve(
 // NewtonFunctionRoots — the primary type.
 // ---------------------------------------------------------------------------
 
-// occt: math_NewtonFunctionRoot
+// occt-ref: math_NewtonFunctionRoot
 /// Newton-Raphson root finder for `F(x) = 0` on `[a, b]`, using the first
 /// derivative `F'(x)`.
 ///

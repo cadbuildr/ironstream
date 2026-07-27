@@ -22,7 +22,7 @@ use crate::gp2d::{Ax2d, Pnt2d, Trsf2d, Vec2d};
 /// Global continuity classification, mirroring OCCT's `GeomAbs_Shape`. A line
 /// is infinitely differentiable, so its continuity is [`GeomAbsShape::CN`].
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-// occt: GeomAbs_Shape
+// occt-ref: GeomAbs_Shape
 pub enum GeomAbsShape {
     C0,
     G1,
@@ -36,7 +36,7 @@ pub enum GeomAbsShape {
 /// `gp_Lin2d` — a non-parameterized infinite 2D line: a location plus a unit
 /// direction. Provided locally because the in-tree `gp_prim::Lin` is 3D.
 #[derive(Clone, Copy, Debug)]
-// occt: gp_Lin2d
+// occt-ref: gp_Lin2d
 pub struct Lin2d {
     loc: Pnt2d,
     dir: Pnt2d,
@@ -94,7 +94,7 @@ impl Lin2d {
 /// (`gp_Ax2d`): the location is the origin, and the unit direction gives the
 /// orientation and parameterization `P(U) = O + U*Dir`.
 #[derive(Clone, Copy, Debug)]
-// occt: Geom2d_Line
+// occt-ref: Geom2d_Line
 pub struct Geom2dLine {
     pos: Ax2d,
 }

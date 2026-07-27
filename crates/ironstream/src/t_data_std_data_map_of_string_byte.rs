@@ -1,5 +1,6 @@
 // FILE: t_data_std_data_map_of_string_byte.rs
-// occt: TDataStd_DataMapOfStringByte, TDataStd_DataMapIteratorOfDataMapOfStringByte
+// occt: TDataStd_DataMapOfStringByte
+// occt-ref: TDataStd_DataMapIteratorOfDataMapOfStringByte
 
 //! Deprecated typedef for TDataStd_DataMapOfStringByte.
 //!

@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/brep_offset.rs
 
-// occt: BRepOffset / BRepOffsetAPI — thick-solid and 2-D wire offset stubs.
+// occt: BRepOffset // / BRepOffsetAPI — thick-solid and 2-D wire offset stubs.
 //
 // This module contains zero-dependency Rust stubs that mirror the public API
 // shape of the OpenCascade `BRepOffset_*` / `BRepOffsetAPI_*` families.
@@ -14,22 +14,22 @@
 
 /// Controls how a thick-solid offset shell is constructed.
 ///
-// occt: BRepOffset_Mode
+// occt-ref: BRepOffset_Mode
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum BrepOffsetMode {
     /// The offset shell follows the outer skin of the shape.
     ///
-    // occt: BRepOffset_Skin
+    // occt-ref: BRepOffset_Skin
     Skin,
 
     /// The offset shell follows a pipe profile swept along edges.
     ///
-    // occt: BRepOffset_Pipe
+    // occt-ref: BRepOffset_Pipe
     Pipe,
 
     /// The offset shell is built on both sides (recto and verso).
     ///
-    // occt: BRepOffset_RectoVerso
+    // occt-ref: BRepOffset_RectoVerso
     RectoVerso,
 }
 
@@ -39,22 +39,22 @@ pub enum BrepOffsetMode {
 
 /// How adjacent offset surfaces are joined at convex edges.
 ///
-// occt: GeomAbs_JoinType (used by BRepOffsetAPI)
+// occt-ref: GeomAbs_JoinType // (used by BRepOffsetAPI)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum BrepOffsetJoinType {
     /// Fill the gap with a circular arc (fillet-like join).
     ///
-    // occt: GeomAbs_Arc
+    // occt-ref: GeomAbs_Arc
     Arc,
 
     /// Extend adjacent surfaces until they meet tangentially.
     ///
-    // occt: GeomAbs_Tangent
+    // occt-ref: GeomAbs_Tangent
     Tangent,
 
     /// Extend adjacent surfaces until they intersect.
     ///
-    // occt: GeomAbs_Intersection
+    // occt-ref: GeomAbs_Intersection
     Intersection,
 }
 
@@ -68,7 +68,7 @@ pub enum BrepOffsetJoinType {
 /// Mirrors the constructor and modifier interface of
 /// `BRepOffsetAPI_MakeThickSolid`.
 ///
-// occt: BRepOffsetAPI_MakeThickSolid (parameter bundle)
+// occt: BRepOffsetAPI_MakeThickSolid // (parameter bundle)
 #[derive(Clone, Debug)]
 pub struct BrepOffsetParams {
     offset: f64,
@@ -85,7 +85,7 @@ impl BrepOffsetParams {
     /// join_type = [`BrepOffsetJoinType::Arc`],
     /// intersection = `false`.
     ///
-    // occt: BRepOffsetAPI_MakeThickSolid — primary constructor args
+    // occt: BRepOffsetAPI_MakeThickSolid // — primary constructor args
     pub fn new(offset: f64, tolerance: f64) -> Self {
         Self {
             offset,
@@ -98,14 +98,14 @@ impl BrepOffsetParams {
 
     /// Set the offset mode.
     ///
-    // occt: BRepOffsetAPI_MakeThickSolid::SetOffsetMode
+    // occt: BRepOffsetAPI_MakeThickSolid // ::SetOffsetMode
     pub fn set_mode(&mut self, mode: BrepOffsetMode) {
         self.mode = mode;
     }
 
     /// Return the current offset mode.
     ///
-    // occt: BRepOffsetAPI_MakeThickSolid — mode accessor
+    // occt: BRepOffsetAPI_MakeThickSolid // — mode accessor
     pub fn mode(&self) -> BrepOffsetMode {
         self.mode
     }
@@ -113,28 +113,28 @@ impl BrepOffsetParams {
     /// Set the join type used when adjacent offset surfaces meet at convex
     /// edges.
     ///
-    // occt: BRepOffsetAPI_MakeThickSolid::SetJoinType
+    // occt: BRepOffsetAPI_MakeThickSolid // ::SetJoinType
     pub fn set_join_type(&mut self, join_type: BrepOffsetJoinType) {
         self.join_type = join_type;
     }
 
     /// Return the current join type.
     ///
-    // occt: BRepOffsetAPI_MakeThickSolid — join type accessor
+    // occt: BRepOffsetAPI_MakeThickSolid // — join type accessor
     pub fn join_type(&self) -> BrepOffsetJoinType {
         self.join_type
     }
 
     /// Return the signed offset distance.
     ///
-    // occt: BRepOffsetAPI_MakeThickSolid — offset distance accessor
+    // occt: BRepOffsetAPI_MakeThickSolid // — offset distance accessor
     pub fn offset(&self) -> f64 {
         self.offset
     }
 
     /// Return the linear tolerance.
     ///
-    // occt: BRepOffsetAPI_MakeThickSolid — tolerance accessor
+    // occt: BRepOffsetAPI_MakeThickSolid // — tolerance accessor
     pub fn tolerance(&self) -> f64 {
         self.tolerance
     }
@@ -180,7 +180,7 @@ pub struct BrepMakeThickSolid {
 impl BrepMakeThickSolid {
     /// Create a new builder with the given parameters.
     ///
-    // occt: BRepOffsetAPI_MakeThickSolid::BRepOffsetAPI_MakeThickSolid
+    // occt: BRepOffsetAPI_MakeThickSolid // ::BRepOffsetAPI_MakeThickSolid
     pub fn new(params: BrepOffsetParams) -> Self {
         Self {
             params,
@@ -195,7 +195,7 @@ impl BrepMakeThickSolid {
     /// removed from the input shape before offsetting. After this call
     /// [`is_done`](BrepMakeThickSolid::is_done) returns `true`.
     ///
-    // occt: BRepOffsetAPI_MakeThickSolid::Build / MakeThickSolidBySimple / MakeThickSolidByJoin
+    // occt: BRepOffsetAPI_MakeThickSolid // ::Build / MakeThickSolidBySimple / MakeThickSolidByJoin
     pub fn perform(&mut self, nb_faces_to_remove: usize) {
         self.nb_faces_removed = nb_faces_to_remove;
         self.is_done = true;
@@ -204,7 +204,7 @@ impl BrepMakeThickSolid {
     /// Whether the last [`perform`](BrepMakeThickSolid::perform) call
     /// succeeded.
     ///
-    // occt: BRepOffsetAPI_MakeThickSolid::IsDone
+    // occt: BRepOffsetAPI_MakeThickSolid // ::IsDone
     pub fn is_done(&self) -> bool {
         self.is_done
     }
@@ -212,7 +212,7 @@ impl BrepMakeThickSolid {
     /// Number of faces that were (nominally) removed during the last
     /// [`perform`](BrepMakeThickSolid::perform) call.
     ///
-    // occt: BRepOffsetAPI_MakeThickSolid — removed-faces count
+    // occt: BRepOffsetAPI_MakeThickSolid // — removed-faces count
     pub fn nb_faces_removed(&self) -> usize {
         self.nb_faces_removed
     }
@@ -228,7 +228,7 @@ impl BrepMakeThickSolid {
 /// given join type at convex corners. Call
 /// [`perform`](BrepMakeOffset::perform) to run the (stub) algorithm.
 ///
-// occt: BRepOffsetAPI_MakeOffset
+// occt-ref: BRepOffsetAPI_MakeOffset
 #[derive(Clone, Debug)]
 pub struct BrepMakeOffset {
     /// Signed offset distance (positive = expand, negative = shrink).
@@ -243,7 +243,7 @@ pub struct BrepMakeOffset {
 impl BrepMakeOffset {
     /// Create a new 2-D wire offset builder.
     ///
-    // occt: BRepOffsetAPI_MakeOffset::BRepOffsetAPI_MakeOffset
+    // occt-ref: BRepOffsetAPI_MakeOffset // ::BRepOffsetAPI_MakeOffset
     pub fn new(offset: f64, join_type: BrepOffsetJoinType) -> Self {
         Self {
             offset,
@@ -255,21 +255,21 @@ impl BrepMakeOffset {
     /// Run the offset algorithm (stub). Sets
     /// [`is_done`](BrepMakeOffset::is_done) to `true`.
     ///
-    // occt: BRepOffsetAPI_MakeOffset::Build
+    // occt-ref: BRepOffsetAPI_MakeOffset // ::Build
     pub fn perform(&mut self) {
         self.is_done = true;
     }
 
     /// Whether the last [`perform`](BrepMakeOffset::perform) call succeeded.
     ///
-    // occt: BRepOffsetAPI_MakeOffset::IsDone
+    // occt-ref: BRepOffsetAPI_MakeOffset // ::IsDone
     pub fn is_done(&self) -> bool {
         self.is_done
     }
 
     /// Return the signed offset distance.
     ///
-    // occt: BRepOffsetAPI_MakeOffset — offset distance accessor
+    // occt-ref: BRepOffsetAPI_MakeOffset // — offset distance accessor
     pub fn offset(&self) -> f64 {
         self.offset
     }

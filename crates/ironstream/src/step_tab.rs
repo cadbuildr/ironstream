@@ -1,5 +1,5 @@
 // FILE: step_tab.rs
-// occt: step.tab
+// occt-note: step.tab
 
 /// Bison parser tokens and symbols for STEP file parsing.
 /// This is a Rust representation of the auto-generated Bison parser header.

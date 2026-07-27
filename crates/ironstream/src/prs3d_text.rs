@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/prs3d_text.rs
 
-// occt: Graphic3d_HorizontalTextAlignment
+// occt-ref: Graphic3d_HorizontalTextAlignment
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Prs3dTextHAlign {
     Left,
@@ -8,7 +8,7 @@ pub enum Prs3dTextHAlign {
     Right,
 }
 
-// occt: Graphic3d_VerticalTextAlignment
+// occt-ref: Graphic3d_VerticalTextAlignment
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Prs3dTextVAlign {
     Bottom,
@@ -16,7 +16,7 @@ pub enum Prs3dTextVAlign {
     Top,
 }
 
-// occt: Prs3d_TextAspect
+// occt-ref: Prs3d_TextAspect
 pub struct Prs3dTextAspect {
     color: [f32; 4],
     font: String,

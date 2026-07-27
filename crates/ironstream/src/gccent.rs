@@ -12,7 +12,7 @@
 //! - [`GccentQualifiedCirc`]  — `GccEnt_QualifiedCirc`
 //! - [`GccentQualifiedLin`]   — `GccEnt_QualifiedLin`
 
-// occt: GccEnt_Position
+// occt-ref: GccEnt_Position
 /// Describes the qualifier of a circle or line in a tangency constraint.
 ///
 /// Matches `GccEnt_Position` in OpenCascade.

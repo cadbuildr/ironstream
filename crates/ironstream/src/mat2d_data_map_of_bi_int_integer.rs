@@ -1,5 +1,6 @@
 // FILE: mat2d_data_map_of_bi_int_integer.rs
-// occt: MAT2d_DataMapOfBiIntInteger, MAT2d_DataMapIteratorOfDataMapOfBiIntInteger
+// occt: MAT2d_DataMapOfBiIntInteger
+// occt-ref: MAT2d_DataMapIteratorOfDataMapOfBiIntInteger
 
 use std::collections::BTreeMap;
 

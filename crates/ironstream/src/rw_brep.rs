@@ -27,21 +27,21 @@
 /// Mirrors the write-parameter block accepted by `BRepTools::Write` /
 /// `BRepTools_Modifier` in OCCT.  Default values match OCCT defaults:
 /// no triangulation, absolute deflection 0.001, angle tolerance 0.5 rad.
-// occt: BRepTools write params
+// occt-ref: BRepTools // write params
 #[derive(Debug, Clone)]
 pub struct BrepWriteParams {
     /// Whether to include triangulation data in the output.
-    // occt: BRepTools_Modifier::SetTriangulation
+    // occt: BRepTools_Modifier // ::SetTriangulation
     triangulate: bool,
     /// Whether the deflection value is relative to the bounding-box diagonal
     /// (`true`) or absolute (`false`).
-    // occt: BRepTools_Modifier::SetRelativeMode
+    // occt: BRepTools_Modifier // ::SetRelativeMode
     relative_deflection: bool,
     /// Linear deflection tolerance used when tessellating curved edges/faces.
-    // occt: BRepTools_Modifier::SetDeflection
+    // occt: BRepTools_Modifier // ::SetDeflection
     deflection: f64,
     /// Angular deflection tolerance (radians) used when tessellating.
-    // occt: BRepTools_Modifier::SetAngle
+    // occt: BRepTools_Modifier // ::SetAngle
     angle: f64,
 }
 
@@ -114,26 +114,26 @@ impl Default for BrepWriteParams {
 ///
 /// Mirrors the information extracted by `BRepTools::Read` in OCCT when it
 /// parses a `.brep` file header and topology section.
-// occt: BRepTools read result
+// occt-ref: BRepTools // read result
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct BrepReadResult {
     /// Number of vertex sub-shapes found.
-    // occt: BRep_Builder vertex count
+    // occt: BRep_Builder // vertex count
     nb_vertices: usize,
     /// Number of edge sub-shapes found.
-    // occt: BRep_Builder edge count
+    // occt: BRep_Builder // edge count
     nb_edges: usize,
     /// Number of face sub-shapes found.
-    // occt: BRep_Builder face count
+    // occt: BRep_Builder // face count
     nb_faces: usize,
     /// Number of shell sub-shapes found.
-    // occt: BRep_Builder shell count
+    // occt: BRep_Builder // shell count
     nb_shells: usize,
     /// Number of solid sub-shapes found.
-    // occt: BRep_Builder solid count
+    // occt: BRep_Builder // solid count
     nb_solids: usize,
     /// Whether the shape passed a basic validity check after reading.
-    // occt: BRepCheck_Analyzer::IsValid
+    // occt-ref: BRepCheck_Analyzer // ::IsValid
     is_valid: bool,
 }
 
@@ -218,7 +218,7 @@ impl Default for BrepReadResult {
 ///
 /// The first line is the standard OCCT BRep file magic string; the second
 /// encodes the parameter values so that a reader can reconstruct them.
-// occt: BRepTools::Write — file header section
+// occt-ref: BRepTools // ::Write — file header section
 pub fn write_brep_header(params: &BrepWriteParams) -> String {
     format!(
         "CASCADE Topology V1, (c) Matra-Datavision\ndeflection={deflection} angle={angle} triangulate={tri} relative={rel}\nV={v} E={e} F={f} SH={sh} SO={so}",
@@ -247,7 +247,7 @@ pub fn write_brep_header(params: &BrepWriteParams) -> String {
 ///
 /// The validity flag is set to `true` when all five counters are present and
 /// at least one of vertices, edges, or faces is non-zero.
-// occt: BRepTools::Read — header parse / topology count extraction
+// occt-ref: BRepTools // ::Read — header parse / topology count extraction
 pub fn parse_brep_counts(header: &str) -> Option<BrepReadResult> {
     for line in header.lines() {
         // Require all five tokens on the same line.
@@ -294,11 +294,11 @@ fn parse_tag(s: &str, tag: &str) -> Option<usize> {
 /// Holds a set of [`BrepWriteParams`] and exposes convenience methods for
 /// generating BRep file headers and parsing them back into
 /// [`BrepReadResult`] values.
-// occt: BRepTools namespace
+// occt-ref: BRepTools // namespace
 #[derive(Debug, Clone)]
 pub struct BrepIO {
     /// Write parameters used when generating BRep headers.
-    // occt: BRepTools write-parameter block
+    // occt-ref: BRepTools // write-parameter block
     pub write_params: BrepWriteParams,
 }
 

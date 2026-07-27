@@ -1,0 +1,347 @@
+# Duplicate-port modules retired during audit remediation P3.
+# Format: <src file>  <OCCT class>  <canonical file>  <reason>
+# A file is retired only when: its class claim was already demoted to
+# occt-ref, it is canonical for no other class, and nothing imports it
+# (its mirror tests/occt_suite/occt_<stem>.rs test file goes with it).
+# Losers with unique reference value keep their file + occt-ref marker instead.
+gp_quart.rs  gp_Quaternion  gp.rs  misspelled duplicate port; gp_quaternion.rs kept as the richer reference
+geom_cut_tool.rs  BRepAlgoAPI_Cut  brep_algo_api.rs  siloed duplicate of the BSP boolean engine; zero dependents
+geom_fuse.rs  BRepAlgoAPI_Cut  brep_algo_api.rs  siloed duplicate of the BSP boolean engine; zero dependents
+topo_exp_ext.rs  TopExp  top_exp.rs  siloed TopExp re-port; zero dependents
+topo_explorer.rs  TopExp  top_exp.rs  siloed TopExp re-port; zero dependents
+topo_shape_tools.rs  TopExp  top_exp.rs  siloed TopExp re-port; zero dependents
+bspl_convert.rs  BSplCLib  bspl_clib.rs  siloed B-spline utility duplicate; zero dependents
+geom_b_spline_restrict.rs  BSplCLib  bspl_clib.rs  siloed B-spline utility duplicate; zero dependents
+geom_triangle_mesh.rs  Poly_Triangulation  mesh.rs  siloed triangulation duplicate; zero dependents
+mesh_data.rs  Poly_Triangulation  mesh.rs  siloed triangulation duplicate; zero dependents
+brep_compound_builder.rs  BRep_Builder  rw_brep.rs  siloed BRep_Builder re-port; zero dependents
+brep_make_face.rs  BRep_Builder  rw_brep.rs  siloed BRep_Builder re-port; zero dependents
+brep_topology_builder.rs  BRep_Builder  rw_brep.rs  siloed BRep_Builder re-port; zero dependents
+topo_orient.rs  BRep_Builder  rw_brep.rs  siloed BRep_Builder re-port; zero dependents
+topods_compound_builder.rs  BRep_Builder  rw_brep.rs  siloed BRep_Builder re-port; zero dependents
+adv_app2_var_criterion_repartition.rs  AdvApp2VarCriterionRepartition  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+adv_app2_var_criterion_type.rs  AdvApp2VarCriterionType  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+adv_app2_var_evaluator_func2_var.rs  AdvApp2VarEvaluatorFunc2Var  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+adv_app2_var_math_base.rs  AdvApp2VarMathBase  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+adv_app2_var_patch.rs  AdvApp2VarPatch  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+adv_app2_var_sys_base.rs  AdvApp2VarSysBase  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+ais_string.rs  AIS_TextLabel  ais_text_label.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_cont_function.rs  AppContFunction  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_cont_least_square.rs  AppContLeastSquare  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_b_sp_gradient_bfgs_of_my_b_spl_gradient_of_b_spline_compute.rs  AppDefBSpGradientBFGS  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_b_sp_par_function_of_my_b_spl_gradient_of_b_spline_compute.rs  AppDefBSpParFunction  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_b_sp_par_least_square_of_my_b_spl_gradient_of_b_spline_compute.rs  AppDefBSpParLeastSquare  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_gradient_bfgs_of_my_gradient_of_compute.rs  AppDefGradientBFGS1  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_gradient_bfgs_of_my_gradientbis_of_b_spline_compute.rs  AppDefGradientBFGS2  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_gradient_bfgs_of_the_gradient.rs  AppDefGradientBFGS3  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_linear_criteria.rs  AppDefLinearCriteria  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_my_b_spl_gradient_of_b_spline_compute.rs  AppDefMyBSplGradient  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_my_gradient_of_compute.rs  AppDefMyGradient1  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_my_gradientbis_of_b_spline_compute.rs  AppDefMyGradient2  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_my_line_tool.rs  AppDefMyLineTool  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_par_function_of_my_gradient_of_compute.rs  AppDefParFunction1  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_par_function_of_my_gradientbis_of_b_spline_compute.rs  AppDefParFunction2  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_par_function_of_the_gradient.rs  AppDefParFunction3  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_par_least_square_of_my_gradient_of_compute.rs  AppDefParLeastSquare1  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_par_least_square_of_my_gradientbis_of_b_spline_compute.rs  AppDefParLeastSquare2  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_par_least_square_of_the_gradient.rs  AppDefParLeastSquare3  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_res_constraint_of_my_gradient_of_compute.rs  AppDefResConstraint1  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_res_constraint_of_my_gradientbis_of_b_spline_compute.rs  AppDefResConstraint2  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_res_constraint_of_the_gradient.rs  AppDefResConstraint3  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_smooth_criterion.rs  AppDefSmoothCriterion  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_the_function.rs  AppDefTheFunction  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_the_gradient.rs  AppDefTheGradient  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+app_def_the_least_squares.rs  AppDefTheLeastSquares  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+aspect_window_o.rs  Aspect_Window  aspect_window.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+axis_placement.rs  gp_Ax1  gp.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+b_rep_fill_compatible_wires.rs  Brepfillcompatiblewires  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+b_rep_fill_compute_c_line.rs  Brepfillcomputecline  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+b_rep_fill_draft.rs  Brepfilldraft  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+b_rep_fill_draft_law.rs  Brepfilldraftlaw  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+b_rep_fill_edge3_d_law.rs  Brepfilledge3dlaw  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+b_rep_fill_edge_on_surf_law.rs  Brepfilledgeonsurflaw  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+b_rep_fill_evolved.rs  Brepfillevolved  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+b_rep_fill_face_and_order.rs  Brepfillfaceandorder  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+b_rep_fill_location_law.rs  Brepfilllocationlaw  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+b_rep_fill_multi_line.rs  Brepfillmultiline  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+b_rep_fill_n_sections.rs  Brepfillnsections  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+b_rep_fill_offset_ancestors.rs  Brepfilloffsetancestors  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+b_rep_fill_offset_wire.rs  Brepfilloffsetwire  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+brep_face.rs  TopoDsFace  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+bsplclib_ext.rs  BSplCLib_BuildCache  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+dnaming.rs  DNaming_NamedShape  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_ext_el_c2d.rs  EXTREMAEXT_EL_C2D  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_ext_el_cs.rs  EXTREMAEXT_EL_CS  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_ext_el_ss.rs  EXTREMAEXT_EL_SS  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_ext_flag.rs  EXTREMAEXT_FLAG  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_ext_p_el_c.rs  EXTREMAEXT_P_EL_C  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_ext_p_el_c2d.rs  EXTREMAEXT_P_EL_C2D  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_ext_p_el_s.rs  EXTREMAEXT_P_EL_S  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_ext_p_ext_s.rs  EXTREMAEXT_P_EXT_S  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_ext_p_rev_s.rs  EXTREMAEXT_P_REV_S  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_ext_pc2d.rs  EXTREMAEXT_PC2D  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_func_ext_cs.rs  EXTREMAFUNC_EXT_CS  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_func_ext_ss.rs  EXTREMAFUNC_EXT_SS  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_func_ps_dist.rs  EXTREMAFUNC_PS_DIST  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_func_ps_norm.rs  EXTREMAFUNC_PS_NORM  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_g_curve_locator.rs  EXTREMAG_CURVE_LOCATOR  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_g_func_ext_cc.rs  EXTREMAG_FUNC_EXT_CC  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_g_func_ext_pc.rs  EXTREMAG_FUNC_EXT_PC  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_g_gen_ext_cc.rs  EXTREMAG_GEN_EXT_CC  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_g_gen_ext_pc.rs  EXTREMAG_GEN_EXT_PC  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_gg_ext_pc.rs  EXTREMAGG_EXT_PC  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+extrema_glob_opt_func_cc.rs  Extrema_GlobOptFuncCCC0  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+geom_adapt_curve.rs  GeomAbs_CurveType  geom_curve_tool.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+geom_api_o.rs  GeomAPI  geom_api.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+geom_bsp_curve.rs  Geom_BSplineCurve  geom_bspline_curve.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+geom_conical_surface.rs  Geom_ConicalSurface  geom.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+geom_cylindrical_surface.rs  Geom_CylindricalSurface  geom.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+geom_planar_surface.rs  Geom_Plane  geom.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+geom_spherical_surface.rs  Geom_SphericalSurface  geom.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+geom_surface_extra.rs  Geom_Plane  geom.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+geom_tools_o.rs  GeomTools  geom_tools.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+geom_toroidal_surface.rs  Geom_ToroidalSurface  geom.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+gp_sphere_torus.rs  gp_Ax3  gp.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+helix_b_rep_builder_helix.rs  Class  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+helix_geom_builder_helix.rs  Class  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+helix_geom_builder_helix_coil.rs  Class  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+helix_geom_helix_curve.rs  Class  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+helix_geom_tools.rs  Class  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_dimen_tool_curve_dimension.rs  IGESDimen_dimentoolcurvedimension  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_dimen_tool_diameter_dimension.rs  IGESDimen_dimentooldiameterdimension  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_dimen_tool_dimension_display_data.rs  IGESDimen_dimentooldimensiondisplaydata  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_dimen_tool_dimension_tolerance.rs  IGESDimen_dimentooldimensiontolerance  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_dimen_tool_dimension_units.rs  IGESDimen_dimentooldimensionunits  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_dimen_tool_dimensioned_geometry.rs  IGESDimen_dimentooldimensionedgeometry  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_dimen_tool_flag_note.rs  IGESDimen_dimentoolflagnote  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_dimen_tool_general_label.rs  IGESDimen_dimentoolgenerallabel  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_dimen_tool_general_note.rs  IGESDimen_dimentoolgeneralnote  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_dimen_tool_general_symbol.rs  IGESDimen_dimentoolgeneralsymbol  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_dimen_tool_leader_arrow.rs  IGESDimen_dimentoolleaderarrow  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_dimen_tool_linear_dimension.rs  IGESDimen_dimentoollineardimension  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_dimen_tool_new_dimensioned_geometry.rs  IGESDimen_dimentoolnewdimensionedgeometry  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_dimen_tool_new_general_note.rs  IGESDimen_dimentoolnewgeneralnote  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_dimen_tool_ordinate_dimension.rs  IGESDimen_dimentoolordinatedimension  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_geom_bounded_surface.rs  IGESGeom_Uboundedsurface  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_geom_circular_arc.rs  IGESGeom_Ucirculararc  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_geom_composite_curve.rs  IGESGeom_Ucompositecurve  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_geom_conic_arc.rs  IGESGeom_Uconicarc  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_geom_copious_data.rs  IGESGeom_Ucopiousdata  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_geom_curve_on_surface.rs  IGESGeom_Ucurveonsurface  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_geom_direction.rs  IGESGeom_Udirection  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_geom_flash.rs  IGESGeom_Uflash  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_geom_trimmed_surface.rs  IGESGeom_Utrimmedsurface  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_graph_definition_level.rs  IGESGraph_Udefinitionlevel  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_graph_drawing_size.rs  IGESGraph_Udrawingsize  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_graph_drawing_units.rs  IGESGraph_Udrawingunits  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_graph_general_module.rs  IGESGraph_Ugeneralmodule  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_graph_high_light.rs  IGESGraph_Uhighlight  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_graph_intercharacter_spacing.rs  IGESGraph_Uintercharacterspacing  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_graph_line_font_def_pattern.rs  IGESGraph_Ulinefontdefpattern  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_graph_line_font_def_template.rs  IGESGraph_Ulinefontdeftemplate  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_graph_line_font_predefined.rs  IGESGraph_Ulinefontpredefined  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+iges_graph_nominal_size.rs  IGESGraph_Unominalsize  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+local_analysis.rs  LocalAnalysis_Curvature  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+material_aspect.rs  Graphic3d_Material  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+math_extrema.rs  math_ExtremaCurveCurve  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+math_utils_functor_scalar.rs  MathUtils_ScalarLambda  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+math_utils_functor_vector.rs  MathUtils_VectorLambda  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+math_utils_gauss.rs  MathUtils_GetGaussPointsAndWeights  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+math_utils_line_search.rs  LineSearchResult  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+model_data.rs  TDataStd_Name  ocaf_framework.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+ncollection_hash.rs  NCollection_Hash  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+primitive_shape.rs  Primitive_Box  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+rect_2d.rs  Bnd_Box2d  bnd_box2d.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+rw_obj_o.rs  RWObj  rw_obj.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+shape_process.rs  ShapeProcess  shapeprocess.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+sketch_ext.rs  Sketcher_Sketch  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+solid_from_shell.rs  BRepClass3d_SolidClassifier  brep_class3d.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+stepcaf_control_controller.rs  Class  ?  spare stub port; class canonical elsewhere; no tests; zero dependents
+tcolgp_array.rs  TColgp_Array1OfPnt  tcolgp.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+topo_edge.rs  TopoDS_Edge  brep_lib.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+topods_vertex.rs  TopoDS_Vertex  topods.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+toptools_list.rs  TopTools_ListOfShape  topo_ds_ext.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+v3d_light_o.rs  V3d_Light  v3d_viewer.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+xcaf_doc_o.rs  XCAFDoc  xcaf_doc.rs  spare stub port; class canonical elsewhere; no tests; zero dependents
+geom2d_adaptor.rs  GeomAbs_CurveType  geom_curve_tool.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom2d_api_inter.rs  Geom2dAPI_InterCurveCurve  geom2d_tools_ext.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom2d_conics.rs  Geom2d_Circle  geom2d.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom2d_offset.rs  Geom2d_OffsetCurve  geom2d_offset_curve.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom2d_proj.rs  Geom2dAPI_ProjectPointOnCurve  geom2d_api_ext.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom3d_proj_surf.rs  GeomAPI_ProjectPointOnSurface  ?  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_abs_curve.rs  GeomAbs_CurveType  geom_curve_tool.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_adapt.rs  GeomAdaptor_Curve  geom_adaptor_curve.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_adapt_surface.rs  BRepAdaptor_Surface  brep_adaptor.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_api_int.rs  GeomAPI_IntCS  geom_curve_intersect2.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_api_project.rs  GeomAPI_ProjectPointOnSurf  geom_api.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_approx_curve.rs  Approx_Curve3d  approx.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_approx_ext.rs  Approx_FitAndDivide  approx_combi.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_array.rs  TColgp_Array1OfPnt  tcolgp.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_array_tools.rs  TColgp_Array1OfPnt  tcolgp.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_axis2.rs  gp_Ax2  gp.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_axis_placement.rs  Geom_Axis1Placement  geom_axis1_placement.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_bound_surface.rs  GeomLProp_SLProps  geom_lprop.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_bsp_surface.rs  Geom_BSplineSurface  geom_bspline_surface.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_catenary.rs  Geom_Curve  geom.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_chamfer.rs  ChFi3d_ChBuilder  chfi3d_fillet.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_circ3d.rs  GC_MakeCircle  gc_make.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_circ_arc_maker.rs  GCE2d_MakeArcOfCircle  gce2d_make.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_constraint.rs  GeomPlate_BuildPlateSurface  geom_plates.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_continuity.rs  GeomAbs_Shape  geom_fill.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_convert_approx.rs  GeomAbs_Shape  geom_fill.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_convert_ext.rs  GeomConvert_CompBezierCurvesToBSplineCurve  ?  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_curve2d_circle.rs  Geom2d_Circle  geom2d.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_curve2d_ellipse.rs  Geom2d_Ellipse  geom2d.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_curve2d_line.rs  Geom2d_Line  geom2d.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_curve_arc.rs  GC_MakeArcOfCircle  gc_make.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_curve_ext.rs  Geom_TrimmedCurve  geom_trimmed_curve.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_curve_offset2d.rs  Geom2d_OffsetCurve  geom2d_offset_curve.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_curve_offset3d.rs  Geom_OffsetCurve  geom_offset_curve.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_curve_on_surface.rs  Pcurve2d  ?  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_curve_subdivide.rs  GeomConvert_BSplineCurveKnotInsertion  ?  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_curve_tools.rs  GeomLib_Tool  geom_lib_tool.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_diff_geom.rs  LProp_SLProps  ?  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_draft.rs  BRepOffsetAPI_DraftAngle  draft_angle.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_ellipse_tool.rs  GC_MakeEllipse  geom_ellipse_maker.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_evolute.rs  Geom_OffsetCurve  geom_offset_curve.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_extrema.rs  GeomAPI_ExtremaCurveCurve  geom_api_ext.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_extrude.rs  BRepPrimAPI_MakePrism  brep_prim_api.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_lcs.rs  TopLoc_Datum3D  top_loc.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_line_surface.rs  Geom_Line  geom.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_local_props.rs  GeomLProp_SLProps  geom_lprop.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_loft.rs  BRepOffsetAPI_ThruSections  geom_loft_surface.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_map_tools.rs  TopTools_IndexedDataMapOfShapeListOfShape  toptools_ext.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_merge.rs  GeomConvert_CompCurveToBSplineCurve  geom_convert.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_mirror.rs  gp_Trsf  gp.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_nurbs_convert.rs  GeomConvert  geom_convert.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_offset_algo.rs  Geom2dOffset_Status  ?  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_offset_surface_builder.rs  Geom_OffsetSurface  geom_offset_surface.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_pipe_surface.rs  GeomFill_Trihedron  geom_fill.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_pnt_proj.rs  GeomAPI_ProjectPointOnCurve  geom_api.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_point2d.rs  gp_Pnt2d  gp2d.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_proj.rs  GeomAPI_ProjectPointOnCurve  geom_api.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_project.rs  GeomAPI_ProjectPointOnSurf  geom_api.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_revol.rs  BRepPrimAPI_MakeRevol  brep_prim_api.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_revolve_tool.rs  BRepPrimAPI_MakeRevol  brep_prim_api.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_segment_intersect.rs  IntAna2d_AnaIntersection  int_ana_2d.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_seq_tools.rs  TColgp_SequenceOfPnt  tcolgp.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_smooth.rs  ShapeSmoothing  ?  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_spl_ext.rs  GeomConvert_BSplineSurfaceToBezierSurface  geom_convert.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_spring.rs  GeomFill_Pipe  geom_fill_pipe.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_spring_curve.rs  Geom_TrimmedCurve  geom_trimmed_curve.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_surf_fill.rs  GeomFill_BSplineCurves  geom_fill.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_surface_approx.rs  GeomApprox_SurFace  ?  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_surface_ext2.rs  Geom_SurfaceOfLinearExtrusion  geom.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_surface_extensions.rs  Geom_RectangularTrimmedSurface  geom_rect_trimmed.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_surface_of_linear_extrusion.rs  Geom_SurfaceOfLinearExtrusion  geom.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_surface_of_revolution.rs  Geom_SurfaceOfRevolution  geom.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_surface_props.rs  GProp_GProps  brep_gprop.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_swept.rs  Geom_SweptSurface  geom_sweep_surface.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_tangent_tools.rs  LProp_CLProps  ?  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_thickness.rs  BRepOffsetAPI_MakeThickSolid  brep_offset.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_torus_tool.rs  gp_Torus  gp_tor.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_tube.rs  BRepPrimAPI_MakeCylinder  brep_prim_api.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_vector2d.rs  gp_Vec2d  gp2d.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geom_wire_builder.rs  BRepBuilderAPI_MakeWire  topo_wire_builder.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+geomapi_ext.rs  GeomAPI_ExtremaCurveCurve  geom_api_ext.rs  spare geom-domain port; class canonical elsewhere; zero dependents
+brep_algo_check.rs  BOPAlgo_CheckStatus  bop_algo.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+brep_check_surface.rs  BRepCheck_Status  brep_check.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+brep_edge_maker.rs  BRepBuilderAPI_MakeEdge  geom_builder.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+brep_extrude.rs  BRepFeat_MakePrism  brep_feat.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+brep_face_maker.rs  BRepBuilderAPI_FaceError  brep_lib.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+brep_fill_ext.rs  BRepFill_Filling  brep_fill.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+brep_fillet.rs  BRepFilletAPI_MakeFillet  geom_fillet_tool.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+brep_make_wire.rs  BRepBuilderAPI_MakeWire  topo_wire_builder.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+brep_pattern.rs  BRepFeat_MakePrism  brep_feat.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+brep_prim_builder.rs  BRepPrimAPI_MakePrism  brep_prim_api.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+brep_prim_ext.rs  BRepPrimAPI_MakeBox  brep_prim_api.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+brep_repair.rs  ShapeFix  shape_fix_o.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+brep_section.rs  BRepAlgoAPI_Section  brep_boolean_ext.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+brep_sewing.rs  BRepBuilderAPI_Sewing  brep_shell_maker.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+brep_solid_tools.rs  BRepBuilderAPI_MakeSolid  brep_solid_maker.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+brep_spline_builder.rs  BRep_Tool  brep_tool.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+brep_sweep.rs  BRepPrimAPI_MakePrism  brep_prim_api.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+brepalgo_bool.rs  BRepAlgoAPI_BooleanOperation  brep_algo_bool.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+gp_ax3_ext.rs  gp_Dir  gp.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+gp_conv.rs  gp_GTrsf  gp.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+gp_matrix.rs  gp_Mat  gp_mat.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+gp_pnt.rs  gp_Pnt  gp.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+poly_polygon.rs  Poly_Polygon3D  polygon_lib.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+topo_map.rs  TopTools_IndexedMapOfShape  topo_shape_iter.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+topo_seq.rs  TopTools_ListOfShape  topo_ds_ext.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+topo_solid.rs  TopoDS_Shell  topods.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+topo_test.rs  BRepCheck  b_rep_check.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+topo_vertex.rs  TopoDS_Vertex  topods.rs  spare topology/gp-domain port; class canonical elsewhere; zero dependents
+iges_control.rs  IGESControl  ?  spare data-exchange port; class canonical elsewhere; zero dependents
+iges_entity.rs  IGESData  iges_data.rs  spare data-exchange port; class canonical elsewhere; zero dependents
+iges_writer.rs  IGESControl_Writer  rw_iges.rs  spare data-exchange port; class canonical elsewhere; zero dependents
+rw_step_ext.rs  STEPControl_Reader  rw_step.rs  spare data-exchange port; class canonical elsewhere; zero dependents
+step_control.rs  STEPControl_StepModelType  rw_step.rs  spare data-exchange port; class canonical elsewhere; zero dependents
+step_writer.rs  IFSelect_ReturnStatus  rw_step.rs  spare data-exchange port; class canonical elsewhere; zero dependents
+adapt_curve.rs  Adaptor3d_Curve  adaptor3d.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+adapt_hcurve.rs  Adaptor3d_HCurve  ?  spare viz/math/misc port; class canonical elsewhere; zero dependents
+adapt_surf.rs  Adaptor3d_Surface  adaptor3d.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+ais_context.rs  AIS_DisplayMode  ais.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+ais_dim_angle.rs  PrsDim_AngleDimension  prs3d_dimension.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+ais_dim_length.rs  PrsDim_LengthDimension  prs3d_dimension.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+ais_group.rs  AIS_Group  ?  spare viz/math/misc port; class canonical elsewhere; zero dependents
+ais_interactive.rs  AIS_InteractiveObject  ais.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+ais_local.rs  AIS_Selection  ais_selection.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+approx_curv.rs  Approx_Curve2d  approx_combi.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+aspect_line.rs  Aspect_TypeOfLine  prs3d.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+bnd_obb_ext.rs  Bnd_OBB  bnd_obb.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+bnd_tools.rs  Bnd_Box  mesh.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+bvh_ext.rs  BVH_Tree  bvh_tree.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+caf_document.rs  TDocStd_Document  ocaf_framework.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+cdf_app.rs  CDF_Document  ?  spare viz/math/misc port; class canonical elsewhere; zero dependents
+chfi3d.rs  ChFi3d_Builder  chfi3d_fillet.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+chord_dev.rs  GCPnts_AbscissaPoint  geom_curve_length.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+conv_surface.rs  Convert_BSplineSurface  ?  spare viz/math/misc port; class canonical elsewhere; zero dependents
+convert_curve.rs  Convert_ConicToBSplineCurve  convert_hypr_to_bspline.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+de_config.rs  DE_ConfigurationNode  de_wrapper.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+de_format_ext.rs  DE_Format  ?  spare viz/math/misc port; class canonical elsewhere; zero dependents
+de_rw_step.rs  DE_Wrapper  de_wrapper.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+de_shape.rs  TopAbs_ShapeEnum  topo_exp.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+de_step_cfg.rs  DE_StepConfiguration  ?  spare viz/math/misc port; class canonical elsewhere; zero dependents
+extrema_.rs  Extrema_ExtCC  extrema.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+extrema_curve.rs  Extrema_ExtCC  extrema.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+extrema_points.rs  Extrema_POnSurf  extrema.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+filleto_lib.rs  BRepFilletAPI_MakeFillet  geom_fillet_tool.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+font_mgr.rs  Font_FontAspect  prs3d_text_prop.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+gcpnts.rs  GCPnts_AbscissaPoint  geom_curve_length.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+graphic3d_mat.rs  Graphic3d_NameOfMaterial  v3d_material.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+graphic3d_present.rs  Graphic3d_Camera  graphic3d_camera.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+image_pixel.rs  Image_PixMap  image_pixmap.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+inspect_tool.rs  BRep_Tool  brep_tool.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+law_s_interpolate.rs  Law_S  law_linear.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+ldom.rs  LDom_Document  ?  spare viz/math/misc port; class canonical elsewhere; zero dependents
+loc_ops.rs  TopLoc_Datum3D  top_loc.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+math_complex.rs  math_ComplexNumber  ?  spare viz/math/misc port; class canonical elsewhere; zero dependents
+math_optimization.rs  math_GlobOptMin  math_pso.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+math_poly_roots.rs  math_DirectPolynomialRoots  math_cubic_roots.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+math_prog.rs  math_BFGS  math_bfgs.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+message_progress.rs  Message_ProgressRange  message.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+msg_format.rs  Message_Formatter  ?  spare viz/math/misc port; class canonical elsewhere; zero dependents
+ocaf_transaction.rs  TDocStd_Application  tdoc_std.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+occt_collect.rs  NCollection_Array1  ncollection.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+ppoly.rs  PPoly_Polygon3D  ?  spare viz/math/misc port; class canonical elsewhere; zero dependents
+prs3d_scene.rs  PrsMgr_PresentationManager  prs_mgr.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+prs3d_shading.rs  Prs3d_ShadingAspect  prs3d.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+prs_dim.rs  PrsDim_AngleDimension  prs3d_dimension.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+quantity_ext.rs  Quantity_Length  ?  spare viz/math/misc port; class canonical elsewhere; zero dependents
+render_raytracing.rs  Graphic3d_TypeOfShadingModel  prs3d_line.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+select3d_owner.rs  SelectBasics_EntityOwner  ?  spare viz/math/misc port; class canonical elsewhere; zero dependents
+shape_extend.rs  ShapeExtend_Status  shape_upgrade.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+stl_mesh.rs  StlMesh_TriangleFace  ?  spare viz/math/misc port; class canonical elsewhere; zero dependents
+toptools_map.rs  TopTools_MapOfShape  topo_shape_iter.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+trsf_ext.rs  gp_GTrsf  gp.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+v3d_view_ext.rs  V3d_View  v3d_window.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+vrml_data.rs  VrmlData_Material  vrml_scene.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+wire_exp.rs  BRepTools_WireExplorer  brep_tools.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+xcaf_color.rs  XCAFDoc_ColorType  xde_doc.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+xcaf_doc_ext.rs  XCAFDoc_DocumentTool  xde_doc.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+xcaf_kinematic.rs  XCAFKinematics_PairObject  ?  spare viz/math/misc port; class canonical elsewhere; zero dependents
+xcaf_layer.rs  XCAFDoc_LayerTool  xde_doc.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+xcaf_properties.rs  XCAFPrs_Style  xcaf_vis.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+xcaf_shape.rs  XCAFDoc_ShapeTool  xde_doc.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents
+xml_driver.rs  XmlMDF_ADriver  xml_ocaf.rs  spare viz/math/misc port; class canonical elsewhere; zero dependents

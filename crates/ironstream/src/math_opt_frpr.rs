@@ -7,7 +7,7 @@
 
 use std::f64;
 
-// occt: MathUtils::Status
+// occt-note: MathUtils::Status
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Status {
     OK,
@@ -17,7 +17,7 @@ pub enum Status {
     InvalidInput,
 }
 
-// occt: ConjugateGradientFormula
+// occt-ref: ConjugateGradientFormula
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum ConjugateGradientFormula {
     FletcherReeves,
@@ -26,7 +26,7 @@ pub enum ConjugateGradientFormula {
     DaiYuan,
 }
 
-// occt: FRPRConfig
+// occt-ref: FRPRConfig
 #[derive(Clone, Debug)]
 pub struct FRPRConfig {
     pub formula: ConjugateGradientFormula,
@@ -50,7 +50,7 @@ impl Default for FRPRConfig {
     }
 }
 
-// occt: VectorResult
+// occt-ref: VectorResult
 #[derive(Clone, Debug)]
 pub struct VectorResult {
     pub status: Status,
@@ -107,7 +107,7 @@ fn armijo_backtrack<F: Fn(&[f64]) -> Option<f64>>(
 }
 
 // occt: MathOpt_FRPR
-// occt: FRPR
+// occt-ref: FRPR
 /// Fletcher-Reeves-Polak-Ribieri conjugate gradient method.
 ///
 /// Template function for general function types with Value and Gradient methods.
@@ -149,7 +149,7 @@ where
 // A simpler approach: since we can't easily capture mutable closures for both value/gradient,
 // we'll provide a struct-based interface instead
 
-// occt: FRPR with trait-based approach
+// occt-note: FRPR with trait-based approach
 pub trait ObjectiveFunction {
     fn value(&self, x: &[f64]) -> Option<f64>;
     fn gradient(&self, x: &[f64], grad: &mut [f64]) -> bool;

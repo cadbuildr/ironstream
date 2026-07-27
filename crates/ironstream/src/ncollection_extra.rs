@@ -1,11 +1,11 @@
 // FILE: ncollection_extra.rs
-// occt: NCollection_Sequence, NCollection_Array2, NCollection_Map,
+// occt: NCollection_Sequence, NCollection_Array2, NCollection_Map
 //       NCollection_IndexedDataMap, NCollection_SparseArray,
 //       NCollection_UBTree, NCollection_StlIterator
 
 use std::collections::HashMap;
 
-// occt: NCollection_Sequence (indexed random-access list)
+// occt: NCollection_Sequence // (indexed random-access list)
 #[derive(Clone, Debug, Default)]
 pub struct NcSequence<T> {
     pub items: Vec<T>,
@@ -53,7 +53,7 @@ impl<T: Clone> NcSequence<T> {
     }
 }
 
-// occt: NCollection_Array2 (2D dense array)
+// occt: NCollection_Array2 // (2D dense array)
 #[derive(Clone, Debug)]
 pub struct NcArray2<T> {
     pub lower_row: i32,
@@ -103,7 +103,7 @@ impl<T: Clone + Default> NcArray2<T> {
     pub fn size(&self) -> usize { self.data.len() }
 }
 
-// occt: NCollection_Map (unordered set)
+// occt: NCollection_Map // (unordered set)
 #[derive(Clone, Debug, Default)]
 pub struct NcMap<K: std::hash::Hash + Eq + Clone> {
     pub inner: std::collections::HashSet<K>,
@@ -132,7 +132,7 @@ impl<K: std::hash::Hash + Eq + Clone> NcMap<K> {
     }
 }
 
-// occt: NCollection_IndexedDataMap (key → value, with integer index access)
+// occt: NCollection_IndexedDataMap // (key → value, with integer index access)
 #[derive(Clone, Debug, Default)]
 pub struct NcIndexedDataMap<K, V> {
     keys: Vec<K>,
@@ -188,7 +188,7 @@ impl<K: Clone + std::fmt::Debug + std::hash::Hash + Eq + ToString, V: Clone> NcI
     }
 }
 
-// occt: NCollection_SparseArray (sparse indexed array)
+// occt: NCollection_SparseArray // (sparse indexed array)
 #[derive(Clone, Debug, Default)]
 pub struct NcSparseArray<T> {
     pub data: HashMap<u64, T>,
@@ -210,7 +210,7 @@ impl<T: Clone> NcSparseArray<T> {
     pub fn max_index(&self) -> Option<u64> { self.data.keys().copied().max() }
 }
 
-// occt: NCollection_UBTree (Unbalanced Binary Tree for bounding boxes)
+// occt: NCollection_UBTree // (Unbalanced Binary Tree for bounding boxes)
 #[derive(Clone, Debug)]
 pub struct UBTreeNode {
     pub id: u32,

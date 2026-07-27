@@ -1,9 +1,9 @@
 // FILE: v3d_render_params.rs
-// occt: Graphic3d_RenderingParams, Graphic3d_ToneMappingMethod,
+// occt-ref: Graphic3d_RenderingParams, Graphic3d_ToneMappingMethod
 //       Graphic3d_StereoMode, Graphic3d_AntiAliasingMode
 
 /// Tone-mapping method for HDR rendering.
-/// occt: Graphic3d_ToneMappingMethod
+// occt-ref: Graphic3d_ToneMappingMethod
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum ToneMappingMethod {
     #[default]
@@ -27,7 +27,7 @@ pub enum StereoMode {
 }
 
 /// Anti-aliasing method.
-/// occt: Graphic3d_AntiAliasingMode
+// occt-ref: Graphic3d_AntiAliasingMode
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum AntiAliasingMode {
     #[default]
@@ -71,7 +71,7 @@ impl ShadowQuality {
 }
 
 /// Ambient occlusion parameters.
-/// occt: Graphic3d_RenderingParams::SsaoParams
+// occt-ref: Graphic3d_RenderingParams // ::SsaoParams
 #[derive(Clone, Debug, PartialEq)]
 pub struct SsaoParams {
     pub is_enabled: bool,
@@ -91,7 +91,7 @@ impl SsaoParams {
 }
 
 /// Full rendering parameter set.
-/// occt: Graphic3d_RenderingParams
+// occt-ref: Graphic3d_RenderingParams
 #[derive(Clone, Debug)]
 pub struct Graphic3dRenderingParams {
     pub method: u32,                 // 0 = rasterization, 1 = ray tracing

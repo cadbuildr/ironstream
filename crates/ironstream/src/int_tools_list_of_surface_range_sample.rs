@@ -1,5 +1,6 @@
 // FILE: int_tools_list_of_surface_range_sample.rs
-// occt: IntTools_ListOfSurfaceRangeSample, IntTools_ListIteratorOfListOfSurfaceRangeSample
+// occt: IntTools_ListOfSurfaceRangeSample
+// occt-ref: IntTools_ListIteratorOfListOfSurfaceRangeSample
 
 /// Deprecated alias for NCollection_List<IntTools_SurfaceRangeSample>.
 /// Maintains backward compatibility. Use Vec or collections directly in new code.

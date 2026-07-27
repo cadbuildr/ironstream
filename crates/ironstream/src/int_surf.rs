@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/int_surf.rs
 
-// occt: IntSurf_PntOn2S — point on two surfaces
+// occt: IntSurf_PntOn2S // — point on two surfaces
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct IntSurfPntOn2S {
     pub pt: [f64; 3],
@@ -39,7 +39,7 @@ impl IntSurfPntOn2S {
     }
 }
 
-// occt: IntSurf_Transition — topology transition type
+// occt: IntSurf_Transition // — topology transition type
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum IntSurfTransition {
     Unknown,
@@ -63,7 +63,7 @@ impl IntSurfTransition {
     }
 }
 
-// occt: IntSurf_LineOn2S — ordered list of IntSurf_PntOn2S
+// occt: IntSurf_LineOn2S // — ordered list of IntSurf_PntOn2S
 pub struct IntSurfLineOn2S {
     points: Vec<IntSurfPntOn2S>,
 }

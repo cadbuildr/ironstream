@@ -265,7 +265,7 @@ fn normalize3p(v: [f64; 3]) -> [f64; 3] {
     if n == 0.0 { v } else { scale3p(v, 1.0 / n) }
 }
 
-// occt: gp_Pln
+// occt-ref: gp_Pln
 /// An infinite plane in 3D space defined by an origin point and a unit normal.
 ///
 /// Mirrors `gp_Pln` from OpenCascade Technology.
@@ -281,7 +281,7 @@ impl Pln {
     /// Construct a new plane. `normal` is normalised internally.
     ///
     /// Mirrors `gp_Pln(const gp_Pnt&, const gp_Dir&)`.
-    // occt: gp_Pln
+    // occt-ref: gp_Pln
     pub fn new(origin: [f64; 3], normal: [f64; 3]) -> Self {
         Self {
             origin,

@@ -18,7 +18,7 @@
 /// Classifies how a boundary curve participates in the surface fill.
 ///
 /// Mirrors `GeomFill_BoundaryType`.
-// occt: GeomFill_BoundaryType
+// occt-ref: GeomFill_BoundaryType
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum GeomFillBoundaryType {
     /// `GeomFill_CornerOrder` — the boundary curve meets adjacent boundaries
@@ -97,7 +97,7 @@ impl GeomFillBoundary {
 /// A fill surface assembled from one or more [`GeomFillBoundary`] curves.
 ///
 /// Mirrors `GeomFill_BSplineCurves`.
-// occt: GeomFill_BSplineCurves
+// occt-ref: GeomFill_BSplineCurves
 #[derive(Clone, Debug)]
 pub struct GeomFillSurface {
     boundaries: Vec<GeomFillBoundary>,

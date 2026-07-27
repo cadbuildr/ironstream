@@ -1,5 +1,5 @@
 // FILE: xcaf_mesh.rs
-// occt: XCAFDoc_VisMaterial, XCAFDoc_VisMaterialPBR, XCAFPrs_DocumentNode,
+// occt: XCAFDoc_VisMaterial, XCAFDoc_VisMaterialPBR, XCAFPrs_DocumentNode
 //       XCAFPrs_DocumentExplorer, RWMesh_MaterialMap
 
 /// PBR material parameters.
@@ -96,7 +96,7 @@ impl DocumentNode {
     pub fn has_material(&self) -> bool { self.material.is_some() }
 }
 
-// occt: XCAFPrs_DocumentExplorer
+// occt-ref: XCAFPrs_DocumentExplorer
 #[derive(Clone, Debug, Default)]
 pub struct DocumentExplorer {
     pub nodes: Vec<DocumentNode>,

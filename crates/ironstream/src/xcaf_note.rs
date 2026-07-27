@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/xcaf_note.rs
 
-// occt: XCAFNotes_Note type — enum Text, Balloon, Comment
+// occt-note: XCAFNotes_Note type — enum Text, Balloon, Comment
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum XcafNoteType {
     /// Plain text note
@@ -11,7 +11,7 @@ pub enum XcafNoteType {
     Comment,
 }
 
-// occt: XCAFNotes_Note — a single annotation entry with identity, content and provenance
+// occt-note: XCAFNotes_Note — a single annotation entry with identity, content and provenance
 #[derive(Clone, Debug)]
 pub struct XcafNote {
     id: usize,
@@ -76,7 +76,7 @@ impl XcafNote {
     }
 }
 
-// occt: XCAFDoc_NotesTool — manages a collection of notes and their associations to shapes
+// occt: XCAFDoc_NotesTool // — manages a collection of notes and their associations to shapes
 pub struct XcafNotesTool {
     notes: Vec<XcafNote>,
     next_id: usize,

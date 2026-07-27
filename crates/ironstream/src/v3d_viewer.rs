@@ -1,6 +1,6 @@
 // FILE: src/v3d_viewer.rs
 
-// occt: Aspect_Background — viewer background
+// occt-ref: Aspect_Background // — viewer background
 #[derive(Clone, Debug)]
 pub struct V3dBackground {
     color: [f32; 3],
@@ -45,7 +45,7 @@ impl V3dBackground {
     }
 }
 
-// occt: V3d_TypeOfLight — light source kind
+// occt-note: V3d_TypeOfLight — light source kind
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum V3dLightType {
     Ambient,
@@ -54,7 +54,7 @@ pub enum V3dLightType {
     Spot,
 }
 
-// occt: V3d_Light stub
+// occt: V3d_Light // stub
 #[derive(Clone, Debug)]
 pub struct V3dLight {
     pub light_type: V3dLightType,
@@ -118,7 +118,7 @@ impl V3dLight {
     }
 }
 
-// occt: V3d_Viewer stub
+// occt: V3d_Viewer // stub
 pub struct V3dViewer {
     background: V3dBackground,
     lights: Vec<V3dLight>,
@@ -162,7 +162,7 @@ impl V3dViewer {
         &self.lights[i]
     }
 
-    /// occt: V3d_Viewer::SetDefaultLights — one ambient + one directional white light
+    /// occt: V3d_Viewer // ::SetDefaultLights — one ambient + one directional white light
     pub fn set_default_lights(&mut self) {
         self.lights.clear();
         self.lights

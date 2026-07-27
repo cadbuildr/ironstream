@@ -31,13 +31,13 @@
 /// ```
 #[derive(Debug, Clone)]
 pub struct Sewing {
-    // occt: BRepBuilderAPI_Sewing::SetTolerance / GetTolerance
+    // occt: BRepBuilderAPI_Sewing // ::SetTolerance / GetTolerance
     /// Sewing tolerance used to identify coincident edges.
     pub tolerance: f64,
-    // occt: BRepBuilderAPI_Sewing::Add — accumulated input shape labels
+    // occt: BRepBuilderAPI_Sewing // ::Add — accumulated input shape labels
     /// Labels of the shapes that have been added via [`Sewing::add`].
     pub shapes: Vec<String>,
-    // occt: BRepBuilderAPI_Sewing — free (boundary) edge labels after Perform
+    // occt: BRepBuilderAPI_Sewing // — free (boundary) edge labels after Perform
     /// Labels of free (unmatched) edges discovered during [`Sewing::perform`].
     pub free_edges: Vec<String>,
 
@@ -52,7 +52,7 @@ pub struct Sewing {
 }
 
 impl Sewing {
-    // occt: BRepBuilderAPI_Sewing(Standard_Real tolerance, ...)
+    // occt-note: BRepBuilderAPI_Sewing(Standard_Real tolerance, ...)
     /// Create a new `Sewing` builder with the given tolerance.
     ///
     /// Mirrors `BRepBuilderAPI_Sewing(Standard_Real tolerance, ...)`.
@@ -68,7 +68,7 @@ impl Sewing {
         }
     }
 
-    // occt: BRepBuilderAPI_Sewing::Add(const TopoDS_Shape& aShape)
+    // occt: BRepBuilderAPI_Sewing // ::Add(const TopoDS_Shape& aShape)
     /// Add a shape (face or shell label) to be sewn.
     ///
     /// Mirrors `BRepBuilderAPI_Sewing::Add(const TopoDS_Shape&)`.
@@ -78,7 +78,7 @@ impl Sewing {
         }
     }
 
-    // occt: BRepBuilderAPI_Sewing::Perform(const Message_ProgressRange&)
+    // occt: BRepBuilderAPI_Sewing // ::Perform(const Message_ProgressRange&)
     /// Execute the sewing operation.
     ///
     /// Populates [`Sewing::free_edges`], [`Sewing::sewed_shape`] and the
@@ -128,7 +128,7 @@ impl Sewing {
             .collect();
     }
 
-    // occt: BRepBuilderAPI_Sewing::SewedShape() -> const TopoDS_Shape&
+    // occt: BRepBuilderAPI_Sewing // ::SewedShape() -> const TopoDS_Shape&
     /// Return the sewn shape label.
     ///
     /// Returns an empty string when [`Sewing::perform`] has not been called or
@@ -139,7 +139,7 @@ impl Sewing {
         self.sewed_shape.clone()
     }
 
-    // occt: BRepBuilderAPI_Sewing::NbFreeEdges() -> Standard_Integer
+    // occt: BRepBuilderAPI_Sewing // ::NbFreeEdges() -> Standard_Integer
     /// Return the number of free (boundary) edges found during sewing.
     ///
     /// Mirrors `BRepBuilderAPI_Sewing::NbFreeEdges()`.
@@ -147,7 +147,7 @@ impl Sewing {
         self.free_edges.len()
     }
 
-    // occt: BRepBuilderAPI_Sewing::NbDeletedFaces() -> Standard_Integer
+    // occt: BRepBuilderAPI_Sewing // ::NbDeletedFaces() -> Standard_Integer
     /// Return the number of faces that were deleted (merged as duplicates).
     ///
     /// Mirrors `BRepBuilderAPI_Sewing::NbDeletedFaces()`.
@@ -155,7 +155,7 @@ impl Sewing {
         self.nb_deleted_faces
     }
 
-    // occt: BRepBuilderAPI_Sewing::IsModified(const TopoDS_Shape&) -> Standard_Boolean
+    // occt: BRepBuilderAPI_Sewing // ::IsModified(const TopoDS_Shape&) -> Standard_Boolean
     /// Return `true` when `shape` was topologically modified during sewing.
     ///
     /// Mirrors `BRepBuilderAPI_Sewing::IsModified(const TopoDS_Shape&)`.
@@ -186,16 +186,16 @@ impl Sewing {
 /// ```
 #[derive(Debug, Clone)]
 pub struct ShellMaker {
-    // occt: BRepBuilderAPI_MakeShell — underlying Geom_Surface handle (stub: label)
+    // occt: BRepBuilderAPI_MakeShell // — underlying Geom_Surface handle (stub: label)
     /// Label of the underlying surface.
     pub surface: String,
-    // occt: BRepBuilderAPI_MakeShell::IsDone
+    // occt: BRepBuilderAPI_MakeShell // ::IsDone
     /// Whether shell construction succeeded.
     pub done: bool,
 }
 
 impl ShellMaker {
-    // occt: BRepBuilderAPI_MakeShell(const Handle(Geom_Surface)& S, Standard_Boolean Segment)
+    // occt-note: BRepBuilderAPI_MakeShell(const Handle(Geom_Surface)& S, Standard_Boolean Segment)
     /// Construct a shell from a surface label.
     ///
     /// Succeeds for any non-empty surface label.  Mirrors
@@ -208,7 +208,7 @@ impl ShellMaker {
         }
     }
 
-    // occt: BRepBuilderAPI_MakeShell::Shell() -> const TopoDS_Shell&
+    // occt: BRepBuilderAPI_MakeShell // ::Shell() -> const TopoDS_Shell&
     /// Return the shell label.
     ///
     /// Returns an empty string when construction did not succeed.
@@ -222,7 +222,7 @@ impl ShellMaker {
         }
     }
 
-    // occt: BRepBuilderAPI_MakeShell::IsDone() -> Standard_Boolean
+    // occt: BRepBuilderAPI_MakeShell // ::IsDone() -> Standard_Boolean
     /// Return `true` when the shell was successfully constructed.
     ///
     /// Mirrors `BRepBuilderAPI_MakeShell::IsDone()`.

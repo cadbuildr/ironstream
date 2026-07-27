@@ -1,5 +1,6 @@
 // FILE: ais_manipulator.rs
-// occt: AIS_Manipulator, AIS_ManipulatorMode, AIS_ManipulatorObjectSequence
+// occt: AIS_Manipulator, AIS_ManipulatorMode
+// occt-ref: AIS_ManipulatorObjectSequence
 
 /// Manipulation mode for the 3D manipulator widget.
 /// occt: AIS_ManipulatorMode
@@ -25,7 +26,7 @@ pub enum AisManipulatorAxis {
 }
 
 /// A part of the manipulator (one axis + one mode).
-/// occt: AIS_Manipulator::AxisPart
+/// occt: AIS_Manipulator // ::AxisPart
 #[derive(Clone, Copy, Debug)]
 pub struct AisManipulatorPart {
     pub axis: AisManipulatorAxis,

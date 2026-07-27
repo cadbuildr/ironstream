@@ -1,9 +1,9 @@
 // FILE: stdselect_shape.rs
-// occt: StdSelect_BRepOwner, StdSelect_ShapeTypeFilter, StdSelect_EdgeFilter,
+// occt: StdSelect_BRepOwner, StdSelect_ShapeTypeFilter, StdSelect_EdgeFilter
 //       StdSelect_FaceFilter
 
 /// Type of shape used for filtering.
-/// occt: TopAbs_ShapeEnum subset used in StdSelect filters
+// occt-ref: TopAbs_ShapeEnum // subset used in StdSelect filters
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum StdSelectShapeType {
     #[default]
@@ -94,7 +94,7 @@ impl StdSelectFaceFilter {
 }
 
 /// Pool of owners for selection presentation management.
-/// occt: StdSelect_IndexedDataMapOfShapePresentation (simplified)
+/// occt-note: StdSelect_IndexedDataMapOfShapePresentation (simplified)
 #[derive(Clone, Debug, Default)]
 pub struct StdSelectOwnerPool {
     pub owners: Vec<StdSelectBRepOwner>,

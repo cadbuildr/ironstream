@@ -13,7 +13,7 @@ pub enum Status {
 }
 
 // Result structure for 4D Newton solver
-// occt: NewtonResultN<4>
+// occt-note: NewtonResultN<4>
 #[derive(Debug, Clone)]
 pub struct NewtonResult4D {
     pub status: Status,
@@ -46,7 +46,7 @@ impl Default for NewtonResult4D {
 }
 
 // Bounds structure for 4D
-// occt: NewtonBoundsN<4>
+// occt-note: NewtonBoundsN<4>
 #[derive(Debug, Clone)]
 pub struct NewtonBounds4D {
     pub min: [f64; 4],
@@ -162,7 +162,7 @@ fn clamp_4d(x: &mut [f64; 4], bounds: &NewtonBounds4D, use_soft_bounds: bool, so
 }
 
 // Solve 4x4 linear system using Gaussian elimination with partial pivoting
-// occt: Solve4x4
+// occt-ref: Solve4x4
 fn solve_4x4(j: &[[f64; 4]; 4], f: &[f64; 4], delta: &mut [f64; 4]) -> bool {
     // Augmented matrix [J | -F]
     let mut a = [[0.0; 5]; 4];
@@ -222,7 +222,7 @@ fn solve_4x4(j: &[[f64; 4]; 4], f: &[f64; 4], delta: &mut [f64; 4]) -> bool {
 }
 
 // Main solver function
-// occt: Solve4D
+// occt-ref: Solve4D
 pub fn solve_4d<F: Fn(f64, f64, f64, f64, &mut [f64; 4], &mut [[f64; 4]; 4]) -> bool>(
     func: &F,
     x0: [f64; 4],

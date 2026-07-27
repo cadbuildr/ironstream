@@ -234,7 +234,7 @@ impl UnaryExpression {
 }
 
 /// Hyperbolic sine function: sinh(x).
-/// occt: Expr_Sinh (unary expression)
+/// occt: Expr_Sinh // (unary expression)
 #[derive(Clone, Debug)]
 pub struct Sinh {
     base: UnaryExpression,

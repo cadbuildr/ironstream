@@ -97,7 +97,7 @@ impl OsdPath {
 }
 
 /// Directory entry.
-/// occt: OSD_Directory / OSD_DirectoryIterator (stub)
+/// occt: OSD_Directory // / OSD_DirectoryIterator (stub)
 #[derive(Clone, Debug)]
 pub struct OsdDirectory {
     pub path: String,

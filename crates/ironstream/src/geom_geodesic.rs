@@ -1,5 +1,5 @@
 // FILE: geom_geodesic.rs
-// occt: GeomFill_GuideSectionGenerator, GeomFill_CorrectedFrenet, geodesic utilities
+// occt-note: GeomFill_GuideSectionGenerator, GeomFill_CorrectedFrenet, geodesic utilities
 
 use std::f64::consts::PI;
 
@@ -66,7 +66,7 @@ impl Default for CorrectedFrenet {
     fn default() -> Self { Self::new() }
 }
 
-// occt: GeomFill_GuideSectionGenerator
+// occt-ref: GeomFill_GuideSectionGenerator
 /// Generates cross-section frames for a sweep guided by a guide curve.
 #[derive(Clone, Debug)]
 pub struct GuideSectionGenerator {

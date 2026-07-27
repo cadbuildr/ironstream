@@ -1,11 +1,11 @@
 // FILE: v3d_camera.rs
-// occt: V3d_Camera, Graphic3d_Camera, Graphic3d_CameraFilter,
+// occt-ref: V3d_Camera, Graphic3d_Camera, Graphic3d_CameraFilter
 //       V3d_Trihedron, V3d_AmbientLight, V3d_DirectionalLight
 
 use std::f64::consts::PI;
 
 /// Camera projection type.
-/// occt: Graphic3d_Camera::Projection
+// occt-ref: Graphic3d_Camera // ::Projection
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum CameraProjection {
     Orthographic,
@@ -32,7 +32,7 @@ impl Default for CameraFocusType {
 }
 
 /// A 3D camera with frustum and transform.
-/// occt: V3d_Camera / Graphic3d_Camera
+/// occt-note: V3d_Camera / Graphic3d_Camera
 #[derive(Clone, Debug)]
 pub struct V3dCamera {
     pub camera_id: u32,
@@ -151,7 +151,7 @@ impl V3dCamera {
 }
 
 /// Light type.
-/// occt: V3d_TypeOfLight
+// occt-ref: V3d_TypeOfLight
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum LightType {
     Ambient,
@@ -165,7 +165,7 @@ impl Default for LightType {
 }
 
 /// A light source.
-/// occt: V3d_AmbientLight / V3d_DirectionalLight / Graphic3d_CLight
+/// occt: V3d_AmbientLight // / V3d_DirectionalLight / Graphic3d_CLight
 #[derive(Clone, Debug)]
 pub struct V3dLight {
     pub light_id: u32,

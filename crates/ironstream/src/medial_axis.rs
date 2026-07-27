@@ -13,7 +13,7 @@ impl Default for MatArcType {
     fn default() -> Self { Self::BisectorCurve }
 }
 
-// occt: MAT_BasicElt — a primitive geometric element (edge or vertex) in MAT
+// occt: MAT_BasicElt // — a primitive geometric element (edge or vertex) in MAT
 #[derive(Clone, Debug)]
 pub struct MatBasicElt {
     pub index: u32,
@@ -30,7 +30,7 @@ impl MatBasicElt {
     pub fn geom_id(&self) -> u32 { self.geom_id }
 }
 
-// occt: MAT_Arc — an arc in the medial-axis graph
+// occt: MAT_Arc // — an arc in the medial-axis graph
 #[derive(Clone, Debug)]
 pub struct MatArc {
     pub index: u32,
@@ -63,7 +63,7 @@ impl MatArc {
     pub fn second_param(&self) -> f64 { self.second_param }
 }
 
-// occt: MAT_Bisector — a bisector arc with distance information
+// occt: MAT_Bisector // — a bisector arc with distance information
 #[derive(Clone, Debug)]
 pub struct MatBisector {
     pub index: u32,
@@ -103,7 +103,7 @@ impl MatBisector {
     }
 }
 
-// occt: MAT_Graph — medial-axis graph
+// occt: MAT_Graph // — medial-axis graph
 #[derive(Clone, Debug, Default)]
 pub struct MatGraph {
     pub elts: Vec<MatBasicElt>,

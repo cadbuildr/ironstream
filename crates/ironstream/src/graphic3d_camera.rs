@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/graphic3d_camera.rs
 
-// occt: Graphic3d_Camera::Projection
+// occt: Graphic3d_Camera // ::Projection
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Graphic3dProjectionType {
     Orthographic,
@@ -23,7 +23,7 @@ pub struct Graphic3dCamera {
 }
 
 impl Graphic3dCamera {
-    /// occt: Graphic3d_Camera::Graphic3d_Camera — default constructor
+    /// occt: Graphic3d_Camera // ::Graphic3d_Camera — default constructor
     pub fn new() -> Self {
         Self {
             eye: [0.0, 0.0, 1.0],
@@ -39,97 +39,97 @@ impl Graphic3dCamera {
 
     // --- eye / center / up ---
 
-    /// occt: Graphic3d_Camera::SetEye
+    /// occt: Graphic3d_Camera // ::SetEye
     pub fn set_eye(&mut self, pos: [f64; 3]) {
         self.eye = pos;
     }
 
-    /// occt: Graphic3d_Camera::Eye
+    /// occt: Graphic3d_Camera // ::Eye
     pub fn eye(&self) -> [f64; 3] {
         self.eye
     }
 
-    /// occt: Graphic3d_Camera::SetCenter
+    /// occt: Graphic3d_Camera // ::SetCenter
     pub fn set_center(&mut self, c: [f64; 3]) {
         self.center = c;
     }
 
-    /// occt: Graphic3d_Camera::Center
+    /// occt: Graphic3d_Camera // ::Center
     pub fn center(&self) -> [f64; 3] {
         self.center
     }
 
-    /// occt: Graphic3d_Camera::SetUp
+    /// occt: Graphic3d_Camera // ::SetUp
     pub fn set_up(&mut self, u: [f64; 3]) {
         self.up = u;
     }
 
-    /// occt: Graphic3d_Camera::Up
+    /// occt: Graphic3d_Camera // ::Up
     pub fn up(&self) -> [f64; 3] {
         self.up
     }
 
     // --- FOV ---
 
-    /// occt: Graphic3d_Camera::SetFOVy
+    /// occt: Graphic3d_Camera // ::SetFOVy
     pub fn set_fov_y(&mut self, f: f64) {
         self.fov_y = f;
     }
 
-    /// occt: Graphic3d_Camera::FOVy
+    /// occt: Graphic3d_Camera // ::FOVy
     pub fn fov_y(&self) -> f64 {
         self.fov_y
     }
 
     // --- clipping planes ---
 
-    /// occt: Graphic3d_Camera::SetZNear
+    /// occt: Graphic3d_Camera // ::SetZNear
     pub fn set_z_near(&mut self, v: f64) {
         self.z_near = v;
     }
 
-    /// occt: Graphic3d_Camera::ZNear
+    /// occt: Graphic3d_Camera // ::ZNear
     pub fn z_near(&self) -> f64 {
         self.z_near
     }
 
-    /// occt: Graphic3d_Camera::SetZFar
+    /// occt: Graphic3d_Camera // ::SetZFar
     pub fn set_z_far(&mut self, v: f64) {
         self.z_far = v;
     }
 
-    /// occt: Graphic3d_Camera::ZFar
+    /// occt: Graphic3d_Camera // ::ZFar
     pub fn z_far(&self) -> f64 {
         self.z_far
     }
 
     // --- projection ---
 
-    /// occt: Graphic3d_Camera::SetProjectionType
+    /// occt: Graphic3d_Camera // ::SetProjectionType
     pub fn set_projection(&mut self, p: Graphic3dProjectionType) {
         self.projection = p;
     }
 
-    /// occt: Graphic3d_Camera::GetProjectionType
+    /// occt: Graphic3d_Camera // ::GetProjectionType
     pub fn projection(&self) -> Graphic3dProjectionType {
         self.projection
     }
 
     // --- scale (orthographic) ---
 
-    /// occt: Graphic3d_Camera::SetScale
+    /// occt: Graphic3d_Camera // ::SetScale
     pub fn set_scale(&mut self, s: f64) {
         self.scale = s;
     }
 
-    /// occt: Graphic3d_Camera::Scale
+    /// occt: Graphic3d_Camera // ::Scale
     pub fn scale(&self) -> f64 {
         self.scale
     }
 
     // --- derived ---
 
-    /// occt: Graphic3d_Camera::Distance — magnitude of the eye-to-center vector
+    /// occt: Graphic3d_Camera // ::Distance — magnitude of the eye-to-center vector
     pub fn distance(&self) -> f64 {
         let dx = self.eye[0] - self.center[0];
         let dy = self.eye[1] - self.center[1];
@@ -137,7 +137,7 @@ impl Graphic3dCamera {
         (dx * dx + dy * dy + dz * dz).sqrt()
     }
 
-    /// occt: Graphic3d_Camera::OrientationMatrix — column-major look-at view matrix.
+    /// occt: Graphic3d_Camera // ::OrientationMatrix — column-major look-at view matrix.
     ///
     /// Builds a right-handed look-at matrix identical to the one produced by
     /// OpenGL `gluLookAt` (and OCCT's own `Graphic3d_Camera::OrientationMatrix`).
@@ -202,7 +202,7 @@ impl Graphic3dCamera {
         ]
     }
 
-    /// occt: Graphic3d_Camera::ProjectionMatrix (orthographic variant) —
+    /// occt: Graphic3d_Camera // ::ProjectionMatrix (orthographic variant) —
     /// axis-aligned orthographic projection with symmetric frustum.
     ///
     /// Maps the box  [-s/2, s/2] × [-s/2, s/2] × [z_near, z_far]  to the

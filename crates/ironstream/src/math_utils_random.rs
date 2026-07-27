@@ -3,7 +3,7 @@
 // High-quality pseudo-random number generator based on xoshiro256**.
 // Faithful port of OCCT's MathUtils::RandomGenerator.
 
-// occt: MathUtils::RandomGenerator
+// occt-note: MathUtils::RandomGenerator
 /// High-quality pseudo-random number generator based on xoshiro256**.
 ///
 /// xoshiro256** is a general-purpose PRNG designed by David Blackman

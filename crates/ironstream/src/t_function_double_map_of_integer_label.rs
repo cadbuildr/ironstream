@@ -1,5 +1,6 @@
 // FILE: t_function_double_map_of_integer_label.rs
-// occt: TFunction_DoubleMapOfIntegerLabel, TFunction_DoubleMapIteratorOfDoubleMapOfIntegerLabel
+// occt: TFunction_DoubleMapOfIntegerLabel
+// occt-ref: TFunction_DoubleMapIteratorOfDoubleMapOfIntegerLabel
 
 //! Deprecated typedef for TFunction_DoubleMapOfIntegerLabel.
 //!

@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/brep_offset_ext.rs
 
-// occt: BRepOffset_Analyse / BRepOffset_DataMapOfShapeOffset — analysis and
+// occt: BRepOffset_Analyse // / BRepOffset_DataMapOfShapeOffset — analysis and
 // extended offset stubs.
 //
 // This module contains zero-dependency Rust stubs that mirror the public API
@@ -15,22 +15,22 @@
 
 /// Controls how the offset shell is constructed.
 ///
-// occt: BRepOffset_Mode
+// occt-ref: BRepOffset_Mode
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum OffsetMode {
     /// The offset shell follows the outer skin of the shape.
     ///
-    // occt: BRepOffset_Skin
+    // occt-ref: BRepOffset_Skin
     Skin,
 
     /// The offset shell follows a pipe profile swept along edges.
     ///
-    // occt: BRepOffset_Pipe
+    // occt-ref: BRepOffset_Pipe
     Pipe,
 
     /// The offset shell is built on both sides (recto and verso).
     ///
-    // occt: BRepOffset_RectoVerso
+    // occt-ref: BRepOffset_RectoVerso
     RectoVerso,
 }
 
@@ -63,7 +63,7 @@ impl OffsetAnalysis {
     /// offset distance.  No analysis is run until
     /// [`perform`](OffsetAnalysis::perform) is called.
     ///
-    // occt: BRepOffset_Analyse::BRepOffset_Analyse
+    // occt: BRepOffset_Analyse // ::BRepOffset_Analyse
     pub fn new(shape: &str, offset: f64) -> Self {
         Self {
             shape: shape.to_string(),
@@ -79,7 +79,7 @@ impl OffsetAnalysis {
     /// self-intersections after offsetting.  Here, the error list is cleared
     /// and left empty to indicate a clean analysis.
     ///
-    // occt: BRepOffset_Analyse::Perform
+    // occt: BRepOffset_Analyse // ::Perform
     pub fn perform(&mut self) {
         self.errors.clear();
     }
@@ -91,7 +91,7 @@ impl OffsetAnalysis {
     /// called (because `errors` starts empty but the analysis hasn't validated
     /// the shape — callers should always call `perform` before `is_valid`).
     ///
-    // occt: BRepOffset_Analyse — error-free predicate
+    // occt: BRepOffset_Analyse // — error-free predicate
     pub fn is_valid(&self) -> bool {
         self.errors.is_empty()
     }
@@ -99,7 +99,7 @@ impl OffsetAnalysis {
     /// Return the number of errors recorded during the last
     /// [`perform`](OffsetAnalysis::perform) call.
     ///
-    // occt: BRepOffset_Analyse — error count accessor
+    // occt: BRepOffset_Analyse // — error count accessor
     pub fn error_count(&self) -> usize {
         self.errors.len()
     }
@@ -138,7 +138,7 @@ impl MakeOffset {
     ///
     /// Defaults: `mode` = [`OffsetMode::Skin`], `solid` = `false`.
     ///
-    // occt: BRepOffset_MakeOffset::BRepOffset_MakeOffset
+    // occt: BRepOffset_MakeOffset // ::BRepOffset_MakeOffset
     pub fn new(shape: &str, offset: f64) -> Self {
         Self {
             shape: shape.to_string(),
@@ -152,7 +152,7 @@ impl MakeOffset {
     /// Set the offset construction mode, consuming and returning `self` for
     /// builder-style chaining.
     ///
-    // occt: BRepOffset_MakeOffset::SetOffsetMode
+    // occt: BRepOffset_MakeOffset // ::SetOffsetMode
     pub fn with_mode(mut self, m: OffsetMode) -> Self {
         self.mode = m;
         self
@@ -162,7 +162,7 @@ impl MakeOffset {
     /// an open shell (`false`), consuming and returning `self` for
     /// builder-style chaining.
     ///
-    // occt: BRepOffset_MakeOffset::SetSolid
+    // occt: BRepOffset_MakeOffset // ::SetSolid
     pub fn as_solid(mut self, b: bool) -> Self {
         self.solid = b;
         self
@@ -175,7 +175,7 @@ impl MakeOffset {
     /// what parameters were used without running real geometry code.  After
     /// this call [`is_done`](MakeOffset::is_done) returns `true`.
     ///
-    // occt: BRepOffset_MakeOffset::MakeOffsetShape / Perform
+    // occt: BRepOffset_MakeOffset // ::MakeOffsetShape / Perform
     pub fn build(&mut self) -> String {
         self.done = true;
         let mode_str = match self.mode {
@@ -193,7 +193,7 @@ impl MakeOffset {
     /// Whether the last [`build`](MakeOffset::build) call completed
     /// successfully.
     ///
-    // occt: BRepOffset_MakeOffset::IsDone
+    // occt: BRepOffset_MakeOffset // ::IsDone
     pub fn is_done(&self) -> bool {
         self.done
     }

@@ -1,5 +1,5 @@
 // FILE: geom_offset_ext.rs
-// occt: Geom_OffsetSurface extended, GeomFill_Pipe, GeomFill_Sweep
+// occt-ref: Geom_OffsetSurface // extended, GeomFill_Pipe, GeomFill_Sweep
 
 /// Continuity of offset surface with respect to the base.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -32,7 +32,7 @@ impl OffsetSurfStatus {
     pub fn is_done(&self) -> bool { *self == OffsetSurfStatus::Done || *self == OffsetSurfStatus::NoOffset }
 }
 
-// occt: Geom_OffsetSurface extended with singularity/projection parameters
+// occt-ref: Geom_OffsetSurface // extended with singularity/projection parameters
 #[derive(Clone, Debug)]
 pub struct OffsetSurfaceExt {
     pub base_surface_id: u32,
@@ -78,7 +78,7 @@ impl OffsetSurfaceExt {
     pub fn has_singular_points(&self) -> bool { false }
 }
 
-// occt: GeomFill_Pipe — surface constructed by sweeping a cross-section along a spine
+// occt-ref: GeomFill_Pipe // — surface constructed by sweeping a cross-section along a spine
 #[derive(Clone, Debug)]
 pub struct GeomFillPipe {
     pub spine_id: u32,
@@ -127,7 +127,7 @@ impl GeomFillPipe {
     pub fn last_param(&self) -> f64 { 1.0 }
 }
 
-// occt: GeomFill_Sweep — sweeps a law along a spine to generate a surface
+// occt: GeomFill_Sweep // — sweeps a law along a spine to generate a surface
 #[derive(Clone, Debug)]
 pub struct GeomFillSweep {
     pub spine_id: u32,
@@ -180,7 +180,7 @@ impl GeomFillSweep {
     pub fn surface_param_range(&self) -> (f64, f64) { (self.first_param, self.last_param) }
 }
 
-// occt: BRepOffset_Mode — mode for BRepOffset_MakeOffset
+// occt-ref: BRepOffset_Mode // — mode for BRepOffset_MakeOffset
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum BrepOffsetMode {
     Skin,

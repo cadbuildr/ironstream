@@ -22,7 +22,7 @@
 /// tolerance, and the 3-D intersection points accumulated after [`perform`] is
 /// called.
 ///
-// occt: IntCurvesFace_ShapeIntersector
+// occt-ref: IntCurvesFace_ShapeIntersector
 #[derive(Debug, Clone)]
 pub struct ShapeIntersector {
     /// Identifier / label of the target shape.

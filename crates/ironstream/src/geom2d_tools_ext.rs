@@ -1,11 +1,11 @@
 // FILE: geom2d_tools_ext.rs
-// occt: Geom2dConvert_BSplineCurveToBezierCurve, Geom2d_OffsetCurve (more methods),
+// occt-note: Geom2dConvert_BSplineCurveToBezierCurve, Geom2d_OffsetCurve (more methods),
 //       Geom2dAPI_ProjectPointOnCurve
 
 use std::f64::consts::PI;
 
 /// Result of 2D curve-curve intersection (single point).
-/// occt: Geom2dAPI_InterCurveCurve (extended)
+/// occt: Geom2dAPI_InterCurveCurve // (extended)
 #[derive(Clone, Copy, Debug)]
 pub struct Geom2dIntersectionPoint {
     pub point: [f64; 2],
@@ -25,7 +25,7 @@ impl Geom2dIntersectionPoint {
 }
 
 /// 2D line-line intersection.
-/// occt: Geom2dAPI_InterCurveCurve (line specialization)
+/// occt: Geom2dAPI_InterCurveCurve // (line specialization)
 #[derive(Clone, Debug)]
 pub struct Geom2dLineLineIntersect {
     pub line1_origin: [f64; 2],
@@ -73,7 +73,7 @@ impl Geom2dLineLineIntersect {
 }
 
 /// Project a 2D point onto a 2D parametric curve (stub).
-/// occt: Geom2dAPI_ProjectPointOnCurve
+// occt-ref: Geom2dAPI_ProjectPointOnCurve
 #[derive(Clone, Debug)]
 pub struct Geom2dProjectPointOnCurve {
     pub point: [f64; 2],

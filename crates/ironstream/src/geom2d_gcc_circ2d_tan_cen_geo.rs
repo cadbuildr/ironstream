@@ -1,5 +1,5 @@
 // FILE: geom2d_gcc_circ2d_tan_cen_geo.rs
-// occt: geom2d::gcc::circ2d::tan::cen::geo
+// occt-note: geom2d::gcc::circ2d::tan::cen::geo
 
 pub struct Stub;
 

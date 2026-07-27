@@ -1,5 +1,5 @@
 // FILE: hlr_algo.rs
-// occt: HLRAlgo — Hidden Line Removal algorithm data structures.
+// occt: HLRAlgo // — Hidden Line Removal algorithm data structures.
 
 /// Edge visibility classification for HLR output.
 // occt: HLRAlgo_EdgeStatus

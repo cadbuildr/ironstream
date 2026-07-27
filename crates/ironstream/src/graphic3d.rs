@@ -9,7 +9,7 @@ pub enum Graphic3dTypeOfReflection {
     Emissive,
 }
 
-// occt: Graphic3d_TypeOfShadingModel
+// occt-ref: Graphic3d_TypeOfShadingModel
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Graphic3dTypeOfShadingModel {
     Unlit,
@@ -19,7 +19,7 @@ pub enum Graphic3dTypeOfShadingModel {
     PbrFacet,
 }
 
-// occt: Graphic3d_MaterialAspect
+// occt-ref: Graphic3d_MaterialAspect
 pub struct Graphic3dMaterialAspect {
     pub name: String,
     pub transparency: f32,
@@ -91,7 +91,7 @@ impl Graphic3dVertex {
     }
 }
 
-// occt: Graphic3d_Group
+// occt-ref: Graphic3d_Group
 pub struct Graphic3dGroup {
     vertices: Vec<Graphic3dVertex>,
     material: Option<Graphic3dMaterialAspect>,

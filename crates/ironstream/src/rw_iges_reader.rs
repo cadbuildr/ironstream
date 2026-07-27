@@ -43,7 +43,7 @@
 /// | `OneShape()`              | `one_shape()`             |
 /// | `NbRootsForTransfer()`    | `root_count()`            |
 /// | `Clear()`                 | `clear()`                 |
-// occt: IGESControl_Reader
+// occt-ref: IGESControl_Reader
 pub struct IgesReader {
     /// Path of the IGES file that was (or will be) loaded.
     pub file_path: String,

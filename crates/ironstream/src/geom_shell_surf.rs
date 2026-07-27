@@ -1,7 +1,8 @@
 // FILE: geom_shell_surf.rs
-// occt: BRepBuilderAPI_MakeShell, ShapeAnalysis_Shell, BRepClass3d_SolidExplorer
+// occt: ShapeAnalysis_Shell
+// occt-ref: BRepBuilderAPI_MakeShell, BRepClass3d_SolidExplorer
 
-// occt: BRepBuilderAPI_MakeShell
+// occt-ref: BRepBuilderAPI_MakeShell
 /// Builds a shell from one or more faces.
 #[derive(Clone, Debug, Default)]
 pub struct MakeShell {
@@ -68,7 +69,7 @@ impl ShellAnalysis {
     pub fn add_free_edge(&mut self, e: FreeEdge) { self.free_edges.push(e); }
 }
 
-// occt: BRepClass3d_SolidExplorer
+// occt-ref: BRepClass3d_SolidExplorer
 /// Explores the solid-bounding shells to determine inside/outside.
 #[derive(Clone, Debug)]
 pub struct SolidClassifier {
@@ -106,7 +107,7 @@ impl SolidClassifier {
     pub fn all_closed(&self) -> bool { self.shells.iter().all(|s| s.is_closed) }
 }
 
-// occt: GeomFill_SimpleBound for shell boundary
+// occt-ref: GeomFill_SimpleBound // for shell boundary
 #[derive(Clone, Debug)]
 pub struct ShellBoundary {
     pub curves: Vec<Vec<[f64; 3]>>,

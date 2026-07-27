@@ -58,7 +58,7 @@ impl<T> Default for NCollectionList<T> {
     }
 }
 
-// occt: NCollection_Sequence
+// occt-ref: NCollection_Sequence
 pub struct NCollectionSequence<T> {
     data: Vec<T>,
 }

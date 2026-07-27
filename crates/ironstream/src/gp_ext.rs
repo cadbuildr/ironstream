@@ -1,9 +1,10 @@
 // FILE: gp_ext.rs
-// occt: gp_Ax3, gp_GTrsf, gp_EulerAngles, gp_TrsfNLerp
+// occt: gp_TrsfNLerp
+// occt-ref: gp_Ax3, gp_GTrsf, gp_EulerAngles
 
 use std::f64::consts::PI;
 
-// occt: gp_Ax3
+// occt-ref: gp_Ax3
 /// Right-handed coordinate system: origin + X + Y (Z = X cross Y).
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Ax3 {
@@ -44,7 +45,7 @@ impl Default for Ax3 {
     fn default() -> Self { Self::identity() }
 }
 
-// occt: gp_EulerAngles (intrinsic ZYX Tait-Bryan / Euler)
+// occt-note: gp_EulerAngles (intrinsic ZYX Tait-Bryan / Euler)
 #[derive(Clone, Copy, Debug)]
 pub enum EulerConvention {
     ZXZ,
@@ -87,7 +88,7 @@ impl EulerAngles {
     }
 }
 
-// occt: gp_TrsfNLerp (normalized lerp for transformations)
+// occt: gp_TrsfNLerp // (normalized lerp for transformations)
 #[derive(Clone, Debug)]
 pub struct TrsfNLerp {
     pub t0: [f64; 3],

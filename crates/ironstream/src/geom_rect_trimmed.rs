@@ -7,7 +7,7 @@ use crate::geom_bspline_surface::GeomBSplineSurface;
 
 // We need to import the cylinder, cone, sphere, and torus surface types.
 // These may live in dedicated modules; we reference what's available.
-// occt: Geom_CylindricalSurface
+// occt-ref: Geom_CylindricalSurface
 pub struct GeomCylindricalSurface {
     /// axis: [ox, oy, oz, dx, dy, dz] (origin + direction)
     pub axis: [f64; 6],
@@ -56,7 +56,7 @@ impl GeomCylindricalSurface {
     }
 }
 
-// occt: Geom_ConicalSurface
+// occt-ref: Geom_ConicalSurface
 pub struct GeomConicalSurface {
     /// axis: origin + direction (Z axis)
     pub axis: [f64; 6],
@@ -111,7 +111,7 @@ impl GeomConicalSurface {
     }
 }
 
-// occt: Geom_SphericalSurface
+// occt-ref: Geom_SphericalSurface
 pub struct GeomSphericalSurface {
     /// center
     pub center: [f64; 3],
@@ -150,7 +150,7 @@ impl GeomSphericalSurface {
     }
 }
 
-// occt: Geom_ToroidalSurface
+// occt-ref: Geom_ToroidalSurface
 pub struct GeomToroidalSurface {
     pub center: [f64; 3],
     pub major_radius: f64,
@@ -220,7 +220,7 @@ fn cross(a: [f64; 3], b: [f64; 3]) -> [f64; 3] {
 }
 
 /// Enum unifying all supported basis surface types.
-// occt: Geom_Surface
+// occt-ref: Geom_Surface
 pub enum GeomSurfaceKind {
     Plane(GeomPlane),
     Cylinder(GeomCylindricalSurface),

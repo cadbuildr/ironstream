@@ -18,7 +18,7 @@ use crate::gp_trsf2d::Trsf2d;
 // ---------------------------------------------------------------------------
 
 /// A 2-D axis: a location point and a unit direction.
-// occt: gp_Ax2d
+// occt-ref: gp_Ax2d
 #[derive(Clone, Copy, Debug)]
 pub struct Ax2d {
     /// The origin of the axis.

@@ -1,5 +1,6 @@
 // FILE: quant_units.rs
-// occt: Quantity_Unit, UnitsAPI, Units_Dimensions, Units_UnitsDictionary
+// occt: Units_Dimensions, Units_UnitsDictionary
+// occt-ref: Quantity_Unit, UnitsAPI
 
 /// Kind of physical quantity.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -127,7 +128,7 @@ impl UnitsCatalogue {
     pub fn joule() -> UnitDefinition { UnitDefinition::new("joule", "J", QuantityKind::Energy, 1.0) }
 }
 
-// occt: UnitsAPI — global conversion utilities
+// occt-ref: UnitsAPI // — global conversion utilities
 #[derive(Clone, Debug, Default)]
 pub struct UnitsApi {
     pub current_length_unit: String,
@@ -177,7 +178,7 @@ impl UnitsApi {
     }
 }
 
-// occt: Units_Dimensions — physical dimension record (exponents in M·L·T·I·Θ·N·J)
+// occt: Units_Dimensions // — physical dimension record (exponents in M·L·T·I·Θ·N·J)
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct UnitsDimensions {
     pub mass: i8,

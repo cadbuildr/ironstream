@@ -1,5 +1,6 @@
 // FILE: prs3d_dimension.rs
-// occt: Prs3d_Dimension, Prs3d_DimensionAspect, Prs3d_DimensionUnits,
+// occt: Prs3d_DimensionAspect, Prs3d_DimensionUnits
+// occt-ref: Prs3d_Dimension
 //       AIS_LengthDimension, AIS_AngleDimension, AIS_RadiusDimension,
 //       AIS_DiameterDimension
 
@@ -125,7 +126,7 @@ impl Default for DimensionUnits {
     fn default() -> Self { Self::metric() }
 }
 
-// occt: AIS_LengthDimension
+// occt: PrsDim_LengthDimension
 #[derive(Clone, Debug)]
 pub struct LengthDimension {
     pub point1: [f64; 3],
@@ -174,7 +175,7 @@ impl LengthDimension {
     }
 }
 
-// occt: AIS_AngleDimension
+// occt: PrsDim_AngleDimension
 #[derive(Clone, Debug)]
 pub struct AngleDimension {
     pub vertex: [f64; 3],
@@ -219,7 +220,7 @@ impl AngleDimension {
     }
 }
 
-// occt: AIS_RadiusDimension
+// occt: PrsDim_RadiusDimension
 #[derive(Clone, Debug)]
 pub struct RadiusDimension {
     pub center: [f64; 3],
@@ -247,7 +248,7 @@ impl RadiusDimension {
     }
 }
 
-// occt: AIS_DiameterDimension
+// occt: PrsDim_DiameterDimension
 #[derive(Clone, Debug)]
 pub struct DiameterDimension {
     pub center: [f64; 3],

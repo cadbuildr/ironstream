@@ -7,7 +7,7 @@
 //! knots, Schoenberg point construction, and the antiderivative polynomial
 //! conversion — all in pure, zero-dependency Rust.
 
-// occt: BSplCLib
+// occt-ref: BSplCLib
 
 use crate::gp::Pnt;
 
@@ -770,7 +770,7 @@ fn pascal_triangle(n: usize) -> Vec<Vec<f64>> {
 // ---------------------------------------------------------------------------
 
 /// Zero-sized facade exposing all `BSplCLib` algorithms as associated functions.
-// occt: BSplCLib
+// occt-ref: BSplCLib
 pub struct BSplCLib;
 
 impl BSplCLib {

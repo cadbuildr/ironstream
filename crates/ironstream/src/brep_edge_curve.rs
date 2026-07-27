@@ -1,9 +1,10 @@
 // FILE: brep_edge_curve.rs
-// occt: BRep_CurveRepresentation, BRep_CurveOnSurface, BRep_Curve3D,
+// occt: BRep_CurveOnSurface, BRep_Curve3D
+// occt-ref: BRep_CurveRepresentation
 //       BRep_TEdge, BRep_PolyCurve, BRep_ListOfCurveRepresentation
 
 /// The kind of curve representation stored on a BRep edge.
-/// occt: BRep_CurveRepresentation (polymorphic base)
+// occt-ref: BRep_CurveRepresentation // (polymorphic base)
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Default)]
 pub enum BrepCurveRepKind {
     #[default]
@@ -86,7 +87,7 @@ impl BrepCurveOnSurface {
 }
 
 /// A polygon approximation of a 3D curve on a surface.
-/// occt: BRep_PolygonOnSurface / BRep_PolyCurve
+/// occt: BRep_PolygonOnSurface // / BRep_PolyCurve
 #[derive(Clone, Debug, Default)]
 pub struct BrepPolyCurve {
     pub surface_id: u32,
@@ -108,7 +109,7 @@ impl BrepPolyCurve {
 }
 
 /// A curve representation entry (tagged union).
-/// occt: BRep_ListOfCurveRepresentation element
+// occt-ref: BRep_ListOfCurveRepresentation // element
 #[derive(Clone, Debug)]
 pub enum BrepCurveRepresentation {
     Curve3D(BrepCurve3D),

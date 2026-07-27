@@ -10,7 +10,7 @@ pub enum Prs3dLineType {
     DashDotDot,
 }
 
-// occt: Quantity_Color
+// occt-ref: Quantity_Color
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Prs3dColor {
     pub r: f32,
@@ -35,7 +35,7 @@ impl Prs3dColor {
     pub const BLUE: Self = Self { r: 0.0, g: 0.0, b: 1.0, a: 1.0 };
 }
 
-// occt: Prs3d_LineAspect
+// occt-ref: Prs3d_LineAspect
 pub struct Prs3dLineAspect {
     pub color: Prs3dColor,
     pub line_type: Prs3dLineType,
@@ -137,7 +137,7 @@ impl Default for Prs3dShadingAspect {
     }
 }
 
-// occt: Prs3d_Drawer
+// occt-ref: Prs3d_Drawer
 pub struct Prs3dDrawer {
     pub line_aspect: Prs3dLineAspect,
     pub shading_aspect: Prs3dShadingAspect,

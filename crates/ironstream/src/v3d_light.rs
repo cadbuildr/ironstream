@@ -12,7 +12,7 @@
 
 // ─────────────────────────────── LightType ───────────────────────────────────
 
-// occt: V3d_TypeOfLight (V3d_DIRECTIONAL, V3d_POSITIONAL, V3d_SPOT, V3d_AMBIENT)
+// occt-note: V3d_TypeOfLight (V3d_DIRECTIONAL, V3d_POSITIONAL, V3d_SPOT, V3d_AMBIENT)
 /// Discriminates the four light categories defined by OpenCascade's viewer.
 ///
 /// Mirrors the `V3d_TypeOfLight` enumeration used across `V3d_DirectionalLight`,
@@ -31,7 +31,7 @@ pub enum LightType {
 
 // ──────────────────────────────── Light ──────────────────────────────────────
 
-// occt: V3d_DirectionalLight
+// occt-ref: V3d_DirectionalLight
 // occt: V3d_SpotLight
 /// A single viewer light source, merging the data carried by
 /// `V3d_DirectionalLight`, `V3d_PositionalLight`, `V3d_SpotLight`, and
@@ -63,7 +63,7 @@ pub struct Light {
 impl Light {
     // ─────────────────────────── constructors ────────────────────────────────
 
-    // occt: V3d_DirectionalLight
+    // occt-ref: V3d_DirectionalLight
     /// `V3d_DirectionalLight(theDirection)` — create a white directional light
     /// aimed along `dir`.
     ///
@@ -111,7 +111,7 @@ impl Light {
         }
     }
 
-    // occt: V3d_AmbientLight
+    // occt-ref: V3d_AmbientLight
     /// `V3d_AmbientLight()` — create a white ambient fill light.
     pub fn ambient() -> Self {
         Self {

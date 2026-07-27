@@ -1,9 +1,10 @@
 // FILE: geom_fill_ext.rs
-// occt: GeomFill_FillingParameters, GeomFill_NSections, GeomFill_Generator,
+// occt: GeomFill_Generator
+// occt-ref: GeomFill_FillingParameters, GeomFill_NSections
 //       GeomFill_BoundWithSurf
 
 /// Filling surface style.
-/// occt: GeomFill_FillingStyle
+// occt-ref: GeomFill_FillingStyle
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Default)]
 pub enum GeomFillFillingStyle {
     #[default]
@@ -14,7 +15,7 @@ pub enum GeomFillFillingStyle {
 }
 
 /// Filling parameters: tolerance, degree, continuity mode.
-/// occt: GeomFill_FillingParameters
+// occt-ref: GeomFill_FillingParameters
 #[derive(Clone, Debug)]
 pub struct GeomFillFillingParameters {
     pub tol_3d: f64,
@@ -56,7 +57,7 @@ impl GeomFillFillingParameters {
 }
 
 /// N-section surface generator.
-/// occt: GeomFill_NSections
+// occt-ref: GeomFill_NSections
 #[derive(Clone, Debug, Default)]
 pub struct GeomFillNSections {
     pub section_ids: Vec<u32>,
@@ -103,7 +104,7 @@ impl GeomFillGenerator {
 }
 
 /// Boundary curve with tangent surface.
-/// occt: GeomFill_BoundWithSurf
+// occt-ref: GeomFill_BoundWithSurf
 #[derive(Clone, Debug)]
 pub struct GeomFillBoundWithSurf {
     pub curve_id: u32,

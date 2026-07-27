@@ -9,7 +9,7 @@ pub enum Graphic3dGroupType {
     LineAspect,
 }
 
-// occt: Graphic3d_ArrayOfPrimitives
+// occt-ref: Graphic3d_ArrayOfPrimitives
 pub struct Graphic3dPrimitive {
     pub vertices: Vec<[f32; 3]>,
     pub normals: Vec<[f32; 3]>,
@@ -69,7 +69,7 @@ impl Default for Graphic3dPrimitive {
     }
 }
 
-// occt: Graphic3d_Group
+// occt-ref: Graphic3d_Group
 pub struct Graphic3dGroup {
     pub group_type: Graphic3dGroupType,
     pub primitives: Vec<Graphic3dPrimitive>,

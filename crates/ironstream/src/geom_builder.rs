@@ -1,5 +1,6 @@
 // FILE: geom_builder.rs
-// occt: BRepBuilderAPI_MakeEdge, BRepBuilderAPI_MakeWire,
+// occt: BRepBuilderAPI_MakeEdge
+// occt-ref: BRepBuilderAPI_MakeWire
 //       BRepBuilderAPI_MakeFace, BRepBuilderAPI_MakeShell
 
 /// Status of a shape building operation.
@@ -25,7 +26,7 @@ impl BuilderStatus {
     pub fn is_error(&self) -> bool { matches!(self, Self::Error | Self::NullCurve | Self::NullSurface | Self::CurveProjectionFailed) }
 }
 
-// occt: BRepBuilderAPI_MakeEdge — creates a topological edge from a curve
+// occt: BRepBuilderAPI_MakeEdge // — creates a topological edge from a curve
 #[derive(Clone, Debug)]
 pub struct MakeEdge {
     pub curve_id: u32,
@@ -92,7 +93,7 @@ impl MakeEdge {
     pub fn last_parameter(&self) -> f64 { self.last }
 }
 
-// occt: BRepBuilderAPI_MakeWire — builds a topological wire from edges
+// occt-ref: BRepBuilderAPI_MakeWire // — builds a topological wire from edges
 #[derive(Clone, Debug, Default)]
 pub struct MakeWire {
     pub edges: Vec<u32>,
@@ -139,7 +140,7 @@ impl MakeWire {
     pub fn error(&self) -> BuilderStatus { self.status }
 }
 
-// occt: BRepBuilderAPI_MakeFace — builds a topological face from a surface + optional wires
+// occt-ref: BRepBuilderAPI_MakeFace // — builds a topological face from a surface + optional wires
 #[derive(Clone, Debug)]
 pub struct MakeFace {
     pub surface_id: u32,
@@ -193,7 +194,7 @@ impl MakeFace {
     pub fn status(&self) -> BuilderStatus { self.status }
 }
 
-// occt: BRepBuilderAPI_MakeShell — builds a shell from a surface
+// occt-ref: BRepBuilderAPI_MakeShell // — builds a shell from a surface
 #[derive(Clone, Debug)]
 pub struct MakeShell {
     pub surface_id: u32,

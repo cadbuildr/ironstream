@@ -1,5 +1,6 @@
 // FILE: xml_ocaf.rs
-// occt: XmlMDF_ADriver, XmlMDF_ADriverTable, XmlOCAFDrivers_DocumentRetrievalDriver
+// occt: XmlMDF_ADriver, XmlMDF_ADriverTable
+// occt-ref: XmlOCAFDrivers_DocumentRetrievalDriver
 
 /// Attribute type tag for XML OCAF serialization.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Default)]
@@ -126,7 +127,7 @@ impl XmlMdfADriverTable {
 }
 
 /// XML OCAF document stub.
-/// occt: XmlOCAFDrivers (simplified)
+/// occt-note: XmlOCAFDrivers (simplified)
 #[derive(Clone, Debug, Default)]
 pub struct XmlOcafDocument {
     pub version: u32,

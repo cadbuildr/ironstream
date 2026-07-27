@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/math_cubic_roots.rs
 
-// occt: math_DirectPolynomialRoots / math_TrigonometricEquationFunction
+// occt: math_DirectPolynomialRoots // / math_TrigonometricEquationFunction
 
 use std::f64::consts::PI;
 
@@ -22,7 +22,7 @@ fn real_cbrt(x: f64) -> f64 {
 /// Degenerates to a linear solve when `a ≈ 0`.  Uses a numerically stable
 /// formula (avoids catastrophic cancellation).
 ///
-// occt: math_DirectPolynomialRoots (degree-2 case)
+// occt: math_DirectPolynomialRoots // (degree-2 case)
 pub fn solve_quadratic(a: f64, b: f64, c: f64) -> Vec<f64> {
     const ZERO: f64 = 1.0e-30;
     let mut roots = Vec::new();
@@ -75,7 +75,7 @@ pub fn solve_quadratic(a: f64, b: f64, c: f64) -> Vec<f64> {
 ///
 /// Call `perform(a, b, c, d)` to solve `a*x³ + b*x² + c*x + d = 0`.
 ///
-// occt: math_DirectPolynomialRoots (degree-3 case)
+// occt: math_DirectPolynomialRoots // (degree-3 case)
 #[derive(Debug, Clone)]
 pub struct MathCubicRoots {
     roots: Vec<f64>,
@@ -139,7 +139,7 @@ impl Default for MathCubicRoots {
 /// When `a ≈ 0`, degenerates to `MathCubicRoots`.
 /// For a true degree-4 polynomial, `is_done = true` and `nb_roots = 0` (stub).
 ///
-// occt: math_DirectPolynomialRoots (degree-4 case)
+// occt: math_DirectPolynomialRoots // (degree-4 case)
 #[derive(Debug, Clone)]
 pub struct MathQuarticRoots {
     roots: Vec<f64>,

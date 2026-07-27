@@ -1,5 +1,6 @@
 // FILE: ch_fi_ds_list_of_stripe.rs
-// occt: ChFiDS_ListOfStripe, ChFiDS_ListIteratorOfListOfStripe
+// occt: ChFiDS_ListOfStripe
+// occt-ref: ChFiDS_ListIteratorOfListOfStripe
 
 //! Deprecated type aliases for backward compatibility.
 //! Use VecDeque<Arc<ChFiDsStripe>> directly instead.

@@ -1,5 +1,6 @@
 // FILE: t_function_data_map_of_guid_driver.rs
-// occt: TFunction_DataMapOfGUIDDriver, TFunction_DataMapIteratorOfDataMapOfGUIDDriver
+// occt: TFunction_DataMapOfGUIDDriver
+// occt-ref: TFunction_DataMapIteratorOfDataMapOfGUIDDriver
 
 //! Deprecated typedef for TFunction_DataMapOfGUIDDriver.
 //!

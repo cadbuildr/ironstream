@@ -1,5 +1,6 @@
 // FILE: step_selections_sequence_of_assembly_link.rs
-// occt: STEPSelections_SequenceOfAssemblyLink, STEPSelections_SequenceIteratorOfAssemblyLink
+// occt: STEPSelections_SequenceOfAssemblyLink
+// occt-ref: STEPSelections_SequenceIteratorOfAssemblyLink
 
 /// Deprecated typedef for backward compatibility.
 /// A sequence of assembly links using 1-based indexing (OCCT semantics).

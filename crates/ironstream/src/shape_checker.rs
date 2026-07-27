@@ -1,5 +1,6 @@
 // FILE: shape_checker.rs
-// occt: BRepCheck_Analyzer, BRepCheck_Shell, BRepCheck_Result, ShapeAnalysis_CheckSmallFace
+// occt: ShapeAnalysis_CheckSmallFace
+// occt-ref: BRepCheck_Analyzer, BRepCheck_Shell, BRepCheck_Result
 
 /// Detailed check status codes from BRepCheck.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -78,7 +79,7 @@ impl CheckResult {
     pub fn is_ok(&self) -> bool { !self.status.is_error() }
 }
 
-// occt: BRepCheck_Result — accumulates check results for a single shape
+// occt-ref: BRepCheck_Result // — accumulates check results for a single shape
 #[derive(Clone, Debug, Default)]
 pub struct BrepCheckResult {
     pub shape_id: u32,
@@ -117,7 +118,7 @@ impl BrepCheckResult {
     }
 }
 
-// occt: BRepCheck_Shell — checks that a shell is valid (closed, connected, orientable)
+// occt-ref: BRepCheck_Shell // — checks that a shell is valid (closed, connected, orientable)
 #[derive(Clone, Debug)]
 pub struct BrepCheckShell {
     pub shell_id: u32,
@@ -153,7 +154,7 @@ impl BrepCheckShell {
     pub fn orientable(&self) -> bool { self.is_orientable }
 }
 
-// occt: BRepCheck_Analyzer — top-level checker for a shape tree
+// occt-ref: BRepCheck_Analyzer // — top-level checker for a shape tree
 #[derive(Clone, Debug, Default)]
 pub struct BrepCheckAnalyzer {
     pub shape_id: u32,
@@ -200,7 +201,7 @@ pub enum SmallFaceKind {
 
 impl Default for SmallFaceKind { fn default() -> Self { Self::NotSmall } }
 
-// occt: ShapeAnalysis_CheckSmallFace — identifies degenerate/tiny faces
+// occt: ShapeAnalysis_CheckSmallFace // — identifies degenerate/tiny faces
 #[derive(Clone, Debug)]
 pub struct CheckSmallFace {
     pub tolerance: f64,

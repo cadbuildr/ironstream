@@ -1,5 +1,6 @@
 // FILE: occ_transfer.rs
-// occt: Transfer_TransientProcess, Transfer_Finder, XSControl_TransferReader
+// occt: Transfer_Finder, XSControl_TransferReader
+// occt-ref: Transfer_TransientProcess
 
 /// Outcome of a transfer/import operation.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -41,7 +42,7 @@ impl TransferResult {
     pub fn is_done(&self) -> bool { self.status.is_done() }
 }
 
-// occt: Transfer_TransientProcess — manages entity-to-result mapping during import
+// occt-ref: Transfer_TransientProcess // — manages entity-to-result mapping during import
 #[derive(Clone, Debug, Default)]
 pub struct TransientProcess {
     pub results: Vec<TransferResult>,
@@ -72,7 +73,7 @@ impl TransientProcess {
     pub fn clear(&mut self) { self.results.clear(); self.errors.clear(); self.warnings.clear(); }
 }
 
-// occt: Transfer_Finder — locates a result associated with a source entity
+// occt: Transfer_Finder // — locates a result associated with a source entity
 #[derive(Clone, Debug)]
 pub struct TransferFinder {
     pub finder_id: u32,
@@ -92,7 +93,7 @@ impl TransferFinder {
     pub fn result(&self) -> Option<u32> { if self.is_found { Some(self.result_id) } else { None } }
 }
 
-// occt: XSControl_TransferReader — high-level reader that orchestrates transfer
+// occt: XSControl_TransferReader // — high-level reader that orchestrates transfer
 #[derive(Clone, Debug, Default)]
 pub struct XSControlTransferReader {
     pub model_id: u32,

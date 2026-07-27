@@ -1,5 +1,6 @@
 // FILE: contap_lib.rs
-// occt: Contap_ContourFillIterator, Contap_TheSearch, Contap_Line
+// occt: Contap_TheSearch, Contap_Line
+// occt-ref: Contap_ContourFillIterator
 
 /// Status of a Contap computation.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -53,7 +54,7 @@ impl ContapPoint {
     pub fn is_tangent(&self) -> bool { self.is_tangent }
 }
 
-// occt: Contap_Line — a segment of a contour on a surface
+// occt: Contap_Line // — a segment of a contour on a surface
 #[derive(Clone, Debug)]
 pub struct ContapLine {
     pub kind: ContapLineType,
@@ -75,7 +76,7 @@ impl ContapLine {
     pub fn arc(&self) -> u32 { self.arc_id }
 }
 
-// occt: Contap_ContourFillIterator — iterates over contour lines
+// occt-note: Contap_ContourFillIterator — iterates over contour lines
 #[derive(Clone, Debug, Default)]
 pub struct ContapContourFillIterator {
     pub lines: Vec<ContapLine>,
@@ -103,7 +104,7 @@ pub struct ContapSearchPoint {
     pub is_tangent: bool,
 }
 
-// occt: Contap_TheSearch — finds contour vertices on boundary arcs
+// occt: Contap_TheSearch // — finds contour vertices on boundary arcs
 #[derive(Clone, Debug, Default)]
 pub struct ContapTheSearch {
     pub status: ContapStatus,
@@ -129,7 +130,7 @@ impl ContapTheSearch {
     pub fn is_empty(&self) -> bool { self.points.is_empty() && self.tangent_points.is_empty() }
 }
 
-// occt: Contap_Contour — main contour computation on a surface + projection direction
+// occt: Contap_Contour // — main contour computation on a surface + projection direction
 #[derive(Clone, Debug, Default)]
 pub struct ContapContour {
     pub surface_id: u32,

@@ -1,5 +1,6 @@
 // FILE: int_tools_map_of_curve_sample.rs
-// occt: IntTools_MapOfCurveSample, IntTools_MapIteratorOfMapOfCurveSample
+// occt: IntTools_MapOfCurveSample
+// occt-ref: IntTools_MapIteratorOfMapOfCurveSample
 
 use std::collections::BTreeSet;
 

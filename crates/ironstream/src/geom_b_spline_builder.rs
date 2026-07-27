@@ -8,7 +8,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 /// Fitting parameters for [`GeomApiPointsToBSpline`].
-// occt: GeomAPI_PointsToBSpline params
+// occt-ref: GeomAPI_PointsToBSpline // params
 #[derive(Clone, Debug)]
 pub struct GeomPtsSplineParams {
     /// Minimum allowed degree of the output B-spline.
@@ -24,7 +24,7 @@ pub struct GeomPtsSplineParams {
 impl GeomPtsSplineParams {
     /// Default parameters: degree\_min=3, degree\_max=8, continuity=2,
     /// tolerance=1e-6.
-    // occt: GeomAPI_PointsToBSpline default constructor values
+    // occt-ref: GeomAPI_PointsToBSpline // default constructor values
     pub fn new() -> Self {
         Self { degree_min: 3, degree_max: 8, continuity: 2, tolerance: 1e-6 }
     }
@@ -71,7 +71,7 @@ impl Default for GeomPtsSplineParams {
 // ─────────────────────────────────────────────────────────────────────────────
 
 /// Result B-spline curve produced by [`GeomApiPointsToBSpline`].
-// occt: result B-spline curve from point fitting
+// occt-note: result B-spline curve from point fitting
 #[derive(Clone, Debug)]
 pub struct GeomPtsSplineResult {
     /// Control points of the fitted B-spline.
@@ -164,7 +164,7 @@ fn uniform_knots_mults(n: usize, degree: usize) -> (Vec<f64>, Vec<u32>) {
 /// assigns a uniform clamped knot vector, uses `degree = params.degree_min`,
 /// and marks the result as done.  A full least-squares fitting implementation
 /// would replace this stub.
-// occt: GeomAPI_PointsToBSpline
+// occt-ref: GeomAPI_PointsToBSpline
 #[derive(Clone, Debug)]
 pub struct GeomApiPointsToBSpline {
     /// Input point cloud.
@@ -177,7 +177,7 @@ pub struct GeomApiPointsToBSpline {
 
 impl GeomApiPointsToBSpline {
     /// Construct the algorithm with the given parameters.
-    // occt: GeomAPI_PointsToBSpline(Params)
+    // occt-note: GeomAPI_PointsToBSpline(Params)
     pub fn new(params: GeomPtsSplineParams) -> Self {
         Self {
             points: Vec::new(),
@@ -187,7 +187,7 @@ impl GeomApiPointsToBSpline {
     }
 
     /// Add a single 3D point to the input cloud.
-    // occt: GeomAPI_PointsToBSpline::Add / Init
+    // occt-ref: GeomAPI_PointsToBSpline // ::Add / Init
     pub fn add_point(&mut self, p: [f64; 3]) {
         self.points.push(p);
     }
@@ -196,7 +196,7 @@ impl GeomApiPointsToBSpline {
     ///
     /// Stub implementation: sets poles = input points, builds a uniform clamped
     /// knot vector, degree = `params.degree_min`, `is_done = true`.
-    // occt: GeomAPI_PointsToBSpline::Perform
+    // occt-ref: GeomAPI_PointsToBSpline // ::Perform
     pub fn perform(&mut self) {
         self.result = GeomPtsSplineResult::new(); // reset
 

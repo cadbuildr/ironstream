@@ -1,5 +1,6 @@
 // FILE: mat2d_data_map_of_integer_bisec.rs
-// occt: MAT2d_DataMapOfIntegerBisec, MAT2d_DataMapIteratorOfDataMapOfIntegerBisec
+// occt: MAT2d_DataMapOfIntegerBisec
+// occt-ref: MAT2d_DataMapIteratorOfDataMapOfIntegerBisec
 
 use std::collections::BTreeMap;
 

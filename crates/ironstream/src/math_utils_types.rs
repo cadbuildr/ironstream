@@ -5,7 +5,7 @@
 
 use std::ops::Index;
 
-// occt: MathUtils::Status
+// occt-note: MathUtils::Status
 /// Computation status for all math solvers.
 /// Provides detailed information about solver outcome.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -32,7 +32,7 @@ pub enum Status {
     NonDescentDirection,
 }
 
-// occt: MathUtils::ScalarResult
+// occt-note: MathUtils::ScalarResult
 /// Result for scalar (1D) root finding and minimization.
 /// Contains the found root/minimum location and diagnostic information.
 #[derive(Debug, Clone)]
@@ -73,7 +73,7 @@ impl Default for ScalarResult {
     }
 }
 
-// occt: MathUtils::PolyResult
+// occt-note: MathUtils::PolyResult
 /// Result for polynomial root finding.
 /// Supports up to 4 real roots (for quartic equations).
 #[derive(Debug, Clone)]
@@ -125,7 +125,7 @@ impl Index<usize> for PolyResult {
     }
 }
 
-// occt: MathUtils::VectorResult
+// occt-note: MathUtils::VectorResult
 /// Result for N-dimensional optimization and system solving.
 /// Contains the solution vector and optional gradient/Jacobian information.
 #[derive(Debug, Clone)]
@@ -169,7 +169,7 @@ impl Default for VectorResult {
     }
 }
 
-// occt: MathUtils::LinearResult
+// occt-note: MathUtils::LinearResult
 /// Result for linear system solving (Ax = b).
 /// Contains the solution vector and matrix determinant if computed.
 #[derive(Debug, Clone)]
@@ -204,7 +204,7 @@ impl Default for LinearResult {
     }
 }
 
-// occt: MathUtils::LinearMultipleResult
+// occt-note: MathUtils::LinearMultipleResult
 /// Result for multiple linear systems solving (AX = B with matrix RHS).
 /// Contains the full solution matrix and determinant if computed.
 #[derive(Debug, Clone)]
@@ -239,7 +239,7 @@ impl Default for LinearMultipleResult {
     }
 }
 
-// occt: MathUtils::EigenResult
+// occt-note: MathUtils::EigenResult
 /// Result for eigenvalue/eigenvector computation.
 /// Contains eigenvalues and optionally eigenvectors.
 #[derive(Debug, Clone)]
@@ -277,7 +277,7 @@ impl Default for EigenResult {
     }
 }
 
-// occt: MathUtils::DecompResult
+// occt-note: MathUtils::DecompResult
 /// Result for matrix decomposition (LU, SVD, QR).
 /// Structure depends on decomposition type.
 #[derive(Debug, Clone)]
@@ -318,7 +318,7 @@ impl Default for DecompResult {
     }
 }
 
-// occt: MathUtils::IntegResult
+// occt-note: MathUtils::IntegResult
 /// Result for numerical integration.
 /// Contains integral value and error estimates.
 #[derive(Debug, Clone)]
@@ -362,7 +362,7 @@ impl Default for IntegResult {
     }
 }
 
-// occt: MathUtils::InverseResult
+// occt-note: MathUtils::InverseResult
 /// Result for matrix inverse computation.
 /// Contains the inverse matrix if computation succeeded.
 #[derive(Debug, Clone)]

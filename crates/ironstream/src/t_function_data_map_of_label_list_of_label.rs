@@ -1,5 +1,6 @@
 // FILE: t_function_data_map_of_label_list_of_label.rs
-// occt: TFunction_DataMapOfLabelListOfLabel, TFunction_DataMapIteratorOfDataMapOfLabelListOfLabel
+// occt: TFunction_DataMapOfLabelListOfLabel
+// occt-ref: TFunction_DataMapIteratorOfDataMapOfLabelListOfLabel
 
 //! Deprecated typedef for TFunction_DataMapOfLabelListOfLabel.
 //!

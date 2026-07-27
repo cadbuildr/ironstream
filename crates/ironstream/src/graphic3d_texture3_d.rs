@@ -1,6 +1,6 @@
 // FILE: graphic3d_texture3_d.rs
 // occt: Graphic3d_Texture3D
-// occt: Graphic3d_LevelOfTextureAnisotropy
+// occt-ref: Graphic3d_LevelOfTextureAnisotropy
 
 /// Level of anisotropy filter.
 /// Notice that actual quality depends on hardware capabilities!

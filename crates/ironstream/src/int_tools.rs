@@ -1,6 +1,6 @@
 // FILE: int_tools.rs
 
-// occt: IntTools_CommonPrt kind
+// occt: IntTools_CommonPrt // kind
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum IntToolsEdgeEdgeStatus {
     NotDone,

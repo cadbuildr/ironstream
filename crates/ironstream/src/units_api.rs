@@ -8,7 +8,7 @@ pub enum UnitSystem {
     MDTVMDTVUnit,
 }
 
-// occt: (dimension kind, not a direct OCCT class but models Units_Dimensions)
+// occt-note: (dimension kind, not a direct OCCT class but models Units_Dimensions)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum UnitKind {
     Length,

@@ -6,7 +6,7 @@ use crate::gp::{Ax1, Ax3, Pnt, Trsf};
 use std::f64::consts::PI;
 
 /// `gp_Lin` — an infinite line: a location plus a unit direction.
-// occt: gp_Lin
+// occt-ref: gp_Lin
 #[derive(Clone, Copy, Debug)]
 pub struct Lin {
     loc: Pnt,
@@ -96,7 +96,7 @@ impl Lin {
 }
 
 /// `gp_Circ` — a circle: a placement (`gp_Ax2`) plus a radius.
-// occt: gp_Circ
+// occt-ref: gp_Circ
 #[derive(Clone, Copy, Debug)]
 pub struct Circ {
     placement: Ax3,
@@ -164,7 +164,7 @@ impl Circ {
 }
 
 /// `gp_Pln` — an infinite plane defined by a placement (`gp_Ax3`).
-// occt: gp_Pln
+// occt-ref: gp_Pln
 #[derive(Clone, Copy, Debug)]
 pub struct Pln {
     placement: Ax3,

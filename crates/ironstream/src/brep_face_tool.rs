@@ -1,5 +1,6 @@
 // FILE: brep_face_tool.rs
-// occt: BRepTools_FaceSet, BRepLib_FindSurface, ShapeAnalysis_Face
+// occt: BRepLib_FindSurface
+// occt-ref: BRepTools_FaceSet, ShapeAnalysis_Face
 
 // occt: BRepLib_FindSurface
 /// Finds the best-fit plane/surface for a wire or set of points.
@@ -43,7 +44,7 @@ impl FindSurface {
     pub fn tolerance_reached(&self) -> f64 { self.tolerance }
 }
 
-// occt: ShapeAnalysis_Face
+// occt-ref: ShapeAnalysis_Face
 #[derive(Clone, Debug)]
 pub struct FaceAnalysis {
     pub face_id: usize,
@@ -87,7 +88,7 @@ impl FaceAnalysis {
     pub fn nb_wires(&self) -> usize { 1 }
 }
 
-// occt: BRepTools_FaceSet
+// occt-ref: BRepTools_FaceSet
 #[derive(Clone, Debug, Default)]
 pub struct FaceSet {
     pub faces: Vec<FaceSummary>,
@@ -111,7 +112,7 @@ impl FaceSet {
     pub fn clear(&mut self) { self.faces.clear(); }
 }
 
-// occt: TopExp_Explorer (face-level)
+// occt-ref: TopExp_Explorer // (face-level)
 #[derive(Clone, Debug)]
 pub struct FaceExplorer<'a> {
     set: &'a FaceSet,

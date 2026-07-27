@@ -777,7 +777,7 @@ fn loop_area(loop_verts: &[usize], verts: &[Pnt]) -> f64 {
 }
 
 /// Serialize a solid to STEP with analytic faces where provenance allows.
-// occt: STEPControl_Writer
+// occt-ref: STEPControl_Writer
 pub fn write_step_analytic(solid: &Solid, name: &str) -> String {
     let m = resolve_t_junctions(&solid.mesh().welded(1e-7));
     let hints = solid.hints();

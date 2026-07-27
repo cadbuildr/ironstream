@@ -1,8 +1,9 @@
 // FILE: opengl_context.rs
-// occt: OpenGl_Context, OpenGl_Caps, OpenGl_Info, OpenGl_FrameBuffer
+// occt: OpenGl_Context, OpenGl_Caps
+// occt-ref: OpenGl_Info, OpenGl_FrameBuffer
 
 /// OpenGL version information.
-/// occt: OpenGl_Info
+// occt-ref: OpenGl_Info
 #[derive(Clone, Debug, Default)]
 pub struct OpenGlInfo {
     pub vendor: String,
@@ -76,7 +77,7 @@ impl OpenGlCaps {
 }
 
 /// An OpenGL framebuffer object (FBO).
-/// occt: OpenGl_FrameBuffer
+// occt-ref: OpenGl_FrameBuffer
 #[derive(Clone, Debug)]
 pub struct OpenGlFrameBuffer {
     pub fbo_id: u32,

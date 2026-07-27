@@ -1,5 +1,6 @@
 // FILE: tdf_delta_list.rs
-// occt: TDF_DeltaList, TDF_ListIteratorOfDeltaList
+// occt: TDF_DeltaList
+// occt-ref: TDF_ListIteratorOfDeltaList
 
 //! Deprecated typedef for TDF_DeltaList.
 //!

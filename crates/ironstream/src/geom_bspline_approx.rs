@@ -6,7 +6,7 @@
 
 // ─────────────────────────── ApproxCurvlinFuncResult ────────────────────────
 
-/// occt: Approx_CurvlinFunc result — holds the outcome of a curvilinear
+// occt-ref: Approx_CurvlinFunc // result — holds the outcome of a curvilinear
 /// approximation pass: whether it succeeded, the number of intervals produced,
 /// the maximum pointwise error, and the average error.
 #[derive(Clone, Debug)]
@@ -69,7 +69,7 @@ impl Default for ApproxCurvlinFuncResult {
 
 // ─────────────────────────── ApproxCurvlinFunc ──────────────────────────────
 
-/// occt: Approx_CurvlinFunc — B-spline approximation of curvilinear function.
+// occt-ref: Approx_CurvlinFunc // — B-spline approximation of curvilinear function.
 ///
 /// Given a tolerance and a maximum degree, `perform` computes a uniform
 /// curvilinear subdivision and records the result in an
@@ -126,7 +126,7 @@ impl ApproxCurvlinFunc {
 
 // ─────────────────────────── ApproxSameParameter ────────────────────────────
 
-/// occt: Approx_SameParameter — reparametrize a curve to arc length.
+// occt-ref: Approx_SameParameter // — reparametrize a curve to arc length.
 ///
 /// Given a parameter interval `[u_start, u_end]` and the number of sample
 /// points requested, `perform` builds a uniform reparametrization table so

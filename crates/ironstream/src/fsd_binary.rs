@@ -1,5 +1,6 @@
 // FILE: fsd_binary.rs
-// occt: FSD_BinaryFile, FSD_CmpFile, Storage_BaseDriver
+// occt: FSD_BinaryFile, FSD_CmpFile
+// occt-ref: Storage_BaseDriver
 
 // occt: Storage_Error
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -20,7 +21,7 @@ pub enum OpenMode {
     Append,
 }
 
-// occt: Storage_BaseDriver (simplified trait)
+// occt-ref: Storage_BaseDriver // (simplified trait)
 pub trait StorageDriver {
     fn open(&mut self, path: &str, mode: OpenMode) -> StorageError;
     fn close(&mut self) -> StorageError;
@@ -105,10 +106,10 @@ impl StorageDriver for BinaryFile {
     fn error(&self) -> StorageError { self.last_error }
 }
 
-// occt: FSD_CmpFile (compound binary file — same driver, different magic)
+// occt: FSD_CmpFile // (compound binary file — same driver, different magic)
 pub type CmpFile = BinaryFile;
 
-// occt: Storage_Schema
+// occt-ref: Storage_Schema
 /// Describes the schema version of a storage file.
 #[derive(Clone, Debug)]
 pub struct StorageSchema {

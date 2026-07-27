@@ -1,5 +1,5 @@
 // FILE: chfi3d_fillet.rs
-// occt: ChFi3d_FilletAlgo, ChFi3d_Builder, ChFi3d_ChBuilder (chamfer builder)
+// occt-note: ChFi3d_FilletAlgo, ChFi3d_Builder, ChFi3d_ChBuilder (chamfer builder)
 
 use std::collections::HashMap;
 
@@ -55,7 +55,7 @@ impl FilletEdgeSpec {
     }
 }
 
-// occt: ChFi3d_Builder — base class for fillet/chamfer on a solid
+// occt: ChFi3d_Builder // — base class for fillet/chamfer on a solid
 #[derive(Clone, Debug)]
 pub struct Chfi3dBuilder {
     pub solid_id: u32,
@@ -111,7 +111,7 @@ impl Chfi3dBuilder {
     pub fn status(&self) -> Chfi3dStatus { self.status }
 }
 
-// occt: ChFi3d_FilletAlgo — the fillet algorithm on a BRep solid
+// occt-note: ChFi3d_FilletAlgo — the fillet algorithm on a BRep solid
 #[derive(Clone, Debug)]
 pub struct Chfi3dFilletAlgo {
     pub builder: Chfi3dBuilder,
@@ -139,7 +139,7 @@ impl Chfi3dFilletAlgo {
     pub fn nb_contours(&self) -> usize { self.builder.nb_contours() }
 }
 
-// occt: ChFi3d_ChBuilder — chamfer builder on a BRep solid
+// occt: ChFi3d_ChBuilder // — chamfer builder on a BRep solid
 #[derive(Clone, Debug)]
 pub struct Chfi3dChBuilder {
     pub builder: Chfi3dBuilder,

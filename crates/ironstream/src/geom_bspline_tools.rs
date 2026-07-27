@@ -9,8 +9,8 @@
 //!
 //! All code is pure Rust with zero external dependencies.
 
-// occt: BSplCLib
-// occt: BSplSLib
+// occt-ref: BSplCLib
+// occt-ref: BSplSLib
 
 // ---------------------------------------------------------------------------
 // Internal helpers
@@ -22,7 +22,7 @@
 /// refers to a valid span.  For `t` equal to the last knot the last non-zero
 /// span is returned (standard clamping).
 ///
-// occt: BSplCLib
+// occt-ref: BSplCLib
 fn find_span(knots: &[f64], degree: u32, n_poles: usize, t: f64) -> usize {
     let p = degree as usize;
     let n = n_poles - 1; // last pole index
@@ -55,7 +55,7 @@ fn find_span(knots: &[f64], degree: u32, n_poles: usize, t: f64) -> usize {
 /// Returns an array of `degree+1` values; entry `j` corresponds to
 /// N_{span-degree+j, degree}(t).
 ///
-// occt: BSplCLib
+// occt-ref: BSplCLib
 fn basis_funs(knots: &[f64], span: usize, degree: u32, t: f64) -> Vec<f64> {
     let p = degree as usize;
     let mut n = vec![0.0_f64; p + 1];
@@ -84,7 +84,7 @@ fn basis_funs(knots: &[f64], span: usize, degree: u32, t: f64) -> Vec<f64> {
 /// Returns a 2-D table `ders[k][j]` where `k` is the derivative order (0..=d_order)
 /// and `j` is the local index 0..=degree.
 ///
-// occt: BSplCLib
+// occt-ref: BSplCLib
 fn basis_funs_deriv(knots: &[f64], span: usize, degree: u32, t: f64, d_order: usize) -> Vec<Vec<f64>> {
     let p = degree as usize;
     let n_max = d_order.min(p);
@@ -166,7 +166,7 @@ fn basis_funs_deriv(knots: &[f64], span: usize, degree: u32, t: f64, d_order: us
 /// Panics in debug mode if `poles` is empty or the knot vector is inconsistent
 /// with `degree` and `poles.len()`.
 ///
-// occt: BSplCLib
+// occt-ref: BSplCLib
 pub fn bspline_eval(knots: &[f64], poles: &[[f64; 3]], degree: u32, t: f64) -> [f64; 3] {
     let n_poles = poles.len();
     debug_assert!(n_poles >= 2, "at least 2 poles required");
@@ -195,7 +195,7 @@ pub fn bspline_eval(knots: &[f64], poles: &[[f64; 3]], degree: u32, t: f64) -> [
 /// `i` is the 0-based index of the basis function.  Returns 0.0 for parameters
 /// outside the support of N_{i,degree}.
 ///
-// occt: BSplCLib
+// occt-ref: BSplCLib
 pub fn bspline_basis(knots: &[f64], degree: u32, i: usize, t: f64) -> f64 {
     // Handle the degree-0 base case.
     if degree == 0 {
@@ -236,7 +236,7 @@ pub fn bspline_basis(knots: &[f64], degree: u32, i: usize, t: f64) -> f64 {
 /// `order = 0` is equivalent to [`bspline_eval`].  For `order > degree` the
 /// result is `[0, 0, 0]`.
 ///
-// occt: BSplCLib
+// occt-ref: BSplCLib
 pub fn bspline_deriv(
     knots: &[f64],
     poles: &[[f64; 3]],
@@ -271,7 +271,7 @@ pub fn bspline_deriv(
 /// If `t` is already in the knot vector the multiplicity is increased by one.
 /// The geometric shape of the curve is preserved exactly.
 ///
-// occt: BSplCLib
+// occt-ref: BSplCLib
 pub fn knot_insert(
     knots: &[f64],
     poles: &[[f64; 3]],
@@ -328,7 +328,7 @@ pub fn knot_insert(
 ///
 /// The geometric shape of the curve is preserved exactly.
 ///
-// occt: BSplCLib
+// occt-ref: BSplCLib
 pub fn knot_refine(
     knots: &[f64],
     poles: &[[f64; 3]],
@@ -371,8 +371,8 @@ pub fn knot_refine(
 /// let pt = tk.evaluate(0.5);
 /// ```
 ///
-// occt: BSplCLib
-// occt: BSplSLib
+// occt-ref: BSplCLib
+// occt-ref: BSplSLib
 #[derive(Clone, Debug)]
 pub struct BSplineToolkit {
     /// Polynomial degree of the B-spline.
@@ -384,7 +384,7 @@ pub struct BSplineToolkit {
 }
 
 impl BSplineToolkit {
-    // occt: BSplCLib
+    // occt-ref: BSplCLib
     /// Create a new, empty toolkit for a B-spline of the given `degree`.
     pub fn new(degree: u32) -> Self {
         Self {
@@ -394,19 +394,19 @@ impl BSplineToolkit {
         }
     }
 
-    // occt: BSplCLib
+    // occt-ref: BSplCLib
     /// Append a control pole `p` to the end of the pole list.
     pub fn add_pole(&mut self, p: [f64; 3]) {
         self.poles.push(p);
     }
 
-    // occt: BSplCLib
+    // occt-ref: BSplCLib
     /// Append a knot value `k` to the end of the knot vector.
     pub fn add_knot(&mut self, k: f64) {
         self.knots.push(k);
     }
 
-    // occt: BSplCLib
+    // occt-ref: BSplCLib
     /// Evaluate the curve at parameter `t`.
     ///
     /// Returns `[0, 0, 0]` if the curve is not yet well-formed (insufficient
@@ -418,7 +418,7 @@ impl BSplineToolkit {
         bspline_eval(&self.knots, &self.poles, self.degree, t)
     }
 
-    // occt: BSplCLib
+    // occt-ref: BSplCLib
     /// Returns `true` if the knot vector appears to be periodic.
     ///
     /// A periodic knot vector has equal spacing between its interior knots and

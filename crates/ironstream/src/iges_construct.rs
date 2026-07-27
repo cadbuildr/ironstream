@@ -1,5 +1,6 @@
 // FILE: iges_construct.rs
-// occt: IGESData_IGESModel, IGESControl_Controller, IGESData_IGESEntity
+// occt: IGESControl_Controller
+// occt-ref: IGESData_IGESModel, IGESData_IGESEntity
 
 // occt: IGESData_DefType
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -19,7 +20,7 @@ pub enum IgesStatus {
     Error,
 }
 
-// occt: IGESData_IGESEntity (simplified)
+// occt-ref: IGESData_IGESEntity // (simplified)
 #[derive(Clone, Debug)]
 pub struct IgesEntity {
     pub entity_type: u32,
@@ -42,7 +43,7 @@ impl IgesEntity {
     pub fn is_ok(&self) -> bool { self.status == IgesStatus::Ok }
 }
 
-// occt: IGESData_IGESModel
+// occt-ref: IGESData_IGESModel
 /// In-memory IGES model: ordered list of entities with a global section.
 #[derive(Clone, Debug, Default)]
 pub struct IgesModel {

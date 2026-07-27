@@ -84,7 +84,7 @@ impl StandardTransient {
 }
 
 /// Handle: a reference-counted smart pointer (stub).
-/// occt: Handle(Standard_Transient) aka opencascade_sys Handle
+/// occt-note: Handle(Standard_Transient) aka opencascade_sys Handle
 #[derive(Clone, Debug)]
 pub struct Handle<T> {
     pub inner: Option<T>,
@@ -103,7 +103,7 @@ impl<T> Default for Handle<T> {
 }
 
 /// Global type registry (singleton stub).
-/// occt: Standard_Type registry
+/// occt: Standard_Type // registry
 #[derive(Clone, Debug, Default)]
 pub struct StandardTypeRegistry {
     pub types: Vec<StandardType>,

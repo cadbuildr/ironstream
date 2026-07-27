@@ -1,5 +1,5 @@
 // FILE: visual3d_layer.rs
-// occt: Graphic3d_ZLayerId, Graphic3d_ZLayerSettings,
+// occt: Graphic3d_ZLayerId, Graphic3d_ZLayerSettings
 //       Graphic3d_ZLayerSettings (priority, depth test), Visual3d_Layer
 
 /// Predefined Z-layer IDs matching OCCT constants.
@@ -132,7 +132,7 @@ impl ZLayer {
     pub fn is_empty(&self) -> bool { self.presentations.is_empty() }
 }
 
-// occt: Visual3d_Layer (deprecated overlay layer for 2D annotation drawing)
+// occt-note: Visual3d_Layer (deprecated overlay layer for 2D annotation drawing)
 #[derive(Clone, Debug)]
 pub struct Visual3dLayer {
     pub id: u32,

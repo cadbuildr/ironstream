@@ -41,7 +41,7 @@
 /// | `TransferRoots()`         | `transfer_roots()`        |
 /// | `OneShape()`              | `one_shape()`             |
 /// | `NbRootsForTransfer()`    | `root_count()`            |
-// occt: STEPControl_Reader
+// occt-ref: STEPControl_Reader
 pub struct StepReader {
     /// Path of the STEP file that was (or will be) loaded.
     pub file_path: String,

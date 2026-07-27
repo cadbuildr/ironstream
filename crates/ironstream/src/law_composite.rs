@@ -6,7 +6,7 @@
 //! maps a 1-D parameter `t` to a real value. It is used by sweeping and
 //! offsetting algorithms to define how a scalar quantity varies along a spine.
 
-// occt: Law_Function type — enum Constant, Linear, BSpline, Composite
+// occt-ref: Law_Function // type — enum Constant, Linear, BSpline, Composite
 /// Discriminant tag for a law segment's underlying kind.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum LawFunctionType {
@@ -24,7 +24,7 @@ pub enum LawFunctionType {
 // LawConstant
 // ─────────────────────────────────────────────────────────────────────────────
 
-// occt: Law_Constant — constant scalar function
+// occt-ref: Law_Constant // — constant scalar function
 /// A constant evolution law: `f(t) = value` for all `t` in `[first, last]`.
 #[derive(Clone, Debug)]
 pub struct LawConstant {
@@ -69,7 +69,7 @@ impl LawConstant {
 // LawLinear
 // ─────────────────────────────────────────────────────────────────────────────
 
-// occt: Law_Linear — linear interpolation f(first)=start, f(last)=end
+// occt-ref: Law_Linear // — linear interpolation f(first)=start, f(last)=end
 /// A linear evolution law: `f(first) = start`, `f(last) = end_val`, with
 /// affine interpolation in between.
 #[derive(Clone, Debug)]
@@ -126,7 +126,7 @@ impl LawLinear {
 ///
 /// Used instead of a boxed closure so that the composite remains `Clone` and
 /// `Debug` without any heap-allocated trait objects.
-// occt: Law_Composite segment variant — enum wrapper for sub-laws
+// occt: Law_Composite // segment variant — enum wrapper for sub-laws
 #[derive(Clone, Debug)]
 pub enum LawSegment {
     /// A constant sub-law.
@@ -165,7 +165,7 @@ impl LawSegment {
 // LawComposite
 // ─────────────────────────────────────────────────────────────────────────────
 
-// occt: Law_Composite — piecewise law made of ordered LawSegment intervals
+// occt: Law_Composite // — piecewise law made of ordered LawSegment intervals
 /// A piecewise scalar evolution law made of ordered constant or linear
 /// segments.
 ///

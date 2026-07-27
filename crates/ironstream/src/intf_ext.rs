@@ -1,5 +1,6 @@
 // FILE: intf_ext.rs
-// occt: Intf_Interference, Intf_SectionPoint, Intf_SectionLine, Intf_TangentZone
+// occt: Intf_SectionPoint
+// occt-ref: Intf_Interference, Intf_SectionLine, Intf_TangentZone
 
 /// Status of an interference computation.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -79,7 +80,7 @@ impl IntfTangentZone {
     }
 }
 
-// occt: Intf_Interference — result of interference between two objects
+// occt-ref: Intf_Interference // — result of interference between two objects
 #[derive(Clone, Debug, Default)]
 pub struct IntfInterference {
     pub section_points: Vec<IntfSectionPoint>,
@@ -114,7 +115,7 @@ impl IntfInterference {
     pub fn is_done(&self) -> bool { self.status.is_done() }
 }
 
-// occt: Intf_Tool — wraps interference computations for common geometry types
+// occt-ref: Intf_Tool // — wraps interference computations for common geometry types
 pub struct IntfTool;
 
 impl IntfTool {

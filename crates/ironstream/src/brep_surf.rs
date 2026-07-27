@@ -1,9 +1,10 @@
 // FILE: brep_surf.rs
-// occt: BRep_Surface, BRep_PointOnCurve, BRep_PointOnCurveOnSurface,
+// occt: BRep_PointOnCurve, BRep_PointOnCurveOnSurface
+// occt-ref: BRep_Surface
 //       BRep_PointOnSurface, BRep_CurveOnSurface, BRep_GCurve
 
 /// Representation type for a curve on a surface.
-/// occt: BRep_Representation kind
+/// occt-note: BRep_Representation kind
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum BrepRepKind {
     Curve3D,
@@ -20,7 +21,7 @@ impl Default for BrepRepKind {
 }
 
 /// A 3D curve stored on a BRep edge.
-/// occt: BRep_Curve3D
+// occt-ref: BRep_Curve3D
 #[derive(Clone, Debug)]
 pub struct BrepCurve3D {
     pub curve_id: u32,
@@ -41,7 +42,7 @@ impl BrepCurve3D {
 }
 
 /// A 2D curve (pcurve) on a surface stored on a BRep edge.
-/// occt: BRep_CurveOnSurface
+// occt-ref: BRep_CurveOnSurface
 #[derive(Clone, Debug)]
 pub struct BrepCurveOnSurface {
     pub pcurve_id: u32,
@@ -70,7 +71,7 @@ impl BrepCurveOnSurface {
 }
 
 /// BRep surface representation (stub).
-/// occt: BRep_Surface
+// occt-ref: BRep_Surface
 #[derive(Clone, Debug)]
 pub struct BrepSurface {
     pub surface_id: u32,

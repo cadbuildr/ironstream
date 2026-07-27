@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/step_schema.rs
 
-// occt: STEP entity type enum — mirrors the named entities recognised by
+// occt-note: STEP entity type enum — mirrors the named entities recognised by
 // StepData_StepModel / RWStepShape readers.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum StepEntityType {
@@ -20,7 +20,7 @@ pub enum StepEntityType {
     Unknown,
 }
 
-// occt: StepData_SelectType — entity reference; carries the numeric STEP
+// occt: StepData_SelectType // — entity reference; carries the numeric STEP
 // instance id and the resolved entity type.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct StepEntityRef {
@@ -42,7 +42,7 @@ impl StepEntityRef {
     }
 }
 
-// occt: StepData_StepModel entity — one parsed STEP instance, holding its
+// occt-ref: StepData_StepModel // entity — one parsed STEP instance, holding its
 // literal parameter strings and resolved entity cross-references.
 #[derive(Debug, Clone)]
 pub struct StepEntity {
@@ -95,7 +95,7 @@ impl StepEntity {
     }
 }
 
-// occt: StepData_StepModel — the in-memory representation of a complete STEP
+// occt-ref: StepData_StepModel // — the in-memory representation of a complete STEP
 // file: one header string plus a flat list of entity instances indexed by their
 // STEP numeric id.
 #[derive(Debug, Clone)]

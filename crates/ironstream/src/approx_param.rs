@@ -1,5 +1,6 @@
 // FILE: approx_param.rs
-// occt: AppParCurves_MultiCurve, AppParCurves_MultiBSpCurve, AppParCurves_MultiPoint
+// occt: AppParCurves_MultiBSpCurve, AppParCurves_MultiPoint
+// occt-ref: AppParCurves_MultiCurve
 
 /// Continuity constraint for parameter-fitting.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -37,7 +38,7 @@ impl AppParMultiPoint {
     pub fn nb_2d_curves(&self) -> usize { self.points2d.len() }
 }
 
-// occt: AppParCurves_MultiCurve — a collection of approximating Bezier curves
+// occt-ref: AppParCurves_MultiCurve // — a collection of approximating Bezier curves
 #[derive(Clone, Debug)]
 pub struct AppParMultiCurve {
     pub degree: usize,
@@ -69,7 +70,7 @@ impl AppParMultiCurve {
     pub fn nb_curves(&self) -> usize { self.nb_curves }
 }
 
-// occt: AppParCurves_MultiBSpCurve — collection of approximating BSpline curves
+// occt: AppParCurves_MultiBSpCurve // — collection of approximating BSpline curves
 #[derive(Clone, Debug)]
 pub struct AppParMultiBSpCurve {
     pub degree: usize,
@@ -104,7 +105,7 @@ impl AppParMultiBSpCurve {
     pub fn last_parameter(&self) -> f64 { self.knots.last().copied().unwrap_or(1.0) }
 }
 
-// occt: Approx_FitAndDivide — fits BSpline curve to point cloud with automatic subdivision
+// occt-ref: Approx_FitAndDivide // — fits BSpline curve to point cloud with automatic subdivision
 #[derive(Clone, Debug)]
 pub struct ApproxFitAndDivide {
     pub multi_line_id: u32,

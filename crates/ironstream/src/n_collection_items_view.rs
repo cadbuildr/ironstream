@@ -1,5 +1,5 @@
 // FILE: n_collection_items_view.rs
-// occt: NCollection_ItemsView | KeyValueRef | KeyValueIndexRef | KeyIndexRef | Iterator | View
+// occt: NCollection_ItemsView // | KeyValueRef | KeyValueIndexRef | KeyIndexRef | Iterator | View
 
 /// Key-value pair reference for structured binding support.
 /// Enables: for [key, value] in map.items()

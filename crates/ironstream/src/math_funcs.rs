@@ -1,5 +1,5 @@
 // FILE: math_funcs.rs
-// occt: math_Function, math_FunctionWithDerivative,
+// occt: math_Function, math_FunctionWithDerivative
 //       math_MultipleVarFunction, math_MultipleVarFunctionWithGradient,
 //       math_NewtonMinimum, math_Powell
 
@@ -27,7 +27,7 @@ pub trait MultipleVarFunctionWithGradient: MultipleVarFunction {
     fn values(&self, x: &[f64]) -> Option<(f64, Vec<f64>)>;  // (f, grad)
 }
 
-// occt: math_NewtonMinimum — 1D minimum finder via Newton's method
+// occt-ref: math_NewtonMinimum // — 1D minimum finder via Newton's method
 #[derive(Clone, Debug)]
 pub struct MathNewtonMinimum {
     pub tolerance: f64,
@@ -98,7 +98,7 @@ impl MathNewtonMinimum {
     pub fn nb_iterations(&self) -> usize { self.nb_iter }
 }
 
-// occt: math_Powell — multi-dimensional minimisation (Powell's method stub)
+// occt: math_Powell // — multi-dimensional minimisation (Powell's method stub)
 #[derive(Clone, Debug)]
 pub struct MathPowell {
     pub tolerance: f64,
@@ -146,7 +146,7 @@ impl MathPowell {
     pub fn nb_iterations(&self) -> usize { self.nb_iter }
 }
 
-// occt: math_BrentMinimum — Brent's 1D minimization
+// occt: math_BrentMinimum // — Brent's 1D minimization
 #[derive(Clone, Debug)]
 pub struct MathBrentMinimum {
     pub a: f64,
@@ -251,7 +251,7 @@ impl MathBrentMinimum {
     pub fn minimum_value(&self) -> f64 { self.value }
 }
 
-// occt: math_Gauss — Gaussian elimination for linear systems
+// occt: math_Gauss // — Gaussian elimination for linear systems
 #[derive(Clone, Debug)]
 pub struct MathGauss {
     pub n: usize,

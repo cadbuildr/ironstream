@@ -1,5 +1,6 @@
 // FILE: tdf_label_data_map.rs
-// occt: TDF_LabelDataMap, TDF_DataMapIteratorOfLabelDataMap
+// occt: TDF_LabelDataMap
+// occt-ref: TDF_DataMapIteratorOfLabelDataMap
 
 //! Deprecated typedef for TDF_LabelDataMap.
 //!

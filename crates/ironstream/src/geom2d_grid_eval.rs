@@ -1,8 +1,8 @@
 // FILE: geom2d_grid_eval.rs
 // occt: Geom2dGridEval
-// occt: Geom2dGridEval::CurveD1
-// occt: Geom2dGridEval::CurveD2
-// occt: Geom2dGridEval::CurveD3
+// occt: Geom2dGridEval // ::CurveD1
+// occt: Geom2dGridEval // ::CurveD2
+// occt: Geom2dGridEval // ::CurveD3
 
 /// Result structure for curve D1 evaluation (point and first derivative).
 #[derive(Clone, Copy, Debug)]

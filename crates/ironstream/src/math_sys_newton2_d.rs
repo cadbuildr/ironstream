@@ -8,7 +8,7 @@
 //! - Surface intersection curves
 
 
-// occt: MathUtils_Status
+// occt-ref: MathUtils_Status
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Status {
     OK,
@@ -40,7 +40,7 @@ impl Default for Config {
     }
 }
 
-// occt: MathSys_NewtonOptions
+// occt-ref: MathSys_NewtonOptions
 #[derive(Debug, Clone, Copy)]
 pub struct NewtonOptions {
     pub tolerance: f64,
@@ -68,7 +68,7 @@ impl Default for NewtonOptions {
     }
 }
 
-// occt: MathSys_NewtonBoundsN<2>
+// occt-note: MathSys_NewtonBoundsN<2>
 #[derive(Debug, Clone, Copy)]
 pub struct NewtonBounds2D {
     pub min: [f64; 2],
@@ -86,7 +86,7 @@ impl Default for NewtonBounds2D {
     }
 }
 
-// occt: MathSys_NewtonResultN<2>
+// occt-note: MathSys_NewtonResultN<2>
 #[derive(Debug, Clone)]
 pub struct NewtonResult2D {
     pub status: Status,

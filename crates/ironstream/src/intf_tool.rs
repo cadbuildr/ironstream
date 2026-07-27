@@ -1,5 +1,5 @@
 // FILE: intf_tool.rs
-// occt: Intf_Interference, Intf_SectionLine, Intf_TangentZone,
+// occt: Intf_Interference, Intf_SectionLine, Intf_TangentZone
 //       Intf_SectionPoint, Intf_Tool
 
 /// A single point where two shapes intersect.
@@ -20,7 +20,7 @@ impl SectionPoint {
     pub fn is_on_boundary_of_g2(&self) -> bool { self.param_on_g2 <= self.tolerance }
 }
 
-// occt: Intf_SectionLine — a connected sequence of section points
+// occt: Intf_SectionLine // — a connected sequence of section points
 #[derive(Clone, Debug, Default)]
 pub struct SectionLine {
     pub points: Vec<SectionPoint>,
@@ -56,7 +56,7 @@ impl SectionLine {
     }
 }
 
-// occt: Intf_TangentZone — region where two shapes are tangent (touch without crossing)
+// occt: Intf_TangentZone // — region where two shapes are tangent (touch without crossing)
 #[derive(Clone, Debug, Default)]
 pub struct TangentZone {
     pub points: Vec<SectionPoint>,
@@ -88,7 +88,7 @@ impl TangentZone {
     pub fn extent_g2(&self) -> f64 { self.param_range_g2.1 - self.param_range_g2.0 }
 }
 
-// occt: Intf_Interference — result of an interference computation between two shapes
+// occt: Intf_Interference // — result of an interference computation between two shapes
 #[derive(Clone, Debug, Default)]
 pub struct Interference {
     pub section_lines: Vec<SectionLine>,

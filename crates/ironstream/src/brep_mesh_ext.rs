@@ -1,5 +1,5 @@
 // FILE: brep_mesh_ext.rs
-// occt: BRepMesh_IncrementalMesh (extended), BRepMesh_FastDiscret, IMeshTools_Parameters
+// occt-ref: BRepMesh_IncrementalMesh // (extended), BRepMesh_FastDiscret, IMeshTools_Parameters
 
 // occt: IMeshTools_Parameters
 #[derive(Clone, Debug)]
@@ -37,7 +37,7 @@ impl Default for MeshParams {
     fn default() -> Self { Self::new(0.1, 0.5) }
 }
 
-// occt: BRepMesh_IncrementalMesh (extended attributes)
+// occt-ref: BRepMesh_IncrementalMesh // (extended attributes)
 #[derive(Clone, Debug)]
 pub struct IncrementalMesh {
     pub params: MeshParams,
@@ -62,7 +62,7 @@ impl IncrementalMesh {
     }
 }
 
-// occt: BRepMesh_FastDiscret (per-face mesher)
+// occt-ref: BRepMesh_FastDiscret // (per-face mesher)
 #[derive(Clone, Debug)]
 pub struct FastDiscret {
     pub params: MeshParams,
@@ -95,7 +95,7 @@ impl FastDiscret {
     }
 }
 
-// occt: BRepMesh_EdgeDiscretizerExtended
+// occt-ref: BRepMesh_EdgeDiscretizerExtended
 #[derive(Clone, Debug)]
 pub struct EdgeDiscretizer {
     pub deflection: f64,

@@ -1,5 +1,6 @@
 // FILE: prs3d_text_prop.rs
-// occt: Prs3d_TextAspect, Graphic3d_AspectText3d, Font_FontMgr
+// occt: Graphic3d_AspectText3d, Font_FontMgr
+// occt-ref: Prs3d_TextAspect
 
 /// Font weight.
 /// occt: Font_FontAspect
@@ -41,7 +42,7 @@ impl Default for TextVAlign {
 }
 
 /// Text rendering style.
-/// occt: Graphic3d_TextPath (direction the text is rendered along)
+/// occt: Graphic3d_TextPath // (direction the text is rendered along)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum TextPath {
     Right,
@@ -55,7 +56,7 @@ impl Default for TextPath {
 }
 
 /// Text display type (background/overlay mode).
-/// occt: Aspect_TypeOfDisplayText
+// occt-ref: Aspect_TypeOfDisplayText
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum TypeOfDisplayText {
     Normal,
@@ -69,7 +70,7 @@ impl Default for TypeOfDisplayText {
 }
 
 /// 3D text aspect: font, size, color, alignment.
-/// occt: Prs3d_TextAspect / Graphic3d_AspectText3d
+// occt-ref: Prs3d_TextAspect // / Graphic3d_AspectText3d
 #[derive(Clone, Debug)]
 pub struct Prs3dTextAspect {
     pub font_name: String,

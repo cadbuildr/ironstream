@@ -16,7 +16,7 @@ impl Default for XcafDisplayMode {
     fn default() -> Self { Self::Shaded }
 }
 
-// occt: XCAFPrs_Style — visual style (color, visibility, transparency) for a shape label
+// occt: XCAFPrs_Style // — visual style (color, visibility, transparency) for a shape label
 #[derive(Clone, Debug)]
 pub struct XcafPrsStyle {
     pub surface_color: Option<[f32; 3]>,
@@ -90,7 +90,7 @@ pub struct ExplorerEntry {
     pub instance_path: Vec<u32>,
 }
 
-// occt: XCAFPrs_DocumentExplorer — depth-first traversal of an XCAF assembly
+// occt: XCAFPrs_DocumentExplorer // — depth-first traversal of an XCAF assembly
 #[derive(Clone, Debug, Default)]
 pub struct XcafDocumentExplorer {
     pub doc_id: u32,
@@ -129,7 +129,7 @@ impl XcafDocumentExplorer {
     }
 }
 
-// occt: XCAFPrs_AISObject — AIS presentation built from an XCAF shape label + style
+// occt: XCAFPrs_AISObject // — AIS presentation built from an XCAF shape label + style
 #[derive(Clone, Debug)]
 pub struct XcafPrsAISObject {
     pub label: u32,

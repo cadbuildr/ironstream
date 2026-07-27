@@ -1,6 +1,6 @@
 // FILE: xcaf_doc.rs
 
-// occt: XCAFDoc_ColorType
+// occt-ref: XCAFDoc_ColorType
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum XcafDocColorType {
     Generic,
@@ -8,7 +8,7 @@ pub enum XcafDocColorType {
     Curve,
 }
 
-// occt: XCAFDoc_ColorTool color
+// occt-ref: XCAFDoc_ColorTool // color
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct XcafDocRGBColor {
     pub r: f32,
@@ -22,7 +22,7 @@ impl XcafDocRGBColor {
     }
 }
 
-// occt: XCAFDoc_ShapeTool entry
+// occt-ref: XCAFDoc_ShapeTool // entry
 pub struct XcafDocShapeEntry {
     pub label_path: Vec<u32>,
     pub name: Option<String>,
@@ -43,7 +43,7 @@ impl XcafDocShapeEntry {
     }
 }
 
-// occt: XCAFDoc_ShapeTool
+// occt-ref: XCAFDoc_ShapeTool
 pub struct XcafDocShapeTool {
     entries: Vec<XcafDocShapeEntry>,
 }
@@ -111,7 +111,7 @@ impl Default for XcafDocShapeTool {
     }
 }
 
-// occt: XCAFDoc document
+// occt: XCAFDoc // document
 pub struct XcafDocDocument {
     pub shape_tool: XcafDocShapeTool,
     pub format: String,

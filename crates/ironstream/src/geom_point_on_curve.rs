@@ -95,7 +95,7 @@ const DEFAULT_TOLERANCE: f64 = 1.0e-3;
 /// GeomAPI_PointsToBSpline algo(pts);
 /// algo.Init(pts, degMin, degMax, Approx_ChordLength, tol);
 /// ```
-// occt: GeomAPI_PointsToBSpline
+// occt-ref: GeomAPI_PointsToBSpline
 #[derive(Clone, Debug)]
 pub struct PointsToBSpline {
     /// The input point set, one `[x, y, z]` per point.

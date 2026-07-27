@@ -55,7 +55,7 @@ pub struct Limits {
 }
 
 /// `Bnd_Box` — an axis-aligned bounding box.
-// occt: Bnd_Box
+// occt-ref: Bnd_Box
 #[derive(Clone, Copy, Debug)]
 pub struct BndBox {
     xmin: f64,

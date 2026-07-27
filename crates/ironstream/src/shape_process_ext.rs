@@ -1,7 +1,7 @@
 // FILE: shape_process_ext.rs
 // occt: ShapeProcess_OperLibrary, ShapeProcess_ShapeContext, ShapeProcess_UOperator
 
-// occt: ShapeProcess_Context
+// occt-ref: ShapeProcess_Context
 /// Holds parameters and results for a shape processing sequence.
 #[derive(Clone, Debug, Default)]
 pub struct ShapeContext {
@@ -33,7 +33,7 @@ impl ShapeContext {
     }
 }
 
-// occt: ShapeProcess_UOperator (operator definition)
+// occt: ShapeProcess_UOperator // (operator definition)
 #[derive(Clone, Debug)]
 pub struct OperatorDef {
     pub name: String,
@@ -80,7 +80,7 @@ impl OperLibrary {
     }
 }
 
-// occt: ShapeProcess_Operator (execution handle)
+// occt: ShapeProcess_Operator // (execution handle)
 #[derive(Clone, Debug)]
 pub struct Operator {
     pub def: OperatorDef,

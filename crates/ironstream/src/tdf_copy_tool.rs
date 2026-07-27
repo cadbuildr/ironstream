@@ -1,8 +1,9 @@
 // FILE: tdf_copy_tool.rs
-// occt: TDF_CopyTool, TDF_RelocationTable, TDF_CopyLabel
+// occt: TDF_CopyTool, TDF_CopyLabel
+// occt-ref: TDF_RelocationTable
 
 /// Maps old label/attribute ids to new ones during a copy.
-/// occt: TDF_RelocationTable
+// occt-ref: TDF_RelocationTable
 #[derive(Clone, Debug, Default)]
 pub struct TdfRelocationTable {
     pub label_map: Vec<(u32, u32)>,     // (source_id, target_id)

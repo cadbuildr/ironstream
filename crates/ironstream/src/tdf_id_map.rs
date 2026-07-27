@@ -1,5 +1,6 @@
 // FILE: tdf_id_map.rs
-// occt: TDF_IDMap, TDF_MapIteratorOfIDMap
+// occt: TDF_IDMap
+// occt-ref: TDF_MapIteratorOfIDMap
 
 //! Deprecated typedef for TDF_IDMap.
 //!

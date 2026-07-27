@@ -1,5 +1,6 @@
 // FILE: mesh_vs_map_of_two_nodes.rs
-// occt: MeshVS_MapOfTwoNodes, MeshVS_MapIteratorOfMapOfTwoNodes
+// occt: MeshVS_MapOfTwoNodes
+// occt-ref: MeshVS_MapIteratorOfMapOfTwoNodes
 
 use std::collections::HashSet;
 

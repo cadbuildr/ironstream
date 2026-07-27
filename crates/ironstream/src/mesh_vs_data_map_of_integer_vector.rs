@@ -1,5 +1,6 @@
 // FILE: mesh_vs_data_map_of_integer_vector.rs
-// occt: MeshVS_DataMapOfIntegerVector, MeshVS_DataMapIteratorOfDataMapOfIntegerVector
+// occt: MeshVS_DataMapOfIntegerVector
+// occt-ref: MeshVS_DataMapIteratorOfDataMapOfIntegerVector
 
 use std::collections::HashMap;
 

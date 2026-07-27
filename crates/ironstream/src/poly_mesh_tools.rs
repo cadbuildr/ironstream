@@ -23,16 +23,16 @@
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum PolyMeshPurpose {
     /// The mesh is the active representation currently in use.
-    // occt: Poly_MeshPurpose_ACTIVE
+    // occt-ref: Poly_MeshPurpose_ACTIVE
     Active,
     /// The mesh has been loaded from persistent storage but is not yet active.
-    // occt: Poly_MeshPurpose_LOADED
+    // occt-ref: Poly_MeshPurpose_LOADED
     Loaded,
     /// The mesh was produced by an algorithm (e.g. the mesher).
-    // occt: Poly_MeshPurpose_COMPUTED
+    // occt-ref: Poly_MeshPurpose_COMPUTED
     Computed,
     /// The mesh was supplied directly by the application.
-    // occt: Poly_MeshPurpose_USER
+    // occt-ref: Poly_MeshPurpose_USER
     User,
 }
 
@@ -156,7 +156,7 @@ impl PolyUVNodes {
 ///
 /// Mirrors `Poly_Triangulation` (with its attribute arrays) from OpenCascade's
 /// `Poly` package.
-// occt: Poly_Triangulation
+// occt-ref: Poly_Triangulation
 #[derive(Clone, Debug)]
 pub struct PolyMeshData {
     /// 3-D vertex positions `[x, y, z]` in model units.
@@ -313,7 +313,7 @@ impl Default for MeshStats {
 /// Writer for the Stanford PLY polygon file format.
 ///
 /// Mirrors `RWPly` from OpenCascade's `RWPly` package.
-// occt: RWPly
+// occt-ref: RWPly
 pub struct PlyWriter {
     /// When `true` the output is little-endian binary PLY; when `false` ASCII.
     pub binary: bool,
@@ -438,7 +438,7 @@ impl Default for PlyWriter {
 /// Reader for the Stanford PLY polygon file format (ASCII and binary).
 ///
 /// Mirrors `RWPly` from OpenCascade's `RWPly` package.
-// occt: RWPly
+// occt-ref: RWPly
 pub struct PlyReader {
     /// Parsed vertex positions.
     pub nodes: Vec<[f64; 3]>,

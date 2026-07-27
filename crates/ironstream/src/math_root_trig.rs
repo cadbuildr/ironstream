@@ -12,7 +12,7 @@ use std::f64::consts::PI;
 const THE_PI: f64 = PI;
 const THE_2PI: f64 = 2.0 * PI;
 
-// occt: MathUtils_Status
+// occt-ref: MathUtils_Status
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Status {
     OK,
@@ -20,7 +20,7 @@ pub enum Status {
 }
 
 // occt: MathRoot_Trig
-// occt: MathRoot_TrigResult
+// occt-ref: MathRoot_TrigResult
 #[derive(Debug, Clone)]
 pub struct TrigResult {
     pub status: Status,

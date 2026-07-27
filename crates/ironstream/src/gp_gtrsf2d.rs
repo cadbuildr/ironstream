@@ -41,7 +41,7 @@ use crate::gp2d::{Ax2d, Pnt2d};
 /// Mirrors `gp_TrsfForm`.  The ordering follows OCCT's enum values so that
 /// callers can rely on integer comparisons when needed.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-// occt: gp_TrsfForm
+// occt-ref: gp_TrsfForm
 pub enum TrsfForm {
     /// Identity (M = I, t = 0).
     Identity,

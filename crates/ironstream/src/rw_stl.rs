@@ -1,5 +1,6 @@
 // FILE: rw_stl.rs
-// occt: RWStl, StlAPI_Reader, StlAPI_Writer
+// occt: RWStl, StlAPI_Reader
+// occt-ref: StlAPI_Writer
 
 /// STL file format (binary or ASCII).
 /// occt: RWStl
@@ -34,7 +35,7 @@ impl StlReadResult {
 }
 
 /// STL reader.
-/// occt: StlAPI_Reader / RWStl (read side)
+/// occt: StlAPI_Reader // / RWStl (read side)
 #[derive(Clone, Debug)]
 pub struct StlReader {
     pub file_path: String,
@@ -83,7 +84,7 @@ impl Default for StlReader {
 }
 
 /// STL writer.
-/// occt: StlAPI_Writer / RWStl (write side)
+// occt-ref: StlAPI_Writer // / RWStl (write side)
 #[derive(Clone, Debug)]
 pub struct StlWriter {
     pub file_path: String,
@@ -127,7 +128,7 @@ impl Default for StlWriter {
 }
 
 /// STL info: inspect an existing STL file without fully reading it.
-/// occt: RWStl info functions
+/// occt: RWStl // info functions
 #[derive(Clone, Debug, Default)]
 pub struct StlFileInfo {
     pub path: String,

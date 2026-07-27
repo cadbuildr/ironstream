@@ -1,5 +1,6 @@
 // FILE: tdf_std_attrs.rs
-// occt: TDataStd_Name, TDataStd_Integer, TDataStd_Real, TDataStd_IntegerArray,
+// occt: TDataStd_IntegerArray
+// occt-ref: TDataStd_Name, TDataStd_Integer, TDataStd_Real
 //       TDataStd_RealArray, TDataStd_ByteArray, TDataStd_ExtStringArray,
 //       TDataStd_Comment, TDataStd_UAttribute
 
@@ -9,7 +10,7 @@ pub trait DataStdAttr: std::fmt::Debug {
     fn get_id(&self) -> &'static str;
 }
 
-// occt: TDataStd_Name
+// occt-ref: TDataStd_Name
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct TDataStdName {
     pub value: String,
@@ -42,7 +43,7 @@ impl TDataStdComment {
     pub fn set(&mut self, c: impl Into<String>) { self.value = c.into(); }
 }
 
-// occt: TDataStd_Integer
+// occt-ref: TDataStd_Integer
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct TDataStdInteger {
     pub value: i32,
@@ -62,7 +63,7 @@ impl DataStdAttr for TDataStdInteger {
     fn get_id(&self) -> &'static str { Self::ID }
 }
 
-// occt: TDataStd_Real
+// occt-ref: TDataStd_Real
 #[derive(Clone, Debug, PartialEq)]
 pub struct TDataStdReal {
     pub value: f64,
@@ -212,7 +213,7 @@ impl TDataStdExtStringArray {
     pub fn length(&self) -> usize { self.values.len() }
 }
 
-// occt: TDataStd_UAttribute (unique attribute marker)
+// occt: TDataStd_UAttribute // (unique attribute marker)
 #[derive(Clone, Debug)]
 pub struct TDataStdUAttribute {
     pub guid: String,

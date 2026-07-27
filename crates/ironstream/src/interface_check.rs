@@ -43,7 +43,7 @@ pub enum CheckMessageType {
 ///
 /// Carries the severity ([`CheckMessageType`]), a human-readable text, and the
 /// identifier of the entity that produced the message.
-// occt: Interface_Check message
+// occt: Interface_Check // message
 #[derive(Debug, Clone)]
 pub struct CheckMessage {
     msg_type:  CheckMessageType,

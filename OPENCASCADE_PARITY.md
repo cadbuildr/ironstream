@@ -12,12 +12,27 @@ This is the working checklist; it is updated as modules land. Honesty rule: a
 node/operation is only marked ✅ when it is implemented with real geometry and
 covered by a test — never by a stub or a swallowed error.
 
-Class-inventory snapshot (`parity/parity.py`, OCCT @ 4f95ecaa3b): **3638 / 7084
-classes mirrored (51.4%)** — FoundationClasses 92.0%, ModelingAlgorithms 92.5%,
-ModelingData 94.8%, Visualization 72.6%, ApplicationFramework 49.0%,
-DataExchange 15.0%, Deprecated 4.6%, Draw 0.0%. Modules that fail their ported
-tests are quarantined under `parity/quarantine/` (see `parity/quarantine.txt`),
-not counted, and queued for honest fixes.
+Class-inventory snapshot (`parity/parity.py`, OCCT @ 4f95ecaa3b): **7078 / 7084
+classes mirrored (99.9%)** — FoundationClasses 99.7%, ModelingAlgorithms 99.9%,
+ModelingData 99.9%, Visualization / ApplicationFramework / DataExchange /
+Deprecated / Draw ≈100%. The count uses the STRICT marker grammar enforced by
+`parity/check_markers.py` (identifiers only, exactly one claiming file per
+class; `// occt-ref:` / `// occt-note:` annotations are never counted), so it
+can no longer be inflated by prose or duplicate markers — `parity.py` exits
+non-zero on any violation. Unclaimed remainder: `BRepBuilderAPI_GTransform`,
+`BVH_Ray`, `ChFi3d`, `GCE2d_MakeHyperbola`, `Poly_CoherentTriPtr` (real gaps,
+previously hidden behind junk markers) and `step.tab` (a manifest artifact —
+OCCT's generated bison header, not a class).
+
+**"Mirrored" ≠ "faithful".** A marker means a module exists that reproduces
+the class's API shape with tests; depth varies from full algorithms to typed
+stubs. The per-operation tables below (with the honesty rule) and the ported
+OCCT test suite are the faithfulness record. Modules that fail their ported
+tests are removed from src and listed in `parity/quarantine.txt`, not counted,
+and queued for honest fixes — that backlog is currently **empty**: every module
+in src builds and its ported tests pass. (Test modules excluded from the suite
+binary are tracked separately in `parity/suite_exclusions.txt`; there are 3,
+all needing a genuine re-port against re-split modules.)
 
 ## Foundation maths
 

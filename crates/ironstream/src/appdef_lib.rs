@@ -1,5 +1,6 @@
 // FILE: appdef_lib.rs
-// occt: AppDef_MultiLine, AppDef_BSplineCompute, AppDef_Compute
+// occt: AppDef_BSplineCompute
+// occt-ref: AppDef_MultiLine, AppDef_Compute
 
 /// Status of AppDef fitting operations.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -47,7 +48,7 @@ impl AppDefMultiPoint {
     pub fn parameter(&self) -> f64 { self.parameter }
 }
 
-// occt: AppDef_MultiLine — a collection of multi-points for fitting
+// occt-ref: AppDef_MultiLine // — a collection of multi-points for fitting
 #[derive(Clone, Debug, Default)]
 pub struct AppDefMultiLine {
     pub points: Vec<AppDefMultiPoint>,
@@ -71,7 +72,7 @@ impl AppDefMultiLine {
     pub fn last_parameter(&self) -> f64 { self.points.last().map(|p| p.parameter).unwrap_or(1.0) }
 }
 
-// occt: AppDef_BSplineCompute — fits a B-spline through a multi-line
+// occt: AppDef_BSplineCompute // — fits a B-spline through a multi-line
 #[derive(Clone, Debug)]
 pub struct AppDefBSplineCompute {
     pub degree_min: u32,
@@ -122,7 +123,7 @@ impl AppDefBSplineCompute {
     pub fn average_error(&self) -> f64 { self.average_error }
 }
 
-// occt: AppDef_Compute — least-squares polynomial fitting (non-BSpline output)
+// occt-ref: AppDef_Compute // — least-squares polynomial fitting (non-BSpline output)
 #[derive(Clone, Debug)]
 pub struct AppDefCompute {
     pub degree: u32,

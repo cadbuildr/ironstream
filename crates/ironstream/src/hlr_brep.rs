@@ -1,5 +1,5 @@
 // FILE: hlr_brep.rs
-// occt: HLRBRep — Hidden Line Removal for BRep shapes.
+// occt: HLRBRep // — Hidden Line Removal for BRep shapes.
 
 // occt: HLRBRep_TypeOfResultingEdge
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

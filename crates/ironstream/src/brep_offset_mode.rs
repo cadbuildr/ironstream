@@ -1,5 +1,6 @@
 // FILE: brep_offset_mode.rs
-// occt: BRepOffset_Mode, BRepOffset_Status, BRepOffset_MakeOffset,
+// occt: BRepOffset_Mode, BRepOffset_Status
+// occt-ref: BRepOffset_MakeOffset
 //       BRepOffset_Tool
 
 /// Offset shell building mode.
@@ -53,7 +54,7 @@ impl Default for BRepOffsetJoinType {
 }
 
 /// Offset builder for shells/faces.
-/// occt: BRepOffset_MakeOffset
+// occt-ref: BRepOffset_MakeOffset
 #[derive(Clone, Debug)]
 pub struct BRepMakeOffset {
     pub source_shape_id: u32,
@@ -101,7 +102,7 @@ impl BRepMakeOffset {
 }
 
 /// Builder for shell from sequences of wires (loft/ruled surface).
-/// occt: BRepOffsetAPI_ThruSections
+// occt-ref: BRepOffsetAPI_ThruSections
 #[derive(Clone, Debug)]
 pub struct BRepThruSections {
     pub builder_id: u32,

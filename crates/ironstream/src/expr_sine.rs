@@ -234,7 +234,7 @@ impl UnaryExpression {
 }
 
 /// Sine function: sin(x).
-/// occt: Expr_Sine (unary expression)
+/// occt: Expr_Sine // (unary expression)
 #[derive(Clone, Debug)]
 pub struct Sine {
     base: UnaryExpression,

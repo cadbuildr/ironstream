@@ -1,5 +1,6 @@
 // FILE: poly_triangulation.rs
-// occt: Poly_Triangulation, Poly_Triangle, Poly_Array1OfTriangle, BRep_Polygon3D
+// occt: BRep_Polygon3D
+// occt-ref: Poly_Triangulation, Poly_Triangle, Poly_Array1OfTriangle
 
 /// A triangle by three node indices (1-based in OCCT, 0-based here).
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -16,7 +17,7 @@ impl Triangle {
     pub fn contains_node(&self, n: usize) -> bool { self.n1 == n || self.n2 == n || self.n3 == n }
 }
 
-// occt: Poly_Triangulation
+// occt-ref: Poly_Triangulation
 #[derive(Clone, Debug, Default)]
 pub struct Triangulation {
     pub nodes: Vec<[f64; 3]>,

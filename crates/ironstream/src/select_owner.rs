@@ -1,13 +1,13 @@
 // FILE: select_owner.rs
-// occt: SelectMgr_EntityOwner, SelectMgr_SelectableObject,
+// occt: SelectMgr_EntityOwner, SelectMgr_SelectableObject
 //       SelectMgr_SelectionManager
 
 /// Selection priority.
-/// occt: SelectMgr_EntityOwner priority field
+/// occt: SelectMgr_EntityOwner // priority field
 pub type SelectionPriority = i32;
 
 /// Selection state of an entity owner.
-/// occt: SelectMgr (state)
+/// occt: SelectMgr // (state)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum SelectionState {
     NotDetected,

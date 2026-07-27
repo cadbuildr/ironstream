@@ -17,7 +17,7 @@
 /// The token format is intentionally human-readable so that unit tests and
 /// debug output remain self-documenting.
 // occt: TopoDS_Builder
-// occt: BRep_Builder
+// occt-ref: BRep_Builder
 pub struct TopoBuilder;
 
 impl TopoBuilder {
@@ -31,7 +31,7 @@ impl TopoBuilder {
     /// let v = TopoBuilder::make_vertex([1.0, 2.0, 3.0]);
     /// assert!(v.starts_with("vertex:("));
     /// ```
-    // occt: BRep_Builder::MakeVertex / TopoDS_Builder::MakeVertex
+    // occt-ref: BRep_Builder // ::MakeVertex / TopoDS_Builder::MakeVertex
     pub fn make_vertex(pt: [f64; 3]) -> String {
         format!(
             "vertex:({:.6},{:.6},{:.6})",
@@ -49,7 +49,7 @@ impl TopoBuilder {
     /// let e  = TopoBuilder::make_edge(&v0, &v1);
     /// assert!(e.starts_with("edge:["));
     /// ```
-    // occt: BRep_Builder::MakeEdge / TopoDS_Builder::MakeEdge
+    // occt-ref: BRep_Builder // ::MakeEdge / TopoDS_Builder::MakeEdge
     pub fn make_edge(v1: &str, v2: &str) -> String {
         format!("edge:[{v1}..{v2}]")
     }
@@ -57,14 +57,14 @@ impl TopoBuilder {
     /// Create a wire from an ordered slice of edge tokens and return its token.
     ///
     /// An empty edge list produces the token `"wire:[]"`.
-    // occt: BRep_Builder::MakeWire / TopoDS_Builder::MakeWire
+    // occt-ref: BRep_Builder // ::MakeWire / TopoDS_Builder::MakeWire
     pub fn make_wire(edges: &[String]) -> String {
         let inner = edges.join(",");
         format!("wire:[{inner}]")
     }
 
     /// Create a face bounded by a wire token and return its token.
-    // occt: BRep_Builder::MakeFace / TopoDS_Builder::MakeFace
+    // occt-ref: BRep_Builder // ::MakeFace / TopoDS_Builder::MakeFace
     pub fn make_face(wire: &str) -> String {
         format!("face:[{wire}]")
     }
@@ -72,14 +72,14 @@ impl TopoBuilder {
     /// Create a shell from an ordered slice of face tokens and return its token.
     ///
     /// An empty face list produces the token `"shell:[]"`.
-    // occt: BRep_Builder::MakeShell / TopoDS_Builder::MakeShell
+    // occt-ref: BRep_Builder // ::MakeShell / TopoDS_Builder::MakeShell
     pub fn make_shell(faces: &[String]) -> String {
         let inner = faces.join(",");
         format!("shell:[{inner}]")
     }
 
     /// Create a solid bounded by a shell token and return its token.
-    // occt: BRep_Builder::MakeSolid / TopoDS_Builder::MakeSolid
+    // occt-ref: BRep_Builder // ::MakeSolid / TopoDS_Builder::MakeSolid
     pub fn make_solid(shell: &str) -> String {
         format!("solid:[{shell}]")
     }
@@ -87,7 +87,7 @@ impl TopoBuilder {
     /// Create a compound from an ordered slice of shape tokens and return its token.
     ///
     /// An empty shape list produces the token `"compound:[]"`.
-    // occt: BRep_Builder::MakeCompound / TopoDS_Builder::MakeCompound
+    // occt-ref: BRep_Builder // ::MakeCompound / TopoDS_Builder::MakeCompound
     pub fn make_compound(shapes: &[String]) -> String {
         let inner = shapes.join(",");
         format!("compound:[{inner}]")
@@ -107,7 +107,7 @@ impl TopoBuilder {
 /// This mirrors the incremental add/commit pattern found in OCCT's
 /// `BRep_Builder` / `BRepBuilderAPI_*` family: add primitives one at a time
 /// and materialise the result only when `build` is called.
-// occt: BRep_Builder
+// occt-ref: BRep_Builder
 // occt: TopoDS_Builder
 pub struct BrepBuilder {
     /// Ordered list of vertex positions.
@@ -118,7 +118,7 @@ pub struct BrepBuilder {
 
 impl BrepBuilder {
     /// Create an empty builder with no vertices or edges.
-    // occt: BRep_Builder (constructor)
+    // occt-ref: BRep_Builder // (constructor)
     pub fn new() -> Self {
         Self {
             vertices: Vec::new(),
@@ -130,7 +130,7 @@ impl BrepBuilder {
     ///
     /// Indices are zero-based and stable: the first vertex added has index `0`,
     /// the second has index `1`, and so on.
-    // occt: BRep_Builder::MakeVertex — adds a vertex to the shape
+    // occt-ref: BRep_Builder // ::MakeVertex — adds a vertex to the shape
     pub fn add_vertex(&mut self, p: [f64; 3]) -> usize {
         let idx = self.vertices.len();
         self.vertices.push(p);
@@ -142,7 +142,7 @@ impl BrepBuilder {
     /// # Panics
     ///
     /// Panics (debug build only) if either index is out of range.
-    // occt: BRep_Builder::MakeEdge — adds an edge between two vertices
+    // occt-ref: BRep_Builder // ::MakeEdge — adds an edge between two vertices
     pub fn add_edge(&mut self, v1: usize, v2: usize) {
         debug_assert!(v1 < self.vertices.len(), "v1 index out of range");
         debug_assert!(v2 < self.vertices.len(), "v2 index out of range");
@@ -156,7 +156,7 @@ impl BrepBuilder {
     /// fields.
     ///
     /// Format: `"brep:V<n_verts>E[(<i0>,<i1>),...]"`.
-    // occt: BRep_Builder — finalises the BRep shape
+    // occt-ref: BRep_Builder // — finalises the BRep shape
     pub fn build(&self) -> String {
         let n = self.vertices.len();
 

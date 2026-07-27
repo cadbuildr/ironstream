@@ -1,6 +1,6 @@
 // FILE: top_abs.rs
 
-// occt: TopAbs_ShapeEnum
+// occt-ref: TopAbs_ShapeEnum
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum ShapeEnum {
     Compound,
@@ -14,7 +14,7 @@ pub enum ShapeEnum {
     Shape,
 }
 
-// occt: TopAbs_Orientation
+// occt-ref: TopAbs_Orientation
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Orientation {
     Forward,

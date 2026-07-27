@@ -76,14 +76,14 @@ impl BoundedCurve {
 
 // ─────────────────────────────── TrimmedCurve ────────────────────────────────
 
-// occt: Geom_TrimmedCurve
+// occt-ref: Geom_TrimmedCurve
 
 /// A restriction of a basis curve to a finite parameter interval `[first, last]`.
 ///
 /// Mirrors `Geom_TrimmedCurve` from OpenCascade.  The basis curve is identified
 /// by a string label (e.g. a curve name or handle key); concrete evaluation is
 /// delegated to a separate curve registry that is not part of this stub.
-// occt: Geom_TrimmedCurve
+// occt-ref: Geom_TrimmedCurve
 #[derive(Clone, Debug, PartialEq)]
 pub struct TrimmedCurve {
     /// Identifier of the underlying basis curve.

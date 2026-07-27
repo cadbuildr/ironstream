@@ -64,7 +64,7 @@ pub trait LawFunction: std::fmt::Debug {
 /// f(t) = v0 + (v1 - v0) * (t - t0) / (t1 - t0)
 /// ```
 /// Outside the interval the law is clamped (OCCT `Law_Linear` behaviour).
-// occt: Law_Linear
+// occt-ref: Law_Linear
 #[derive(Clone, Debug)]
 pub struct LawLinear {
     t0: f64,
@@ -150,7 +150,7 @@ impl LawFunction for LawLinear {
 /// assert!((law.value(0.0) - 1.0).abs() < 1e-10);
 /// assert!((law.value(2.0) - 1.0).abs() < 1e-10);
 /// ```
-// occt: Law_Interpol
+// occt-ref: Law_Interpol
 #[derive(Clone, Debug)]
 pub struct LawInterpol {
     /// Parameter knots (strictly increasing).
@@ -331,7 +331,7 @@ impl LawFunction for LawInterpol {
 /// Mirrors `Law_BSpline` from OCCT.
 ///
 /// The B-spline is evaluated using Cox-de Boor recursion.
-// occt: Law_BSpline
+// occt-ref: Law_BSpline
 #[derive(Clone, Debug)]
 pub struct LawBSpline {
     /// Degree of the B-spline.
@@ -636,7 +636,7 @@ impl LawFunction for LawBSpline {
 /// interval `[breaks[i], breaks[i+1]]` and delegates evaluation to
 /// `laws[i]`.  The laws are stored boxed to allow mixing different law
 /// kinds.
-// occt: Law_Composite
+// occt-ref: Law_Composite
 #[derive(Debug)]
 pub struct LawComposite {
     /// Breakpoint parameters; length = `laws.len() + 1`.

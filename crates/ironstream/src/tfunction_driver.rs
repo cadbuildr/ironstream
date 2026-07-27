@@ -1,5 +1,6 @@
 // FILE: tfunction_driver.rs
-// occt: TFunction_Driver, TFunction_Logbook, TFunction_IFunction, TFunction_DriverTable
+// occt: TFunction_Driver, TFunction_Logbook, TFunction_DriverTable
+// occt-ref: TFunction_IFunction
 
 /// Execution result of a function driver.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -129,7 +130,7 @@ impl TFunctionDriverTable {
 }
 
 /// Thin wrapper around a label that is function-enabled.
-/// occt: TFunction_IFunction
+// occt-ref: TFunction_IFunction
 #[derive(Clone, Debug)]
 pub struct TFunctionIFunction {
     pub label_id: u32,

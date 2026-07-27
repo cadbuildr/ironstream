@@ -78,7 +78,7 @@ impl<T: Clone> BvhBox<T> {
 }
 
 /// Base class for BVH trees, storing common tree structure data.
-/// occt: BVH_TreeBase
+// occt-ref: BVH_TreeBase
 pub struct BvhTreeBase<T: Clone> {
     pub depth: i32,
     pub min_point_buffer: Vec<BvhVecN<T>>,

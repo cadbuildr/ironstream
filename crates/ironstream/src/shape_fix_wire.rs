@@ -1,5 +1,5 @@
 // FILE: shape_fix_wire.rs
-// occt: ShapeFix_Wire, ShapeFix_Edge, ShapeFix_IntersectionTool,
+// occt: ShapeFix_Wire, ShapeFix_Edge, ShapeFix_IntersectionTool
 //       ShapeAnalysis_Wire, ShapeAnalysis_WireOrder
 
 use std::collections::HashMap;
@@ -44,7 +44,7 @@ impl WireCheckStatus {
     pub fn is_done(&self) -> bool { matches!(self, Self::Done1 | Self::Done2 | Self::Done3) }
 }
 
-// occt: ShapeAnalysis_WireOrder — checks and reorders edge ordering in a wire
+// occt: ShapeAnalysis_WireOrder // — checks and reorders edge ordering in a wire
 #[derive(Clone, Debug, Default)]
 pub struct ShapeAnalysisWireOrder {
     pub edge_ids: Vec<u32>,
@@ -73,7 +73,7 @@ impl ShapeAnalysisWireOrder {
     pub fn ordered(&self) -> &[u32] { &self.edge_ids }
 }
 
-// occt: ShapeAnalysis_Wire — detailed analysis of a wire (gaps, self-intersections)
+// occt-ref: ShapeAnalysis_Wire // — detailed analysis of a wire (gaps, self-intersections)
 #[derive(Clone, Debug, Default)]
 pub struct ShapeAnalysisWire {
     pub wire_id: u32,
@@ -118,7 +118,7 @@ impl ShapeAnalysisWire {
     pub fn is_done(&self) -> bool { !self.status.is_fail() && self.status != WireCheckStatus::NotDone }
 }
 
-// occt: ShapeFix_Edge — fixes an individual edge (degenerated, 3d/pcurve)
+// occt: ShapeFix_Edge // — fixes an individual edge (degenerated, 3d/pcurve)
 #[derive(Clone, Debug)]
 pub struct ShapeFixEdge {
     pub edge_id: u32,
@@ -148,7 +148,7 @@ impl ShapeFixEdge {
     pub fn is_fixed(&self, flag: FixFlags) -> bool { self.fixed_flags.has(flag) }
 }
 
-// occt: ShapeFix_Wire — comprehensive wire fixer
+// occt: ShapeFix_Wire // — comprehensive wire fixer
 #[derive(Clone, Debug)]
 pub struct ShapeFixWire {
     pub wire_id: u32,
@@ -223,7 +223,7 @@ impl ShapeFixWire {
     pub fn has_fix(&self, flag: FixFlags) -> bool { self.applied_fixes.has(flag) }
 }
 
-// occt: ShapeFix_IntersectionTool — removes self-intersections from a wire
+// occt: ShapeFix_IntersectionTool // — removes self-intersections from a wire
 #[derive(Clone, Debug, Default)]
 pub struct ShapeFixIntersectionTool {
     pub face_id: u32,

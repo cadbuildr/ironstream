@@ -15,7 +15,7 @@ pub enum Status {
 }
 
 // Result structure for 3D Newton solver
-// occt: NewtonResultN<3>
+// occt-note: NewtonResultN<3>
 #[derive(Debug, Clone)]
 pub struct NewtonResult3D {
     pub status: Status,
@@ -48,7 +48,7 @@ impl Default for NewtonResult3D {
 }
 
 // Bounds structure for 3D
-// occt: NewtonBoundsN<3>
+// occt-note: NewtonBoundsN<3>
 #[derive(Debug, Clone)]
 pub struct NewtonBounds3D {
     pub min: [f64; 3],
@@ -81,7 +81,7 @@ impl Default for NewtonBounds3D {
 }
 
 // Options structure for Newton solver
-// occt: NewtonOptions
+// occt-ref: NewtonOptions
 #[derive(Debug, Clone)]
 pub struct NewtonOptions {
     pub max_iterations: usize,
@@ -174,7 +174,7 @@ fn clamp_3d(x: &mut [f64; 3], bounds: &NewtonBounds3D, use_soft_bounds: bool, so
 }
 
 // Solve 3x3 linear system using Cramer's rule
-// occt: Solve3x3
+// occt-ref: Solve3x3
 fn solve_3x3(j: &[[f64; 3]; 3], f: &[f64; 3], delta: &mut [f64; 3]) -> bool {
     // Compute cofactors for first row
     let cof00 = j[1][1] * j[2][2] - j[1][2] * j[2][1];
@@ -209,7 +209,7 @@ fn solve_3x3(j: &[[f64; 3]; 3], f: &[f64; 3], delta: &mut [f64; 3]) -> bool {
 }
 
 // Main solver function
-// occt: Solve3D
+// occt-ref: Solve3D
 pub fn solve_3d<F: Fn(f64, f64, f64, &mut [f64; 3], &mut [[f64; 3]; 3]) -> bool>(
     func: &F,
     x0: [f64; 3],

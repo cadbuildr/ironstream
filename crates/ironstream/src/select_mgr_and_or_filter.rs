@@ -1,6 +1,6 @@
 // FILE: select_mgr_and_or_filter.rs
 // occt: SelectMgr_AndOrFilter
-// occt: SelectMgr_FilterType
+// occt-ref: SelectMgr_FilterType
 
 use std::collections::HashSet;
 

@@ -15,7 +15,7 @@ pub struct ChamferParams {
 
 impl ChamferParams {
     /// Create a symmetric chamfer where both distances are equal.
-    // occt: BRepFilletAPI_MakeChamfer::Add(dist, edge)
+    // occt: BRepFilletAPI_MakeChamfer // ::Add(dist, edge)
     pub fn symmetric(d: f64) -> Self {
         Self {
             d1: d,
@@ -25,7 +25,7 @@ impl ChamferParams {
     }
 
     /// Create an asymmetric chamfer with two distinct distances.
-    // occt: BRepFilletAPI_MakeChamfer::Add(d1, d2, edge, face)
+    // occt: BRepFilletAPI_MakeChamfer // ::Add(d1, d2, edge, face)
     pub fn asymmetric(d1: f64, d2: f64) -> Self {
         Self {
             d1,
@@ -50,7 +50,7 @@ pub struct ChamferTool {
 
 impl ChamferTool {
     /// Initialise a new builder for the given input shape.
-    // occt: BRepFilletAPI_MakeChamfer::BRepFilletAPI_MakeChamfer(shape)
+    // occt: BRepFilletAPI_MakeChamfer // ::BRepFilletAPI_MakeChamfer(shape)
     pub fn new(shape: &str) -> Self {
         Self {
             shape: shape.to_owned(),
@@ -61,13 +61,13 @@ impl ChamferTool {
     }
 
     /// Register an asymmetric chamfer on `edge` with distances `d1` and `d2`.
-    // occt: BRepFilletAPI_MakeChamfer::Add(d1, d2, edge, face)
+    // occt: BRepFilletAPI_MakeChamfer // ::Add(d1, d2, edge, face)
     pub fn add_edge(&mut self, edge: &str, d1: f64, d2: f64) {
         self.chamfers.push((edge.to_owned(), d1, d2));
     }
 
     /// Register a symmetric chamfer on `edge` (both distances equal `d`).
-    // occt: BRepFilletAPI_MakeChamfer::Add(dist, edge)
+    // occt: BRepFilletAPI_MakeChamfer // ::Add(dist, edge)
     pub fn add_symmetric(&mut self, edge: &str, d: f64) {
         self.chamfers.push((edge.to_owned(), d, d));
     }
@@ -77,7 +77,7 @@ impl ChamferTool {
     /// In the stub implementation the result is a deterministic string that
     /// encodes the input shape and all registered chamfers.  A real
     /// implementation would call the underlying OCCT algorithm here.
-    // occt: BRepFilletAPI_MakeChamfer::Build / Shape
+    // occt: BRepFilletAPI_MakeChamfer // ::Build / Shape
     pub fn build(&mut self) -> String {
         if self.chamfers.is_empty() {
             self.done = false;
@@ -104,13 +104,13 @@ impl ChamferTool {
     }
 
     /// Returns `true` after a successful call to `build()`.
-    // occt: BRepFilletAPI_MakeChamfer::IsDone
+    // occt: BRepFilletAPI_MakeChamfer // ::IsDone
     pub fn is_done(&self) -> bool {
         self.done
     }
 
     /// Number of contours for which the computation failed.
-    // occt: BRepFilletAPI_MakeChamfer::NbFaultyContours
+    // occt: BRepFilletAPI_MakeChamfer // ::NbFaultyContours
     pub fn nb_faults(&self) -> usize {
         self.faults
     }
@@ -118,7 +118,7 @@ impl ChamferTool {
 
 /// Convenience function: apply a single symmetric chamfer of distance `d`
 /// to `edge` on `shape` and return the result shape string.
-// occt: BRepFilletAPI_MakeChamfer one-shot helper pattern
+// occt: BRepFilletAPI_MakeChamfer // one-shot helper pattern
 pub fn chamfer_edge(shape: &str, edge: &str, d: f64) -> String {
     let mut tool = ChamferTool::new(shape);
     tool.add_symmetric(edge, d);

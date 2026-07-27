@@ -18,14 +18,14 @@ pub enum V3dTypeOfOrientation {
     XposYposZpos,
 }
 
-// occt: V3d_TypeOfProjection
+// occt-ref: V3d_TypeOfProjection
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum V3dTypeOfProjection {
     Perspective,
     Orthographic,
 }
 
-// occt: V3d_View
+// occt-ref: V3d_View
 pub struct V3dView {
     projection: V3dTypeOfProjection,
     width: u32,
@@ -101,7 +101,7 @@ impl Default for V3dView {
     }
 }
 
-// occt: V3d_Viewer
+// occt-ref: V3d_Viewer
 pub struct V3dViewer {
     views: Vec<V3dView>,
     background_color: [f32; 4],

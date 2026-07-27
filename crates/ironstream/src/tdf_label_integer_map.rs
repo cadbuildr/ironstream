@@ -1,5 +1,6 @@
 // FILE: tdf_label_integer_map.rs
-// occt: TDF_LabelIntegerMap, TDF_DataMapIteratorOfLabelIntegerMap
+// occt: TDF_LabelIntegerMap
+// occt-ref: TDF_DataMapIteratorOfLabelIntegerMap
 
 //! Deprecated typedef for TDF_LabelIntegerMap.
 //!

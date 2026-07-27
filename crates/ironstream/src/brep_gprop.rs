@@ -39,7 +39,7 @@ use crate::topods::{Face, Solid, Wire};
 ///  [ ixy  iyy  iyz ]
 ///  [ ixz  iyz  izz ]
 /// ```
-// occt: GProp_GProps (inertia matrix field), gp_Mat
+// occt: GProp_GProps // (inertia matrix field), gp_Mat
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct InertiaMatrix {
     pub ixx: f64,
@@ -197,7 +197,7 @@ impl Default for GProps {
 
 impl GProps {
     /// Create an empty accumulator.
-    // occt: GProp_GProps::GProp_GProps()
+    // occt: GProp_GProps // ::GProp_GProps()
     pub fn new() -> Self {
         Self::default()
     }
@@ -205,13 +205,13 @@ impl GProps {
     // ── query ─────────────────────────────────────────────────────────────────
 
     /// Total mass (volume / area / length depending on what was accumulated).
-    // occt: GProp_GProps::Mass
+    // occt: GProp_GProps // ::Mass
     pub fn mass(&self) -> f64 {
         self.mass
     }
 
     /// Centre of mass.
-    // occt: GProp_GProps::CentreOfMass
+    // occt: GProp_GProps // ::CentreOfMass
     pub fn centre_of_mass(&self) -> Pnt {
         if self.mass.abs() < 1e-15 {
             Pnt::origin()
@@ -221,7 +221,7 @@ impl GProps {
     }
 
     /// Inertia matrix relative to the centre of mass.
-    // occt: GProp_GProps::MatrixOfInertia
+    // occt: GProp_GProps // ::MatrixOfInertia
     pub fn matrix_of_inertia(&self) -> InertiaMatrix {
         if self.mass.abs() < 1e-15 {
             return self.inertia_origin;
@@ -241,7 +241,7 @@ impl GProps {
     }
 
     /// Static moment vector = `mass * centre_of_mass`.
-    // occt: GProp_GProps::StaticMoments
+    // occt: GProp_GProps // ::StaticMoments
     pub fn static_moments(&self) -> (f64, f64, f64) {
         (self.moment.x, self.moment.y, self.moment.z)
     }
@@ -250,7 +250,7 @@ impl GProps {
     ///
     /// Uses the inertia matrix relative to the axis origin, shifted via the
     /// parallel-axis theorem.
-    // occt: GProp_GProps::MomentOfInertia(Ax1)
+    // occt: GProp_GProps // ::MomentOfInertia(Ax1)
     pub fn moment_of_inertia(&self, axis: &Ax1) -> f64 {
         // Shift inertia matrix from origin to the axis location.
         let com = self.centre_of_mass();
@@ -261,7 +261,7 @@ impl GProps {
     }
 
     /// Radius of gyration about an axis.
-    // occt: GProp_GProps::RadiusOfGyration(Ax1)
+    // occt: GProp_GProps // ::RadiusOfGyration(Ax1)
     pub fn radius_of_gyration(&self, axis: &Ax1) -> f64 {
         let i = self.moment_of_inertia(axis);
         if self.mass > 0.0 {
@@ -273,7 +273,7 @@ impl GProps {
 
     /// Principal inertia properties (eigendecomposition of the CoM-relative
     /// inertia matrix).
-    // occt: GProp_GProps::PrincipalProperties
+    // occt: GProp_GProps // ::PrincipalProperties
     pub fn principal_properties(&self) -> PrincipalProps {
         let mat = self.matrix_of_inertia();
         jacobi_eigen(&mat)
@@ -282,7 +282,7 @@ impl GProps {
     // ── mutation ──────────────────────────────────────────────────────────────
 
     /// Add another `GProps` into this accumulator.
-    // occt: GProp_GProps::Add(GProps, coeff)
+    // occt: GProp_GProps // ::Add(GProps, coeff)
     pub fn add(&mut self, other: &GProps) {
         self.add_scaled(other, 1.0);
     }
@@ -549,7 +549,7 @@ impl BRepGProp {
     /// Returns a [`GProps`] where `mass()` is the enclosed volume.
     ///
     /// Mirrors `BRepGProp::VolumeProperties(shape, props)`.
-    // occt: BRepGProp::VolumeProperties
+    // occt: BRepGProp // ::VolumeProperties
     pub fn volume_properties(solid: &Solid) -> GProps {
         let mut props = GProps::new();
         let mesh = solid.mesh();
@@ -573,7 +573,7 @@ impl BRepGProp {
     /// Returns a [`GProps`] where `mass()` is the total surface area.
     ///
     /// Mirrors `BRepGProp::SurfaceProperties(shape, props)`.
-    // occt: BRepGProp::SurfaceProperties
+    // occt: BRepGProp // ::SurfaceProperties
     pub fn surface_properties(solid: &Solid) -> GProps {
         let mut props = GProps::new();
         let mesh = solid.mesh();
@@ -589,7 +589,7 @@ impl BRepGProp {
     /// Compute **surface area** properties directly from a [`TriMesh`].
     ///
     /// Convenience overload for raw mesh data.
-    // occt: BRepGProp::SurfaceProperties
+    // occt: BRepGProp // ::SurfaceProperties
     pub fn surface_properties_mesh(mesh: &TriMesh) -> GProps {
         let mut props = GProps::new();
         for tri in &mesh.tris {
@@ -607,7 +607,7 @@ impl BRepGProp {
     /// segment.  Returns a [`GProps`] where `mass()` is the total perimeter.
     ///
     /// Mirrors `BRepGProp::LinearProperties(shape, props)`.
-    // occt: BRepGProp::LinearProperties
+    // occt: BRepGProp // ::LinearProperties
     pub fn linear_properties(wire: &Wire) -> GProps {
         let mut props = GProps::new();
         let pts = &wire.pts;
@@ -627,7 +627,7 @@ impl BRepGProp {
     /// it.
     ///
     /// Mirrors `BRepGProp::SurfaceProperties` called with a `TopoDS_Face`.
-    // occt: BRepGProp::SurfaceProperties (TopoDS_Face overload)
+    // occt: BRepGProp // ::SurfaceProperties (TopoDS_Face overload)
     pub fn face_surface_properties(face: &Face) -> GProps {
         let mut props = GProps::new();
         for tri in face.triangulate() {
@@ -640,7 +640,7 @@ impl BRepGProp {
     ///
     /// Useful when the caller already has a [`TriMesh`] without wrapping it in
     /// a [`Solid`].
-    // occt: BRepGProp::VolumeProperties (mesh overload)
+    // occt: BRepGProp // ::VolumeProperties (mesh overload)
     pub fn volume_properties_mesh(mesh: &TriMesh) -> GProps {
         let mut props = GProps::new();
         for tri in &mesh.tris {

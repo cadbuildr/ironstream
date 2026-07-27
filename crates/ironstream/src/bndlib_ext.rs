@@ -1,5 +1,6 @@
 // FILE: bndlib_ext.rs
-// occt: BndLib_Add3dCurve, BndLib_Add2dCurve, BndLib_AddSurface
+// occt: BndLib_Add2dCurve
+// occt-ref: BndLib_Add3dCurve, BndLib_AddSurface
 
 /// A 3D axis-aligned bounding box.
 #[derive(Clone, Debug)]
@@ -114,7 +115,7 @@ impl Bbox2d {
     }
 }
 
-// occt: BndLib_Add3dCurve — computes bounding box of a 3D curve
+// occt-ref: BndLib_Add3dCurve // — computes bounding box of a 3D curve
 #[derive(Clone, Debug, Default)]
 pub struct BndLibAdd3dCurve;
 
@@ -149,7 +150,7 @@ impl BndLibAdd3dCurve {
     }
 }
 
-// occt: BndLib_Add2dCurve — computes bounding box of a 2D curve
+// occt: BndLib_Add2dCurve // — computes bounding box of a 2D curve
 #[derive(Clone, Debug, Default)]
 pub struct BndLibAdd2dCurve;
 
@@ -172,7 +173,7 @@ impl BndLibAdd2dCurve {
     }
 }
 
-// occt: BndLib_AddSurface — computes bounding box of a surface
+// occt-ref: BndLib_AddSurface // — computes bounding box of a surface
 #[derive(Clone, Debug, Default)]
 pub struct BndLibAddSurface;
 

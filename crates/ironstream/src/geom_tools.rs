@@ -1,6 +1,6 @@
 // FILE: geom_tools.rs
 
-// occt: GeomTools utilities
+// occt: GeomTools // utilities
 pub struct GeomToolsCurveAnalysis;
 
 impl GeomToolsCurveAnalysis {
@@ -24,7 +24,7 @@ impl GeomToolsCurveAnalysis {
     }
 }
 
-// occt: GeomTools UV bounds
+// occt: GeomTools // UV bounds
 pub struct GeomToolsUVBounds {
     pub u_min: f64,
     pub u_max: f64,

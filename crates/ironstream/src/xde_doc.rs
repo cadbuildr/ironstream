@@ -38,7 +38,7 @@ use crate::top_exp::TopoDS_Shape;
 /// In OCCT a `TDF_Label` is a persistent node in a `TDF_Data` tree identified
 /// by an entry string such as `"0:1:1"`.  Here we use a `u64` id for
 /// simplicity.
-// occt: TDF_Label
+// occt-ref: TDF_Label
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Label(pub u64);
 
@@ -67,7 +67,7 @@ impl std::fmt::Display for Label {
 /// An RGBA color value.
 ///
 /// Components are in `[0.0, 1.0]`.  Alpha defaults to `1.0` (fully opaque).
-// occt: Quantity_Color / Quantity_ColorRGBA
+// occt-ref: Quantity_Color // / Quantity_ColorRGBA
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Color {
     pub r: f64,

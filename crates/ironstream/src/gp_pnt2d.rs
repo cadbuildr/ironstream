@@ -9,7 +9,7 @@
 use crate::gp2d::{Ax2d, Pnt2d};
 use crate::gp_trsf2d::Trsf2d;
 
-// occt: gp_Pnt2d
+// occt-ref: gp_Pnt2d
 
 /// A point in the 2-D plane.
 ///
@@ -20,7 +20,7 @@ use crate::gp_trsf2d::Trsf2d;
 ///
 /// The underlying storage is [`Pnt2d`] (aliased to `gp_XY` / `gp_Vec2d` in
 /// this crate); use [`Pnt2d::new`] directly when raw arithmetic is needed.
-// occt: gp_Pnt2d
+// occt-ref: gp_Pnt2d
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GpPnt2d {
     coord: Pnt2d,

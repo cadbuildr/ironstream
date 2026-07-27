@@ -1,7 +1,8 @@
 // FILE: caf_labels.rs
-// occt: TDF_Label, TDF_LabelMap, TDF_ChildIterator, TDF_TagSource
+// occt: TDF_LabelMap, TDF_ChildIterator
+// occt-ref: TDF_Label, TDF_TagSource
 
-// occt: TDF_Label
+// occt-ref: TDF_Label
 /// A node in the CAF label tree, identified by a tag path.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Label {
@@ -80,7 +81,7 @@ impl<'a> ChildIterator<'a> {
     pub fn value(&self) -> Option<&Label> { self.tags.get(self.index) }
 }
 
-// occt: TDF_TagSource
+// occt-ref: TDF_TagSource
 #[derive(Clone, Debug, Default)]
 pub struct TagSource {
     pub last_tag: u32,

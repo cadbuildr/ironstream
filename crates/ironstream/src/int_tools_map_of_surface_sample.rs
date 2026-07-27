@@ -1,5 +1,6 @@
 // FILE: int_tools_map_of_surface_sample.rs
-// occt: IntTools_MapOfSurfaceSample, IntTools_MapIteratorOfMapOfSurfaceSample
+// occt: IntTools_MapOfSurfaceSample
+// occt-ref: IntTools_MapIteratorOfMapOfSurfaceSample
 
 use std::collections::BTreeSet;
 

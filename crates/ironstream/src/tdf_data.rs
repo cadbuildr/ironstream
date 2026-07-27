@@ -1,5 +1,6 @@
 // FILE: tdf_data.rs
-// occt: TDF_Data, TDF_Transaction, TDF_Label, TDF_LabelSequence,
+// occt: TDF_Data, TDF_Transaction, TDF_LabelSequence
+// occt-ref: TDF_Label
 //       TDF_Attribute, TDF_Delta, TDF_RelocationTable
 
 use std::collections::HashMap;
@@ -31,7 +32,7 @@ impl std::fmt::Display for LabelTag {
     }
 }
 
-// occt: TDF_Attribute (simplified)
+// occt-ref: TDF_Attribute // (simplified)
 pub trait TdfAttribute: std::fmt::Debug {
     fn id(&self) -> &'static str;
 }
@@ -46,7 +47,7 @@ impl TdfAttribute for GenericAttribute {
     fn id(&self) -> &'static str { "GenericAttribute" }
 }
 
-// occt: TDF_Label
+// occt-ref: TDF_Label
 #[derive(Clone, Debug)]
 pub struct TdfLabel {
     pub tag: LabelTag,
@@ -75,7 +76,7 @@ impl TdfLabel {
     pub fn nb_children(&self) -> usize { self.children.len() }
 }
 
-// occt: TDF_Delta (change record)
+// occt: TDF_Delta // (change record)
 #[derive(Clone, Debug, Default)]
 pub struct TdfDelta {
     pub name: String,
@@ -188,7 +189,7 @@ impl TdfData {
     pub fn nb_deltas(&self) -> usize { self.deltas.len() }
 }
 
-// occt: TDF_RelocationTable — maps old labels to new labels (for copy/paste)
+// occt: TDF_RelocationTable // — maps old labels to new labels (for copy/paste)
 #[derive(Clone, Debug, Default)]
 pub struct RelocationTable {
     pub label_map: HashMap<String, LabelTag>,

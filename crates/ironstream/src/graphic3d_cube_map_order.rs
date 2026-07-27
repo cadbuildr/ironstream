@@ -1,5 +1,6 @@
 // FILE: graphic3d_cube_map_order.rs
-// occt: Graphic3d_CubeMapOrder, Graphic3d_ValidatedCubeMapOrder
+// occt: Graphic3d_CubeMapOrder
+// occt-ref: Graphic3d_ValidatedCubeMapOrder
 
 use std::collections::HashSet;
 

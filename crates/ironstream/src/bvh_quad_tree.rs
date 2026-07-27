@@ -1,5 +1,5 @@
 // FILE: bvh_quad_tree.rs
-// occt: BVH_Tree
+// occt-ref: BVH_Tree
 // occt: BVH_QuadTree
 
 /// Specialization of quad BVH (QBVH) tree.

@@ -1,5 +1,6 @@
 // FILE: select_mgr.rs
-// occt: SelectMgr_Selection, SelectMgr_SelectionManager, SelectMgr_SensitiveEntitySet
+// occt: SelectMgr_SensitiveEntitySet
+// occt-ref: SelectMgr_Selection, SelectMgr_SelectionManager
 
 /// State of a selection entity.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -47,7 +48,7 @@ impl SensitiveEntity {
     pub fn activate(&mut self) { self.is_active = true; }
 }
 
-// occt: SelectMgr_Selection — a set of sensitive entities for one mode
+// occt-ref: SelectMgr_Selection // — a set of sensitive entities for one mode
 #[derive(Clone, Debug)]
 pub struct SelectMgrSelection {
     pub mode: SelectionMode,
@@ -74,7 +75,7 @@ impl SelectMgrSelection {
     pub fn set_state(&mut self, s: SelectionState) { self.state = s; }
 }
 
-// occt: SelectMgr_SensitiveEntitySet — stores all active sensitivity entities
+// occt: SelectMgr_SensitiveEntitySet // — stores all active sensitivity entities
 #[derive(Clone, Debug, Default)]
 pub struct SensitiveEntitySet {
     pub entities: Vec<SensitiveEntity>,
@@ -105,7 +106,7 @@ impl SensitiveEntitySet {
     pub fn clear(&mut self) { self.entities.clear(); self.bvh_built = false; }
 }
 
-// occt: SelectMgr_SelectionManager — manages selections for AIS objects
+// occt-ref: SelectMgr_SelectionManager // — manages selections for AIS objects
 #[derive(Clone, Debug, Default)]
 pub struct SelectMgrSelectionManager {
     /// Map: object_id → list of SelectMgrSelection

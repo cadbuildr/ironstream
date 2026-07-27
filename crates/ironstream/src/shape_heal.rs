@@ -1,5 +1,6 @@
 // FILE: shape_heal.rs
-// occt: ShapeHealing, ShapeFix_FixSmallFace, ShapeFix_RemoveSmallEdges
+// occt: ShapeFix_FixSmallFace
+// occt-ref: ShapeHealing, ShapeFix_RemoveSmallEdges
 
 /// Category of shape healing fix.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -39,7 +40,7 @@ pub struct HealFix {
     pub tolerance_used: f64,
 }
 
-// occt: ShapeFix_FixSmallFace — removes degenerate/tiny faces from a shape
+// occt: ShapeFix_FixSmallFace // — removes degenerate/tiny faces from a shape
 #[derive(Clone, Debug)]
 pub struct FixSmallFace {
     pub shape_id: u32,
@@ -69,7 +70,7 @@ impl FixSmallFace {
     pub fn nb_removed_faces(&self) -> usize { self.nb_removed }
 }
 
-// occt: ShapeFix_RemoveSmallEdges — removes degenerate/tiny edges
+// occt-note: ShapeFix_RemoveSmallEdges — removes degenerate/tiny edges
 #[derive(Clone, Debug)]
 pub struct FixRemoveSmallEdges {
     pub shape_id: u32,
@@ -103,7 +104,7 @@ impl FixRemoveSmallEdges {
     pub fn nb_removed(&self) -> usize { self.removed_edges.len() }
 }
 
-// occt: ShapeHealing — combined healer for import workflows
+// occt-note: ShapeHealing — combined healer for import workflows
 #[derive(Clone, Debug)]
 pub struct ShapeHealing {
     pub shape_id: u32,

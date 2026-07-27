@@ -1,7 +1,7 @@
 // FILE: graphic3d_light_set.rs
 // occt: Graphic3d_LightSet
-// occt: Graphic3d_LightSet::Iterator
-// occt: Graphic3d_LightSet::IterationFilter
+// occt: Graphic3d_LightSet // ::Iterator
+// occt: Graphic3d_LightSet // ::IterationFilter
 
 use core::fmt;
 

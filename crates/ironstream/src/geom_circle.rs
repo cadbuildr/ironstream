@@ -79,7 +79,7 @@ fn any_perpendicular(v: [f64; 3]) -> [f64; 3] {
 ///
 /// Mirrors OCCT's `Geom_Circle`: stores center, radius, unit normal (Z axis of
 /// the local frame) and unit X-axis direction within the circle's plane.
-// occt: Geom_Circle
+// occt-ref: Geom_Circle
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct GeomCircle {
     /// Origin / center of the circle.

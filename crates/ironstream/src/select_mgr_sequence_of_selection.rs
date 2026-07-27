@@ -1,5 +1,6 @@
 // FILE: select_mgr_sequence_of_selection.rs
-// occt: SelectMgr_SequenceOfSelection, SelectMgr_SequenceIteratorOfSequenceOfSelection
+// occt: SelectMgr_SequenceOfSelection
+// occt-ref: SelectMgr_SequenceIteratorOfSequenceOfSelection
 
 /// Deprecated typedef for backward compatibility.
 /// A sequence of selection objects using 1-based indexing (OCCT semantics).

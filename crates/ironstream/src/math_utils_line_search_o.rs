@@ -1,5 +1,5 @@
 // FILE: math_utils_line_search_o.rs
-// occt: MathUtils::LineSearchResult, MathUtils::ArmijoBacktrack, MathUtils::WolfeSearch, MathUtils::ExactLineSearch, MathUtils::QuadraticInterpolation, MathUtils::BrentAlongCoordinate
+// occt-note: MathUtils::LineSearchResult, MathUtils::ArmijoBacktrack, MathUtils::WolfeSearch, MathUtils::ExactLineSearch, MathUtils::QuadraticInterpolation, MathUtils::BrentAlongCoordinate
 
 /// Result of line search operation.
 #[derive(Debug, Clone)]

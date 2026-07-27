@@ -1,9 +1,9 @@
 // FILE: geom_cone_tool.rs
-// occt: BRepPrimAPI_MakeCone, BRepPrimAPI_MakeSphere
+// occt-ref: BRepPrimAPI_MakeCone, BRepPrimAPI_MakeSphere
 
 use std::f64::consts::PI;
 
-// occt: BRepPrimAPI_MakeCone
+// occt-ref: BRepPrimAPI_MakeCone
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Cone {
     pub base_center: [f64; 3],
@@ -38,7 +38,7 @@ impl Cone {
     }
 }
 
-// occt: BRepPrimAPI_MakeSphere
+// occt-ref: BRepPrimAPI_MakeSphere
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Sphere {
     pub center: [f64; 3],

@@ -1,9 +1,10 @@
 // FILE: geom2d_project.rs
-// occt: Geom2dAPI_ProjectPointOnCurve, Geom2dAPI_ExtremaCurveCurve,
+// occt: Geom2dAPI_ExtremaCurveCurve
+// occt-ref: Geom2dAPI_ProjectPointOnCurve
 //       Geom2dAPI_InterCurveCurve (additional variants)
 
 /// Result of projecting a 2D point onto a 2D curve.
-/// occt: Geom2dAPI_ProjectPointOnCurve
+// occt-ref: Geom2dAPI_ProjectPointOnCurve
 #[derive(Clone, Debug)]
 pub struct Geom2dProjectPointOnCurve {
     pub point: [f64; 2],
@@ -99,7 +100,7 @@ impl Geom2dExtremaCurveCurve {
 }
 
 /// 2D curve-curve intersection results.
-/// occt: Geom2dAPI_InterCurveCurve (extended variant)
+// occt-ref: Geom2dAPI_InterCurveCurve // (extended variant)
 #[derive(Clone, Debug)]
 pub struct Geom2dInterCurveCurve {
     pub curve1_id: u32,

@@ -1,5 +1,5 @@
 // FILE: shape_fix_ext.rs
-// occt: ShapeFix_Shape, ShapeFix_Shell, ShapeFix_Solid, ShapeFix_Wire extended
+// occt-note: ShapeFix_Shape, ShapeFix_Shell, ShapeFix_Solid, ShapeFix_Wire extended
 
 use std::collections::HashMap;
 
@@ -46,7 +46,7 @@ impl FixReport {
     }
 }
 
-// occt: ShapeFix_Shape — fix all subshapes in a shape
+// occt-ref: ShapeFix_Shape // — fix all subshapes in a shape
 #[derive(Clone, Debug)]
 pub struct ShapeFixShape {
     pub shape_id: u32,
@@ -98,7 +98,7 @@ impl ShapeFixShape {
     pub fn report(&self) -> &FixReport { &self.report }
 }
 
-// occt: ShapeFix_Shell — fix an individual shell (orientation, connected faces)
+// occt: ShapeFix_Shell // — fix an individual shell (orientation, connected faces)
 #[derive(Clone, Debug)]
 pub struct ShapeFixShell {
     pub shell_id: u32,
@@ -139,7 +139,7 @@ impl ShapeFixShell {
     pub fn nb_faces(&self) -> usize { 0 }
 }
 
-// occt: ShapeFix_Solid — fix solid (closed shell, orientation)
+// occt: ShapeFix_Solid // — fix solid (closed shell, orientation)
 #[derive(Clone, Debug)]
 pub struct ShapeFixSolid {
     pub solid_id: u32,
@@ -176,7 +176,7 @@ impl ShapeFixSolid {
     pub fn nb_shells_fixed(&self) -> usize { 0 }
 }
 
-// occt: ShapeFix_SplitFace — splits a face at seam edges or pole singularities
+// occt-note: ShapeFix_SplitFace — splits a face at seam edges or pole singularities
 #[derive(Clone, Debug, Default)]
 pub struct ShapeFixSplitFace {
     pub face_id: u32,

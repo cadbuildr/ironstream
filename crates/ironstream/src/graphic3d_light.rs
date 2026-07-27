@@ -1,5 +1,5 @@
 // FILE: graphic3d_light.rs
-// occt: Graphic3d_CLight, Graphic3d_TypeOfLightSource,
+// occt: Graphic3d_CLight, Graphic3d_TypeOfLightSource
 //       Graphic3d_DirectionalLight, Graphic3d_PointLight,
 //       Graphic3d_SpotLight, Graphic3d_AmbientLight
 

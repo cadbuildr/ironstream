@@ -49,7 +49,7 @@ pub use crate::geom_revol_surface::BasisCurve as RevolutionBasisCurve;
 ///
 /// Mirrors `STANDARD_TYPE` queries in OCCT that distinguish the two concrete
 /// subclasses of `Geom_SweptSurface`.
-// occt: Geom_SweptSurface (kind tag)
+// occt: Geom_SweptSurface // (kind tag)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum SweptSurfaceKind {
     /// `Geom_SurfaceOfLinearExtrusion` — linear sweep (prism).

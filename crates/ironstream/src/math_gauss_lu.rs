@@ -34,7 +34,7 @@ pub use crate::math_crout::{MathMatrix, MathVector};
 // math_Gauss
 // ===========================================================================
 
-// occt: math_Gauss
+// occt-ref: math_Gauss
 /// Gauss LU decomposition (Crout algorithm) with partial pivoting of a square
 /// matrix, used to solve `A·X = B`, to invert `A`, and to compute its
 /// determinant. Construct from a matrix; query [`is_done`](MathGauss::is_done),

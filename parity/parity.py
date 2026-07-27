@@ -14,25 +14,27 @@ Usage:
   python3 parity.py --refresh            # re-fetch OCCT inventory from GitHub
   python3 parity.py --json               # machine-readable output
 
-A class counts as implemented when any Rust source line contains
-`// occt: <ClassName>` (or several, comma-separated). This keeps the mapping
-next to the code that reproduces the class.
+A class counts as implemented when a kernel source line
+(crates/ironstream/src) contains `// occt: <ClassName>` (or several,
+comma-separated). This keeps the mapping next to the code that reproduces the
+class. Marker grammar is STRICT (see check_markers.py): identifiers only, one
+claiming file per class — the tool exits non-zero on any violation, so
+coverage numbers cannot be inflated by prose or duplicate markers.
+Related annotations `// occt-ref:` / `// occt-note:` are never counted.
 """
 import argparse
 import json
 import os
-import re
 import sys
 import urllib.request
 
+import check_markers
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 MANIFEST = os.path.join(HERE, "occt_classes.json")
-SRC_ROOT = os.path.normpath(os.path.join(HERE, "..", "crates"))
 OCCT_TREE_API = (
     "https://api.github.com/repos/Open-Cascade-SAS/OCCT/git/trees/master?recursive=1"
 )
-
-MARKER = re.compile(r"//\s*occt:\s*([A-Za-z0-9_.,\s]+)")
 
 
 def refresh_manifest() -> None:
@@ -71,26 +73,17 @@ def load_manifest() -> dict:
         return json.load(f)
 
 
-def discover_implemented() -> dict:
-    """Map OCCT class name -> list of (file, lineno) where it is marked."""
-    impl: dict[str, list] = {}
-    for root, _dirs, files in os.walk(SRC_ROOT):
-        for fn in files:
-            if not fn.endswith(".rs"):
-                continue
-            path = os.path.join(root, fn)
-            with open(path, encoding="utf-8", errors="replace") as f:
-                for i, line in enumerate(f, 1):
-                    m = MARKER.search(line)
-                    if not m:
-                        continue
-                    for name in m.group(1).split(","):
-                        name = name.strip()
-                        if name:
-                            impl.setdefault(name, []).append(
-                                (os.path.relpath(path, SRC_ROOT), i)
-                            )
-    return impl
+def discover_implemented():
+    """Map OCCT class name -> list of (file, lineno), plus strict violations."""
+    claims, parse_errors = check_markers.scan()
+    impl = {
+        name: [(rel, ln) for rel in sorted(files) for ln in files[rel]]
+        for name, files in claims.items()
+    }
+    viols = check_markers.violations(
+        claims, parse_errors, check_markers.load_manifest_names()
+    )
+    return impl, viols
 
 
 def main() -> int:
@@ -107,10 +100,19 @@ def main() -> int:
 
     manifest = load_manifest()
     classes = manifest["classes"]
-    impl = discover_implemented()
+    impl, viols = discover_implemented()
     impl_names = set(impl) & set(classes)
-    # Markers that don't match any OCCT class are surfaced as a hygiene check.
+    # Strict hygiene: unknown / duplicate / unparseable markers fail the run.
     unknown = sorted(set(impl) - set(classes))
+
+    def fail_on_violations() -> int:
+        if viols:
+            print(f"\nFAIL: {len(viols)} marker violation(s) — coverage above "
+                  f"is not trustworthy. Run `python3 parity/check_markers.py "
+                  f"--report`; remediate via parity/fix_markers.py.",
+                  file=sys.stderr)
+            return 1
+        return 0
 
     def in_scope(name: str) -> bool:
         info = classes[name]
@@ -130,18 +132,17 @@ def main() -> int:
             "implemented": sorted(impl_names),
             "implemented_count": len(impl_names),
             "unknown_markers": unknown,
+            "violations": [v["id"] for v in viols],
         }
         print(json.dumps(out, indent=2))
-        return 0
+        return fail_on_violations()
 
     if args.implemented:
         for n in sorted(impl_names):
             locs = ", ".join(f"{f}:{ln}" for f, ln in impl[n][:2])
             print(f"  {n:32} {classes[n]['m']}/{classes[n]['tk']}  [{locs}]")
         print(f"\n{len(impl_names)} OCCT classes mirrored in IronStream.")
-        if unknown:
-            print(f"warning: {len(unknown)} markers don't match any OCCT class: {unknown}")
-        return 0
+        return fail_on_violations()
 
     if args.missing is not None:
         missing = sorted(n for n in scoped if n not in impl_names)
@@ -149,7 +150,7 @@ def main() -> int:
             print(f"  {n:32} {classes[n]['m']}/{classes[n]['tk']}")
         label = args.module or args.missing or "all"
         print(f"\n{len(missing)} missing of {len(scoped)} OCCT classes in scope '{label}'.")
-        return 0
+        return fail_on_violations()
 
     # Default: per-module coverage summary.
     import collections
@@ -166,9 +167,7 @@ def main() -> int:
         bar = "#" * int(20 * done / total) if total else ""
         print(f"{m:28} {done:>6} {total:>6}  {100*done/total:5.1f}%  {bar}")
     print(f"\n{'TOTAL':28} {len(impl_names):>6} {len(classes):>6}  {100*len(impl_names)/len(classes):5.1f}%")
-    if unknown:
-        print(f"\nwarning: {len(unknown)} unrecognized occt: markers: {unknown}")
-    return 0
+    return fail_on_violations()
 
 
 if __name__ == "__main__":

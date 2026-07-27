@@ -1,7 +1,7 @@
 // FILE: bvh_tree.rs
 // occt: BVH_Tree, BVH_LinearBuilder, BVH_Box
 
-// occt: BVH_Box (axis-aligned bounding box for BVH)
+// occt: BVH_Box // (axis-aligned bounding box for BVH)
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct BvhBox {
     pub min: [f64; 3],
@@ -61,7 +61,7 @@ impl BvhBox {
     }
 }
 
-// occt: BVH_TreeNode
+// occt-ref: BVH_TreeNode
 #[derive(Clone, Debug)]
 pub struct BvhNode {
     pub bnd: BvhBox,
@@ -109,7 +109,7 @@ impl BvhTree {
     }
 }
 
-// occt: BVH_LinearBuilder (Morton-code based builder)
+// occt: BVH_LinearBuilder // (Morton-code based builder)
 #[derive(Clone, Debug)]
 pub struct LinearBuilder {
     pub leaf_size: usize,

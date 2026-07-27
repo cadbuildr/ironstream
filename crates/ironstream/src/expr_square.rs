@@ -264,7 +264,7 @@ impl UnaryExpression {
 }
 
 /// Square function: x^2.
-/// occt: Expr_Square (unary expression)
+/// occt: Expr_Square // (unary expression)
 #[derive(Clone, Debug)]
 pub struct Square {
     base: UnaryExpression,

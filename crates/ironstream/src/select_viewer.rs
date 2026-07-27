@@ -1,5 +1,6 @@
 // FILE: select_viewer.rs
-// occt: SelectMgr_ViewerSelector, SelectMgr_Selection,
+// occt: SelectMgr_ViewerSelector
+// occt-ref: SelectMgr_Selection
 //       SelectMgr_SensitiveEntity, SelectMgr_SelectingVolumeManager
 
 /// Selection state of an entity.
@@ -60,7 +61,7 @@ impl SelectMgrSensitiveEntity {
 }
 
 /// A selection (set of sensitive entities for one mode).
-/// occt: SelectMgr_Selection
+// occt-ref: SelectMgr_Selection
 #[derive(Clone, Debug, Default)]
 pub struct SelectMgrSelection {
     pub mode: SelectionMode,
@@ -102,7 +103,7 @@ impl SelectMgrPickResult {
 }
 
 /// Volume for selection queries (box/polyline/point).
-/// occt: SelectMgr_SelectingVolumeManager (simplified)
+/// occt: SelectMgr_SelectingVolumeManager // (simplified)
 #[derive(Clone, Debug)]
 pub struct SelectMgrVolume {
     pub min: [f64; 3],

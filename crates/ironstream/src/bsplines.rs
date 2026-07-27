@@ -36,7 +36,7 @@ pub fn find_span(n: usize, p: usize, u: f64, knots: &[f64]) -> usize {
 
 /// A B-spline / NURBS curve (`Geom_BSplineCurve`).
 #[derive(Clone, Debug)]
-// occt: Geom_BSplineCurve, Geom2d_BSplineCurve, BSplCLib
+// occt-ref: Geom_BSplineCurve, Geom2d_BSplineCurve, BSplCLib
 pub struct BSplineCurve<T: Blend> {
     pub degree: usize,
     /// Full (expanded) knot vector, length poles.len() + degree + 1.
@@ -138,7 +138,7 @@ pub fn clamped_knots(degree: usize, n_poles: usize) -> Vec<f64> {
 
 /// A tensor-product B-spline / NURBS surface (`Geom_BSplineSurface`).
 #[derive(Clone, Debug)]
-// occt: Geom_BSplineSurface, BSplSLib
+// occt-ref: Geom_BSplineSurface, BSplSLib
 pub struct BSplineSurface {
     pub u_degree: usize,
     pub v_degree: usize,

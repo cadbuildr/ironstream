@@ -13,7 +13,7 @@
 /// A single triangle defined by three vertex indices into a companion node
 /// array.  Indices are 0-based.
 ///
-// occt: Poly_Triangle
+// occt-ref: Poly_Triangle
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct PolyTriangle {
     /// The three vertex indices, stored as `[n0, n1, n2]`.

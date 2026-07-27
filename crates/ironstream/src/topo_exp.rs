@@ -11,7 +11,7 @@
 // ---------------------------------------------------------------------------
 
 /// Enumeration of topological shape types, mirroring OCCT's `TopAbs_ShapeEnum`.
-// occt: TopExp
+// occt-ref: TopExp
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum TopAbsShapeEnum {
     Vertex,
@@ -26,7 +26,7 @@ pub enum TopAbsShapeEnum {
 }
 
 // ---------------------------------------------------------------------------
-// occt: TopExp_Explorer
+// occt-ref: TopExp_Explorer
 // ---------------------------------------------------------------------------
 
 /// Iterator over a flat list of shape labels, filtered by type.
@@ -38,7 +38,7 @@ pub enum TopAbsShapeEnum {
 /// In this stub, `root` is an opaque string key and `shapes` holds all
 /// sub-shape labels that were collected at construction time via
 /// [`map_shapes`].
-// occt: TopExp_Explorer
+// occt-ref: TopExp_Explorer
 pub struct TopExpExplorer {
     /// Ordered list of sub-shape labels matching the requested type.
     pub shapes: Vec<String>,
@@ -94,7 +94,7 @@ impl TopExpExplorer {
 }
 
 // ---------------------------------------------------------------------------
-// occt: TopExp (free functions)
+// occt-ref: TopExp // (free functions)
 // ---------------------------------------------------------------------------
 
 /// Collect all sub-shape labels belonging to `root` for the given shape type.
@@ -107,7 +107,7 @@ impl TopExpExplorer {
 /// tests and scaffolding.
 ///
 /// Mirrors `TopExp::MapShapes` from OCCT.
-// occt: TopExp
+// occt-ref: TopExp
 pub fn map_shapes(root: &str, t: &TopAbsShapeEnum) -> Vec<String> {
     let prefix = type_prefix(t);
     let count = shape_count_for(root, t);
@@ -119,7 +119,7 @@ pub fn map_shapes(root: &str, t: &TopAbsShapeEnum) -> Vec<String> {
 /// Convenience wrapper: collect all edge labels under `root`.
 ///
 /// Equivalent to `map_shapes(root, &TopAbsShapeEnum::Edge)`.
-// occt: TopExp
+// occt-ref: TopExp
 pub fn map_edges(root: &str) -> Vec<String> {
     map_shapes(root, &TopAbsShapeEnum::Edge)
 }
@@ -127,7 +127,7 @@ pub fn map_edges(root: &str) -> Vec<String> {
 /// Convenience wrapper: collect all face labels under `root`.
 ///
 /// Equivalent to `map_shapes(root, &TopAbsShapeEnum::Face)`.
-// occt: TopExp
+// occt-ref: TopExp
 pub fn map_faces(root: &str) -> Vec<String> {
     map_shapes(root, &TopAbsShapeEnum::Face)
 }
@@ -135,7 +135,7 @@ pub fn map_faces(root: &str) -> Vec<String> {
 /// Convenience wrapper: collect all vertex labels under `root`.
 ///
 /// Equivalent to `map_shapes(root, &TopAbsShapeEnum::Vertex)`.
-// occt: TopExp
+// occt-ref: TopExp
 pub fn map_vertices(root: &str) -> Vec<String> {
     map_shapes(root, &TopAbsShapeEnum::Vertex)
 }

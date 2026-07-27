@@ -113,7 +113,7 @@ impl ShapeBuildVertex {
 // ShapeBuildWire
 // ---------------------------------------------------------------------------
 
-// occt: ShapeBuild_Wire
+// occt-ref: ShapeBuild_Wire
 pub struct ShapeBuildWire {
     edges: Vec<u32>,
     is_closed: bool,

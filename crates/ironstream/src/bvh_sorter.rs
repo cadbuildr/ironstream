@@ -1,10 +1,10 @@
 // FILE: bvh_sorter.rs
-// occt: BVH_Sorter - Tool object to sort abstract primitive set
+// occt: BVH_Sorter // - Tool object to sort abstract primitive set
 
 use crate::bvh_set::{BBox, SimpleBVHSet};
 use crate::bvh_types::Vec3;
 
-/// occt: BVH_Sorter - Basic sorter for BVH sets with parallel flag support.
+/// occt: BVH_Sorter // - Basic sorter for BVH sets with parallel flag support.
 /// Performs sorting of primitive sets using Quicksort algorithm.
 /// This is a template-like class in OCCT; we provide a concrete implementation for f64.
 pub struct BVHSorter {
@@ -103,7 +103,7 @@ impl Default for BVHSorter {
     }
 }
 
-/// occt: BVH_QuickSorter - Optimized quicksort sorter with middle-element pivot selection.
+// occt-ref: BVH_QuickSorter // - Optimized quicksort sorter with middle-element pivot selection.
 /// Provides better average-case performance than basic quicksort.
 pub struct BVHQuickSorter {
     is_parallel: bool,

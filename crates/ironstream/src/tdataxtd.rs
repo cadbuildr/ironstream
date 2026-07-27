@@ -1,5 +1,5 @@
 // FILE: tdataxtd.rs
-// occt: TDataXtd_Geometry, TDataXtd_Pattern, TDataXtd_Constraint,
+// occt: TDataXtd_Geometry, TDataXtd_Pattern, TDataXtd_Constraint
 //       TDataXtd_Point, TDataXtd_Axis, TDataXtd_Plane
 
 /// Extended geometry type stored on an OCAF label.

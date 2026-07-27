@@ -210,7 +210,7 @@ impl Default for MapOfShape {
 /// let m = map_shapes_and_ancestors("Solid_1");
 /// assert_eq!(m.find_key(1).map(String::as_str), Some("Solid_1"));
 /// ```
-// occt: TopExp::MapShapesAndAncestors
+// occt-ref: TopExp // ::MapShapesAndAncestors
 pub fn map_shapes_and_ancestors(root: &str) -> IndexedMapOfShape {
     let mut map = IndexedMapOfShape::new();
     map.add(root);

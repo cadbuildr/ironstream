@@ -228,7 +228,7 @@ impl Default for BndAddSurfaceResult {
 ///
 /// Samples both endpoints and expands outward by `gap`.
 ///
-// occt: BndLib_Add3dCurve::Add (line case)
+// occt: BndLib_Add3dCurve // ::Add (line case)
 pub fn bnd_add_line(
     origin: [f64; 3],
     direction: [f64; 3],
@@ -266,7 +266,7 @@ pub fn bnd_add_line(
 ///
 /// For a full circle the tight AABB is `center ± (radius + gap)` on all axes.
 ///
-// occt: BndLib_Add3dCurve::Add (circle case)
+// occt: BndLib_Add3dCurve // ::Add (circle case)
 pub fn bnd_add_circle(
     center: [f64; 3],
     radius: f64,

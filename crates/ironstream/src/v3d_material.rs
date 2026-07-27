@@ -1,5 +1,5 @@
 // FILE: v3d_material.rs
-// occt: Graphic3d_MaterialAspect, Graphic3d_PBRMaterial
+// occt-ref: Graphic3d_MaterialAspect, Graphic3d_PBRMaterial
 
 /// Type of predefined material.
 /// occt: Graphic3d_NameOfMaterial
@@ -36,7 +36,7 @@ pub enum MaterialName {
 }
 
 /// Classic Phong material properties.
-/// occt: Graphic3d_MaterialAspect
+// occt-ref: Graphic3d_MaterialAspect
 #[derive(Clone, Debug)]
 pub struct Graphic3dMaterialAspect {
     pub name: MaterialName,
@@ -116,7 +116,7 @@ impl Graphic3dMaterialAspect {
 }
 
 /// PBR (physically based rendering) material.
-/// occt: Graphic3d_PBRMaterial
+// occt-ref: Graphic3d_PBRMaterial
 #[derive(Clone, Debug)]
 pub struct Graphic3dPbrMaterial {
     pub base_color: [f64; 4],   // RGBA (a = alpha)

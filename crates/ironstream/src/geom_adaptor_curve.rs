@@ -11,7 +11,7 @@ use crate::geom_abs::CurveType;
 type GeomAbs_CurveType = CurveType;
 
 /// Parameters for a trimmed adaptor curve.
-// occt: GeomAdaptor_Curve (trimmed variant)
+// occt: GeomAdaptor_Curve // (trimmed variant)
 #[derive(Debug)]
 pub struct TrimmedParams {
     pub inner: Box<GeomAdaptorCurveKind>,

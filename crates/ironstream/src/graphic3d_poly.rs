@@ -1,5 +1,5 @@
 // FILE: graphic3d_poly.rs
-// occt: Graphic3d_ArrayOfPolygons, Graphic3d_ArrayOfPolylines,
+// occt: Graphic3d_ArrayOfPolygons, Graphic3d_ArrayOfPolylines
 //       Graphic3d_ArrayOfPoints, Graphic3d_ArrayOfSegments
 
 /// Primitive type for a graphics vertex array.
@@ -44,7 +44,7 @@ impl Graphic3dVertex {
 }
 
 /// Generic vertex array for 3D primitives.
-/// occt: Graphic3d_ArrayOfPrimitives
+// occt-ref: Graphic3d_ArrayOfPrimitives
 #[derive(Clone, Debug)]
 pub struct Graphic3dArrayOfPrimitives {
     pub primitive_type: Graphic3dPrimitiveType,
@@ -119,7 +119,7 @@ impl Graphic3dArrayOfPolylines {
 }
 
 /// Convenience alias for point arrays.
-/// occt: Graphic3d_ArrayOfPoints
+// occt-ref: Graphic3d_ArrayOfPoints
 pub struct Graphic3dArrayOfPoints(pub Graphic3dArrayOfPrimitives);
 
 impl Graphic3dArrayOfPoints {

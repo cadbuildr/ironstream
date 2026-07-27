@@ -33,7 +33,7 @@ use crate::geom_circle::GeomCircle;
 use crate::gp::{Ax1, Ax3, Pnt, Trsf, Vec3};
 use std::f64::consts::PI;
 
-// occt: Geom_ToroidalSurface
+// occt-ref: Geom_ToroidalSurface
 /// `Geom_ToroidalSurface` — an analytic toroidal surface.
 ///
 /// Parameterized as:

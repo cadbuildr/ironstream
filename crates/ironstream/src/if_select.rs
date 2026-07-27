@@ -1,5 +1,6 @@
 // FILE: if_select.rs
-// occt: IFSelect_WorkSession, IFSelect_Signature, IFSelect_SelectBase,
+// occt: IFSelect_Signature, IFSelect_SelectBase
+// occt-ref: IFSelect_WorkSession
 //       IFSelect_SelectAnyList, IFSelect_Dispatch
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -18,7 +19,7 @@ pub enum MatchResult {
     Undefined,
 }
 
-// occt: IFSelect_Signature — textual attribute extractor from entity
+// occt: IFSelect_Signature // — textual attribute extractor from entity
 pub trait Signature {
     fn value(&self, entity_id: u64) -> String;
     fn name(&self) -> &str;
@@ -37,7 +38,7 @@ impl Signature for TypeNameSignature {
     fn name(&self) -> &str { "TypeName" }
 }
 
-// occt: IFSelect_SelectBase — base selector for entities
+// occt: IFSelect_SelectBase // — base selector for entities
 pub trait Selector {
     fn is_selected(&self, entity_id: u64, model: &WorkModel) -> bool;
     fn label(&self) -> &str;
@@ -69,7 +70,7 @@ pub struct ModelEntity {
     pub refs: Vec<u64>,
 }
 
-// occt: IFSelect_WorkSession model
+// occt-ref: IFSelect_WorkSession // model
 #[derive(Clone, Debug, Default)]
 pub struct WorkModel {
     pub entities: Vec<ModelEntity>,
@@ -105,7 +106,7 @@ impl WorkModel {
     }
 }
 
-// occt: IFSelect_WorkSession
+// occt-ref: IFSelect_WorkSession
 #[derive(Clone, Debug, Default)]
 pub struct WorkSession {
     pub model: WorkModel,

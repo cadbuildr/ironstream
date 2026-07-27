@@ -27,7 +27,7 @@ pub use crate::math_gauss_lu::{MathGauss, MathMatrix, MathVector};
 // math_GaussLeastSquare
 // ===========================================================================
 
-// occt: math_GaussLeastSquare
+// occt-ref: math_GaussLeastSquare
 /// Least-squares solution of `A·X = B` (with `l >= n`, where `A` is `l × n`)
 /// via the normal equations `(Aᵀ·A)·X = Aᵀ·B` solved with Gauss LU.
 ///

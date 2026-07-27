@@ -1,6 +1,6 @@
 // FILE: crates/ironstream/src/graphic3d_aspect.rs
 
-// occt: Graphic3d_TypeOfShaderObject
+// occt-ref: Graphic3d_TypeOfShaderObject
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Graphic3dShaderType {
     Vertex,
@@ -34,7 +34,7 @@ impl Graphic3dShaderObject {
     }
 }
 
-// occt: Aspect_HatchStyle
+// occt-ref: Aspect_HatchStyle
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Graphic3dFillMethod {
     Solid,
@@ -47,7 +47,7 @@ pub enum Graphic3dFillMethod {
     HorizontalVerticalCross,
 }
 
-// occt: Aspect_InteriorStyle
+// occt-ref: Aspect_InteriorStyle
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Graphic3dInteriorStyle {
     Empty,

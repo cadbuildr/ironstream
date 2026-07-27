@@ -1,6 +1,6 @@
 // FILE: bvh_traverse.rs
 // occt: BVH_Traverse
-// occt: BVH_PairTraverse
+// occt-ref: BVH_PairTraverse
 
 //! Tree traversal methods for BVH (Bounding Volume Hierarchy) structures.
 //!
@@ -15,7 +15,7 @@ const BVH_MAX_TREE_DEPTH: usize = 32;
 const MAX_NODES_IN_STACK: usize = BVH_MAX_TREE_DEPTH;
 const MAX_PAIRS_IN_STACK: usize = 3 * BVH_MAX_TREE_DEPTH;
 
-/// occt: BVH_BaseTraverse
+// occt-ref: BVH_BaseTraverse
 ///
 /// Abstract base class implementing the core traverse interface.
 /// Provides methods for node rejection and tree descent control.
@@ -199,7 +199,7 @@ pub trait BvhTraverse<MetricType: Copy>: BvhBaseTraverse<MetricType> {
     }
 }
 
-/// occt: BVH_PairTraverse
+// occt-ref: BVH_PairTraverse
 ///
 /// Abstract class for parallel traversal of two BVH trees.
 /// Implements depth-first traversal with pairwise rejection testing.

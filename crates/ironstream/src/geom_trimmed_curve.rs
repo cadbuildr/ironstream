@@ -30,7 +30,7 @@ use crate::precision::{CONFUSION, INFINITE};
 
 /// A discriminated union of all 3-D basis-curve kinds that can appear inside a
 /// `Geom_TrimmedCurve`.  Mirrors OCCT's `Handle(Geom_Curve)`.
-// occt: Geom_Curve (handle — here by value)
+// occt-ref: Geom_Curve // (handle — here by value)
 #[derive(Clone, Debug)]
 pub enum BasisCurve {
     Line(GeomLine),

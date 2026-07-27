@@ -44,7 +44,7 @@ impl ShapeImage {
     }
 }
 
-// occt: TopTools_DataMapOfShapeShape
+// occt-ref: TopTools_DataMapOfShapeShape
 /// A one-to-one mapping from a source shape key to a single target shape.
 #[derive(Clone, Debug, Default)]
 pub struct ShapeMap {

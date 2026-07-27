@@ -322,7 +322,7 @@ impl EllipseMaker {
 /// ```
 /// where `u` and `v` are orthonormal vectors derived from `normal` forming a
 /// right-handed frame.  The parameter range is `[0, 2*PI)`.
-// occt: GC_MakeCircle
+// occt-ref: GC_MakeCircle
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct CircleMaker {
     /// Centre of the circle in 3D space.
@@ -340,7 +340,7 @@ impl CircleMaker {
     ///
     /// `normal` is normalised internally.  `done` is set to `false` when the
     /// normal is degenerate (near-zero length) or when `r < 0`.
-    // occt: GC_MakeCircle
+    // occt-ref: GC_MakeCircle
     pub fn from_center_radius(center: [f64; 3], r: f64, normal: [f64; 3]) -> Self {
         match normalize(normal) {
             Some(n) if r >= 0.0 => Self {
@@ -362,7 +362,7 @@ impl CircleMaker {
     ///
     /// Finds the circumscribed circle of the triangle `(p1, p2, p3)`.
     /// Returns `None` when the points are collinear or coincident.
-    // occt: GC_MakeCircle
+    // occt-ref: GC_MakeCircle
     pub fn from_3_points(p1: [f64; 3], p2: [f64; 3], p3: [f64; 3]) -> Option<Self> {
         let (center, radius, normal) = circumscribed_circle_3d(p1, p2, p3)?;
         Some(Self {
@@ -379,7 +379,7 @@ impl CircleMaker {
     ///
     /// where `(u, v)` is the orthonormal basis in the circle plane derived
     /// from `self.normal`.
-    // occt: GC_MakeCircle
+    // occt-ref: GC_MakeCircle
     pub fn evaluate(&self, t: f64) -> [f64; 3] {
         let (u, v) = orthonormal_basis(self.normal);
         let ct = t.cos();
@@ -391,7 +391,7 @@ impl CircleMaker {
     }
 
     /// Returns `true` when the construction succeeded (`self.done`).
-    // occt: GC_MakeCircle
+    // occt-ref: GC_MakeCircle
     #[inline]
     pub fn is_done(&self) -> bool {
         self.done

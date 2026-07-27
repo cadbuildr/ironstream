@@ -1,5 +1,6 @@
 // FILE: mat_data_map_of_integer_arc.rs
-// occt: MAT_DataMapOfIntegerArc, MAT_DataMapIteratorOfDataMapOfIntegerArc
+// occt: MAT_DataMapOfIntegerArc
+// occt-ref: MAT_DataMapIteratorOfDataMapOfIntegerArc
 
 use std::collections::BTreeMap;
 

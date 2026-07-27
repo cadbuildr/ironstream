@@ -12,7 +12,7 @@
 // math_GaussPoint
 // ===========================================================================
 
-// occt: math_GaussPoint
+// occt-ref: math_GaussPoint
 /// A single Gauss-Legendre quadrature node: an abscissa `value` and its
 /// associated integration `weight`.
 ///
@@ -127,7 +127,7 @@ pub fn gauss_legendre_points(n: usize) -> Vec<GaussPoint> {
 // GaussIntegrator  (math_GaussSingleIntegration / math_GaussMultipleIntegration)
 // ===========================================================================
 
-// occt: math_GaussSingleIntegration / math_GaussMultipleIntegration
+// occt: math_GaussSingleIntegration // / math_GaussMultipleIntegration
 /// 1-D Gauss-Legendre numerical integrator.
 ///
 /// Wraps a fixed number of quadrature points and applies them to integrate
@@ -142,13 +142,13 @@ pub struct GaussIntegrator {
 }
 
 impl GaussIntegrator {
-    // occt: math_GaussSingleIntegration::math_GaussSingleIntegration
+    // occt: math_GaussSingleIntegration // ::math_GaussSingleIntegration
     /// Construct a new integrator that will use `n` quadrature points.
     pub fn new(n: usize) -> Self {
         Self { n_points: n }
     }
 
-    // occt: math_GaussSingleIntegration::Value
+    // occt: math_GaussSingleIntegration // ::Value
     /// Integrate `f` over `[a, b]` using the Gauss-Legendre rule with
     /// [`n_points`](Self::n_points) nodes.
     ///
@@ -190,7 +190,7 @@ pub struct LeastSquares {
 }
 
 impl LeastSquares {
-    // occt: math_GaussLeastSquare::math_GaussLeastSquare
+    // occt: math_GaussLeastSquare // ::math_GaussLeastSquare
     /// Allocate a zero-initialised `rows × cols` system.
     pub fn new(rows: usize, cols: usize) -> Self {
         Self {
@@ -199,7 +199,7 @@ impl LeastSquares {
         }
     }
 
-    // occt: math_GaussLeastSquare — coefficient entry
+    // occt: math_GaussLeastSquare // — coefficient entry
     /// Set entry `(i, j)` of the coefficient matrix (0-based).
     ///
     /// # Panics
@@ -208,7 +208,7 @@ impl LeastSquares {
         self.matrix[i][j] = v;
     }
 
-    // occt: math_GaussLeastSquare — rhs entry
+    // occt: math_GaussLeastSquare // — rhs entry
     /// Set the `i`-th entry of the right-hand side vector (0-based).
     ///
     /// # Panics
@@ -217,7 +217,7 @@ impl LeastSquares {
         self.rhs[i] = v;
     }
 
-    // occt: math_GaussLeastSquare::Solve
+    // occt: math_GaussLeastSquare // ::Solve
     /// Solve the system using Gaussian elimination with partial pivoting.
     ///
     /// When the system is over-determined (`rows > cols`) the normal equations

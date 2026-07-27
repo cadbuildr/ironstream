@@ -1,5 +1,5 @@
 // FILE: plib_poly.rs
-// occt: PLib polynomial operations — Legendre, Hermite-Jacobi, PLib functions
+// occt-ref: PLib // polynomial operations — Legendre, Hermite-Jacobi, PLib functions
 
 /// Status for polynomial operations.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -19,7 +19,7 @@ impl PolyStatus {
     pub fn is_ok(&self) -> bool { *self == PolyStatus::Ok }
 }
 
-// occt: PLib — polynomial evaluation utilities
+// occt-ref: PLib // — polynomial evaluation utilities
 pub struct PLib;
 
 impl PLib {
@@ -93,7 +93,7 @@ impl PLib {
     }
 }
 
-// occt: PLib_JacobiPolynomial — Jacobi orthogonal polynomials for B-spline approximation
+// occt: PLib_JacobiPolynomial // — Jacobi orthogonal polynomials for B-spline approximation
 #[derive(Clone, Debug)]
 pub struct PlibJacobiPolynomial {
     pub degree: usize,
@@ -138,7 +138,7 @@ impl PlibJacobiPolynomial {
     pub fn nb_polynomials(&self) -> usize { self.coefficients.len() }
 }
 
-// occt: PLib_HermitJacobi — Hermite-Jacobi product polynomials for constrained fitting
+// occt: PLib_HermitJacobi // — Hermite-Jacobi product polynomials for constrained fitting
 #[derive(Clone, Debug)]
 pub struct PlibHermitJacobi {
     pub degree: usize,

@@ -1,7 +1,7 @@
 // FILE: geom_surface_intersect.rs
-// occt: GeomAPI_IntCS (curve/surface), GeomAPI_IntSS (surface/surface)
+// occt-ref: GeomAPI_IntCS // (curve/surface), GeomAPI_IntSS (surface/surface)
 
-// occt: GeomAPI_IntCS
+// occt-ref: GeomAPI_IntCS
 /// Intersection of a curve with a surface (finds parameter values where curve meets surface).
 #[derive(Clone, Debug)]
 pub struct IntCS {
@@ -62,7 +62,7 @@ impl IntCS {
     pub fn point(&self, i: usize) -> Option<&IntCSPoint> { self.solutions.get(i.saturating_sub(1)) }
 }
 
-// occt: GeomAPI_IntSS
+// occt-ref: GeomAPI_IntSS
 /// Intersection of two parametric surfaces (returns a list of intersection curves).
 #[derive(Clone, Debug)]
 pub struct IntSS {
@@ -108,7 +108,7 @@ impl IntSS {
     pub fn line(&self, i: usize) -> Option<&IntSSCurve> { self.curves.get(i.saturating_sub(1)) }
 }
 
-// occt: IntAna_Quadric (analytical surface for intersection)
+// occt: IntAna_Quadric // (analytical surface for intersection)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum QuadricType {
     Plane,

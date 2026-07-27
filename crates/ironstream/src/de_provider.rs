@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/de_provider.rs
 
-// occt: DE_ShapeFixParameters format kinds — mirrors the well-known DE format tags
+// occt-ref: DE_ShapeFixParameters // format kinds — mirrors the well-known DE format tags
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum DeFormat {
     Step,
@@ -43,7 +43,7 @@ impl DeFormat {
     }
 }
 
-// occt: DE_Provider capability flags — mirrors DE_Provider read/write modes
+// occt: DE_Provider // capability flags — mirrors DE_Provider read/write modes
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum DeCapability {
     CanRead,
@@ -61,7 +61,7 @@ impl DeCapability {
     }
 }
 
-// occt: DE_ConfigurationNode params — per-format provider configuration
+// occt-ref: DE_ConfigurationNode // params — per-format provider configuration
 #[derive(Clone, Debug)]
 pub struct DeProviderParams {
     format: DeFormat,
@@ -107,7 +107,7 @@ impl DeProviderParams {
     }
 }
 
-// occt: DE_Provider stub — a registered provider bound to one format
+// occt: DE_Provider // stub — a registered provider bound to one format
 #[derive(Clone, Debug)]
 pub struct DeProvider {
     name: String,
@@ -154,7 +154,7 @@ impl DeProvider {
     }
 }
 
-// occt: DE_Wrapper — central registry of format providers
+// occt-ref: DE_Wrapper // — central registry of format providers
 #[derive(Debug, Default)]
 pub struct DeProviderRegistry {
     providers: Vec<DeProvider>,

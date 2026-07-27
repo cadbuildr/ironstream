@@ -1,5 +1,6 @@
 // FILE: math_matrix.rs
-// occt: math_Vector, math_Matrix, math_IntegerVector
+// occt: math_Matrix, math_IntegerVector
+// occt-ref: math_Vector
 
 /// Type alias: `Matrix` → [`MathMatrix`] (matches test-file usage).
 pub type Matrix = MathMatrix;
@@ -24,7 +25,7 @@ impl MathStatus {
     pub fn is_ok(&self) -> bool { *self == MathStatus::Ok }
 }
 
-// occt: math_Vector — 1-indexed vector of f64
+// occt-ref: math_Vector // — 1-indexed vector of f64
 #[derive(Clone, Debug)]
 pub struct MathVector {
     pub lower: usize,
@@ -100,7 +101,7 @@ impl MathVector {
     pub fn as_slice(&self) -> &[f64] { &self.data }
 }
 
-// occt: math_Matrix — row-major matrix of f64, 1-indexed rows and columns
+// occt: math_Matrix // — row-major matrix of f64, 1-indexed rows and columns
 #[derive(Clone, Debug)]
 pub struct MathMatrix {
     pub r_lower: usize,
@@ -222,7 +223,7 @@ impl MathMatrix {
     }
 }
 
-// occt: math_IntegerVector — 1-indexed vector of i32
+// occt: math_IntegerVector // — 1-indexed vector of i32
 #[derive(Clone, Debug)]
 pub struct MathIntegerVector {
     pub lower: usize,

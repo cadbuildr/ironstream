@@ -1,5 +1,5 @@
 // FILE: voxel.rs
-// occt: Voxel_BoolDS, Voxel_FloatDS, Voxel_ColorDS, Voxel_CollisionDetection
+// occt-ref: Voxel_BoolDS, Voxel_FloatDS, Voxel_ColorDS, Voxel_CollisionDetection
 
 /// Axis-aligned 3D bounding box for a voxel grid.
 #[derive(Clone, Copy, Debug)]
@@ -21,7 +21,7 @@ impl VoxelBounds {
 }
 
 /// Boolean voxel dataset (1 bit per voxel stored as bool).
-/// occt: Voxel_BoolDS
+// occt-ref: Voxel_BoolDS
 #[derive(Clone, Debug)]
 pub struct VoxelBoolDs {
     pub bounds: VoxelBounds,
@@ -68,7 +68,7 @@ impl VoxelBoolDs {
 }
 
 /// Float voxel dataset (f32 per voxel).
-/// occt: Voxel_FloatDS
+// occt-ref: Voxel_FloatDS
 #[derive(Clone, Debug)]
 pub struct VoxelFloatDs {
     pub bounds: VoxelBounds,
@@ -115,7 +115,7 @@ impl VoxelFloatDs {
 }
 
 /// Detects collisions between two voxel datasets.
-/// occt: Voxel_CollisionDetection
+// occt-ref: Voxel_CollisionDetection
 #[derive(Clone, Debug, Default)]
 pub struct VoxelCollisionDetection {
     pub tolerance: f64,

@@ -198,7 +198,7 @@ impl GeomCurve {
 ///
 /// UIso curves are lines through `C(U)` parallel to the extrusion direction.
 /// VIso curves are translated copies of the basis curve.
-// occt: Geom_SurfaceOfLinearExtrusion
+// occt-ref: Geom_SurfaceOfLinearExtrusion
 #[derive(Clone, Debug)]
 pub struct GeomSurfaceOfLinearExtrusion {
     /// The basis curve swept along the direction.

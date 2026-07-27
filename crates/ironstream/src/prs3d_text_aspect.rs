@@ -1,6 +1,6 @@
 // FILE: rust/ironstream/crates/ironstream/src/prs3d_text_aspect.rs
 
-// occt: Graphic3d_AspectText3d
+// occt-ref: Graphic3d_AspectText3d
 /// Font slant style, mirroring the slant variants exposed by Graphic3d_AspectText3d.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FontSlant {
@@ -9,7 +9,7 @@ pub enum FontSlant {
     Oblique,
 }
 
-// occt: Graphic3d_AspectText3d
+// occt-ref: Graphic3d_AspectText3d
 /// Font weight style.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FontWeight {
@@ -82,7 +82,7 @@ impl std::default::Default for TextAspect {
     }
 }
 
-// occt: Graphic3d_AspectText3d
+// occt-ref: Graphic3d_AspectText3d
 /// Low-level 3-D text rendering attributes, mirroring Graphic3d_AspectText3d in OCCT.
 #[derive(Debug, Clone, PartialEq)]
 pub struct AspectText3d {

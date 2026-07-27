@@ -1,5 +1,5 @@
 // FILE: rw_ply.rs
-// occt: RWPly_CafReader, RWPly_CafWriter (PLY polygon file format)
+// occt-note: RWPly_CafReader, RWPly_CafWriter (PLY polygon file format)
 
 use std::collections::HashMap;
 
@@ -58,7 +58,7 @@ pub struct PlyElement {
     pub properties: Vec<PlyProperty>,
 }
 
-// occt: PLY mesh data (vertices + triangles)
+// occt-note: PLY mesh data (vertices + triangles)
 #[derive(Clone, Debug, Default)]
 pub struct PlyMesh {
     pub vertices: Vec<[f32; 3]>,
@@ -85,7 +85,7 @@ impl PlyMesh {
     pub fn is_empty(&self) -> bool { self.vertices.is_empty() }
 }
 
-// occt: RWPly_CafReader — reads a PLY file into a PlyMesh
+// occt-note: RWPly_CafReader — reads a PLY file into a PlyMesh
 #[derive(Clone, Debug, Default)]
 pub struct RWPlyReader {
     pub status: PlyStatus,
@@ -130,7 +130,7 @@ impl RWPlyReader {
     pub fn nb_shapes(&self) -> usize { self.nb_shapes_read }
 }
 
-// occt: RWPly_CafWriter — writes a PlyMesh to a PLY file
+// occt: RWPly_CafWriter // — writes a PlyMesh to a PLY file
 #[derive(Clone, Debug, Default)]
 pub struct RWPlyWriter {
     pub write_normals: bool,

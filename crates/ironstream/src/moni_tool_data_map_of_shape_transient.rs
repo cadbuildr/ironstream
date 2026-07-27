@@ -1,5 +1,6 @@
 // FILE: moni_tool_data_map_of_shape_transient.rs
-// occt: MoniTool_DataMapOfShapeTransient, MoniTool_DataMapIteratorOfDataMapOfShapeTransient
+// occt: MoniTool_DataMapOfShapeTransient
+// occt-ref: MoniTool_DataMapIteratorOfDataMapOfShapeTransient
 
 use std::collections::HashMap;
 use std::rc::Rc;

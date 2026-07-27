@@ -1,5 +1,6 @@
 // FILE: top_ope_b_rep_ds_data_map_of_check_status.rs
-// occt: TopOpeBRepDS_DataMapOfCheckStatus, TopOpeBRepDS_CheckStatus
+// occt: TopOpeBRepDS_DataMapOfCheckStatus
+// occt-ref: TopOpeBRepDS_CheckStatus
 
 use std::collections::HashMap;
 

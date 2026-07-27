@@ -1,6 +1,6 @@
 // FILE: bvh_properties.rs
 // occt: BVH_Properties
-// occt: BVH_Transform
+// occt-ref: BVH_Transform
 
 /// Abstract properties of geometric object.
 /// Base trait for transformation properties.

@@ -1,5 +1,6 @@
 // FILE: select3d_adv.rs
-// occt: Select3D_SensitiveTriangulation, Select3D_SensitiveBox,
+// occt: Select3D_SensitiveTriangulation
+// occt-ref: Select3D_SensitiveBox
 //       Select3D_SensitiveSphere, Select3D_SensitiveCylinder,
 //       Select3D_BVHTree, SelectMgr_FrustumBuilder
 
@@ -44,7 +45,7 @@ impl SensitiveIntersect {
     }
 }
 
-// occt: Select3D_SensitiveBox
+// occt-ref: Select3D_SensitiveBox
 #[derive(Clone, Debug)]
 pub struct SensitiveBox {
     pub owner_id: u32,
@@ -90,7 +91,7 @@ impl SensitiveBox {
     }
 }
 
-// occt: Select3D_SensitiveSphere
+// occt-ref: Select3D_SensitiveSphere
 #[derive(Clone, Debug)]
 pub struct SensitiveSphere {
     pub owner_id: u32,
@@ -208,7 +209,7 @@ impl BvhNode {
     }
 }
 
-// occt: Select3D_BVHTree (simplified)
+// occt-note: Select3D_BVHTree (simplified)
 #[derive(Clone, Debug, Default)]
 pub struct Select3dBvhTree {
     pub nodes: Vec<BvhNode>,

@@ -1,5 +1,6 @@
 // FILE: brep_prim_maker.rs
-// occt: BRepPrim_Sphere, BRepPrim_Cone, BRepPrim_Torus, BRepPrim_Cylinder,
+// occt: BRepPrim_Sphere, BRepPrim_Torus, BRepPrim_Cylinder
+// occt-ref: BRepPrim_Cone
 //       BRepPrimAPI_MakeSphere, BRepPrimAPI_MakeCone
 
 /// Result of a primitive shell construction.
@@ -18,7 +19,7 @@ impl BrepPrimShell {
 }
 
 /// Sphere primitive builder.
-/// occt: BRepPrim_Sphere / BRepPrimAPI_MakeSphere
+/// occt: BRepPrim_Sphere // / BRepPrimAPI_MakeSphere
 #[derive(Clone, Debug)]
 pub struct BrepPrimSphere {
     pub center: [f64; 3],
@@ -78,7 +79,7 @@ impl BrepPrimSphere {
 }
 
 /// Cone primitive builder.
-/// occt: BRepPrim_Cone / BRepPrimAPI_MakeCone
+// occt-ref: BRepPrim_Cone // / BRepPrimAPI_MakeCone
 #[derive(Clone, Debug)]
 pub struct BrepPrimCone {
     pub center: [f64; 3],
@@ -138,7 +139,7 @@ impl BrepPrimCone {
 }
 
 /// Cylinder primitive builder.
-/// occt: BRepPrim_Cylinder / BRepPrimAPI_MakeCylinder
+/// occt: BRepPrim_Cylinder // / BRepPrimAPI_MakeCylinder
 #[derive(Clone, Debug)]
 pub struct BrepPrimCylinder {
     pub center: [f64; 3],
@@ -188,7 +189,7 @@ impl BrepPrimCylinder {
 }
 
 /// Torus primitive builder.
-/// occt: BRepPrim_Torus / BRepPrimAPI_MakeTorus
+/// occt: BRepPrim_Torus // / BRepPrimAPI_MakeTorus
 #[derive(Clone, Debug)]
 pub struct BrepPrimTorus {
     pub center: [f64; 3],

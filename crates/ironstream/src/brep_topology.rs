@@ -8,7 +8,7 @@
 ///
 /// Re-exported here from `top_abs` for caller convenience; the underlying
 /// semantics are identical to `top_abs::Orientation`.
-// occt: TopAbs_Orientation (re-export as BRepOrientation)
+// occt-ref: TopAbs_Orientation // (re-export as BRepOrientation)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum BRepOrientation {
     Forward,
@@ -22,7 +22,7 @@ pub enum BRepOrientation {
 // ---------------------------------------------------------------------------
 
 /// Discriminant for how a curve is represented on an edge.
-// occt: BRep_CurveRepresentation
+// occt-ref: BRep_CurveRepresentation
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum BRepCurveKind {
     Curve3d,
@@ -58,7 +58,7 @@ impl BRepPointRepresentation {
 
 /// Per-edge BRep data: tolerance and flags that govern how the edge relates
 /// to its curve representation.
-// occt: BRep_TEdge
+// occt-ref: BRep_TEdge
 pub struct BRepEdgeData {
     pub tolerance: f64,
     pub same_parameter: bool,
@@ -123,7 +123,7 @@ impl Default for BRepFaceData {
 /// `BRepBuilder` is stateless; all methods take `&self` and operate on the
 /// provided data reference.  This mirrors OCCT's `BRep_Builder`, which acts
 /// as a thin façade over the `BRep_T*` inner data classes.
-// occt: BRep_Builder
+// occt-ref: BRep_Builder
 pub struct BRepBuilder;
 
 impl BRepBuilder {

@@ -2,7 +2,7 @@
 
 use core::f64::consts::PI;
 
-// occt: GeomAbs_CurveType
+// occt-ref: GeomAbs_CurveType
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Adaptor3dCurveType {
     Line,
@@ -16,7 +16,7 @@ pub enum Adaptor3dCurveType {
     OtherCurve,
 }
 
-// occt: GeomAbs_SurfaceType
+// occt-ref: GeomAbs_SurfaceType
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Adaptor3dSurfaceType {
     Plane,
@@ -32,7 +32,7 @@ pub enum Adaptor3dSurfaceType {
     OtherSurface,
 }
 
-// occt: GeomAbs_Shape (continuity)
+// occt-ref: GeomAbs_Shape // (continuity)
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Adaptor3dContinuity {
     C0 = 0,

@@ -1,5 +1,5 @@
 // FILE: geom_polar.rs
-// occt: ElSLib (elementary surface params), ElCLib (elementary curve params), spherical/cylindrical coordinate conversions
+// occt: ElSLib // (elementary surface params), ElCLib (elementary curve params), spherical/cylindrical coordinate conversions
 
 /// Convert Cartesian (x,y,z) to spherical (r, theta, phi) in radians.
 pub fn cartesian_to_spherical(p: [f64; 3]) -> [f64; 3] {
@@ -29,7 +29,7 @@ pub fn cylindrical_to_cartesian(c: [f64; 3]) -> [f64; 3] {
     [c[0] * c[1].cos(), c[0] * c[1].sin(), c[2]]
 }
 
-// occt: ElSLib — elementary surface parameter computations
+// occt: ElSLib // — elementary surface parameter computations
 pub struct ElSLib;
 
 impl ElSLib {
@@ -59,7 +59,7 @@ impl ElSLib {
     pub fn period() -> f64 { 2.0 * std::f64::consts::PI }
 }
 
-// occt: ElCLib — elementary curve parameter computations
+// occt-ref: ElCLib // — elementary curve parameter computations
 pub struct ElCLib;
 
 impl ElCLib {

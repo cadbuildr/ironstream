@@ -1,9 +1,9 @@
 // FILE: prs3d_shape.rs
-// occt: StdPrs_ShadedShape, StdPrs_WFShape, StdPrs_Vertex,
+// occt: StdPrs_ShadedShape, StdPrs_WFShape, StdPrs_Vertex
 //       BRepMesh_IncrementalMesh, BRepMesh_FastDiscret
 
 /// Deflection type for mesh generation.
-/// occt: BRepMesh_FastDiscret (deflection mode)
+// occt-ref: BRepMesh_FastDiscret // (deflection mode)
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum DeflectionType {
     #[default]
@@ -12,7 +12,7 @@ pub enum DeflectionType {
 }
 
 /// Parameters for incremental mesh generation.
-/// occt: BRepMesh_IncrementalMesh (input parameters)
+// occt-ref: BRepMesh_IncrementalMesh // (input parameters)
 #[derive(Clone, Debug, PartialEq)]
 pub struct BrepMeshParams {
     pub linear_deflection: f64,
@@ -51,7 +51,7 @@ impl BrepMeshParams {
 }
 
 /// Incremental mesh builder stub.
-/// occt: BRepMesh_IncrementalMesh
+// occt-ref: BRepMesh_IncrementalMesh
 #[derive(Clone, Debug)]
 pub struct BrepMeshIncrementalMesh {
     pub shape_id: u32,
@@ -88,7 +88,7 @@ impl MeshTriangle {
 }
 
 /// A mesh associated with a face.
-/// occt: Poly_Triangulation (simplified)
+// occt-ref: Poly_Triangulation // (simplified)
 #[derive(Clone, Debug, Default)]
 pub struct PolyTriangulation {
     pub nodes: Vec<[f64; 3]>,

@@ -26,7 +26,7 @@ impl SpineEdge {
     pub fn length(&self) -> f64 { (self.end_param - self.start_param).abs() }
 }
 
-// occt: ChFiDS_Spine — ordered edge sequence defining a fillet/chamfer path
+// occt: ChFiDS_Spine // — ordered edge sequence defining a fillet/chamfer path
 #[derive(Clone, Debug)]
 pub struct ChFiSpine {
     pub edges: Vec<SpineEdge>,
@@ -52,7 +52,7 @@ impl ChFiSpine {
     pub fn last_edge(&self) -> Option<&SpineEdge> { self.edges.last() }
 }
 
-// occt: ChFiDS_SurfData — surface data along a chamfer/fillet feature
+// occt: ChFiDS_SurfData // — surface data along a chamfer/fillet feature
 #[derive(Clone, Debug)]
 pub struct ChFiSurfData {
     pub index: usize,
@@ -80,7 +80,7 @@ impl ChFiSurfData {
     pub fn param_span(&self) -> f64 { (self.last_param - self.first_param).abs() }
 }
 
-// occt: ChFiDS_FilSpine — fillet spine with variable radius law
+// occt: ChFiDS_FilSpine // — fillet spine with variable radius law
 #[derive(Clone, Debug, Default)]
 pub struct FilSpine {
     pub spine: ChFiSpine,
@@ -113,7 +113,7 @@ impl FilSpine {
     }
 }
 
-// occt: ChFiDS_ChamfSpine — chamfer spine with two distance values
+// occt: ChFiDS_ChamfSpine // — chamfer spine with two distance values
 #[derive(Clone, Debug, Default)]
 pub struct ChamfSpine {
     pub spine: ChFiSpine,

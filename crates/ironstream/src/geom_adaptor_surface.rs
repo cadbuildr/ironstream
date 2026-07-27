@@ -12,7 +12,7 @@ use crate::precision::{CONFUSION, ANGULAR};
 use std::f64::consts::PI;
 
 /// Wraps a geometric plane for surface adaptation.
-// occt: Geom_Plane
+// occt-ref: Geom_Plane
 #[derive(Clone, Debug)]
 pub struct GeomPlaneData {
     pub origin: [f64; 3],
@@ -22,7 +22,7 @@ pub struct GeomPlaneData {
 }
 
 /// Wraps a geometric cylinder for surface adaptation.
-// occt: Geom_CylindricalSurface
+// occt-ref: Geom_CylindricalSurface
 #[derive(Clone, Debug)]
 pub struct GeomCylinderData {
     pub origin: [f64; 3],
@@ -33,7 +33,7 @@ pub struct GeomCylinderData {
 }
 
 /// Wraps a geometric cone for surface adaptation.
-// occt: Geom_ConicalSurface
+// occt-ref: Geom_ConicalSurface
 #[derive(Clone, Debug)]
 pub struct GeomConeData {
     pub origin: [f64; 3],
@@ -45,7 +45,7 @@ pub struct GeomConeData {
 }
 
 /// Wraps a geometric sphere for surface adaptation.
-// occt: Geom_SphericalSurface
+// occt-ref: Geom_SphericalSurface
 #[derive(Clone, Debug)]
 pub struct GeomSphereData {
     pub center: [f64; 3],
@@ -56,7 +56,7 @@ pub struct GeomSphereData {
 }
 
 /// Wraps a geometric torus for surface adaptation.
-// occt: Geom_ToroidalSurface
+// occt-ref: Geom_ToroidalSurface
 #[derive(Clone, Debug)]
 pub struct GeomTorusData {
     pub center: [f64; 3],
@@ -68,7 +68,7 @@ pub struct GeomTorusData {
 }
 
 /// Discriminated union of all parametric surface kinds.
-// occt: GeomAdaptor_Surface (kind field)
+// occt: GeomAdaptor_Surface // (kind field)
 #[derive(Clone, Debug)]
 pub enum GeomAdaptorSurfaceKind {
     Plane(GeomPlaneData),
@@ -82,7 +82,7 @@ pub enum GeomAdaptorSurfaceKind {
 }
 
 /// Data for a surface of extrusion (linear sweep).
-// occt: Geom_SurfaceOfLinearExtrusion
+// occt-ref: Geom_SurfaceOfLinearExtrusion
 #[derive(Clone, Debug)]
 pub struct GeomExtrusionData {
     pub direction: [f64; 3],
@@ -91,7 +91,7 @@ pub struct GeomExtrusionData {
 }
 
 /// Data for a surface of revolution.
-// occt: Geom_SurfaceOfRevolution
+// occt-ref: Geom_SurfaceOfRevolution
 #[derive(Clone, Debug)]
 pub struct GeomRevolutionData {
     pub axis_origin: [f64; 3],

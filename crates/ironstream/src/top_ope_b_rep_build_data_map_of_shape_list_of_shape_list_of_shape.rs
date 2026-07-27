@@ -1,5 +1,6 @@
 // FILE: top_ope_b_rep_build_data_map_of_shape_list_of_shape_list_of_shape.rs
-// occt: TopOpeBRepBuild_DataMapOfShapeListOfShapeListOfShape, TopOpeBRepBuild_DataMapIteratorOfDataMapOfShapeListOfShapeListOfShape
+// occt: TopOpeBRepBuild_DataMapOfShapeListOfShapeListOfShape
+// occt-ref: TopOpeBRepBuild_DataMapIteratorOfDataMapOfShapeListOfShapeListOfShape
 
 use std::collections::HashMap;
 

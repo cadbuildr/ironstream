@@ -1,8 +1,8 @@
 // FILE: rust/ironstream/crates/ironstream/src/geom_fillet.rs
-// occt: ChFi3d/ChFi2d fillet algorithm types
+// occt-note: ChFi3d/ChFi2d fillet algorithm types
 
 /// Fillet surface approximation strategy.
-// occt: fillet type — enum ChFi3d_FilletShape (Rational, QuasiAngular, Polynomial)
+// occt-note: fillet type — enum ChFi3d_FilletShape (Rational, QuasiAngular, Polynomial)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FilletType {
     /// Rational Bezier approximation of the fillet surface.
@@ -14,7 +14,7 @@ pub enum FilletType {
 }
 
 /// A single edge tagged for filleting with an associated radius.
-// occt: ChFi3d_FilBuilder edge to fillet
+// occt: ChFi3d_FilBuilder // edge to fillet
 #[derive(Clone, Debug)]
 pub struct FilletEdge {
     edge_label: String,
@@ -47,7 +47,7 @@ impl FilletEdge {
 }
 
 /// Result of a 3D fillet build operation.
-// occt: ChFi3d_Builder result
+// occt-ref: ChFi3d_Builder // result
 #[derive(Clone, Debug)]
 pub struct FilletResult {
     nb_contours: usize,
@@ -109,7 +109,7 @@ impl Default for FilletResult {
 }
 
 /// Applies constant-radius fillets to a collection of edges.
-// occt: ChFi3d_FilBuilder — applies fillets to edges
+// occt: ChFi3d_FilBuilder // — applies fillets to edges
 pub struct FilletBuilder {
     /// Approximation strategy for the fillet surfaces.
     pub fillet_type: FilletType,

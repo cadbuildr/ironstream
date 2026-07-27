@@ -1,5 +1,6 @@
 // FILE: mat_data_map_of_integer_basic_elt.rs
-// occt: MAT_DataMapOfIntegerBasicElt, MAT_DataMapIteratorOfDataMapOfIntegerBasicElt
+// occt: MAT_DataMapOfIntegerBasicElt
+// occt-ref: MAT_DataMapIteratorOfDataMapOfIntegerBasicElt
 
 use std::collections::BTreeMap;
 

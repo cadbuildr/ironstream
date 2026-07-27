@@ -257,7 +257,7 @@ fn point_to_plane_uv(p3d: Pnt, pos: &Ax3) -> (f64, f64) {
 ///
 /// # OCCT correspondence
 /// `GeomProjLib_ProjectOnPlane` (`GeomProjLib_ProjectOnPlane.hxx`).
-// occt: GeomProjLib_ProjectOnPlane
+// occt-ref: GeomProjLib_ProjectOnPlane
 #[derive(Clone, Debug)]
 pub struct ProjectOnPlane {
     /// The target plane.
@@ -382,7 +382,7 @@ impl ProjectOnPlane {
 ///
 /// # OCCT correspondence
 /// `GeomProjLib_ProjectOnSurface` (`GeomProjLib_ProjectOnSurface.hxx`).
-// occt: GeomProjLib_ProjectOnSurface
+// occt-ref: GeomProjLib_ProjectOnSurface
 #[derive(Clone, Debug)]
 pub struct ProjectOnSurface {
     /// The target surface.
@@ -510,7 +510,7 @@ impl ProjectOnSurface {
 // ---------------------------------------------------------------------------
 
 /// A 2D point `(u, v)` — the parametric coordinates on a plane surface.
-// occt: gp_Pnt2d
+// occt-ref: gp_Pnt2d
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Pnt2d {
     pub u: f64,

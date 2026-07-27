@@ -39,7 +39,7 @@ use crate::gp::{Ax1, Ax3, Pnt, Trsf, Vec3};
 const RESOLUTION: f64 = 1.0e-15;
 
 /// A 3D unit direction.
-// occt: gp_Dir
+// occt-ref: gp_Dir
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Dir {
     /// Always a unit vector: `x²+y²+z² == 1`.

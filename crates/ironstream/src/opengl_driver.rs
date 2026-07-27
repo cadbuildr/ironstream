@@ -1,5 +1,6 @@
 // FILE: opengl_driver.rs
-// occt: OpenGl_GraphicDriver, OpenGl_Context, OpenGl_FrameBuffer,
+// occt: OpenGl_GraphicDriver, OpenGl_FrameBuffer
+// occt-ref: OpenGl_Context
 //       OpenGl_Texture, OpenGl_VertexBuffer
 
 /// OpenGL version supported by the driver.

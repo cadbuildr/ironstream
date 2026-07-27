@@ -49,7 +49,7 @@ impl AisShape {
     }
 }
 
-// occt: AIS_ColoredShape
+// occt-ref: AIS_ColoredShape
 pub struct ColoredShape {
     pub base: AisShape,
     /// Each entry pairs a face identifier encoded as RGB key with its assigned color.

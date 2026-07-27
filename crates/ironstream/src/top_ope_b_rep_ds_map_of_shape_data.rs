@@ -1,5 +1,6 @@
 // FILE: top_ope_b_rep_ds_map_of_shape_data.rs
-// occt: TopOpeBRepDS_MapOfShapeData, TopOpeBRepDS_ShapeData
+// occt: TopOpeBRepDS_MapOfShapeData
+// occt-ref: TopOpeBRepDS_ShapeData
 
 use std::collections::HashMap;
 

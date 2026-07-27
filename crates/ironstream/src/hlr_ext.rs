@@ -1,5 +1,6 @@
 // FILE: hlr_ext.rs
-// occt: HLRBRep_Algo, HLRBRep_PolyAlgo, HLRBRep_HLRToShape, HLRAlgo_Projector
+// occt: HLRBRep_PolyAlgo
+// occt-ref: HLRBRep_Algo, HLRBRep_HLRToShape, HLRAlgo_Projector
 
 use std::f64::consts::PI;
 
@@ -30,7 +31,7 @@ impl HlrProjector {
 
     /// Project a 3D point to 2D screen coordinates.
     ///
-    /// occt: HLRAlgo_Projector — the viewing coordinate system (gp_Ax2) has
+    // occt-ref: HLRAlgo_Projector // — the viewing coordinate system (gp_Ax2) has
     /// its main (Z) direction pointing towards the observer; the screen axes
     /// are X = Up ^ Z and Y = Z ^ X. Perspective divides by R = 1 - Z/focus.
     pub fn project(&self, p: [f64; 3]) -> [f64; 2] {

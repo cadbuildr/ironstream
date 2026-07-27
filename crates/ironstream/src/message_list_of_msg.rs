@@ -1,5 +1,6 @@
 // FILE: message_list_of_msg.rs
-// occt: Message_ListOfMsg, Message_ListIteratorOfListOfMsg
+// occt: Message_ListOfMsg
+// occt-ref: Message_ListIteratorOfListOfMsg
 
 /// Message_Msg represents a message with a key and optional arguments.
 #[derive(Clone, Debug, PartialEq)]

@@ -1,5 +1,5 @@
 // FILE: geom2d_gcc_function_tan_cir_cu.rs
-// occt: geom2d::gcc::function::tan::cir::cu
+// occt-note: geom2d::gcc::function::tan::cir::cu
 
 pub struct Stub;
 

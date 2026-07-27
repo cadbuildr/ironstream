@@ -44,37 +44,37 @@ impl GpSphere {
     // ───────────────────────────── accessors ────────────────────────────────
 
     /// Center of the sphere (origin of the local frame).
-    // occt: gp_Sphere::Location
+    // occt: gp_Sphere // ::Location
     pub fn location(&self) -> Pnt {
         self.pos.location
     }
 
     /// The full local coordinate system (`gp_Ax3`).
-    // occt: gp_Sphere::Position
+    // occt: gp_Sphere // ::Position
     pub fn position(&self) -> &Ax3 {
         &self.pos
     }
 
     /// The sphere radius.
-    // occt: gp_Sphere::Radius
+    // occt: gp_Sphere // ::Radius
     pub fn radius(&self) -> f64 {
         self.radius
     }
 
     /// The main axis of the sphere (Z axis of the local frame), as an `Ax1`.
-    // occt: gp_Sphere::Axis
+    // occt: gp_Sphere // ::Axis
     pub fn axis(&self) -> Ax1 {
         Ax1::new(self.pos.location, self.pos.z_dir)
     }
 
     /// X axis of the local frame as an `Ax1`.
-    // occt: gp_Sphere::XAxis
+    // occt: gp_Sphere // ::XAxis
     pub fn x_axis(&self) -> Ax1 {
         Ax1::new(self.pos.location, self.pos.x_dir)
     }
 
     /// Y axis of the local frame as an `Ax1`.
-    // occt: gp_Sphere::YAxis
+    // occt: gp_Sphere // ::YAxis
     pub fn y_axis(&self) -> Ax1 {
         Ax1::new(self.pos.location, self.pos.y_dir)
     }
@@ -82,20 +82,20 @@ impl GpSphere {
     // ─────────────────────────── setters ────────────────────────────────────
 
     /// Set the radius (must be > 0).
-    // occt: gp_Sphere::SetRadius
+    // occt: gp_Sphere // ::SetRadius
     pub fn set_radius(&mut self, r: f64) {
         assert!(r > 0.0, "gp_Sphere::SetRadius: radius must be > 0, got {r}");
         self.radius = r;
     }
 
     /// Replace the local coordinate system.
-    // occt: gp_Sphere::SetPosition
+    // occt: gp_Sphere // ::SetPosition
     pub fn set_position(&mut self, pos: Ax3) {
         self.pos = pos;
     }
 
     /// Move the sphere center to `p` (keeps axes and radius unchanged).
-    // occt: gp_Sphere::SetLocation
+    // occt: gp_Sphere // ::SetLocation
     pub fn set_location(&mut self, p: Pnt) {
         self.pos.location = p;
     }
@@ -103,19 +103,19 @@ impl GpSphere {
     // ──────────────────────── geometric properties ──────────────────────────
 
     /// Surface area of the sphere: `4·π·R²`.
-    // occt: gp_Sphere::Area
+    // occt: gp_Sphere // ::Area
     pub fn area(&self) -> f64 {
         4.0 * PI * self.radius * self.radius
     }
 
     /// Volume enclosed by the sphere: `(4/3)·π·R³`.
-    // occt: gp_Sphere::Volume
+    // occt: gp_Sphere // ::Volume
     pub fn volume(&self) -> f64 {
         (4.0 / 3.0) * PI * self.radius.powi(3)
     }
 
     /// Returns `true` when the local frame is direct (right-handed).
-    // occt: gp_Sphere::Direct
+    // occt: gp_Sphere // ::Direct
     pub fn is_direct(&self) -> bool {
         self.pos.x_dir.cross(self.pos.y_dir).dot(self.pos.z_dir) > 0.0
     }
@@ -124,7 +124,7 @@ impl GpSphere {
 
     /// The "equatorial" circle in the XY plane of the local frame
     /// (the circle at latitude V = 0).
-    // occt: gp_Sphere::Equator
+    // occt: gp_Sphere // ::Equator
     pub fn equator(&self) -> Circ {
         Circ::new(self.pos, self.radius)
     }
@@ -134,7 +134,7 @@ impl GpSphere {
     ///
     /// The circle lies in a plane parallel to the equatorial plane, at height
     /// `R·sin(v)` along the Z axis.  Its radius is `R·cos(v)`.
-    // occt: gp_Sphere::VIso (analogue)
+    // occt: gp_Sphere // ::VIso (analogue)
     pub fn circle_at_v(&self, v: f64) -> Circ {
         let (sv, cv) = v.sin_cos();
         let center = self.pos.location + self.pos.z_dir * (self.radius * sv);
@@ -151,7 +151,7 @@ impl GpSphere {
     /// The great circle (meridian) at longitude `u` — passes through both
     /// poles.  Its plane is spanned by the radial direction at angle `u`
     /// in the XY plane and the Z axis.
-    // occt: gp_Sphere::UIso (analogue)
+    // occt: gp_Sphere // ::UIso (analogue)
     pub fn circle_at_u(&self, u: f64) -> Circ {
         let (su, cu) = u.sin_cos();
         // Radial direction in the equatorial plane.
@@ -175,7 +175,7 @@ impl GpSphere {
     /// ```text
     /// P = C + R·cos(v)·cos(u)·X + R·cos(v)·sin(u)·Y + R·sin(v)·Z
     /// ```
-    // occt: gp_Sphere::Value (implicit via Geom surface)
+    // occt: gp_Sphere // ::Value (implicit via Geom surface)
     pub fn value(&self, u: f64, v: f64) -> Pnt {
         let (su, cu) = u.sin_cos();
         let (sv, cv) = v.sin_cos();
@@ -186,7 +186,7 @@ impl GpSphere {
     }
 
     /// Returns `true` when `p` lies on the sphere surface within tolerance `tol`.
-    // occt: gp_Sphere::Contains
+    // occt: gp_Sphere // ::Contains
     pub fn contains(&self, p: Pnt, tol: f64) -> bool {
         let d = (p - self.pos.location).norm();
         (d - self.radius).abs() <= tol
@@ -195,7 +195,7 @@ impl GpSphere {
     // ─────────────────────────── transforms ─────────────────────────────────
 
     /// Mirror the sphere through a point `pt` — center maps to `2·pt - C`.
-    // occt: gp_Sphere::Mirrored (gp_Pnt overload)
+    // occt: gp_Sphere // ::Mirrored (gp_Pnt overload)
     pub fn mirrored_through_point(&self, pt: &Pnt) -> Self {
         let loc = self.pos.location;
         let new_loc = Pnt::new(
@@ -216,7 +216,7 @@ impl GpSphere {
 
     /// Mirror the sphere through a line (`Ax1`) — center is reflected over
     /// the line, axis directions are reflected.
-    // occt: gp_Sphere::Mirrored (gp_Ax1 overload)
+    // occt: gp_Sphere // ::Mirrored (gp_Ax1 overload)
     pub fn mirrored_through_ax1(&self, ax: &Ax1) -> Self {
         let u = ax.direction.normalized();
         let reflect_vec = |d: Pnt| {
@@ -236,7 +236,7 @@ impl GpSphere {
 
     /// Mirror the sphere through a plane (`Ax2` — its XY plane is the mirror
     /// plane).
-    // occt: gp_Sphere::Mirrored (gp_Ax2 overload)
+    // occt: gp_Sphere // ::Mirrored (gp_Ax2 overload)
     pub fn mirrored_through_ax2(&self, ax: &Ax2) -> Self {
         let n = ax.z_dir.normalized();
         let reflect_vec = |d: Pnt| {
@@ -255,7 +255,7 @@ impl GpSphere {
     }
 
     /// Return a new sphere rotated about `ax` by `angle` radians.
-    // occt: gp_Sphere::Rotated
+    // occt: gp_Sphere // ::Rotated
     pub fn rotated(&self, ax: &Ax1, angle: f64) -> Self {
         let t = Trsf::rotation(*ax, angle);
         Self {
@@ -265,7 +265,7 @@ impl GpSphere {
     }
 
     /// Rotate the sphere in place.
-    // occt: gp_Sphere::Rotate
+    // occt: gp_Sphere // ::Rotate
     pub fn rotate(&mut self, ax: &Ax1, angle: f64) {
         *self = self.rotated(ax, angle);
     }
@@ -274,7 +274,7 @@ impl GpSphere {
     ///
     /// The radius scales by `|s|`.  If `s < 0` the frame directions are
     /// negated (as OCCT specifies).
-    // occt: gp_Sphere::Scaled
+    // occt: gp_Sphere // ::Scaled
     pub fn scaled(&self, pt: &Pnt, s: f64) -> Self {
         let loc = self.pos.location;
         let new_loc = Pnt::new(
@@ -295,13 +295,13 @@ impl GpSphere {
     }
 
     /// Scale the sphere in place.
-    // occt: gp_Sphere::Scale
+    // occt: gp_Sphere // ::Scale
     pub fn scale(&mut self, pt: &Pnt, s: f64) {
         *self = self.scaled(pt, s);
     }
 
     /// Return a new sphere translated by vector `v`.
-    // occt: gp_Sphere::Translated (gp_Vec overload)
+    // occt: gp_Sphere // ::Translated (gp_Vec overload)
     pub fn translated(&self, v: &Vec3) -> Self {
         Self {
             pos: Ax3 {
@@ -315,20 +315,20 @@ impl GpSphere {
     }
 
     /// Translate the sphere in place.
-    // occt: gp_Sphere::Translate (gp_Vec overload)
+    // occt: gp_Sphere // ::Translate (gp_Vec overload)
     pub fn translate(&mut self, v: &Vec3) {
         self.pos.location = self.pos.location + *v;
     }
 
     /// Return a new sphere translated from `p1` to `p2`.
-    // occt: gp_Sphere::Translated (gp_Pnt, gp_Pnt overload)
+    // occt: gp_Sphere // ::Translated (gp_Pnt, gp_Pnt overload)
     pub fn translated_points(&self, p1: &Pnt, p2: &Pnt) -> Self {
         let v = Vec3::new(p2.x - p1.x, p2.y - p1.y, p2.z - p1.z);
         self.translated(&v)
     }
 
     /// Apply an arbitrary affine transform `t`.
-    // occt: gp_Sphere::Transformed
+    // occt: gp_Sphere // ::Transformed
     pub fn transformed(&self, t: &Trsf) -> Self {
         Self {
             pos: self.pos.transformed(t),

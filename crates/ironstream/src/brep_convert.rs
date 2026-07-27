@@ -1,5 +1,5 @@
 // FILE: brep_convert.rs
-// occt: BRepConvert_ToBSplineSurface, BRepConvert_ApproxSurface,
+// occt-ref: BRepConvert_ToBSplineSurface, BRepConvert_ApproxSurface
 //       ShapeConstruct_ProjectCurveOnSurface
 
 /// Continuity order for conversion results.
@@ -54,7 +54,7 @@ impl BSplineSurfaceResult {
     }
 }
 
-// occt: BRepConvert_ToBSplineSurface
+// occt-ref: BRepConvert_ToBSplineSurface
 #[derive(Clone, Debug)]
 pub struct ToBSplineSurface {
     pub surface_id: u32,
@@ -92,7 +92,7 @@ impl ToBSplineSurface {
     pub fn result(&self) -> Option<&BSplineSurfaceResult> { self.result.as_ref() }
 }
 
-// occt: BRepConvert_ApproxSurface — approximate a non-NURBS surface as B-spline
+// occt-note: BRepConvert_ApproxSurface — approximate a non-NURBS surface as B-spline
 #[derive(Clone, Debug)]
 pub struct ApproxSurface {
     pub surface_id: u32,
@@ -141,7 +141,7 @@ impl ApproxSurface {
     pub fn max_error(&self) -> f64 { self.max_error }
 }
 
-// occt: ShapeConstruct_ProjectCurveOnSurface — projects a 3D curve onto a surface
+// occt: ShapeConstruct_ProjectCurveOnSurface // — projects a 3D curve onto a surface
 #[derive(Clone, Debug)]
 pub struct ProjectCurveOnSurface {
     pub surface_id: u32,

@@ -397,7 +397,7 @@ fn factor_quartic_via_ferrari(a: f64, b: f64, _c: f64, d: f64, y0: f64) -> Quart
     f
 }
 
-// occt: math_DirectPolynomialRoots
+// occt-ref: math_DirectPolynomialRoots
 /// Real roots of a polynomial of degree 2, 3 or 4 — a faithful port of OCCT's
 /// `math_DirectPolynomialRoots`. Roots are 1-indexed via [`value`](Self::value)
 /// to match the original 1-based `Value(Index)` accessor.
@@ -714,7 +714,7 @@ impl MathTrigonometricEquationFunction {
 // math_NewtonFunctionRoot — Newton root finder over [A,B].
 // ===========================================================================
 
-// occt: math_NewtonFunctionRoot
+// occt-ref: math_NewtonFunctionRoot
 /// Newton root finder for [`MathTrigonometricEquationFunction`], a faithful
 /// port of OCCT's `math_NewtonFunctionRoot` (bounded variant).
 #[derive(Clone, Copy, Debug)]

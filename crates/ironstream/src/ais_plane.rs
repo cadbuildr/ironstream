@@ -1,5 +1,6 @@
 // FILE: ais_plane.rs
-// occt: AIS_Plane, AIS_Circle, AIS_Point, AIS_Line
+// occt: AIS_Plane, AIS_Line
+// occt-ref: AIS_Circle, AIS_Point
 
 /// Display mode for geometric AIS shapes.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -9,7 +10,7 @@ pub enum GeomAisMode {
     NPlane,      // normal to plane (for display)
 }
 
-// occt: AIS_Plane — interactive plane shape
+// occt: AIS_Plane // — interactive plane shape
 #[derive(Clone, Debug)]
 pub struct AisPlane {
     pub center: [f64; 3],
@@ -52,7 +53,7 @@ impl AisPlane {
     }
 }
 
-// occt: AIS_Circle — interactive circle shape
+// occt-ref: AIS_Circle // — interactive circle shape
 #[derive(Clone, Debug)]
 pub struct AisCircle {
     pub center: [f64; 3],
@@ -99,7 +100,7 @@ impl AisCircle {
     }
 }
 
-// occt: AIS_Point — interactive point marker
+// occt-ref: AIS_Point // — interactive point marker
 #[derive(Clone, Debug)]
 pub struct AisPoint {
     pub position: [f64; 3],
@@ -128,7 +129,7 @@ impl AisPoint {
     pub fn with_size(mut self, s: f32) -> Self { self.marker_size = s; self }
 }
 
-// occt: AIS_Line — interactive line/segment shape
+// occt: AIS_Line // — interactive line/segment shape
 #[derive(Clone, Debug)]
 pub struct AisLine {
     pub start: [f64; 3],

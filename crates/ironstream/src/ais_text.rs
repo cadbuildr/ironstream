@@ -1,5 +1,5 @@
 // FILE: ais_text.rs
-// occt: AIS_Text, AIS_TextLabel, Prs3d_Text,
+// occt-ref: AIS_Text, AIS_TextLabel, Prs3d_Text
 //       AIS_Dimension, AIS_LengthDimension, AIS_AngleDimension
 
 /// Horizontal text alignment.
@@ -43,7 +43,7 @@ impl Default for DisplayTextType {
 }
 
 /// A 3D text label in an AIS context.
-/// occt: AIS_TextLabel (a.k.a. AIS_Text / Prs3d_Text)
+// occt-ref: AIS_TextLabel // (a.k.a. AIS_Text / Prs3d_Text)
 #[derive(Clone, Debug)]
 pub struct AisTextLabel {
     pub label_id: u32,
@@ -108,7 +108,7 @@ impl Default for DimensionKind {
 }
 
 /// Dimension text position.
-/// occt: AIS_DimensionSelectionMode
+// occt-ref: PrsDim_DimensionSelectionMode
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum DimTextPosition {
     Auto,
@@ -121,7 +121,8 @@ impl Default for DimTextPosition {
 }
 
 /// A dimension annotation (length, angle, radius).
-/// occt: AIS_Dimension, AIS_LengthDimension, AIS_AngleDimension
+/// occt: PrsDim_Dimension
+// occt-ref: PrsDim_LengthDimension, PrsDim_AngleDimension
 #[derive(Clone, Debug)]
 pub struct AisDimension {
     pub dim_id: u32,

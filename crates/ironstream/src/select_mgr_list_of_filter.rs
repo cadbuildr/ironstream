@@ -1,5 +1,6 @@
 // FILE: select_mgr_list_of_filter.rs
-// occt: SelectMgr_ListOfFilter, SelectMgr_ListIteratorOfListOfFilter
+// occt: SelectMgr_ListOfFilter
+// occt-ref: SelectMgr_ListIteratorOfListOfFilter
 
 /// Deprecated typedef for backward compatibility.
 /// A list of filter handles using a Vec for storage.

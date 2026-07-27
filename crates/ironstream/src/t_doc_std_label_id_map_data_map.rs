@@ -1,5 +1,6 @@
 // FILE: t_doc_std_label_id_map_data_map.rs
-// occt: TDocStd_LabelIDMapDataMap, TDocStd_DataMapIteratorOfLabelIDMapDataMap
+// occt: TDocStd_LabelIDMapDataMap
+// occt-ref: TDocStd_DataMapIteratorOfLabelIDMapDataMap
 
 //! Deprecated typedef for TDocStd_LabelIDMapDataMap.
 //!

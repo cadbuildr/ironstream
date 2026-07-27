@@ -1,5 +1,5 @@
 // FILE: math_utils_random_o.rs
-// occt: MathUtils::RandomGenerator
+// occt-note: MathUtils::RandomGenerator
 
 /// High-quality pseudo-random number generator based on xoshiro256**.
 /// Has 256-bit state (period 2^256 - 1), passes BigCrush tests.

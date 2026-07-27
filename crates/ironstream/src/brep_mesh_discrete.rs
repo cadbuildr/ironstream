@@ -102,7 +102,7 @@ impl Default for MeshAlgoParams {
 ///
 /// Mirrors the done/error reporting pattern of `BRepMesh_Discret` in OCCT,
 /// where `IsDone()` is the primary success indicator.
-// occt: BRepMesh_Discret
+// occt-ref: BRepMesh_Discret
 #[derive(Clone, Debug)]
 pub struct DiscretResult {
     /// Number of mesh nodes (vertices) produced.
@@ -146,7 +146,7 @@ impl DiscretResult {
 /// that returns a [`DiscretResult`].
 ///
 /// Mirrors `BRepMesh_Discret` (which implements `IMeshTools_MeshAlgo`) in OCCT.
-// occt: BRepMesh_Discret
+// occt-ref: BRepMesh_Discret
 // occt: IMeshTools_MeshAlgo
 pub struct MeshDiscret {
     /// Parameters controlling the meshing quality.

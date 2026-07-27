@@ -1,5 +1,6 @@
 // FILE: shape_alg.rs
-// occt: ShapeAlgo_AlgoContainer, ShapeAlgo_Tool, ShapeCustom,
+// occt: ShapeAlgo_AlgoContainer
+// occt-ref: ShapeAlgo_Tool, ShapeCustom
 //       ShapeCustom_RestrictionParameters, ShapeCustom_Surface
 
 /// Restriction parameters for shape conversion.
@@ -88,7 +89,7 @@ impl ShapeAlgoAlgoContainer {
 }
 
 /// Tool for common shape operations.
-/// occt: ShapeAlgo_Tool
+// occt-ref: ShapeAlgo_Tool
 #[derive(Clone, Debug, Default)]
 pub struct ShapeAlgoTool;
 
@@ -141,7 +142,7 @@ impl ShapeCustomSurface {
 }
 
 /// Shape upgrade: converts all surfaces to BSpline form.
-/// occt: ShapeCustom (global functions namespace, simplified)
+// occt-ref: ShapeCustom // (global functions namespace, simplified)
 #[derive(Clone, Debug, Default)]
 pub struct ShapeCustom {
     pub tolerance: f64,
@@ -167,7 +168,7 @@ impl ShapeCustom {
 }
 
 /// Scaling / unit conversion on a shape.
-/// occt: BRepBuilderAPI_Transform, BRepBuilderAPI_GTransform (simplified)
+/// occt-note: BRepBuilderAPI_Transform, BRepBuilderAPI_GTransform (simplified)
 #[derive(Clone, Debug)]
 pub struct ShapeScaler {
     pub scale_x: f64,

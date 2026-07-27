@@ -1,7 +1,8 @@
 // FILE: brep_wire_tools.rs
-// occt: BRepTools_WireExplorer, BRepCheck_Wire, ShapeAnalysis_Wire
+// occt: BRepCheck_Wire
+// occt-ref: BRepTools_WireExplorer, ShapeAnalysis_Wire
 
-// occt: BRepTools_WireExplorer
+// occt-ref: BRepTools_WireExplorer
 /// Iterates the edges of a wire in topological order.
 #[derive(Clone, Debug)]
 pub struct WireExplorer {
@@ -108,7 +109,7 @@ impl WireCheck {
     pub fn total_length(&self) -> f64 { self.edges.iter().map(|e| e.length()).sum() }
 }
 
-// occt: ShapeAnalysis_Wire
+// occt-ref: ShapeAnalysis_Wire
 #[derive(Clone, Debug)]
 pub struct WireAnalysis {
     pub edges: Vec<WireEdge>,

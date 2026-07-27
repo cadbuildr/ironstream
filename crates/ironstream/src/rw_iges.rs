@@ -37,7 +37,7 @@ use crate::gp::Pnt;
 // ---------------------------------------------------------------------------
 
 /// IGES unit of length, encoded in Global Section field 15.
-// occt: IGESData_BasicEditor (unit handling)
+// occt: IGESData_BasicEditor // (unit handling)
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum IgesUnit {
     Inch,
@@ -130,7 +130,7 @@ impl Default for IgesUnit {
 // ---------------------------------------------------------------------------
 
 /// Discriminant for the IGES entity type number (Directory Entry column 1).
-// occt: IGESData_IGESEntity (type number field)
+// occt: IGESData_IGESEntity // (type number field)
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum IgesEntityKind {
     /// Null entity — placeholder / deleted (type 0).
@@ -490,7 +490,7 @@ impl Default for IGESModel {
 // ---------------------------------------------------------------------------
 
 /// Error type returned by IGES reader/writer operations.
-// occt: IGESData_IGESReaderData (errors surface via messenger)
+// occt: IGESData_IGESReaderData // (errors surface via messenger)
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct IgesError {
     pub message: String,

@@ -1,5 +1,6 @@
 // FILE: image_diff.rs
-// occt: Image_Diff, Image_PixMap, Image_Format, Image_AlienPixMap
+// occt: Image_Diff, Image_Format, Image_AlienPixMap
+// occt-ref: Image_PixMap
 
 /// Pixel format for image buffers.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -41,7 +42,7 @@ impl ImageFormat {
     }
 }
 
-// occt: Image_PixMap
+// occt-ref: Image_PixMap
 #[derive(Clone, Debug)]
 pub struct ImagePixMap {
     pub width: u32,
@@ -213,7 +214,7 @@ impl Default for ImageDiff {
     fn default() -> Self { Self::new() }
 }
 
-// occt: Image_AlienPixMap (supports loading/saving metadata)
+// occt: Image_AlienPixMap // (supports loading/saving metadata)
 #[derive(Clone, Debug)]
 pub struct AlienPixMap {
     pub pixmap: ImagePixMap,

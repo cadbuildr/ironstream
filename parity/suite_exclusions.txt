@@ -1,0 +1,6 @@
+# Modules under crates/ironstream/tests/occt_suite/ excluded from main.rs.
+# Format: <module_name> <reason...>   (one per line, '#' comments allowed)
+# Consumed by parity/gen_occt_suite.py; keep this list shrinking.
+occt_math_matrix API drift: test written against an older math_matrix module (41 compile errors)
+occt_shape_construct API drift: ShapeConstructCurve::new() signature + method names changed under the test (11 compile errors)
+occt_geom2d_convert imports `ironstream::geom2d_convert`, which no longer exists (split into geom2d_convert_* modules)

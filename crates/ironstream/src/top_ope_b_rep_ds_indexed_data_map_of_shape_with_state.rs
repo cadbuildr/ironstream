@@ -1,5 +1,6 @@
 // FILE: top_ope_b_rep_ds_indexed_data_map_of_shape_with_state.rs
-// occt: TopOpeBRepDS_IndexedDataMapOfShapeWithState, TopOpeBRepDS_ShapeWithState
+// occt: TopOpeBRepDS_IndexedDataMapOfShapeWithState
+// occt-ref: TopOpeBRepDS_ShapeWithState
 
 /// State: Topological state enumeration.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

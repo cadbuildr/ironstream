@@ -1,5 +1,6 @@
 // FILE: top_ope_b_rep_ds_data_map_of_shape_list_of_shape_on1_state.rs
-// occt: TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State, TopOpeBRepDS_ShapeListOfShapeOn1State
+// occt: TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State
+// occt-ref: TopOpeBRepDS_ShapeListOfShapeOn1State
 
 use std::collections::HashMap;
 

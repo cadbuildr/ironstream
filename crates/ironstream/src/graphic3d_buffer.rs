@@ -2,7 +2,7 @@
 // occt: Graphic3d_Buffer, Graphic3d_IndexBuffer, Graphic3d_BoundBuffer
 
 /// Data type tag for buffer element fields.
-/// occt: Graphic3d_TypeOfData
+// occt-ref: Graphic3d_TypeOfData
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Graphic3dTypeOfData {
     Float,
@@ -34,7 +34,7 @@ impl Graphic3dTypeOfData {
 }
 
 /// Attribute definition for a vertex buffer layout.
-/// occt: Graphic3d_Attribute
+// occt-ref: Graphic3d_Attribute
 #[derive(Clone, Debug)]
 pub struct Graphic3dAttribute {
     pub name: String,

@@ -26,7 +26,7 @@ use crate::gp2d::{Ax2d, Pnt2d};
 
 /// Transformation kind, mirroring OCCT's `gp_TrsfForm` enum.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-// occt: gp_TrsfForm
+// occt-ref: gp_TrsfForm
 pub enum Form {
     /// Identity (no change).
     Identity,
@@ -80,7 +80,7 @@ impl std::error::Error for Trsf2dError {}
 ///
 /// Internally: `y' = mat * x + t`.  `mat` is the 2×2 vectorial part stored
 /// row-major; `t` is the translation.
-// occt: gp_Trsf2d
+// occt-ref: gp_Trsf2d
 #[derive(Clone, Copy, Debug)]
 pub struct Trsf2d {
     /// Row-major 2×2 linear (vectorial) part.  `mat[row][col]`, 0-based.

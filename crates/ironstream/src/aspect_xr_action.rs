@@ -1,6 +1,6 @@
 // FILE: aspect_xr_action.rs
 // occt: Aspect_XRAction
-// occt: Aspect_XRActionType
+// occt-ref: Aspect_XRActionType
 
 use std::sync::Arc;
 

@@ -39,7 +39,7 @@ pub enum Gravity {
 /// subclasses carry typed data.  Here we use a plain struct that covers the
 /// common case (a string-keyed alert) while still exposing the same API
 /// shape.
-// occt: Message_Alert
+// occt-ref: Message_Alert
 #[derive(Debug, Clone)]
 pub struct Message_Alert {
     gravity: Gravity,
@@ -164,7 +164,7 @@ pub trait Message_Printer: Send + Sync {
 
 /// A printer that accumulates every alert in memory so tests (and callers)
 /// can inspect what was dispatched.
-// occt: Message_PrinterCollect (custom convenience type)
+// occt-note: Message_PrinterCollect (custom convenience type)
 pub struct CollectingPrinter {
     /// Interior-mutability cell so `send` can take `&self` as required by the
     /// trait while still appending to the log.

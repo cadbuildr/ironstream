@@ -1,5 +1,5 @@
 // FILE: vrml_scene.rs
-// occt: VrmlData_Scene, VrmlData_Group, VrmlData_ShapeNode,
+// occt: VrmlData_Scene, VrmlData_Group, VrmlData_ShapeNode
 //       VrmlData_Appearance, VrmlData_Material
 
 /// VRML material (diffuse + emissive + specular + shininess + transparency).

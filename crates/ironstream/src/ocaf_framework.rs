@@ -6,7 +6,7 @@ use std::collections::HashMap;
 // TDF_Label
 // ---------------------------------------------------------------------------
 
-// occt: TDF_Label
+// occt-ref: TDF_Label
 /// A handle/path into the data tree, represented as a sequence of child tags
 /// from the root.  An empty path is the root label.
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
@@ -70,7 +70,7 @@ impl TdfLabel {
 // TDF_Attribute trait
 // ---------------------------------------------------------------------------
 
-// occt: TDF_Attribute
+// occt-ref: TDF_Attribute
 pub trait TdfAttribute: std::fmt::Debug + Send + Sync {
     fn attribute_type_name(&self) -> &'static str;
 }
@@ -79,7 +79,7 @@ pub trait TdfAttribute: std::fmt::Debug + Send + Sync {
 // TDF_Data
 // ---------------------------------------------------------------------------
 
-// occt: TDF_Data
+// occt-ref: TDF_Data
 /// The data framework container.  Holds a tree of labels and their attached
 /// attributes (boxed trait objects, stored by type name per label).
 pub struct TdfData {

@@ -32,7 +32,7 @@
 //! construction (de Casteljau, "A Practical Guide to Splines", Boor; also
 //! Piegl & Tiller, "The NURBS Book", §9.1 on conic sections).
 
-// occt: Convert_ConicToBSplineCurve
+// occt-ref: Convert_ConicToBSplineCurve
 
 use crate::gp::Pnt;
 use crate::gp_parab::Parab;
@@ -56,7 +56,7 @@ use crate::gp_parab::Parab;
 ///
 /// `alpha1` and `alpha2` are the parameter values at the arc endpoints,
 /// `alpha2 > alpha1`.
-// occt: Convert_ConicToBSplineCurve
+// occt-ref: Convert_ConicToBSplineCurve
 #[derive(Clone, Debug)]
 pub struct ParabToBSpline {
     /// Control points (poles), length 3.

@@ -13,11 +13,11 @@
 /// 1 = done (OK), 2 = done (approximated), 3 = fail.
 #[derive(Debug, Clone)]
 pub struct SplitCurve3d {
-    /// occt: handle to the underlying 3-D curve (represented as its name/id)
+    /// occt-note: handle to the underlying 3-D curve (represented as its name/id)
     pub curve: String,
-    /// occt: ordered list of parameter values at which the curve is split
+    /// occt-note: ordered list of parameter values at which the curve is split
     pub split_values: Vec<f64>,
-    /// occt: status code after perform() — 0 = not done, 1 = done, 3 = fail
+    /// occt-note: status code after perform() — 0 = not done, 1 = done, 3 = fail
     pub status: u32,
 
     first: f64,
@@ -26,7 +26,7 @@ pub struct SplitCurve3d {
 }
 
 impl SplitCurve3d {
-    /// occt: ShapeUpgrade_SplitCurve3d::ShapeUpgrade_SplitCurve3d
+    /// occt: ShapeUpgrade_SplitCurve3d // ::ShapeUpgrade_SplitCurve3d
     ///
     /// Create a new splitter for the curve identified by `curve`.  The
     /// parameter range defaults to [0.0, 1.0]; call [`init`] to override.
@@ -41,7 +41,7 @@ impl SplitCurve3d {
         }
     }
 
-    /// occt: ShapeUpgrade_SplitCurve3d::Init
+    /// occt: ShapeUpgrade_SplitCurve3d // ::Init
     ///
     /// (Re-)initialise the splitter for the given curve and parameter range
     /// `[first, last]`.  Any previously accumulated split values or results are
@@ -55,7 +55,7 @@ impl SplitCurve3d {
         self.status = 0;
     }
 
-    /// occt: ShapeUpgrade_SplitCurve3d::SetSplitValues
+    /// occt: ShapeUpgrade_SplitCurve3d // ::SetSplitValues
     ///
     /// Supply the full ordered list of interior split parameters.  Values
     /// outside `(first, last)` are silently dropped.  Duplicates are removed.
@@ -71,7 +71,7 @@ impl SplitCurve3d {
         self.split_values = filtered;
     }
 
-    /// occt: ShapeUpgrade_SplitCurve3d::Perform
+    /// occt: ShapeUpgrade_SplitCurve3d // ::Perform
     ///
     /// Execute the split algorithm.  When `approximate` is `true` the result
     /// segments would be approximated by B-splines in a real implementation;
@@ -100,7 +100,7 @@ impl SplitCurve3d {
         self.status = if approximate { 2 } else { 1 };
     }
 
-    /// occt: ShapeUpgrade_SplitCurve3d::NbResults
+    /// occt: ShapeUpgrade_SplitCurve3d // ::NbResults
     ///
     /// Return the number of curve segments produced by the last [`perform`]
     /// call.  Returns 0 if [`perform`] has not yet been called or failed.
@@ -108,7 +108,7 @@ impl SplitCurve3d {
         self.results.len()
     }
 
-    /// occt: ShapeUpgrade_SplitCurve3d::Status
+    /// occt: ShapeUpgrade_SplitCurve3d // ::Status
     ///
     /// Return the status set by the last [`perform`] call:
     /// * `0` — not yet executed
@@ -129,11 +129,11 @@ impl SplitCurve3d {
 /// and/or V parametric directions at prescribed parameter values.
 #[derive(Debug, Clone)]
 pub struct SplitSurface {
-    /// occt: handle to the underlying surface (represented as its name/id)
+    /// occt-note: handle to the underlying surface (represented as its name/id)
     pub surface: String,
-    /// occt: ordered list of U parameter values at which the surface is split
+    /// occt-note: ordered list of U parameter values at which the surface is split
     pub u_splits: Vec<f64>,
-    /// occt: ordered list of V parameter values at which the surface is split
+    /// occt-note: ordered list of V parameter values at which the surface is split
     pub v_splits: Vec<f64>,
 
     results: Vec<String>,
@@ -141,7 +141,7 @@ pub struct SplitSurface {
 }
 
 impl SplitSurface {
-    /// occt: ShapeUpgrade_SplitSurface::ShapeUpgrade_SplitSurface
+    /// occt: ShapeUpgrade_SplitSurface // ::ShapeUpgrade_SplitSurface
     ///
     /// Create a new splitter for the surface identified by `surface`.
     pub fn new(surface: &str) -> Self {
@@ -154,7 +154,7 @@ impl SplitSurface {
         }
     }
 
-    /// occt: ShapeUpgrade_SplitSurface::SetUSplitValues
+    /// occt: ShapeUpgrade_SplitSurface // ::SetUSplitValues
     ///
     /// Supply the full ordered list of interior U split parameters.  Duplicates
     /// are removed.
@@ -165,7 +165,7 @@ impl SplitSurface {
         self.u_splits = v;
     }
 
-    /// occt: ShapeUpgrade_SplitSurface::SetVSplitValues
+    /// occt: ShapeUpgrade_SplitSurface // ::SetVSplitValues
     ///
     /// Supply the full ordered list of interior V split parameters.  Duplicates
     /// are removed.
@@ -176,7 +176,7 @@ impl SplitSurface {
         self.v_splits = v;
     }
 
-    /// occt: ShapeUpgrade_SplitSurface::Perform
+    /// occt: ShapeUpgrade_SplitSurface // ::Perform
     ///
     /// Execute the split algorithm.  Each rectangular patch defined by
     /// consecutive U and V break-points is recorded as a result string of the
@@ -228,7 +228,7 @@ impl SplitSurface {
         self.status = 1; // done
     }
 
-    /// occt: ShapeUpgrade_SplitSurface::NbResults
+    /// occt: ShapeUpgrade_SplitSurface // ::NbResults
     ///
     /// Return the number of surface patches produced by the last [`perform`]
     /// call.  Returns 0 if [`perform`] has not yet been called or failed.

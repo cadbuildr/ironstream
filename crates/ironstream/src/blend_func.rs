@@ -1,5 +1,5 @@
 // FILE: blend_func.rs
-// occt: Blend_Function, Blend_CSFunction, Blend_SurfRstFunction,
+// occt: Blend_Function, Blend_CSFunction, Blend_SurfRstFunction
 //       Blend_CurvPointFuncInv, BlendFunc_Corde, BlendFunc_Ruled,
 //       BlendFunc_EvolRad, BRepBlend_Line, BRepBlend_PointOnRst
 
@@ -18,7 +18,7 @@ impl Default for BlendDecrochStatus {
 }
 
 /// Status of a blend walk.
-/// occt: BRepBlend_Status
+// occt-ref: BRepBlend_Status
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum BlendStatus {
     StepTooLarge,
@@ -119,7 +119,7 @@ impl BrepBlendLine {
 }
 
 /// Corde blend function (constant radius fillet).
-/// occt: BlendFunc_Corde / BlendFunc_EvolRad
+/// occt: BlendFunc_Corde // / BlendFunc_EvolRad
 #[derive(Clone, Debug)]
 pub struct BlendFuncEvolRad {
     pub surface1_id: u32,

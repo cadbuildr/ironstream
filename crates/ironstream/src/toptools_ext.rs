@@ -1,5 +1,5 @@
 // FILE: toptools_ext.rs
-// occt: TopTools_IndexedMapOfShape, TopTools_ListOfShape,
+// occt-ref: TopTools_IndexedMapOfShape, TopTools_ListOfShape
 //       TopTools_DataMapOfShapeShape, TopTools_MapOfShape,
 //       TopTools_IndexedDataMapOfShapeListOfShape
 
@@ -22,7 +22,7 @@ impl ShapeRef {
     }
 }
 
-// occt: TopTools_IndexedMapOfShape — maps integer indices 1..N to shapes
+// occt-ref: TopTools_IndexedMapOfShape // — maps integer indices 1..N to shapes
 #[derive(Clone, Debug, Default)]
 pub struct IndexedMapOfShape {
     pub shapes: Vec<ShapeRef>,
@@ -53,7 +53,7 @@ impl IndexedMapOfShape {
     pub fn is_empty(&self) -> bool { self.shapes.is_empty() }
 }
 
-// occt: TopTools_ListOfShape — ordered list of shape references
+// occt-ref: TopTools_ListOfShape // — ordered list of shape references
 #[derive(Clone, Debug, Default)]
 pub struct ListOfShape {
     pub items: Vec<ShapeRef>,
@@ -82,7 +82,7 @@ impl ListOfShape {
     }
 }
 
-// occt: TopTools_MapOfShape — set of distinct shapes (no duplicates)
+// occt-ref: TopTools_MapOfShape // — set of distinct shapes (no duplicates)
 #[derive(Clone, Debug, Default)]
 pub struct MapOfShape {
     pub shapes: Vec<ShapeRef>,
@@ -125,7 +125,7 @@ impl MapOfShape {
     }
 }
 
-// occt: TopTools_DataMapOfShapeShape — maps shape → shape
+// occt: TopTools_DataMapOfShapeShape // — maps shape → shape
 #[derive(Clone, Debug, Default)]
 pub struct DataMapOfShapeShape {
     pub entries: Vec<(ShapeRef, ShapeRef)>,
@@ -161,7 +161,7 @@ impl DataMapOfShapeShape {
     pub fn clear(&mut self) { self.entries.clear(); }
 }
 
-// occt: TopTools_IndexedDataMapOfShapeListOfShape — shape → list-of-shapes
+// occt: TopTools_IndexedDataMapOfShapeListOfShape // — shape → list-of-shapes
 #[derive(Clone, Debug, Default)]
 pub struct IndexedDataMapOfShapeListOfShape {
     pub entries: Vec<(ShapeRef, ListOfShape)>,

@@ -4,7 +4,7 @@
 use crate::geom_plane::GeomPlane;
 use crate::geom_bspline_surface::GeomBSplineSurface;
 
-// occt: Geom_Surface (trait for surface evaluation)
+// occt-ref: Geom_Surface // (trait for surface evaluation)
 pub trait GeomSurfaceEval {
     fn value(&self, u: f64, v: f64) -> [f64; 3];
     fn d1(&self, u: f64, v: f64) -> ([f64; 3], [f64; 3], [f64; 3]); // P, dU, dV
@@ -48,7 +48,7 @@ fn dot(a: [f64; 3], b: [f64; 3]) -> f64 {
     a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
 }
 
-// occt: Geom_Plane (wrapper for offset surface support)
+// occt-ref: Geom_Plane // (wrapper for offset surface support)
 #[derive(Clone, Debug)]
 pub struct GeomOffsetPlane {
     /// Origin of the plane
@@ -111,7 +111,7 @@ impl GeomSurfaceEval for GeomOffsetPlane {
     }
 }
 
-// occt: Geom_CylindricalSurface (wrapper for offset surface support)
+// occt-ref: Geom_CylindricalSurface // (wrapper for offset surface support)
 #[derive(Clone, Debug)]
 pub struct GeomOffsetCylinder {
     /// Center axis origin
@@ -193,7 +193,7 @@ impl GeomSurfaceEval for GeomOffsetCylinder {
     }
 }
 
-// occt: Geom_SphericalSurface (wrapper for offset surface support)
+// occt-ref: Geom_SphericalSurface // (wrapper for offset surface support)
 #[derive(Clone, Debug)]
 pub struct GeomOffsetSphere {
     /// Center
@@ -290,7 +290,7 @@ impl GeomSurfaceEval for GeomOffsetSphere {
     }
 }
 
-// occt: Geom_BasisSurface (enum of supported surface kinds for offset)
+// occt-note: Geom_BasisSurface (enum of supported surface kinds for offset)
 pub enum GeomBasisSurface {
     Plane(GeomOffsetPlane),
     Cylinder(GeomOffsetCylinder),

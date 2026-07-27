@@ -1,7 +1,7 @@
 // FILE: topo_ds_shape.rs
-// occt: TopoDS_Shape (extended), TopoDS_Iterator, TopAbs_Orientation
+// occt: TopoDS_Shape // (extended), TopoDS_Iterator, TopAbs_Orientation
 
-// occt: TopAbs_Orientation
+// occt-ref: TopAbs_Orientation
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum Orientation {
     Forward,
@@ -21,7 +21,7 @@ impl Orientation {
     }
 }
 
-// occt: TopAbs_ShapeEnum
+// occt-ref: TopAbs_ShapeEnum
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum ShapeEnum {
     Compound,
@@ -55,7 +55,7 @@ impl ShapeEnum {
     }
 }
 
-// occt: TopoDS_Shape (simplified)
+// occt: TopoDS_Shape // (simplified)
 #[derive(Clone, Debug)]
 pub struct Shape {
     pub shape_type: ShapeEnum,
@@ -116,7 +116,7 @@ impl Shape {
     pub fn nb_children(&self) -> usize { self.children.len() }
 }
 
-// occt: TopoDS_Iterator
+// occt-ref: TopoDS_Iterator
 pub struct ShapeIterator<'a> {
     shape: &'a Shape,
     index: usize,

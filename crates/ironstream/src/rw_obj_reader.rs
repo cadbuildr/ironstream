@@ -1,7 +1,8 @@
 // FILE: rw_obj_reader.rs
-// occt: RWObj_Reader, RWObj_MtlReader, RWObj_Material
+// occt: RWObj_Reader, RWObj_MtlReader
+// occt-ref: RWObj_Material
 
-// occt: RWObj_Material
+// occt-ref: RWObj_Material
 #[derive(Clone, Debug, PartialEq)]
 pub struct ObjMaterial {
     pub name: String,

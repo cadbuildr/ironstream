@@ -84,7 +84,7 @@ impl Default for CurveIntersect2d {
     }
 }
 
-// occt: IntCurve_IntConicConic
+// occt-ref: IntCurve_IntConicConic
 /// Analytic intersection of two conics in 2D, modelled after
 /// `IntCurve_IntConicConic`.
 ///

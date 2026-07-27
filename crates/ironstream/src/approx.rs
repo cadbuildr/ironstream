@@ -308,7 +308,7 @@ fn max_deviation(curve: &GeomBSplineCurve, params: &[f64], pts: &[Pnt]) -> f64 {
 // ─────────────────────────── Approx_Curve3d ──────────────────────────────────
 
 /// Continuity of the approximation result.
-// occt: GeomAbs_Shape (reused here for Approx continuity)
+// occt-ref: GeomAbs_Shape // (reused here for Approx continuity)
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ApproxContinuity {
     C0,

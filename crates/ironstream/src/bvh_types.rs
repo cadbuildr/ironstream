@@ -1,5 +1,5 @@
 // FILE: bvh_types.rs
-// occt: BVH_Types - Namespace and type aliases for BVH operations
+// occt: BVH_Types // - Namespace and type aliases for BVH operations
 
 //! Tool classes for selecting appropriate vector types and providing operations on arrays.
 //! This module provides trait-like structures to handle 1D, 2D, 3D, and 4D vectors and matrices,
@@ -161,12 +161,12 @@ impl<T: Mul<Output = T> + Clone + Copy> Mul<T> for Vec3<T> {
     }
 }
 
-// occt: VectorType - Trait-like struct for selecting vector types by dimension
+// occt-note: VectorType - Trait-like struct for selecting vector types by dimension
 /// Selects the appropriate vector type based on dimension.
 /// For N=1, uses scalar T. For N=2, uses Vec2<T>. For N=3, uses Vec3<T>. For N=4, uses Vec4<T>.
 pub struct VectorType;
 
-// occt: VecComp - Tool class for accessing vector components by index
+// occt-note: VecComp - Tool class for accessing vector components by index
 /// Provides component access for vectors by index.
 pub struct VecComp;
 
@@ -202,7 +202,7 @@ impl VecComp {
     }
 }
 
-// occt: Array - Utility struct providing operations on arrays of vectors
+// occt-note: Array - Utility struct providing operations on arrays of vectors
 /// Provides array operations for storing and manipulating collections of vectors.
 pub struct Array;
 
@@ -238,7 +238,7 @@ impl Array {
     }
 }
 
-// occt: IntFloor - Utility function for integer floor operation
+// occt-note: IntFloor - Utility function for integer floor operation
 /// Computes integer floor of a floating point value.
 /// Returns the largest integer less than or equal to the input value.
 pub fn int_floor_f64(value: f64) -> i32 {

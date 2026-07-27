@@ -1,9 +1,10 @@
 // FILE: step_writer_ext.rs
-// occt: StepData_Writer, StepData_StepWriter, StepData_WriterContext,
+// occt: StepData_StepWriter
+// occt-ref: StepData_Writer, StepData_WriterContext
 //       StepData_FileRecord
 
 /// STEP file header information.
-/// occt: StepData_FileHeaderMeta
+// occt-ref: StepData_FileHeaderMeta
 #[derive(Clone, Debug, Default)]
 pub struct StepFileHeader {
     pub description: String,
@@ -29,7 +30,7 @@ impl StepFileHeader {
 }
 
 /// A single entity record in the STEP file.
-/// occt: StepData_FileRecord (simplified)
+/// occt-note: StepData_FileRecord (simplified)
 #[derive(Clone, Debug)]
 pub struct StepFileRecord {
     pub record_id: u32,
@@ -57,7 +58,7 @@ impl StepFileRecord {
 }
 
 /// STEP writer: builds and outputs STEP files.
-/// occt: StepData_Writer / StepData_StepWriter
+/// occt-note: StepData_Writer / StepData_StepWriter
 #[derive(Clone, Debug, Default)]
 pub struct StepWriter {
     pub header: StepFileHeader,
@@ -110,7 +111,7 @@ mod chrono_stub {
 }
 
 /// Writer context: manages entity references during conversion.
-/// occt: StepData_WriterContext (stub)
+/// occt-note: StepData_WriterContext (stub)
 #[derive(Clone, Debug, Default)]
 pub struct StepWriterContext {
     pub entity_map: Vec<(u32, u32)>,  // (src_id, step_record_id)

@@ -1,5 +1,6 @@
 // FILE: cdm_list_of_references.rs
-// occt: CDM_ListOfReferences, CDM_ListIteratorOfListOfReferences
+// occt: CDM_ListOfReferences
+// occt-ref: CDM_ListIteratorOfListOfReferences
 
 //! Deprecated type aliases for backward compatibility.
 //! Use VecDeque<Arc<CdmReference>> directly instead.

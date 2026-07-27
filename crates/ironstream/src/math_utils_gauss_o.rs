@@ -1,5 +1,5 @@
 // FILE: math_utils_gauss_o.rs
-// occt: MathUtils::GetGaussPointsAndWeights
+// occt-note: MathUtils::GetGaussPointsAndWeights
 
 /// Get ordered Gauss-Legendre points and weights for given order.
 /// Points are returned in ascending order on [-1, 1].

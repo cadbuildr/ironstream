@@ -42,7 +42,7 @@ fn pnt_normalized(a: Pnt) -> Pnt { a.normalized() }
 // ---------------------------------------------------------------------------
 
 /// The kind of analytic curve underlying a `BRepAdaptorCurve`.
-// occt: BRepAdaptor_Curve (curve kind discriminant)
+// occt: BRepAdaptor_Curve // (curve kind discriminant)
 #[derive(Debug, Clone)]
 pub enum BRepCurveKind {
     /// A line: defined by an `Ax1` (origin + unit direction).
@@ -148,7 +148,7 @@ impl BRepAdaptorCurve {
     // ------------------------------------------------------------------
 
     /// Returns the abstract curve type.
-    // occt: BRepAdaptor_Curve::GetType()
+    // occt: BRepAdaptor_Curve // ::GetType()
     pub fn get_type(&self) -> CurveType {
         match &self.kind {
             BRepCurveKind::Line(_) => CurveType::Line,
@@ -219,7 +219,7 @@ impl BRepAdaptorCurve {
     // ------------------------------------------------------------------
 
     /// `D0` — evaluate point at parameter `u`.
-    // occt: BRepAdaptor_Curve::D0
+    // occt: BRepAdaptor_Curve // ::D0
     pub fn value(&self, u: f64) -> Pnt {
         match &self.kind {
             BRepCurveKind::Line(ax) => {
@@ -237,7 +237,7 @@ impl BRepAdaptorCurve {
     }
 
     /// `D1` — evaluate point and first derivative at parameter `u`.
-    // occt: BRepAdaptor_Curve::D1
+    // occt: BRepAdaptor_Curve // ::D1
     pub fn d1(&self, u: f64) -> (Pnt, Vec3) {
         match &self.kind {
             BRepCurveKind::Line(ax) => {
@@ -264,7 +264,7 @@ impl BRepAdaptorCurve {
     }
 
     /// `D2` — evaluate point, first and second derivatives at parameter `u`.
-    // occt: BRepAdaptor_Curve::D2
+    // occt: BRepAdaptor_Curve // ::D2
     pub fn d2(&self, u: f64) -> (Pnt, Vec3, Vec3) {
         match &self.kind {
             BRepCurveKind::Line(ax) => {
@@ -345,7 +345,7 @@ impl BRepAdaptorCurve {
 // ---------------------------------------------------------------------------
 
 /// The kind of analytic surface underlying a `BRepAdaptorSurface`.
-// occt: BRepAdaptor_Surface (surface kind discriminant)
+// occt: BRepAdaptor_Surface // (surface kind discriminant)
 #[derive(Debug, Clone)]
 pub enum BRepSurfaceKind {
     /// An infinite plane: normal (`z_dir`) and local frame.
@@ -473,7 +473,7 @@ impl BRepAdaptorSurface {
     // ------------------------------------------------------------------
 
     /// Returns the abstract surface type.
-    // occt: BRepAdaptor_Surface::GetType()
+    // occt: BRepAdaptor_Surface // ::GetType()
     pub fn get_type(&self) -> SurfaceType {
         match &self.kind {
             BRepSurfaceKind::Plane(_) => SurfaceType::Plane,
@@ -576,7 +576,7 @@ impl BRepAdaptorSurface {
     // ------------------------------------------------------------------
 
     /// `D0` — evaluate point at `(u, v)`.
-    // occt: BRepAdaptor_Surface::D0
+    // occt: BRepAdaptor_Surface // ::D0
     pub fn value(&self, u: f64, v: f64) -> Pnt {
         match &self.kind {
             BRepSurfaceKind::Plane(ax3) => {
@@ -628,7 +628,7 @@ impl BRepAdaptorSurface {
     }
 
     /// `D1` — evaluate point and first partial derivatives `(d/du, d/dv)`.
-    // occt: BRepAdaptor_Surface::D1
+    // occt: BRepAdaptor_Surface // ::D1
     pub fn d1(&self, u: f64, v: f64) -> (Pnt, Vec3, Vec3) {
         match &self.kind {
             BRepSurfaceKind::Plane(ax3) => {
@@ -695,7 +695,7 @@ impl BRepAdaptorSurface {
     }
 
     /// Surface normal at `(u, v)` (unit vector).
-    // occt: BRepAdaptor_Surface::Normal (conceptually via DN)
+    // occt: BRepAdaptor_Surface // ::Normal (conceptually via DN)
     pub fn normal(&self, u: f64, v: f64) -> Vec3 {
         let (_, du, dv) = self.d1(u, v);
         du.cross(dv).normalized()
@@ -775,7 +775,7 @@ impl BRepAdaptorSurface {
 /// A segment record: parameter interval `[first, last]` referencing a single
 /// edge's curve, plus the precomputed cumulative start of this segment in the
 /// composite parameter.
-// occt: BRepAdaptor_CompCurve (internal segment)
+// occt: BRepAdaptor_CompCurve // (internal segment)
 #[derive(Debug, Clone)]
 pub struct CompCurveSegment {
     /// The adapted edge curve for this segment.
@@ -838,21 +838,21 @@ impl BRepAdaptorCompCurve {
     pub fn nb_intervals(&self) -> usize { self.segments.len() }
 
     /// Evaluate point at composite parameter `u`.
-    // occt: BRepAdaptor_CompCurve::D0
+    // occt: BRepAdaptor_CompCurve // ::D0
     pub fn value(&self, u: f64) -> Pnt {
         let (seg, local_u) = self.locate(u);
         seg.curve.value(local_u)
     }
 
     /// Evaluate point and first derivative at composite parameter `u`.
-    // occt: BRepAdaptor_CompCurve::D1
+    // occt: BRepAdaptor_CompCurve // ::D1
     pub fn d1(&self, u: f64) -> (Pnt, Vec3) {
         let (seg, local_u) = self.locate(u);
         seg.curve.d1(local_u)
     }
 
     /// Evaluate point, first and second derivative at composite parameter `u`.
-    // occt: BRepAdaptor_CompCurve::D2
+    // occt: BRepAdaptor_CompCurve // ::D2
     pub fn d2(&self, u: f64) -> (Pnt, Vec3, Vec3) {
         let (seg, local_u) = self.locate(u);
         seg.curve.d2(local_u)
