@@ -60,6 +60,43 @@ impl Polygon {
     }
 }
 
+/// [`split_polygon`] for an owned polygon: polygons that do not span the plane
+/// move into their bucket instead of being cloned. Tree building and clipping
+/// route every polygon through every level, so on a convex solid (whose
+/// plane-only tree is a chain) the clones dominated the cost.
+fn split_owned(
+    plane: &Plane,
+    poly: Polygon,
+    coplanar_front: &mut Vec<Polygon>,
+    coplanar_back: &mut Vec<Polygon>,
+    front: &mut Vec<Polygon>,
+    back: &mut Vec<Polygon>,
+) {
+    let mut ty = 0u8;
+    for v in &poly.verts {
+        let t = plane.n.dot(*v) - plane.w;
+        ty |= if t < -PLANE_EPS {
+            BACK
+        } else if t > PLANE_EPS {
+            FRONT
+        } else {
+            COPLANAR
+        };
+    }
+    match ty {
+        COPLANAR => {
+            if plane.n.dot(poly.plane.n) > 0.0 {
+                coplanar_front.push(poly);
+            } else {
+                coplanar_back.push(poly);
+            }
+        }
+        FRONT => front.push(poly),
+        BACK => back.push(poly),
+        _ => split_polygon(plane, &poly, coplanar_front, coplanar_back, front, back),
+    }
+}
+
 /// Split `poly` by `plane`, routing the (possibly fragmented) result into the
 /// four output buckets.
 fn split_polygon(
@@ -204,10 +241,9 @@ impl Node {
         let mut cb = Vec::new();
         let mut front = Vec::new();
         let mut back = Vec::new();
-        for p in &polygons {
-            split_polygon(&plane, p, &mut cf, &mut cb, &mut front, &mut back);
+        for p in polygons {
+            split_owned(&plane, p, &mut cf, &mut cb, &mut front, &mut back);
         }
-        drop(polygons);
         if !front.is_empty() {
             self.front
                 .get_or_insert_with(|| Box::new(Node::default()))
@@ -230,8 +266,8 @@ impl Node {
         let mut coplanar_back = Vec::new();
         let mut front = Vec::new();
         let mut back = Vec::new();
-        for p in &polygons {
-            split_polygon(
+        for p in polygons {
+            split_owned(
                 &plane,
                 p,
                 &mut coplanar_front,
@@ -240,7 +276,6 @@ impl Node {
                 &mut back,
             );
         }
-        drop(polygons);
         // Coplanar-front fragments lie outside on this plane; coplanar-back are
         // on it but facing inward — route them with front/back respectively.
         front.extend(coplanar_front);
