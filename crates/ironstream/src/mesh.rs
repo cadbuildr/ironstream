@@ -221,6 +221,166 @@ impl TriMesh {
         out
     }
 
+    /// Drop needle triangles: those whose height over their longest edge is
+    /// below `tol` (collinear corners, including folded pairs the clipper
+    /// emits along a rim). Their neighbours are re-joined by `conformed`.
+    pub fn without_needles(&self, tol: f64) -> TriMesh {
+        let tris = self
+            .tris
+            .iter()
+            .filter(|t| {
+                let (a, b, c) = (self.verts[t[0]], self.verts[t[1]], self.verts[t[2]]);
+                let area2 = (b - a).cross(c - a).norm();
+                let longest = (b - a).norm().max((c - b).norm()).max((a - c).norm());
+                longest > 0.0 && area2 / longest > tol
+            })
+            .copied()
+            .collect();
+        TriMesh {
+            verts: self.verts.clone(),
+            tris,
+        }
+    }
+
+    /// Split triangles at vertices that lie on their *open* edges (T-junctions
+    /// left by polygon clipping), so every edge is shared by two triangles. A
+    /// triangle with one split edge is fanned from the opposite corner; one
+    /// with several from its centroid. Only open edges are searched, so a
+    /// conforming mesh costs one edge count.
+    pub fn conformed(&self, tol: f64) -> TriMesh {
+        use std::collections::HashMap;
+        let mut count: HashMap<(usize, usize), u32> = HashMap::new();
+        for t in &self.tris {
+            for k in 0..3 {
+                let (a, b) = (t[k], t[(k + 1) % 3]);
+                *count.entry((a.min(b), a.max(b))).or_insert(0) += 1;
+            }
+        }
+        let open: Vec<(usize, usize)> = {
+            let mut v: Vec<(usize, usize)> = count
+                .iter()
+                .filter(|(_, &c)| c == 1)
+                .map(|(&e, _)| e)
+                .collect();
+            v.sort_unstable();
+            v
+        };
+        if open.is_empty() {
+            return self.clone();
+        }
+        // vertex grid sized to the open edges
+        let avg = open
+            .iter()
+            .map(|&(a, b)| (self.verts[a] - self.verts[b]).norm())
+            .sum::<f64>()
+            / open.len() as f64;
+        let cell = avg.max(tol * 10.0).max(1e-9);
+        let key = |p: Pnt| {
+            (
+                (p.x / cell).floor() as i64,
+                (p.y / cell).floor() as i64,
+                (p.z / cell).floor() as i64,
+            )
+        };
+        let mut grid: HashMap<(i64, i64, i64), Vec<usize>> = HashMap::new();
+        for (i, &p) in self.verts.iter().enumerate() {
+            grid.entry(key(p)).or_default().push(i);
+        }
+        let mut mids: HashMap<(usize, usize), Vec<usize>> = HashMap::new();
+        for &(a, b) in &open {
+            let (pa, pb) = (self.verts[a], self.verts[b]);
+            let ab = pb - pa;
+            let len2 = ab.dot(ab);
+            if len2 <= tol * tol {
+                continue;
+            }
+            let (k0, k1) = (
+                key(Pnt::new(pa.x.min(pb.x), pa.y.min(pb.y), pa.z.min(pb.z))),
+                key(Pnt::new(pa.x.max(pb.x), pa.y.max(pb.y), pa.z.max(pb.z))),
+            );
+            let mut on: Vec<(f64, usize)> = Vec::new();
+            for cx in k0.0 - 1..=k1.0 + 1 {
+                for cy in k0.1 - 1..=k1.1 + 1 {
+                    for cz in k0.2 - 1..=k1.2 + 1 {
+                        let Some(cands) = grid.get(&(cx, cy, cz)) else {
+                            continue;
+                        };
+                        for &w in cands {
+                            if w == a || w == b {
+                                continue;
+                            }
+                            let pw = self.verts[w];
+                            let t = (pw - pa).dot(ab) / len2;
+                            if t <= 0.0 || t >= 1.0 {
+                                continue;
+                            }
+                            if (pw - (pa + ab * t)).norm() <= tol {
+                                on.push((t, w));
+                            }
+                        }
+                    }
+                }
+            }
+            if !on.is_empty() {
+                on.sort_by(|x, y| x.0.partial_cmp(&y.0).unwrap());
+                on.dedup_by_key(|x| x.1);
+                mids.insert((a, b), on.into_iter().map(|x| x.1).collect());
+            }
+        }
+        if mids.is_empty() {
+            return self.clone();
+        }
+        let mut out = TriMesh {
+            verts: self.verts.clone(),
+            tris: Vec::with_capacity(self.tris.len() + mids.len() * 2),
+        };
+        for t in &self.tris {
+            // inserted points along each directed edge
+            let mut ring: Vec<usize> = Vec::with_capacity(6);
+            let mut split_edges = 0;
+            let mut split_k = 0;
+            for k in 0..3 {
+                let (a, b) = (t[k], t[(k + 1) % 3]);
+                ring.push(a);
+                if let Some(ms) = mids.get(&(a.min(b), a.max(b))) {
+                    split_edges += 1;
+                    split_k = k;
+                    if a < b {
+                        ring.extend(ms.iter().copied());
+                    } else {
+                        ring.extend(ms.iter().rev().copied());
+                    }
+                }
+            }
+            match split_edges {
+                0 => out.tris.push(*t),
+                1 => {
+                    // fan from the corner opposite the split edge
+                    let apex = t[(split_k + 2) % 3];
+                    let start = ring.iter().position(|&v| v == apex).unwrap();
+                    let n = ring.len();
+                    for i in 1..n - 1 {
+                        out.tris.push([
+                            ring[start],
+                            ring[(start + i) % n],
+                            ring[(start + i + 1) % n],
+                        ]);
+                    }
+                }
+                _ => {
+                    let c = (self.verts[t[0]] + self.verts[t[1]] + self.verts[t[2]]) * (1.0 / 3.0);
+                    out.verts.push(c);
+                    let ci = out.verts.len() - 1;
+                    let n = ring.len();
+                    for i in 0..n {
+                        out.tris.push([ci, ring[i], ring[(i + 1) % n]]);
+                    }
+                }
+            }
+        }
+        out
+    }
+
     /// Number of boundary edges (edges used by exactly one triangle). Zero for a
     /// closed manifold; a quick watertightness sanity signal.
     pub fn open_edge_count(&self, tol: f64) -> usize {

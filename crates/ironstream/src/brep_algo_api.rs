@@ -8,14 +8,25 @@ use crate::topods::Solid;
 
 const WELD_TOL: f64 = 1e-6;
 
-/// Weld, then re-merge the coplanar slivers the BSP left behind (see
-/// `coplanar`). `IRONSTREAM_NO_MERGE=1` keeps the raw fragments.
+/// Clean a boolean's raw output (see the steps below).
+/// `IRONSTREAM_NO_MERGE=1` keeps the raw welded fragments.
 fn post_boolean(m: TriMesh) -> TriMesh {
-    let w = m.welded(WELD_TOL);
+    // weld, close T-junctions, drop needles, close what they left open
+    let w = m
+        .welded(WELD_TOL)
+        .conformed(WELD_TOL * 10.0)
+        .welded(WELD_TOL * 10.0)
+        .without_needles(WELD_TOL)
+        .conformed(WELD_TOL * 10.0);
     if std::env::var("IRONSTREAM_NO_MERGE").is_ok() {
         return w;
     }
+    // re-merge coplanar fragments; conform again where the merge dropped an
+    // edge vertex on one side only
     crate::coplanar::merge_coplanar(&w)
+        .conformed(WELD_TOL * 10.0)
+        .without_needles(WELD_TOL)
+        .conformed(WELD_TOL * 10.0)
 }
 
 /// Do two solids' bounding boxes overlap (with a small margin)? If not, their
@@ -31,8 +42,11 @@ fn concat_meshes(a: &TriMesh, b: &TriMesh) -> TriMesh {
     let mut out = a.clone();
     let base = out.verts.len();
     out.verts.extend_from_slice(&b.verts);
-    out.tris
-        .extend(b.tris.iter().map(|t| [t[0] + base, t[1] + base, t[2] + base]));
+    out.tris.extend(
+        b.tris
+            .iter()
+            .map(|t| [t[0] + base, t[1] + base, t[2] + base]),
+    );
     out
 }
 
@@ -112,10 +126,15 @@ fn try_exact_drill(a: &Solid, b: &Solid) -> Option<Solid> {
         let dir = axis.z_dir;
         // the tool must span past the whole target along its axis (a through
         // cut): blind holes stay on the mesh path.
-        let ts: Vec<f64> = corners.iter().map(|c| (*c - axis.location).dot(dir)).collect();
-        let (tmin, tmax) = ts.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(lo, hi), &t| {
-            (lo.min(t), hi.max(t))
-        });
+        let ts: Vec<f64> = corners
+            .iter()
+            .map(|c| (*c - axis.location).dot(dir))
+            .collect();
+        let (tmin, tmax) = ts
+            .iter()
+            .fold((f64::INFINITY, f64::NEG_INFINITY), |(lo, hi), &t| {
+                (lo.min(t), hi.max(t))
+            });
         if v0 > tmin + 1e-9 || v1 < tmax - 1e-9 {
             return None;
         }
@@ -202,7 +221,11 @@ mod exact_drill_tests {
         let s = make_prism(&face, Pnt::new(0.0, 0.0, 8.0));
         assert!(s.brep().is_some(), "circle prism carries a brep");
         let exact = PI * 9.0 * 8.0;
-        assert!((s.volume() - exact).abs() < 1e-9, "vol={} exact={exact}", s.volume());
+        assert!(
+            (s.volume() - exact).abs() < 1e-9,
+            "vol={} exact={exact}",
+            s.volume()
+        );
     }
 
     #[test]
@@ -214,27 +237,44 @@ mod exact_drill_tests {
             Pnt::new(20.0, 20.0, 0.0),
             Pnt::new(0.0, 20.0, 0.0),
         ]);
-        let face = make_face_with_holes(outer, vec![
-            circle_wire(6.0, 10.0, 0.0, 2.0),
-            circle_wire(14.0, 10.0, 0.0, 2.0),
-        ]);
+        let face = make_face_with_holes(
+            outer,
+            vec![
+                circle_wire(6.0, 10.0, 0.0, 2.0),
+                circle_wire(14.0, 10.0, 0.0, 2.0),
+            ],
+        );
         let s = make_prism(&face, Pnt::new(0.0, 0.0, 5.0));
         let exact = 2000.0 - 2.0 * PI * 4.0 * 5.0;
-        assert!((s.volume() - exact).abs() < 1e-9, "vol={} exact={exact}", s.volume());
+        assert!(
+            (s.volume() - exact).abs() < 1e-9,
+            "vol={} exact={exact}",
+            s.volume()
+        );
     }
 
     #[test]
     fn cut_takes_exact_drill_path() {
         // plate minus a fused pair of circular cut prisms = two exact bores
         let plate = make_box(Pnt::new(0.0, 0.0, 0.0), 30.0, 30.0, 4.0);
-        let t1 = make_prism(&make_face(circle_wire(8.0, 15.0, -1.0, 2.5)), Pnt::new(0.0, 0.0, 6.0));
-        let t2 = make_prism(&make_face(circle_wire(22.0, 15.0, -1.0, 2.5)), Pnt::new(0.0, 0.0, 6.0));
+        let t1 = make_prism(
+            &make_face(circle_wire(8.0, 15.0, -1.0, 2.5)),
+            Pnt::new(0.0, 0.0, 6.0),
+        );
+        let t2 = make_prism(
+            &make_face(circle_wire(22.0, 15.0, -1.0, 2.5)),
+            Pnt::new(0.0, 0.0, 6.0),
+        );
         let tools = fuse_all(&[t1, t2]);
         assert!(tools.brep().is_some(), "disjoint fuse concatenates breps");
         let out = cut(&plate, &tools);
         assert!(out.brep().is_some(), "cut kept the exact path");
         let exact = 30.0 * 30.0 * 4.0 - 2.0 * PI * 2.5 * 2.5 * 4.0;
-        assert!((out.volume() - exact).abs() < 1e-9, "vol={} exact={exact}", out.volume());
+        assert!(
+            (out.volume() - exact).abs() < 1e-9,
+            "vol={} exact={exact}",
+            out.volume()
+        );
         // and the mesh is a sane watertight tessellation of the same solid
         assert!(out.mesh().volume() > 0.0 && (out.mesh().volume() - exact).abs() / exact < 2e-3);
     }
@@ -243,11 +283,18 @@ mod exact_drill_tests {
     fn blind_cut_falls_back_to_mesh() {
         // tool stops inside the plate: not a through cut -> mesh path
         let plate = make_box(Pnt::new(0.0, 0.0, 0.0), 20.0, 20.0, 10.0);
-        let tool = make_prism(&make_face(circle_wire(10.0, 10.0, 4.0, 3.0)), Pnt::new(0.0, 0.0, 10.0));
+        let tool = make_prism(
+            &make_face(circle_wire(10.0, 10.0, 4.0, 3.0)),
+            Pnt::new(0.0, 0.0, 10.0),
+        );
         let out = cut(&plate, &tool);
         assert!(out.brep().is_none(), "blind hole stays on the mesh path");
         let approx = 4000.0 - PI * 9.0 * 6.0;
-        assert!((out.volume() - approx).abs() / approx < 5e-3, "vol={}", out.volume());
+        assert!(
+            (out.volume() - approx).abs() / approx < 5e-3,
+            "vol={}",
+            out.volume()
+        );
     }
 
     #[test]
@@ -259,6 +306,10 @@ mod exact_drill_tests {
             .then(&Trsf::translation(Pnt::new(4.0, 5.0, 6.0)));
         let moved = s.transformed(&t);
         assert!(moved.brep().is_some(), "rigid transform keeps the brep");
-        assert!((moved.volume() - PI * 9.0 * 8.0).abs() < 1e-9, "vol={}", moved.volume());
+        assert!(
+            (moved.volume() - PI * 9.0 * 8.0).abs() < 1e-9,
+            "vol={}",
+            moved.volume()
+        );
     }
 }
