@@ -6503,6 +6503,8 @@ pub mod storage_data;
 pub mod stl_mesh;
 pub mod sweep_builder;
 pub mod rw_stl_writer;
+pub mod earcut;
+pub mod coplanar;
 pub mod tess;
 pub mod units_api;
 pub mod units_sys;

@@ -7,7 +7,7 @@
 //! back under the node id.
 
 use crate::dag::{dep_id, dep_ids, CompilerInputDag, DagNode};
-use crate::state::{Curve2, OpResult, PartResult, Profile, SketchInfo, SmBody, State, P2};
+use crate::state::{Curve2, Helix, OpResult, PartResult, Profile, SketchInfo, SmBody, State, P2};
 use ironstream::prelude::*;
 use std::f64::consts::PI;
 
@@ -62,11 +62,18 @@ fn handle(state: &mut State, type_name: &str, id: &str, node: &DagNode) {
             }
         }
         "Arc" | "EllipseArc" => {
-            // Best-effort: p1 -> p2 with an optional sagitta/bulge. The arc
-            // bulge is derived from a mid/through point when present, else 0
-            // (degrades to a chord).
-            if let (Some(p1), Some(p2)) = (dep_id(&node.deps, "p1"), dep_id(&node.deps, "p2")) {
-                let bulge = arc_bulge(state, node, &p1, &p2);
+            // Foundation Arc semantics (schema + reference kernel): p1 = start,
+            // p2 = THROUGH point on the arc, p3 = end — so the chord is p1->p3
+            // and the bulge comes from p2. Nodes without a p3 degrade to the
+            // legacy p1->p2 chord with an optional "mid"/"through" dep; with no
+            // through point at all the arc degrades to a chord (bulge 0).
+            if let (Some(p1), Some(p3)) = (dep_id(&node.deps, "p1"), dep_id(&node.deps, "p3")) {
+                let bulge = arc_bulge(state, node, &p1, &p3, &["p2", "mid", "through"]);
+                state
+                    .curves
+                    .insert(id.to_string(), Curve2::Arc { p1, p2: p3, bulge });
+            } else if let (Some(p1), Some(p2)) = (dep_id(&node.deps, "p1"), dep_id(&node.deps, "p2")) {
+                let bulge = arc_bulge(state, node, &p1, &p2, &["mid", "through"]);
                 state
                     .curves
                     .insert(id.to_string(), Curve2::Arc { p1, p2, bulge });
@@ -83,6 +90,11 @@ fn handle(state: &mut State, type_name: &str, id: &str, node: &DagNode) {
             let b = dep_id(&node.deps, "b");
             state.ellipses.insert(id.to_string(), (center, a, b));
         }
+        "Helix3D" => op_helix3d(state, id, node),
+        // assembly metadata: placement is already chained through frames
+        "Anchor" | "RigidJoint" | "RevoluteJoint" | "SliderJoint" | "JointLimits"
+        | "Connection" | "BallJoint" | "CylindricalJoint" | "PinSlotJoint" | "PlanarJoint"
+        | "ScrewJoint" => {}
         "Spline3D" => {
             let pts: Vec<Pnt> = dep_ids(&node.deps, "points")
                 .iter()
@@ -168,7 +180,6 @@ fn handle(state: &mut State, type_name: &str, id: &str, node: &DagNode) {
         // no-op construction nodes that produce no geometry
         "EdgeFinder"
         | "InPlaneFinderRule"
-        | "Helix3D"
         | "FixedTranslationConstraint"
         | "AssemblyInterface"
         | "InterfaceGridSpec" => {}
@@ -216,23 +227,36 @@ fn op_extrusion(state: &mut State, id: &str, node: &DagNode) {
         state.error(format!("Extrusion#{id}: no shape"));
         return;
     }
+    let taper = state.resolve_num(&dep_id(&node.deps, "taper")).unwrap_or(0.0);
     let offset = normal * start;
     let vec = normal * (end - start);
-    let mut solids: Vec<Solid> = Vec::new();
+    // shape[0] is the outer loop, the rest are holes (foundation / OCCT).
+    let mut loops: Vec<Vec<Pnt>> = Vec::new();
     for sid in &shape_ids {
         match resolve_shape_loop(state, sid, &plane) {
             Some(loop_pts) if loop_pts.len() >= 3 => {
-                let shifted: Vec<Pnt> = loop_pts.iter().map(|p| *p + offset).collect();
-                let face = make_face(make_polygon(&shifted));
-                solids.push(make_prism(&face, vec));
+                loops.push(loop_pts.iter().map(|p| *p + offset).collect());
             }
             _ => state.error(format!("Extrusion#{id}: shape {sid} unresolved")),
         }
     }
-    if solids.is_empty() {
+    if loops.is_empty() {
         return;
     }
-    let solid = fuse_all(&solids);
+    let solid = if taper != 0.0 && loops.len() == 1 {
+        // draft: the profile scales about its centroid from 1 at the base to
+        // 1 - taper at the top (replicad's linear extrusion profile)
+        let base = &loops[0];
+        let c = base.iter().fold(Pnt::origin(), |a, p| a + *p) * (1.0 / base.len() as f64);
+        let f = 1.0 - taper;
+        let top: Vec<Pnt> = base.iter().map(|p| c + (*p - c) * f + vec).collect();
+        loft_sections(&[base.clone(), top])
+    } else {
+        let outer = make_polygon(&loops[0]);
+        let holes: Vec<_> = loops[1..].iter().map(|l| make_polygon(l)).collect();
+        let face = if holes.is_empty() { make_face(outer) } else { Face::with_holes(outer, holes) };
+        make_prism(&face, vec)
+    };
     state
         .operations
         .insert(id.to_string(), OpResult { solid, cut });
@@ -481,38 +505,108 @@ fn resample_loop(pts: &[Pnt], n: usize) -> Vec<Pnt> {
 }
 
 /// Build a solid by linearly skinning between a sequence of closed-loop sections.
+/// Newell normal of a closed 3D loop (unnormalised).
+fn newell(pts: &[Pnt]) -> Pnt {
+    let mut n = Pnt::origin();
+    let m = pts.len();
+    for i in 0..m {
+        let (a, b) = (pts[i], pts[(i + 1) % m]);
+        n = n + Pnt::new(
+            (a.y - b.y) * (a.z + b.z),
+            (a.z - b.z) * (a.x + b.x),
+            (a.x - b.x) * (a.y + b.y),
+        );
+    }
+    n
+}
+
+/// Grow a closed loop to `n` points by splitting its longest edge; the
+/// original vertices (a polygon's corners) are kept.
+fn upsample_loop(pts: &[Pnt], n: usize) -> Vec<Pnt> {
+    let mut v = pts.to_vec();
+    while v.len() < n {
+        let m = v.len();
+        let k = (0..m)
+            .max_by(|&i, &j| {
+                let di = v[i].distance(v[(i + 1) % m]);
+                let dj = v[j].distance(v[(j + 1) % m]);
+                di.partial_cmp(&dj).unwrap_or(std::cmp::Ordering::Equal)
+            })
+            .unwrap_or(0);
+        let mid = (v[k] + v[(k + 1) % m]) * 0.5;
+        v.insert(k + 1, mid);
+    }
+    v
+}
+
+/// Skin a closed solid through section loops (loft / sweep). Sections keep
+/// their own vertices (shorter ones are upsampled), each is oriented CCW about
+/// its local loft direction keeping vertex 0 (so vertex j pairs with vertex j
+/// along a curling spine such as a helix), and the result is flipped outward
+/// by signed volume. Mirrors castiron's `loft_solid`.
 fn loft_sections(sections: &[Vec<Pnt>]) -> Solid {
-    if sections.len() < 2 {
+    let secs: Vec<&Vec<Pnt>> = sections.iter().filter(|s| s.len() >= 3).collect();
+    if secs.len() < 2 {
         return Solid::empty();
     }
-    let n = sections.iter().map(|s| s.len()).min().unwrap_or(0);
-    if n < 3 {
-        return Solid::empty();
-    }
-    let resampled: Vec<Vec<Pnt>> = sections.iter().map(|s| resample_loop(s, n)).collect();
+    let n = secs.iter().map(|s| s.len()).max().unwrap_or(0);
+    let secs: Vec<Vec<Pnt>> = secs
+        .iter()
+        .map(|s| if s.len() == n { (*s).clone() } else { upsample_loop(s, n) })
+        .collect();
+    let cents: Vec<Pnt> = secs
+        .iter()
+        .map(|s| s.iter().fold(Pnt::origin(), |a, p| a + *p) * (1.0 / s.len() as f64))
+        .collect();
+    let k = secs.len();
+    let secs: Vec<Vec<Pnt>> = secs
+        .into_iter()
+        .enumerate()
+        .map(|(i, s)| {
+            let mut d = if i + 1 < k { cents[i + 1] - cents[i] } else { cents[i] - cents[i - 1] };
+            if d.norm() < 1e-12 {
+                d = newell(&sections[0]);
+            }
+            if newell(&s).dot(d) < 0.0 {
+                let mut r = vec![s[0]];
+                r.extend(s[1..].iter().rev().cloned());
+                r
+            } else {
+                s
+            }
+        })
+        .collect();
     let mut m = TriMesh::new();
-    // Side quads between consecutive sections.
-    for w in resampled.windows(2) {
+    for w in secs.windows(2) {
         let (s0, s1) = (&w[0], &w[1]);
         for i in 0..n {
             let j = (i + 1) % n;
-            m.push_triangle(s0[i], s1[i], s0[j]);
-            m.push_triangle(s1[i], s1[j], s0[j]);
+            // CCW sections about the ascent: (v00, v11, v10), (v00, v01, v11)
+            m.push_triangle(s0[i], s1[j], s1[i]);
+            m.push_triangle(s0[i], s0[j], s1[j]);
         }
     }
-    // End caps.
-    let first_wire = make_polygon(&resampled[0]);
-    let first_face = Face::new(first_wire);
-    for tri in first_face.triangulate() {
-        m.push_triangle(tri[0], tri[2], tri[1]); // reversed for outward normal
+    // caps: first faces back along the loft, last faces forward
+    let cap = |m: &mut TriMesh, loop_: &[Pnt], forward: bool| {
+        let face = Face::new(make_polygon(loop_));
+        let fwd_n = newell(loop_);
+        for t in face.triangulate() {
+            let tn = (t[1] - t[0]).cross(t[2] - t[0]);
+            let same = tn.dot(fwd_n) >= 0.0;
+            if same == forward {
+                m.push_triangle(t[0], t[1], t[2]);
+            } else {
+                m.push_triangle(t[0], t[2], t[1]);
+            }
+        }
+    };
+    cap(&mut m, &secs[0], false);
+    cap(&mut m, &secs[k - 1], true);
+    let mut m = m.welded(1e-7);
+    if m.signed_volume() < 0.0 {
+        m.flip();
     }
-    let last = &resampled[resampled.len() - 1];
-    let last_wire = make_polygon(last);
-    let last_face = Face::new(last_wire);
-    for tri in last_face.triangulate() {
-        m.push_triangle(tri[0], tri[1], tri[2]);
-    }
-    Solid::from_mesh(m.welded(1e-7))
+    Solid::from_mesh(m)
 }
 
 fn op_loft(state: &mut State, id: &str, node: &DagNode) {
@@ -620,6 +714,90 @@ fn build_path_frames(path: &[Pnt]) -> Vec<Trsf> {
     frames
 }
 
+/// The X direction OCCT's `gp_Ax2(P, V)` picks for main direction `V`, so a
+/// helix on `gp_Ax3(center, dir)` starts where replicad's `makeHelix` does.
+fn ax2_xdir(v: Pnt) -> Pnt {
+    let (a, b, c) = (v.x, v.y, v.z);
+    let (aa, ba, ca) = (a.abs(), b.abs(), c.abs());
+    let x = if ba <= aa && ba <= ca {
+        if aa > ca { Pnt::new(-c, 0.0, a) } else { Pnt::new(c, 0.0, -a) }
+    } else if aa <= ba && aa <= ca {
+        if ba > ca { Pnt::new(0.0, -c, b) } else { Pnt::new(0.0, c, -b) }
+    } else if aa > ba {
+        Pnt::new(-b, a, 0.0)
+    } else {
+        Pnt::new(b, -a, 0.0)
+    };
+    x.normalized()
+}
+
+const HELIX_SEG_PER_TURN: f64 = 36.0;
+
+fn op_helix3d(state: &mut State, id: &str, node: &DagNode) {
+    let num = |k: &str, d: f64| state.resolve_num(&dep_id(&node.deps, k)).unwrap_or(d);
+    let (pitch, height, radius) = (num("pitch", 1.0), num("height", 1.0), num("radius", 1.0));
+    let center = dep_id(&node.deps, "center")
+        .and_then(|c| state.points3d.get(&c).copied())
+        .unwrap_or_else(Pnt::origin);
+    let axis = dep_id(&node.deps, "dir")
+        .and_then(|c| state.points3d.get(&c).copied())
+        .unwrap_or(Pnt::new(0.0, 0.0, 1.0))
+        .normalized();
+    let sign = if state.resolve_bool(&dep_id(&node.deps, "lefthand")) { -1.0 } else { 1.0 };
+    let e1 = ax2_xdir(axis);
+    let e2 = axis.cross(e1);
+    let turns = if pitch != 0.0 { height / pitch } else { 0.0 };
+    let npts = ((turns * HELIX_SEG_PER_TURN).ceil() as usize).clamp(2, 6000);
+    let pts: Vec<Pnt> = (0..=npts)
+        .map(|i| {
+            let f = i as f64 / npts as f64;
+            let a = sign * 2.0 * PI * turns * f;
+            center + (e1 * a.cos() + e2 * a.sin()) * radius + axis * (height * f)
+        })
+        .collect();
+    state.spline3ds.insert(id.to_string(), pts);
+    state
+        .helices
+        .insert(id.to_string(), Helix { center, axis, radius, pitch, height, sign });
+}
+
+/// Rodrigues rotation of vector `v` about unit `k` by `ang`.
+fn rot_vec(v: Pnt, k: Pnt, ang: f64) -> Pnt {
+    let (c, s) = (ang.cos(), ang.sin());
+    v * c + k.cross(v) * s + k * (k.dot(v) * (1.0 - c))
+}
+
+/// Rotation-minimising frames (double reflection) along a polyline:
+/// (tangent, r) per point.
+fn rmf(path: &[Pnt]) -> Vec<(Pnt, Pnt)> {
+    let m = path.len();
+    let tans: Vec<Pnt> = (0..m)
+        .map(|i| (path[(i + 1).min(m - 1)] - path[i.saturating_sub(1)]).normalized())
+        .collect();
+    let (mut r, _) = perpendicular_basis(tans[0]);
+    let mut out = vec![(tans[0], r)];
+    for i in 0..m - 1 {
+        let v1 = path[i + 1] - path[i];
+        let c1 = v1.dot(v1);
+        if c1 < 1e-24 {
+            out.push((tans[i + 1], r));
+            continue;
+        }
+        let rl = r - v1 * (2.0 / c1 * v1.dot(r));
+        let tl = tans[i] - v1 * (2.0 / c1 * v1.dot(tans[i]));
+        let v2 = tans[i + 1] - tl;
+        let c2 = v2.dot(v2);
+        r = if c2 < 1e-24 { rl } else { rl - v2 * (2.0 / c2 * v2.dot(rl)) }.normalized();
+        out.push((tans[i + 1], r));
+    }
+    out
+}
+
+/// Sweep the way the OCCT kernel does (replicad `genericSweep` with
+/// `forceProfileSpineOthogonality`): the profile is drawn on its sketch
+/// plane's axes re-origined at the path start, rotated about that point to be
+/// orthogonal to the tangent, then moved by the path law — the exact helical
+/// motion for a Helix3D, rotation-minimising frames otherwise.
 fn op_sweep(state: &mut State, id: &str, node: &DagNode) {
     let is_cut = state.resolve_bool(&dep_id(&node.deps, "cut"));
     let profile_id = match dep_id(&node.deps, "profile").or_else(|| dep_id(&node.deps, "shape")) {
@@ -636,29 +814,99 @@ fn op_sweep(state: &mut State, id: &str, node: &DagNode) {
             return;
         }
     };
-    // Profile points in identity plane (local 2D coords lifted to z=0).
-    let profile_pts_local = match resolve_shape_loop(state, &profile_id, &Trsf::identity()) {
+    let local = match resolve_shape_loop(state, &profile_id, &Trsf::identity()) {
         Some(p) if p.len() >= 3 => p,
         _ => {
             state.error(format!("Sweep#{id}: profile unresolved"));
             return;
         }
     };
-    let path_pts = state.spline3ds.get(&path_id).cloned().unwrap_or_default();
-    if path_pts.len() < 2 {
+    let path = state.spline3ds.get(&path_id).cloned().unwrap_or_default();
+    if path.len() < 2 {
         state.error(format!("Sweep#{id}: path has < 2 points"));
         return;
     }
-    let frames = build_path_frames(&path_pts);
-    let sections: Vec<Vec<Pnt>> = frames
-        .iter()
-        .map(|frame| {
-            profile_pts_local
-                .iter()
-                .map(|p| frame.apply_point(*p))
+    let twist = state.resolve_num(&dep_id(&node.deps, "twist")).unwrap_or(0.0).to_radians();
+    // Point3D-built paths are in the owning part's frame; sketches are already
+    // world-placed through their frame chain.
+    let part = state.owner_frame.get(id).and_then(|f| state.frames.get(f)).copied();
+    let (path, helix_local) = match part {
+        Some(t) => (
+            path.iter().map(|p| t.apply_point(*p)).collect::<Vec<Pnt>>(),
+            state.helices.get(&path_id).map(|h| Helix {
+                center: t.apply_point(h.center),
+                axis: t.apply_vector(h.axis).normalized(),
+                ..*h
+            }),
+        ),
+        None => (path, state.helices.get(&path_id).copied()),
+    };
+    let plane = op_plane(state, node);
+    let xd = plane.apply_vector(Pnt::new(1.0, 0.0, 0.0)).normalized();
+    let nd = plane.apply_vector(Pnt::new(0.0, 0.0, 1.0)).normalized();
+    let yd = nd.cross(xd);
+    let origin = path[0];
+    let mut base: Vec<Pnt> = local.iter().map(|p| origin + xd * p.x + yd * p.y).collect();
+
+    let helix = helix_local;
+    let frames = if helix.is_none() { rmf(&path) } else { Vec::new() };
+    let t0 = match helix {
+        Some(h) => {
+            let e1 = (path[0] - h.center).normalized();
+            let e2 = h.axis.cross(e1);
+            (e2 * (h.sign * 2.0 * PI * h.radius) + h.axis * h.pitch).normalized()
+        }
+        None => frames[0].0,
+    };
+    let n0 = if nd.dot(t0) >= 0.0 { nd } else { -nd };
+    let ax = n0.cross(t0);
+    let (sn, cs) = (ax.norm(), n0.dot(t0).clamp(-1.0, 1.0));
+    if sn > 1e-12 {
+        let (k, ang) = (ax * (1.0 / sn), sn.atan2(cs));
+        base = base.iter().map(|p| origin + rot_vec(*p - origin, k, ang)).collect();
+    }
+
+    let last = (path.len() - 1).max(1) as f64;
+    let sections: Vec<Vec<Pnt>> = match helix {
+        Some(h) => {
+            let turns = if h.pitch != 0.0 { h.height / h.pitch } else { 0.0 };
+            (0..path.len())
+                .map(|i| {
+                    let f = i as f64 / last;
+                    let ang = h.sign * 2.0 * PI * turns * f;
+                    base.iter()
+                        .map(|p| {
+                            let p = if twist != 0.0 { origin + rot_vec(*p - origin, t0, twist * f) } else { *p };
+                            h.center + rot_vec(p - h.center, h.axis, ang) + h.axis * (h.height * f)
+                        })
+                        .collect()
+                })
                 .collect()
-        })
-        .collect();
+        }
+        None => {
+            let (t_0, r_0) = frames[0];
+            let b_0 = t_0.cross(r_0);
+            let loc: Vec<(f64, f64, f64)> = base
+                .iter()
+                .map(|p| {
+                    let d = *p - origin;
+                    (d.dot(r_0), d.dot(b_0), d.dot(t_0))
+                })
+                .collect();
+            frames
+                .iter()
+                .enumerate()
+                .map(|(i, &(t, r))| {
+                    let b = t.cross(r);
+                    let tw = twist * i as f64 / last;
+                    let (c, s) = (tw.cos(), tw.sin());
+                    loc.iter()
+                        .map(|&(u, v, w)| path[i] + r * (u * c - v * s) + b * (u * s + v * c) + t * w)
+                        .collect()
+                })
+                .collect()
+        }
+    };
     let solid = loft_sections(&sections);
     state
         .operations
@@ -901,20 +1149,33 @@ fn op_sm_passthrough(state: &mut State, id: &str, node: &DagNode) {
 
 fn finalize_part(state: &mut State, id: &str, node: &DagNode) {
     let op_ids = dep_ids(&node.deps, "operations");
+    // Batch each run of consecutive same-direction operations into ONE
+    // boolean (as castiron does): A op (B u C) equals the sequential form, the
+    // union of disjoint tools is a cheap concatenation, and the body is cut or
+    // fused once instead of being re-fragmented by every stud or hole.
+    let ops: Vec<OpResult> = op_ids.iter().filter_map(|i| state.operations.get(i).cloned()).collect();
     let mut body = Solid::empty();
-    for op_id in &op_ids {
-        if let Some(op) = state.operations.get(op_id).cloned() {
-            if op.cut {
-                body = cut(&body, &op.solid);
-            } else {
-                body = fuse(&body, &op.solid);
-            }
+    let mut i = 0;
+    while i < ops.len() {
+        let is_cut = ops[i].cut;
+        let mut j = i;
+        let mut tools: Vec<Solid> = Vec::new();
+        while j < ops.len() && ops[j].cut == is_cut {
+            tools.push(ops[j].solid.clone());
+            j += 1;
         }
+        let tool = if tools.len() == 1 { tools.pop().unwrap() } else { fuse_all(&tools) };
+        if is_cut {
+            body = cut(&body, &tool);
+        } else {
+            body = fuse(&body, &tool);
+        }
+        i = j;
     }
-    // Place the part by its frame.
-    if let Some(frame) = dep_id(&node.deps, "frame").and_then(|f| state.frames.get(&f).copied()) {
-        body = transform(&body, &frame);
-    }
+    // No part-frame transform here: every sketch plane already chains through
+    // `top_frame` up to the (assembly-positioned) part frame, so operation
+    // solids are world-placed. Applying the part frame again put assembly
+    // parts at twice their offset (LegoRow, gear_pair, Playground, PrusaI3).
     let name = dep_id(&node.deps, "name")
         .and_then(|n| state.strings.get(&n).cloned())
         .unwrap_or_else(|| format!("part_{id}"));
@@ -935,6 +1196,37 @@ fn finalize_part(state: &mut State, id: &str, node: &DagNode) {
 /// Compile a whole DAG into the accumulated [`State`].
 pub fn compile(input: &CompilerInputDag, state: &mut State) {
     let names = input.type_names();
+    // owner part frame of every node reachable from a part's operations
+    for id in input.topo_order() {
+        let Some(node) = input.node(&id) else { continue };
+        let tn = input.type_name_of(node, &names);
+        if tn != "Part" && tn != "PartRoot" {
+            continue;
+        }
+        let Some(frame) = dep_id(&node.deps, "frame") else { continue };
+        let mut stack = dep_ids(&node.deps, "operations");
+        let mut seen = std::collections::HashSet::new();
+        while let Some(n) = stack.pop() {
+            if !seen.insert(n.clone()) {
+                continue;
+            }
+            let Some(nn) = input.node(&n) else { continue };
+            let t = input.type_name_of(nn, &names);
+            if t == "Part" || t == "PartRoot" {
+                continue;
+            }
+            state.owner_frame.entry(n.clone()).or_insert_with(|| frame.clone());
+            for v in nn.deps.as_object().into_iter().flat_map(|o| o.values()) {
+                match v {
+                    serde_json::Value::String(s) => stack.push(s.clone()),
+                    serde_json::Value::Array(a) => {
+                        stack.extend(a.iter().filter_map(|x| x.as_str().map(String::from)))
+                    }
+                    _ => {}
+                }
+            }
+        }
+    }
     for id in input.topo_order() {
         if let Some(node) = input.node(&id) {
             let type_name = input.type_name_of(node, &names);

@@ -53,27 +53,17 @@ pub fn triangulate_face(face: &Face) -> Vec<[Pnt; 3]> {
         }
     }
 
-    // Outer loop CCW, holes CW (standard for keyhole merge).
-    ensure_orientation(&mut loops[0], true);
-    for l in loops.iter_mut().skip(1) {
-        ensure_orientation(l, false);
+    // earcut handles hole bridging (visible bridges), duplicate/collinear
+    // points and self-touching rings; winding of each ring is normalised inside.
+    let mut flat: Vec<[f64; 2]> = Vec::with_capacity(pts3d.len());
+    let mut starts = Vec::new();
+    for (k, l) in loops.iter().enumerate() {
+        if k > 0 {
+            starts.push(flat.len());
+        }
+        flat.extend(l.iter().map(|p| p.1));
     }
-
-    // Merge holes into the outer polygon via keyhole bridges.
-    let mut poly: Vec<(usize, [f64; 2])> = loops[0].clone();
-    let mut holes: Vec<Vec<(usize, [f64; 2])>> = loops.split_off(1);
-    // Process holes right-to-left so bridges don't interfere.
-    holes.sort_by(|a, b| {
-        let ax = a.iter().map(|p| p.1[0]).fold(f64::NEG_INFINITY, f64::max);
-        let bx = b.iter().map(|p| p.1[0]).fold(f64::NEG_INFINITY, f64::max);
-        bx.partial_cmp(&ax).unwrap_or(std::cmp::Ordering::Equal)
-    });
-    for hole in holes {
-        poly = bridge_hole(poly, hole);
-    }
-
-    // Ear-clip the merged simple polygon.
-    let tris2d = ear_clip(&poly);
+    let tris2d: Vec<[usize; 3]> = crate::earcut::earcut(&flat, &starts);
     let mut out = Vec::with_capacity(tris2d.len());
     for [ia, ib, ic] in tris2d {
         let a = pts3d[ia];
@@ -87,146 +77,6 @@ pub fn triangulate_face(face: &Face) -> Vec<[Pnt; 3]> {
         }
     }
     out
-}
-
-fn signed_area(loop2d: &[(usize, [f64; 2])]) -> f64 {
-    let mut a = 0.0;
-    let n = loop2d.len();
-    for i in 0..n {
-        let p = loop2d[i].1;
-        let q = loop2d[(i + 1) % n].1;
-        a += p[0] * q[1] - q[0] * p[1];
-    }
-    a * 0.5
-}
-
-fn ensure_orientation(loop2d: &mut Vec<(usize, [f64; 2])>, ccw: bool) {
-    let area = signed_area(loop2d);
-    let is_ccw = area > 0.0;
-    if is_ccw != ccw {
-        loop2d.reverse();
-    }
-}
-
-/// Connect a (CW) hole to the (CCW) outer polygon with a coincident bridge edge,
-/// producing one simple polygon. Uses the hole's rightmost vertex and the
-/// nearest visible outer vertex (best-effort; exact visibility is overkill for
-/// the well-behaved sketch profiles we tessellate).
-fn bridge_hole(
-    outer: Vec<(usize, [f64; 2])>,
-    hole: Vec<(usize, [f64; 2])>,
-) -> Vec<(usize, [f64; 2])> {
-    // Rightmost hole vertex.
-    let mut hi = 0;
-    for i in 1..hole.len() {
-        if hole[i].1[0] > hole[hi].1[0] {
-            hi = i;
-        }
-    }
-    let hp = hole[hi].1;
-    // Nearest outer vertex to the right of (or near) the hole vertex.
-    let mut oi = 0;
-    let mut best = f64::INFINITY;
-    for (i, o) in outer.iter().enumerate() {
-        let dx = o.1[0] - hp[0];
-        let dy = o.1[1] - hp[1];
-        let d = dx * dx + dy * dy;
-        if d < best {
-            best = d;
-            oi = i;
-        }
-    }
-    // Splice: outer[0..=oi], hole[hi..]+hole[..=hi], outer[oi..].
-    let mut out = Vec::with_capacity(outer.len() + hole.len() + 2);
-    out.extend_from_slice(&outer[..=oi]);
-    for k in 0..hole.len() {
-        out.push(hole[(hi + k) % hole.len()]);
-    }
-    out.push(hole[hi]);
-    out.push(outer[oi]);
-    out.extend_from_slice(&outer[oi..]);
-    out
-}
-
-/// Ear clipping on a CCW simple polygon. Returns triangles as indices into the
-/// shared 3D point list (the `usize` carried by each loop vertex).
-fn ear_clip(poly: &[(usize, [f64; 2])]) -> Vec<[usize; 3]> {
-    let mut idx: Vec<usize> = (0..poly.len()).collect();
-    let mut out = Vec::new();
-    if poly.len() < 3 {
-        return out;
-    }
-    // Ensure CCW for the clipping loop.
-    if signed_area(poly) < 0.0 {
-        idx.reverse();
-    }
-    let p2 = |i: usize| poly[i].1;
-    let mut guard = 0;
-    let max_guard = poly.len() * poly.len() + 16;
-    while idx.len() > 3 {
-        guard += 1;
-        if guard > max_guard {
-            // Fallback: fan the remainder (degenerate/near-collinear input).
-            break;
-        }
-        let n = idx.len();
-        let mut clipped = false;
-        for i in 0..n {
-            let i0 = idx[(i + n - 1) % n];
-            let i1 = idx[i];
-            let i2 = idx[(i + 1) % n];
-            let a = p2(i0);
-            let b = p2(i1);
-            let c = p2(i2);
-            // Convex (left turn) ?
-            let cross = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]);
-            if cross <= 0.0 {
-                continue;
-            }
-            // No other vertex inside triangle abc ?
-            let mut contains = false;
-            for &j in &idx {
-                if j == i0 || j == i1 || j == i2 {
-                    continue;
-                }
-                if point_in_tri(p2(j), a, b, c) {
-                    contains = true;
-                    break;
-                }
-            }
-            if contains {
-                continue;
-            }
-            out.push([poly[i0].0, poly[i1].0, poly[i2].0]);
-            idx.remove(i);
-            clipped = true;
-            break;
-        }
-        if !clipped {
-            break; // no ear found (numerical) — fan the rest below
-        }
-    }
-    // Emit final triangle(s).
-    if idx.len() == 3 {
-        out.push([poly[idx[0]].0, poly[idx[1]].0, poly[idx[2]].0]);
-    } else if idx.len() > 3 {
-        for k in 1..idx.len() - 1 {
-            out.push([poly[idx[0]].0, poly[idx[k]].0, poly[idx[k + 1]].0]);
-        }
-    }
-    out
-}
-
-fn point_in_tri(p: [f64; 2], a: [f64; 2], b: [f64; 2], c: [f64; 2]) -> bool {
-    let d = (b[1] - c[1]) * (a[0] - c[0]) + (c[0] - b[0]) * (a[1] - c[1]);
-    if d.abs() < 1e-18 {
-        return false;
-    }
-    let l1 = ((b[1] - c[1]) * (p[0] - c[0]) + (c[0] - b[0]) * (p[1] - c[1])) / d;
-    let l2 = ((c[1] - a[1]) * (p[0] - c[0]) + (a[0] - c[0]) * (p[1] - c[1])) / d;
-    let l3 = 1.0 - l1 - l2;
-    let e = -1e-12;
-    l1 >= e && l2 >= e && l3 >= e
 }
 
 #[cfg(test)]

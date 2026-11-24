@@ -350,8 +350,13 @@ fn push_tri(out: &mut TriMesh, a: Pnt, b: Pnt, c: Pnt, sense: bool) {
 
 /// If `pts` all lie on one circle (as drill/cap loops do by construction),
 /// return its `(center, radius)` — the loop then stands for the *exact* disk.
+/// Fewest vertices a loop needs before it is read as a discretized circle.
+pub const MIN_CIRCLE_SEGMENTS: usize = 24;
+
 fn fit_circle_3d(pts: &[Pnt]) -> Option<(Pnt, f64)> {
-    if pts.len() < 8 {
+    // A discretized circle, not a regular polygon: a 12-gon gem facet ring has
+    // equidistant vertices too, and must stay a prism (circles mesh at 64).
+    if pts.len() < MIN_CIRCLE_SEGMENTS {
         return None;
     }
     let c = pts.iter().fold(Pnt::origin(), |a, &p| a + p) * (1.0 / pts.len() as f64);
