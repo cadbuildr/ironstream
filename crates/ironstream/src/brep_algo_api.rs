@@ -8,22 +8,28 @@ use crate::topods::Solid;
 
 const WELD_TOL: f64 = 1e-6;
 
-/// Clean a boolean's raw output (see the steps below).
+/// Clean a boolean's raw output: weld, then re-merge the coplanar slivers
+/// the BSP left behind (see `coplanar`). When that leaves the surface open
+/// (T-junctions or needle triangles from the clipper), repair it: split at
+/// T-junctions, drop needles, close what they left open, then merge again.
+/// The repair runs only when needed: on an already closed result it adds
+/// triangles and can carry tool points across near-coincident faces.
 /// `IRONSTREAM_NO_MERGE=1` keeps the raw welded fragments.
 fn post_boolean(m: TriMesh) -> TriMesh {
-    // weld, close T-junctions, drop needles, close what they left open
-    let w = m
-        .welded(WELD_TOL)
+    let w = m.welded(WELD_TOL);
+    if std::env::var("IRONSTREAM_NO_MERGE").is_ok() {
+        return w;
+    }
+    let merged = crate::coplanar::merge_coplanar(&w);
+    if merged.open_edge_count(WELD_TOL) == 0 {
+        return merged;
+    }
+    let r = w
         .conformed(WELD_TOL * 10.0)
         .welded(WELD_TOL * 10.0)
         .without_needles(WELD_TOL)
         .conformed(WELD_TOL * 10.0);
-    if std::env::var("IRONSTREAM_NO_MERGE").is_ok() {
-        return w;
-    }
-    // re-merge coplanar fragments; conform again where the merge dropped an
-    // edge vertex on one side only
-    crate::coplanar::merge_coplanar(&w)
+    crate::coplanar::merge_coplanar(&r)
         .conformed(WELD_TOL * 10.0)
         .without_needles(WELD_TOL)
         .conformed(WELD_TOL * 10.0)

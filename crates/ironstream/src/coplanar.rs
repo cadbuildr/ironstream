@@ -106,7 +106,51 @@ pub fn merge_coplanar(m: &TriMesh) -> TriMesh {
             }
         }
     }
-    let shared2: Vec<bool> = touch.iter().map(|e| e.2 == 2).collect();
+    // ...and only where it is straight in both: every group-boundary edge at
+    // the vertex runs along one line. A vertex one face still needs as a
+    // corner stays, so no face is left with a T-junction to repair (repairs
+    // there let later cuts leak tool points through near-coincident faces).
+    let mut tri_group = vec![0usize; nt];
+    for (gi, g) in groups.iter().enumerate() {
+        for &ti in g {
+            tri_group[ti] = gi;
+        }
+    }
+    let mut edge_tri: HashMap<(usize, usize), usize> = HashMap::new();
+    for (ti, t) in m.tris.iter().enumerate() {
+        for k in 0..3 {
+            edge_tri.insert((t[k], t[(k + 1) % 3]), ti);
+        }
+    }
+    let mut dir_at: Vec<Option<Pnt>> = vec![None; m.verts.len()];
+    let mut straight = vec![true; m.verts.len()];
+    for (ti, t) in m.tris.iter().enumerate() {
+        for k in 0..3 {
+            let (x, y) = (t[k], t[(k + 1) % 3]);
+            let inner = edge_tri
+                .get(&(y, x))
+                .map_or(false, |&o| tri_group[o] == tri_group[ti]);
+            if inner {
+                continue;
+            }
+            let d = m.verts[y] - m.verts[x];
+            for v in [x, y] {
+                match dir_at[v] {
+                    None => dir_at[v] = Some(d),
+                    Some(d0) => {
+                        if d0.cross(d).norm() > 1e-9 * d0.norm() * d.norm() {
+                            straight[v] = false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    let shared2: Vec<bool> = touch
+        .iter()
+        .zip(&straight)
+        .map(|(e, &st)| e.2 == 2 && st)
+        .collect();
     let mut out = TriMesh {
         verts: m.verts.clone(),
         tris: Vec::with_capacity(nt),
