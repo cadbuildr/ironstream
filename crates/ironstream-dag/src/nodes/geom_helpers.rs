@@ -314,7 +314,9 @@ fn discretize_arc(a: P2, b: P2, bulge: f64) -> Vec<P2> {
         sweep_ccw - 2.0 * PI
     };
     let start = a0;
-    let steps = ((r * sweep.abs()).ceil() as usize).clamp(4, 64);
+    // OCCT's angular step (kernel-api deflection 1 / angular 0.2 -> ~64 per
+    // full circle at any radius below ~800 mm), not a radius-scaled count.
+    let steps = ((sweep.abs() / (2.0 * PI / 64.0) - 1e-9).ceil() as usize).max(2);
     (1..steps)
         .map(|i| {
             let t = start + sweep * i as f64 / steps as f64;

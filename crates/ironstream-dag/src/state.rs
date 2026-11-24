@@ -52,6 +52,19 @@ pub struct SketchInfo {
 
 /// The result of an operation: a solid plus whether it subtracts (cut) from or
 /// adds to the running part body.
+/// An analytic helix (foundation `Helix3D`), kept so a Sweep can move its
+/// profile by the exact helical motion.
+#[derive(Clone, Copy, Debug)]
+pub struct Helix {
+    pub center: Pnt,
+    pub axis: Pnt,
+    pub radius: f64,
+    pub pitch: f64,
+    pub height: f64,
+    /// +1 right-handed, -1 left-handed
+    pub sign: f64,
+}
+
 #[derive(Clone, Debug)]
 pub struct OpResult {
     pub solid: Solid,
@@ -94,6 +107,10 @@ pub struct State {
     pub ellipses: HashMap<String, (Option<String>, Option<String>, Option<String>)>,
     /// spline3d id -> ordered 3D control points
     pub spline3ds: HashMap<String, Vec<Pnt>>,
+    /// Helix3D id -> analytic helix (its samples also live in `spline3ds`).
+    pub helices: HashMap<String, Helix>,
+    /// node id -> frame id of the part that owns it (for part-local Point3D paths).
+    pub owner_frame: HashMap<String, String>,
     /// sheet-metal body id -> accumulated SmBody
     pub sm_bodies: HashMap<String, SmBody>,
 }
