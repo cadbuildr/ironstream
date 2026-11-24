@@ -1149,15 +1149,28 @@ fn op_sm_passthrough(state: &mut State, id: &str, node: &DagNode) {
 
 fn finalize_part(state: &mut State, id: &str, node: &DagNode) {
     let op_ids = dep_ids(&node.deps, "operations");
+    // Batch each run of consecutive same-direction operations into ONE
+    // boolean (as castiron does): A op (B u C) equals the sequential form, the
+    // union of disjoint tools is a cheap concatenation, and the body is cut or
+    // fused once instead of being re-fragmented by every stud or hole.
+    let ops: Vec<OpResult> = op_ids.iter().filter_map(|i| state.operations.get(i).cloned()).collect();
     let mut body = Solid::empty();
-    for op_id in &op_ids {
-        if let Some(op) = state.operations.get(op_id).cloned() {
-            if op.cut {
-                body = cut(&body, &op.solid);
-            } else {
-                body = fuse(&body, &op.solid);
-            }
+    let mut i = 0;
+    while i < ops.len() {
+        let is_cut = ops[i].cut;
+        let mut j = i;
+        let mut tools: Vec<Solid> = Vec::new();
+        while j < ops.len() && ops[j].cut == is_cut {
+            tools.push(ops[j].solid.clone());
+            j += 1;
         }
+        let tool = if tools.len() == 1 { tools.pop().unwrap() } else { fuse_all(&tools) };
+        if is_cut {
+            body = cut(&body, &tool);
+        } else {
+            body = fuse(&body, &tool);
+        }
+        i = j;
     }
     // No part-frame transform here: every sketch plane already chains through
     // `top_frame` up to the (assembly-positioned) part frame, so operation
