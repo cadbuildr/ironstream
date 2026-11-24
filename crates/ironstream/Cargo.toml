@@ -22,3 +22,7 @@ path = "src/lib.rs"
 [[test]]
 name = "occt_suite"
 path = "tests/occt_suite.rs"
+
+[[test]]
+name = "parity"
+path = "tests/parity.rs"

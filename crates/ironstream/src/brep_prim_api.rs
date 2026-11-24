@@ -260,13 +260,28 @@ pub fn make_prism(face: &Face, vec: Pnt) -> Solid {
             let a = loop_pts[i];
             let b = loop_pts[(i + 1) % k];
             let (ad, bd) = (a + dir, b + dir);
-            m.push_triangle(a, b, bd);
-            m.push_triangle(a, bd, ad);
+            // Extruding against the face normal mirrors the wall winding too
+            // (not just the caps), or the solid comes out half inside-out and
+            // the next boolean deletes it.
+            if flip_caps {
+                m.push_triangle(a, bd, b);
+                m.push_triangle(a, ad, bd);
+            } else {
+                m.push_triangle(a, b, bd);
+                m.push_triangle(a, bd, ad);
+            }
         }
     };
     walls(&face.outer.pts);
     for h in &face.holes {
-        walls(&h.pts);
+        // Hole walls face into the hole, so a hole loop must run clockwise
+        // about the face normal. Callers pass holes in either sense.
+        if h.normal().dot(n) > 0.0 {
+            let rev: Vec<Pnt> = h.pts.iter().rev().cloned().collect();
+            walls(&rev);
+        } else {
+            walls(&h.pts);
+        }
     }
     let mut s = finalize(m);
     let hole_loops: Vec<Vec<Pnt>> = face.holes.iter().map(|h| h.pts.clone()).collect();
