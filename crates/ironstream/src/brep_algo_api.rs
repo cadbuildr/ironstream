@@ -8,6 +8,16 @@ use crate::topods::Solid;
 
 const WELD_TOL: f64 = 1e-6;
 
+/// Weld, then re-merge the coplanar slivers the BSP left behind (see
+/// `coplanar`). `IRONSTREAM_NO_MERGE=1` keeps the raw fragments.
+fn post_boolean(m: TriMesh) -> TriMesh {
+    let w = m.welded(WELD_TOL);
+    if std::env::var("IRONSTREAM_NO_MERGE").is_ok() {
+        return w;
+    }
+    crate::coplanar::merge_coplanar(&w)
+}
+
 /// Do two solids' bounding boxes overlap (with a small margin)? If not, their
 /// boundaries cannot intersect, so a union is just a concatenation of meshes.
 fn bboxes_overlap(a: &Solid, b: &Solid) -> bool {
@@ -45,7 +55,7 @@ pub fn fuse(a: &Solid, b: &Solid) -> Solid {
     } else {
         bsp::union(a.mesh(), b.mesh())
     };
-    let mut out = Solid::from_mesh(m.welded(WELD_TOL));
+    let mut out = Solid::from_mesh(post_boolean(m));
     out.merge_hints_from(a);
     out.merge_hints_from(b);
     // disjoint solids' B-reps concatenate exactly (a BSolid may be multi-shell)
@@ -74,7 +84,7 @@ pub fn cut(a: &Solid, b: &Solid) -> Solid {
         }
     }
     let m = bsp::subtract(a.mesh(), b.mesh());
-    let mut out = Solid::from_mesh(m.welded(WELD_TOL));
+    let mut out = Solid::from_mesh(post_boolean(m));
     out.merge_hints_from(a);
     out.merge_hints_from(b);
     out
@@ -126,7 +136,7 @@ pub fn common(a: &Solid, b: &Solid) -> Solid {
         return Solid::empty();
     }
     let m = bsp::intersect(a.mesh(), b.mesh());
-    let mut out = Solid::from_mesh(m.welded(WELD_TOL));
+    let mut out = Solid::from_mesh(post_boolean(m));
     out.merge_hints_from(a);
     out.merge_hints_from(b);
     out

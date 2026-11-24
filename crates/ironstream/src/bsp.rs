@@ -143,35 +143,71 @@ struct Node {
     plane: Option<Plane>,
     front: Option<Box<Node>>,
     back: Option<Box<Node>>,
-    polygons: Vec<Polygon>,
+}
+
+/// Pick a partition plane among a few candidate polygons: the one that splits
+/// the fewest of a sample (ties broken by balance). Using `polygons[0]` blindly
+/// — the textbook choice — fragments curved tessellations (threads, fillets,
+/// many-hole plates) quadratically; this keeps trees and fragment counts small.
+fn choose_splitter(polygons: &[Polygon]) -> Plane {
+    let n = polygons.len();
+    if n <= 6 {
+        return polygons[0].plane;
+    }
+    let cands = 7.min(n);
+    let samples = 40.min(n);
+    let mut best = polygons[0].plane;
+    let mut best_score = usize::MAX;
+    for c in 0..cands {
+        let pl = polygons[c * n / cands].plane;
+        let (mut f, mut b, mut sp) = (0usize, 0usize, 0usize);
+        for k in 0..samples {
+            let poly = &polygons[k * n / samples];
+            let mut ty = 0u8;
+            for v in &poly.verts {
+                let t = pl.n.dot(*v) - pl.w;
+                ty |= if t < -PLANE_EPS {
+                    BACK
+                } else if t > PLANE_EPS {
+                    FRONT
+                } else {
+                    COPLANAR
+                };
+            }
+            match ty {
+                FRONT => f += 1,
+                BACK => b += 1,
+                SPANNING => sp += 1,
+                _ => {}
+            }
+        }
+        let score = sp * 6 + f.abs_diff(b);
+        if score < best_score {
+            best_score = score;
+            best = pl;
+        }
+    }
+    best
 }
 
 impl Node {
+    /// Build a classification tree. Coplanar fragments are absorbed by the
+    /// node's plane (classification never needs them back), so the tree holds
+    /// planes only — the boundary polygons we output are never fragmented by
+    /// their own solid's partition.
     fn build(&mut self, polygons: Vec<Polygon>) {
         if polygons.is_empty() {
             return;
         }
-        if self.plane.is_none() {
-            self.plane = Some(polygons[0].plane);
-        }
-        let plane = self.plane.unwrap();
-        let mut coplanar_front = Vec::new();
-        let mut coplanar_back = Vec::new();
+        let plane = *self.plane.get_or_insert_with(|| choose_splitter(&polygons));
+        let mut cf = Vec::new();
+        let mut cb = Vec::new();
         let mut front = Vec::new();
         let mut back = Vec::new();
         for p in &polygons {
-            split_polygon(
-                &plane,
-                p,
-                &mut coplanar_front,
-                &mut coplanar_back,
-                &mut front,
-                &mut back,
-            );
+            split_polygon(&plane, p, &mut cf, &mut cb, &mut front, &mut back);
         }
-        // Coplanar fragments belong to this node's own face list.
-        self.polygons.extend(coplanar_front);
-        self.polygons.extend(coplanar_back);
+        drop(polygons);
         if !front.is_empty() {
             self.front
                 .get_or_insert_with(|| Box::new(Node::default()))
@@ -204,6 +240,7 @@ impl Node {
                 &mut back,
             );
         }
+        drop(polygons);
         // Coplanar-front fragments lie outside on this plane; coplanar-back are
         // on it but facing inward — route them with front/back respectively.
         front.extend(coplanar_front);
@@ -220,21 +257,7 @@ impl Node {
         front
     }
 
-    /// Remove all polygons of `self` that are inside `other`.
-    fn clip_to(&mut self, other: &Node) {
-        self.polygons = other.clip_polygons(std::mem::take(&mut self.polygons));
-        if let Some(f) = &mut self.front {
-            f.clip_to(other);
-        }
-        if let Some(b) = &mut self.back {
-            b.clip_to(other);
-        }
-    }
-
     fn invert(&mut self) {
-        for p in &mut self.polygons {
-            p.flip();
-        }
         if let Some(plane) = &mut self.plane {
             plane.flip();
         }
@@ -246,17 +269,82 @@ impl Node {
         }
         std::mem::swap(&mut self.front, &mut self.back);
     }
+}
 
-    fn all_polygons(&self) -> Vec<Polygon> {
-        let mut out = self.polygons.clone();
-        if let Some(f) = &self.front {
-            out.extend(f.all_polygons());
+type Aabb = ([f64; 3], [f64; 3]);
+
+fn poly_aabb(p: &Polygon) -> Aabb {
+    let mut lo = [f64::INFINITY; 3];
+    let mut hi = [f64::NEG_INFINITY; 3];
+    for v in &p.verts {
+        for (k, c) in [v.x, v.y, v.z].into_iter().enumerate() {
+            lo[k] = lo[k].min(c);
+            hi[k] = hi[k].max(c);
         }
-        if let Some(b) = &self.back {
-            out.extend(b.all_polygons());
+    }
+    (lo, hi)
+}
+
+/// A solid's classification tree plus its bounds. `inverted` = the tree
+/// describes the complement of the solid.
+struct Tree {
+    root: Node,
+    lo: [f64; 3],
+    hi: [f64; 3],
+    inverted: bool,
+}
+
+impl Tree {
+    fn new(polygons: &[Polygon]) -> Tree {
+        let mut lo = [f64::INFINITY; 3];
+        let mut hi = [f64::NEG_INFINITY; 3];
+        for p in polygons {
+            let (a, b) = poly_aabb(p);
+            for k in 0..3 {
+                lo[k] = lo[k].min(a[k]);
+                hi[k] = hi[k].max(b[k]);
+            }
+        }
+        let mut root = Node::default();
+        root.build(polygons.to_vec());
+        Tree { root, lo, hi, inverted: false }
+    }
+
+    fn invert(&mut self) {
+        self.root.invert();
+        self.inverted = !self.inverted;
+    }
+
+    /// Clip `polygons` to the outside of this tree's solid. Polygons whose
+    /// bounds miss the solid's bounds are outside it by construction, so they
+    /// skip the tree entirely (kept, or dropped for a complement tree) instead
+    /// of being cut by every partition plane in the tree.
+    fn clip(&self, polygons: Vec<Polygon>) -> Vec<Polygon> {
+        let ext = (0..3).map(|k| self.hi[k] - self.lo[k]).fold(0.0, f64::max);
+        let eps = 1.0e-6 * ext.max(1.0);
+        let (mut near, mut far) = (Vec::new(), Vec::new());
+        for p in polygons {
+            let (a, b) = poly_aabb(&p);
+            let hit = (0..3).all(|k| a[k] <= self.hi[k] + eps && b[k] >= self.lo[k] - eps);
+            if hit {
+                near.push(p);
+            } else {
+                far.push(p);
+            }
+        }
+        let mut out = self.root.clip_polygons(near);
+        if !self.inverted {
+            out.extend(far);
         }
         out
     }
+}
+
+fn flipped(mut polys: Vec<Polygon>) -> Vec<Polygon> {
+    for p in &mut polys {
+        p.flip();
+    }
+    polys
 }
 
 fn mesh_to_polygons(m: &TriMesh) -> Vec<Polygon> {
@@ -311,20 +399,22 @@ where
 }
 
 /// A ∪ B (`BRepAlgoAPI_Fuse`).
+///
+/// Same set algebra as the classic BSP merge (Naylor et al.; csg.js), but on
+/// polygon lists against plane-only trees: each solid's boundary is clipped by
+/// the other's tree, the second pass with flipped polygons drops the duplicate
+/// of coincident same-facing faces, and the results are concatenated instead
+/// of being re-split into one merged tree.
 pub fn union(a: &TriMesh, b: &TriMesh) -> TriMesh {
     let (pa, pb) = (mesh_to_polygons(a), mesh_to_polygons(b));
     run_csg(move || {
-        let mut na = Node::default();
-        na.build(pa);
-        let mut nb = Node::default();
-        nb.build(pb);
-        na.clip_to(&nb);
-        nb.clip_to(&na);
-        nb.invert();
-        nb.clip_to(&na);
-        nb.invert();
-        na.build(nb.all_polygons());
-        polygons_to_mesh(&na.all_polygons())
+        let ta = Tree::new(&pa);
+        let tb = Tree::new(&pb);
+        let mut a1 = tb.clip(pa);
+        let b1 = ta.clip(pb);
+        let b1 = flipped(ta.clip(flipped(b1)));
+        a1.extend(b1);
+        polygons_to_mesh(&a1)
     })
 }
 
@@ -332,19 +422,14 @@ pub fn union(a: &TriMesh, b: &TriMesh) -> TriMesh {
 pub fn subtract(a: &TriMesh, b: &TriMesh) -> TriMesh {
     let (pa, pb) = (mesh_to_polygons(a), mesh_to_polygons(b));
     run_csg(move || {
-        let mut na = Node::default();
-        na.build(pa);
-        let mut nb = Node::default();
-        nb.build(pb);
-        na.invert();
-        na.clip_to(&nb);
-        nb.clip_to(&na);
-        nb.invert();
-        nb.clip_to(&na);
-        nb.invert();
-        na.build(nb.all_polygons());
-        na.invert();
-        polygons_to_mesh(&na.all_polygons())
+        let mut ta = Tree::new(&pa);
+        let tb = Tree::new(&pb);
+        ta.invert();
+        let mut a1 = tb.clip(flipped(pa));
+        let b1 = ta.clip(pb);
+        let b1 = flipped(ta.clip(flipped(b1)));
+        a1.extend(b1);
+        polygons_to_mesh(&flipped(a1))
     })
 }
 
@@ -352,18 +437,16 @@ pub fn subtract(a: &TriMesh, b: &TriMesh) -> TriMesh {
 pub fn intersect(a: &TriMesh, b: &TriMesh) -> TriMesh {
     let (pa, pb) = (mesh_to_polygons(a), mesh_to_polygons(b));
     run_csg(move || {
-        let mut na = Node::default();
-        na.build(pa);
-        let mut nb = Node::default();
-        nb.build(pb);
-        na.invert();
-        nb.clip_to(&na);
-        nb.invert();
-        na.clip_to(&nb);
-        nb.clip_to(&na);
-        na.build(nb.all_polygons());
-        na.invert();
-        polygons_to_mesh(&na.all_polygons())
+        let mut ta = Tree::new(&pa);
+        let mut tb = Tree::new(&pb);
+        ta.invert();
+        let b1 = ta.clip(pb);
+        let b1 = flipped(b1);
+        tb.invert();
+        let mut a1 = tb.clip(flipped(pa));
+        let b1 = ta.clip(b1);
+        a1.extend(b1);
+        polygons_to_mesh(&flipped(a1))
     })
 }
 
