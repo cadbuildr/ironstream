@@ -1,0 +1,5 @@
+# BSP CSG runs on the caller's stack under wasm (no threads) and recurses
+# deeply on large tessellations — give the shadow stack real headroom (64 MB).
+# Without this, chess-piece-scale booleans overflow and trap at runtime.
+[target.wasm32-unknown-unknown]
+rustflags = ["-C", "link-arg=-zstack-size=67108864"]
