@@ -193,7 +193,7 @@ pub fn resolve_shape_loop(state: &State, shape_id: &str, plane: &Trsf) -> Option
         if r <= 0.0 {
             return None;
         }
-        let n = 64usize;
+        let n = state.mesh_params.segs_for(r);
         let loop_pts = (0..n)
             .map(|i| {
                 let a = 2.0 * PI * i as f64 / n as f64;
@@ -224,7 +224,7 @@ pub fn resolve_shape_loop(state: &State, shape_id: &str, plane: &Trsf) -> Option
         if a <= 0.0 || b <= 0.0 {
             return None;
         }
-        let n = 64usize;
+        let n = state.mesh_params.segs_for(a.max(b));
         let loop_pts = (0..n)
             .map(|i| {
                 let ang = 2.0 * PI * i as f64 / n as f64;
@@ -256,7 +256,7 @@ fn profile_local_loop(state: &State, profile: &crate::state::Profile) -> Vec<P2>
                 if let (Some(a), Some(b)) = (state.points2d.get(p1), state.points2d.get(p2)) {
                     out.push(*a);
                     if bulge.abs() > 1e-9 {
-                        out.extend(discretize_arc(*a, *b, *bulge));
+                        out.extend(discretize_arc(*a, *b, *bulge, &state.mesh_params));
                     }
                 }
             }
@@ -267,7 +267,7 @@ fn profile_local_loop(state: &State, profile: &crate::state::Profile) -> Vec<P2>
 
 /// Discretize an arc from `a` to `b` whose midpoint is offset perpendicular to
 /// the chord by `bulge`. Returns the interior points (endpoints excluded).
-fn discretize_arc(a: P2, b: P2, bulge: f64) -> Vec<P2> {
+fn discretize_arc(a: P2, b: P2, bulge: f64, mp: &MeshParams) -> Vec<P2> {
     let chord_mid = P2 {
         x: (a.x + b.x) * 0.5,
         y: (a.y + b.y) * 0.5,
@@ -314,9 +314,10 @@ fn discretize_arc(a: P2, b: P2, bulge: f64) -> Vec<P2> {
         sweep_ccw - 2.0 * PI
     };
     let start = a0;
-    // OCCT's angular step (kernel-api deflection 1 / angular 0.2 -> ~64 per
-    // full circle at any radius below ~800 mm), not a radius-scaled count.
-    let steps = ((sweep.abs() / (2.0 * PI / 64.0) - 1e-9).ceil() as usize).max(2);
+    // The full-circle segment count for this radius (OCCT's angular step,
+    // fewer on tiny arcs), applied in proportion to the sweep.
+    let per_circle = mp.segs_for(r) as f64;
+    let steps = ((sweep.abs() / (2.0 * PI / per_circle) - 1e-9).ceil() as usize).max(2);
     (1..steps)
         .map(|i| {
             let t = start + sweep * i as f64 / steps as f64;
@@ -365,7 +366,11 @@ pub fn clip_profile_to_axis(pts: &[Pnt], axis: &Ax1) -> Vec<Pnt> {
             Pnt::new(0.0, 0.0, 1.0)
         };
         let v = aux - dir * aux.dot(dir);
-        if v.norm() > 1e-9 { v.normalized() } else { aux }
+        if v.norm() > 1e-9 {
+            v.normalized()
+        } else {
+            aux
+        }
     };
 
     // Signed distance = component of the radial vector along ref_perp.
@@ -415,4 +420,3 @@ pub fn clip_profile_to_axis(pts: &[Pnt], axis: &Ax1) -> Vec<Pnt> {
     }
     out
 }
-

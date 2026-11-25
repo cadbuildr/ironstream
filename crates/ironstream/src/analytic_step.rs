@@ -163,6 +163,56 @@ fn surf_normal(s: &Surface, p: Pnt) -> Option<Pnt> {
 // ---------------------------------------------------------------------------
 
 /// Directed boundary edges of a triangle group -> closed vertex loops.
+fn split_components(tris: &[[usize; 3]], groups: Vec<FaceGroup>) -> Vec<FaceGroup> {
+    let mut out = Vec::with_capacity(groups.len());
+    for g in groups {
+        if g.tris.len() < 2 {
+            out.push(g);
+            continue;
+        }
+        let mut edge_owner: HashMap<(usize, usize), Vec<usize>> = HashMap::new();
+        for (k, &t) in g.tris.iter().enumerate() {
+            let [a, b, c] = tris[t];
+            for (u, v) in [(a, b), (b, c), (c, a)] {
+                edge_owner.entry((u.min(v), u.max(v))).or_default().push(k);
+            }
+        }
+        let mut parent: Vec<usize> = (0..g.tris.len()).collect();
+        fn find(p: &mut [usize], mut x: usize) -> usize {
+            while p[x] != x {
+                p[x] = p[p[x]];
+                x = p[x];
+            }
+            x
+        }
+        for ks in edge_owner.values() {
+            for w in ks.windows(2) {
+                let (a, b) = (find(&mut parent, w[0]), find(&mut parent, w[1]));
+                if a != b {
+                    parent[a] = b;
+                }
+            }
+        }
+        let mut comp: HashMap<usize, usize> = HashMap::new();
+        let mut parts: Vec<Vec<usize>> = Vec::new();
+        for (k, &t) in g.tris.iter().enumerate() {
+            let r = find(&mut parent, k);
+            let ci = *comp.entry(r).or_insert_with(|| {
+                parts.push(Vec::new());
+                parts.len() - 1
+            });
+            parts[ci].push(t);
+        }
+        for tris in parts {
+            out.push(FaceGroup {
+                surf: g.surf.clone(),
+                tris,
+            });
+        }
+    }
+    out
+}
+
 fn boundary_loops(tris: &[[usize; 3]], group: &[usize]) -> Vec<Vec<usize>> {
     use std::collections::HashSet;
     let mut dir: HashSet<(usize, usize)> = HashSet::new();
@@ -219,7 +269,12 @@ enum FittedEdge {
         radius: f64,
     },
     /// Whole loop is one circle (no corners at all).
-    FullCircle { at: usize, center: Pnt, axis: Pnt, radius: f64 },
+    FullCircle {
+        at: usize,
+        center: Pnt,
+        axis: Pnt,
+        radius: f64,
+    },
 }
 
 fn max_line_dev(pts: &[Pnt]) -> f64 {
@@ -276,8 +331,12 @@ fn fit_circle(pts: &[Pnt]) -> Option<(Pnt, Pnt, f64, f64)> {
         sz += z;
     }
     let m = pts.len() as f64;
-    let (a11, a12, a21, a22) = (2.0 * (sxx - sx * sx / m), 2.0 * (sxy - sx * sy / m),
-                                 2.0 * (sxy - sx * sy / m), 2.0 * (syy - sy * sy / m));
+    let (a11, a12, a21, a22) = (
+        2.0 * (sxx - sx * sx / m),
+        2.0 * (sxy - sx * sy / m),
+        2.0 * (sxy - sx * sy / m),
+        2.0 * (syy - sy * sy / m),
+    );
     let (b1, b2) = (sxz - sx * sz / m, syz - sy * sz / m);
     let det = a11 * a22 - a12 * a21;
     if det.abs() < 1e-12 {
@@ -374,7 +433,11 @@ fn fit_loop(loop_verts: &[usize], verts: &[Pnt]) -> Vec<FittedEdge> {
     for ci in 0..k {
         let start = corners[ci];
         let end = corners[(ci + 1) % k];
-        let len = if ci + 1 < k { end - start } else { n - start + end };
+        let len = if ci + 1 < k {
+            end - start
+        } else {
+            n - start + end
+        };
         if len == 0 {
             continue;
         }
@@ -409,7 +472,9 @@ impl<'a> Emit<'a> {
     }
 
     fn axis2(&mut self, origin: Pnt, z: Pnt, x: Pnt) -> usize {
-        let o = self.e.add(&format!("CARTESIAN_POINT('',{})", fmt_pnt(origin)));
+        let o = self
+            .e
+            .add(&format!("CARTESIAN_POINT('',{})", fmt_pnt(origin)));
         let zd = self
             .e
             .add(&format!("DIRECTION('',({:.9},{:.9},{:.9}))", z.x, z.y, z.z));
@@ -670,7 +735,11 @@ fn segment_loop(lp: &[usize], nodes: &std::collections::HashSet<usize>) -> Vec<V
     for a in 0..k {
         let start = positions[a];
         let end = positions[(a + 1) % k];
-        let len = if a + 1 < k { end - start } else { n - start + end };
+        let len = if a + 1 < k {
+            end - start
+        } else {
+            n - start + end
+        };
         chains.push((0..=len).map(|o| lp[(start + o) % n]).collect());
     }
     chains
@@ -694,7 +763,10 @@ fn fit_closed(lp: &[usize], verts: &[Pnt]) -> Vec<FittedEdge> {
         }
     }
     (0..lp.len())
-        .map(|i| FittedEdge::Line { a: lp[i], b: lp[(i + 1) % lp.len()] })
+        .map(|i| FittedEdge::Line {
+            a: lp[i],
+            b: lp[(i + 1) % lp.len()],
+        })
         .collect()
 }
 
@@ -779,6 +851,64 @@ fn loop_area(loop_verts: &[usize], verts: &[Pnt]) -> f64 {
 /// Serialize a solid to STEP with analytic faces where provenance allows.
 // occt: STEPControl_Writer
 pub fn write_step_analytic(solid: &Solid, name: &str) -> String {
+    write_step_analytic_multi(&[(solid, name)], name)
+}
+
+/// Several solids (an assembly's parts) in one STEP file: one shape
+/// representation holding one `MANIFOLD_SOLID_BREP` per solid.
+pub fn write_step_analytic_multi(solids: &[(&Solid, &str)], name: &str) -> String {
+    let name = &name.replace('\'', "");
+    let mut e = StepEmitter::new();
+    let (app_ctx, ctx) = step_contexts(&mut e);
+    let breps = solids
+        .iter()
+        .map(|(s, n)| format!("#{}", emit_solid_brep(&mut e, s, &n.replace('\'', ""))))
+        .collect::<Vec<_>>()
+        .join(",");
+    let rep = e.add(&format!(
+        "ADVANCED_BREP_SHAPE_REPRESENTATION('{name}',({breps}),#{ctx})"
+    ));
+
+    // Minimal product structure — STEP readers locate shapes by walking
+    // PRODUCT_DEFINITION -> SHAPE_DEFINITION_REPRESENTATION; without this
+    // skeleton the file parses but yields no roots.
+    let prod_ctx = e.add(&format!("PRODUCT_CONTEXT('',#{app_ctx},'mechanical')"));
+    let product = e.add(&format!("PRODUCT('{name}','{name}','',(#{prod_ctx}))"));
+    let category = e.add(&format!(
+        "PRODUCT_RELATED_PRODUCT_CATEGORY('part',$,(#{product}))"
+    ));
+    let _ = category;
+    let formation = e.add(&format!("PRODUCT_DEFINITION_FORMATION('','',#{product})"));
+    let pd_ctx = e.add(&format!(
+        "PRODUCT_DEFINITION_CONTEXT('part definition',#{app_ctx},'design')"
+    ));
+    let pd = e.add(&format!(
+        "PRODUCT_DEFINITION('design','',#{formation},#{pd_ctx})"
+    ));
+    let pds = e.add(&format!("PRODUCT_DEFINITION_SHAPE('','',#{pd})"));
+    let _sdr = e.add(&format!("SHAPE_DEFINITION_REPRESENTATION(#{pds},#{rep})"));
+    e.finish(name)
+}
+
+/// STEP header entities shared by every solid: (application context, geometric context).
+fn step_contexts(e: &mut StepEmitter) -> (usize, usize) {
+    let app_ctx = e.add("APPLICATION_CONTEXT('automotive design')");
+    let _proto = e.add(&format!(
+        "APPLICATION_PROTOCOL_DEFINITION('international standard','config_control_design',2010,#{app_ctx})"
+    ));
+    let dim = e.add("(LENGTH_UNIT()NAMED_UNIT(*)SI_UNIT(.MILLI.,.METRE.))");
+    let angle = e.add("(NAMED_UNIT(*)PLANE_ANGLE_UNIT()SI_UNIT($,.RADIAN.))");
+    let solid_angle = e.add("(NAMED_UNIT(*)SI_UNIT($,.STERADIAN.)SOLID_ANGLE_UNIT())");
+    let uncert = e.add(&format!(
+        "UNCERTAINTY_MEASURE_WITH_UNIT(LENGTH_MEASURE(1.E-06),#{dim},'distance','')"
+    ));
+    let ctx = e.add(&format!(
+        "(GEOMETRIC_REPRESENTATION_CONTEXT(3)GLOBAL_UNCERTAINTY_ASSIGNED_CONTEXT((#{uncert}))GLOBAL_UNIT_ASSIGNED_CONTEXT((#{dim},#{angle},#{solid_angle}))REPRESENTATION_CONTEXT('Context','3D'))"
+    ));
+    (app_ctx, ctx)
+}
+
+fn emit_solid_brep(e: &mut StepEmitter, solid: &Solid, name: &str) -> usize {
     let m = resolve_t_junctions(&solid.mesh().welded(1e-7));
     let hints = solid.hints();
 
@@ -797,7 +927,9 @@ pub fn write_step_analytic(solid: &Solid, name: &str) -> String {
                 continue;
             }
             let on = t.iter().all(|&vi| {
-                surf_distance(h, m.verts[vi]).map(|d| d <= tol).unwrap_or(false)
+                surf_distance(h, m.verts[vi])
+                    .map(|d| d <= tol)
+                    .unwrap_or(false)
             });
             if !on {
                 continue;
@@ -807,7 +939,10 @@ pub fn write_step_analytic(solid: &Solid, name: &str) -> String {
             // normal must roughly agree with the analytic one.
             let (a, b, c) = (m.verts[t[0]], m.verts[t[1]], m.verts[t[2]]);
             let centroid = (a + b + c) * (1.0 / 3.0);
-            if surf_distance(h, centroid).map(|d| d > 3.0 * tol).unwrap_or(true) {
+            if surf_distance(h, centroid)
+                .map(|d| d > 3.0 * tol)
+                .unwrap_or(true)
+            {
                 continue;
             }
             let gn = (b - a).cross(c - a).normalized();
@@ -855,21 +990,12 @@ pub fn write_step_analytic(solid: &Solid, name: &str) -> String {
         groups[gi].tris.push(ti);
     }
 
+    // One STEP face per connected region: coplanar stud tops or the flanks of
+    // separate teeth on one cylinder are distinct faces, and a face whose
+    // "holes" are really other regions' outer bounds is invalid.
+    let groups = split_components(&m.tris, groups);
+
     // -- emit ---------------------------------------------------------------
-    let mut e = StepEmitter::new();
-    let app_ctx = e.add("APPLICATION_CONTEXT('automotive design')");
-    let _proto = e.add(&format!(
-        "APPLICATION_PROTOCOL_DEFINITION('international standard','config_control_design',2010,#{app_ctx})"
-    ));
-    let dim = e.add("(LENGTH_UNIT()NAMED_UNIT(*)SI_UNIT(.MILLI.,.METRE.))");
-    let angle = e.add("(NAMED_UNIT(*)PLANE_ANGLE_UNIT()SI_UNIT($,.RADIAN.))");
-    let solid_angle = e.add("(NAMED_UNIT(*)SI_UNIT($,.STERADIAN.)SOLID_ANGLE_UNIT())");
-    let uncert = e.add(&format!(
-        "UNCERTAINTY_MEASURE_WITH_UNIT(LENGTH_MEASURE(1.E-06),#{dim},'distance','')"
-    ));
-    let ctx = e.add(&format!(
-        "(GEOMETRIC_REPRESENTATION_CONTEXT(3)GLOBAL_UNCERTAINTY_ASSIGNED_CONTEXT((#{uncert}))GLOBAL_UNIT_ASSIGNED_CONTEXT((#{dim},#{angle},#{solid_angle}))REPRESENTATION_CONTEXT('Context','3D'))"
-    ));
 
     // --- shared-edge topology --------------------------------------------
     let group_loops: Vec<Vec<Vec<usize>>> = groups
@@ -896,7 +1022,7 @@ pub fn write_step_analytic(solid: &Solid, name: &str) -> String {
     let nodes = detect_nodes(&group_loops, &he_owner, &m.verts);
 
     let mut emit = Emit {
-        e: &mut e,
+        e: &mut *e,
         vertex_ids: HashMap::new(),
     };
     let mut edge_table: HashMap<Vec<usize>, Vec<usize>> = HashMap::new();
@@ -1003,29 +1129,7 @@ pub fn write_step_analytic(solid: &Solid, name: &str) -> String {
         .join(",");
     let shell = e.add(&format!("CLOSED_SHELL('',({shell_refs}))"));
     let brep = e.add(&format!("MANIFOLD_SOLID_BREP('{name}',#{shell})"));
-    let rep = e.add(&format!(
-        "ADVANCED_BREP_SHAPE_REPRESENTATION('{name}',(#{brep}),#{ctx})"
-    ));
-
-    // Minimal product structure — STEP readers locate shapes by walking
-    // PRODUCT_DEFINITION -> SHAPE_DEFINITION_REPRESENTATION; without this
-    // skeleton the file parses but yields no roots.
-    let prod_ctx = e.add(&format!("PRODUCT_CONTEXT('',#{app_ctx},'mechanical')"));
-    let product = e.add(&format!("PRODUCT('{name}','{name}','',(#{prod_ctx}))"));
-    let category = e.add(&format!(
-        "PRODUCT_RELATED_PRODUCT_CATEGORY('part',$,(#{product}))"
-    ));
-    let _ = category;
-    let formation = e.add(&format!("PRODUCT_DEFINITION_FORMATION('','',#{product})"));
-    let pd_ctx = e.add(&format!(
-        "PRODUCT_DEFINITION_CONTEXT('part definition',#{app_ctx},'design')"
-    ));
-    let pd = e.add(&format!(
-        "PRODUCT_DEFINITION('design','',#{formation},#{pd_ctx})"
-    ));
-    let pds = e.add(&format!("PRODUCT_DEFINITION_SHAPE('','',#{pd})"));
-    let _sdr = e.add(&format!("SHAPE_DEFINITION_REPRESENTATION(#{pds},#{rep})"));
-    e.finish(name)
+    brep
 }
 
 fn pick_perp(n: Pnt) -> Pnt {
@@ -1075,7 +1179,10 @@ mod tests {
         assert_eq!(half.hints().len(), 1, "hint survives the boolean");
 
         let step = write_step_analytic(&half, "half_cylinder");
-        assert!(step.contains("CYLINDRICAL_SURFACE"), "analytic face emitted");
+        assert!(
+            step.contains("CYLINDRICAL_SURFACE"),
+            "analytic face emitted"
+        );
         assert!(step.contains("MANIFOLD_SOLID_BREP"));
         assert!(step.contains("CIRCLE"), "cap boundary fitted as arcs");
         // The cylindrical wall must be ONE face, not hundreds of slivers:
@@ -1097,7 +1204,11 @@ mod tests {
         use crate::brep_prim_api::make_cone;
         let cone = make_cone(8.0, 0.0, 15.0, MeshParams::default()); // true cone
         let step = write_step_analytic(&cone, "cone");
-        assert_eq!(step.matches("CONICAL_SURFACE").count(), 1, "one conical face");
+        assert_eq!(
+            step.matches("CONICAL_SURFACE").count(),
+            1,
+            "one conical face"
+        );
         assert!(!step.contains("CYLINDRICAL_SURFACE"));
 
         let frustum = make_cone(10.0, 5.0, 12.0, MeshParams::default());
@@ -1116,7 +1227,11 @@ mod tests {
         let part = cut(&block, &hole);
         let step = write_step_analytic(&part, "drilled");
         assert_eq!(step.matches("CYLINDRICAL_SURFACE").count(), 1);
-        assert_eq!(step.matches("ADVANCED_FACE").count(), 7, "6 planes + 1 cylinder");
+        assert_eq!(
+            step.matches("ADVANCED_FACE").count(),
+            7,
+            "6 planes + 1 cylinder"
+        );
         // inner bounds: the two hole rims (top & bottom) — not dozens
         assert!(
             step.matches("FACE_BOUND('").count() <= 4,

@@ -65,10 +65,18 @@ pub fn merge_coplanar(m: &TriMesh) -> TriMesh {
             }
         }
     }
-    let mut groups: HashMap<usize, Vec<usize>> = HashMap::new();
+    // Groups in order of their first triangle: iterating a HashMap here made
+    // the output triangle order (and so every later BSP split) vary from run
+    // to run, giving different meshes for the same input.
+    let mut group_of: HashMap<usize, usize> = HashMap::new();
+    let mut groups: Vec<Vec<usize>> = Vec::new();
     for i in 0..nt {
         let r = find(&mut parent, i);
-        groups.entry(r).or_default().push(i);
+        let gi = *group_of.entry(r).or_insert_with(|| {
+            groups.push(Vec::new());
+            groups.len() - 1
+        });
+        groups[gi].push(i);
     }
     // vertex -> number of triangles using it
     let mut vuse = vec![0usize; m.verts.len()];
@@ -78,13 +86,81 @@ pub fn merge_coplanar(m: &TriMesh) -> TriMesh {
         }
     }
 
-    let mut out = TriMesh { verts: m.verts.clone(), tris: Vec::with_capacity(nt) };
-    for (_, g) in groups {
+    // vertices that exactly two coplanar groups share: a collinear one is a
+    // clipper leftover on the straight edge between two faces, and both
+    // faces may drop it (whatever one face keeps, the final conform splits
+    // the other at)
+    let mut touch: Vec<(usize, usize, u8)> = vec![(usize::MAX, usize::MAX, 0); m.verts.len()];
+    for (gi, g) in groups.iter().enumerate() {
+        for &ti in g {
+            for &v in &m.tris[ti] {
+                let e = &mut touch[v];
+                if e.0 == gi || e.1 == gi {
+                    continue;
+                }
+                match e.2 {
+                    0 => *e = (gi, usize::MAX, 1),
+                    1 => *e = (e.0, gi, 2),
+                    _ => e.2 = 3,
+                }
+            }
+        }
+    }
+    // ...and only where it is straight in both: every group-boundary edge at
+    // the vertex runs along one line. A vertex one face still needs as a
+    // corner stays, so no face is left with a T-junction to repair (repairs
+    // there let later cuts leak tool points through near-coincident faces).
+    let mut tri_group = vec![0usize; nt];
+    for (gi, g) in groups.iter().enumerate() {
+        for &ti in g {
+            tri_group[ti] = gi;
+        }
+    }
+    let mut edge_tri: HashMap<(usize, usize), usize> = HashMap::new();
+    for (ti, t) in m.tris.iter().enumerate() {
+        for k in 0..3 {
+            edge_tri.insert((t[k], t[(k + 1) % 3]), ti);
+        }
+    }
+    let mut dir_at: Vec<Option<Pnt>> = vec![None; m.verts.len()];
+    let mut straight = vec![true; m.verts.len()];
+    for (ti, t) in m.tris.iter().enumerate() {
+        for k in 0..3 {
+            let (x, y) = (t[k], t[(k + 1) % 3]);
+            let inner = edge_tri
+                .get(&(y, x))
+                .map_or(false, |&o| tri_group[o] == tri_group[ti]);
+            if inner {
+                continue;
+            }
+            let d = m.verts[y] - m.verts[x];
+            for v in [x, y] {
+                match dir_at[v] {
+                    None => dir_at[v] = Some(d),
+                    Some(d0) => {
+                        if d0.cross(d).norm() > 1e-9 * d0.norm() * d.norm() {
+                            straight[v] = false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    let shared2: Vec<bool> = touch
+        .iter()
+        .zip(&straight)
+        .map(|(e, &st)| e.2 == 2 && st)
+        .collect();
+    let mut out = TriMesh {
+        verts: m.verts.clone(),
+        tris: Vec::with_capacity(nt),
+    };
+    for g in groups {
         if g.len() < 3 || planes[g[0]].is_none() {
             out.tris.extend(g.iter().map(|&i| m.tris[i]));
             continue;
         }
-        match retriangulate(m, &g, planes[g[0]].unwrap().0, &vuse) {
+        match retriangulate(m, &g, planes[g[0]].unwrap().0, &vuse, &shared2) {
             Some(tris) if tris.len() < g.len() => out.tris.extend(tris),
             _ => out.tris.extend(g.iter().map(|&i| m.tris[i])),
         }
@@ -112,7 +188,13 @@ fn compact(m: TriMesh) -> TriMesh {
     TriMesh { verts, tris }
 }
 
-fn retriangulate(m: &TriMesh, g: &[usize], n: Pnt, vuse: &[usize]) -> Option<Vec<[usize; 3]>> {
+fn retriangulate(
+    m: &TriMesh,
+    g: &[usize],
+    n: Pnt,
+    vuse: &[usize],
+    shared2: &[bool],
+) -> Option<Vec<[usize; 3]>> {
     // directed edges inside the group; boundary = no reverse twin
     let mut dir: HashMap<(usize, usize), usize> = HashMap::new();
     let mut own_use: HashMap<usize, usize> = HashMap::new();
@@ -178,7 +260,7 @@ fn retriangulate(m: &TriMesh, g: &[usize], n: Pnt, vuse: &[usize]) -> Option<Vec
             for i in 0..k {
                 let (a, b, c) = (lp[(i + k - 1) % k], lp[i], lp[(i + 1) % k]);
                 let outside = vuse[b] - own_use.get(&b).copied().unwrap_or(0);
-                if outside != 0 {
+                if outside != 0 && !shared2[b] {
                     continue;
                 }
                 let (pa, pb, pc) = (p2(a), p2(b), p2(c));
@@ -201,7 +283,12 @@ fn retriangulate(m: &TriMesh, g: &[usize], n: Pnt, vuse: &[usize]) -> Option<Vec
         }
         0.5 * s
     };
-    loops.sort_by(|a, b| area(b).abs().partial_cmp(&area(a).abs()).unwrap_or(std::cmp::Ordering::Equal));
+    loops.sort_by(|a, b| {
+        area(b)
+            .abs()
+            .partial_cmp(&area(a).abs())
+            .unwrap_or(std::cmp::Ordering::Equal)
+    });
     let mut flat: Vec<[f64; 2]> = Vec::new();
     let mut ids: Vec<usize> = Vec::new();
     let mut hole_starts = Vec::new();
@@ -220,7 +307,10 @@ fn retriangulate(m: &TriMesh, g: &[usize], n: Pnt, vuse: &[usize]) -> Option<Vec
         .iter()
         .map(|&ti| {
             let t = m.tris[ti];
-            (m.verts[t[1]] - m.verts[t[0]]).cross(m.verts[t[2]] - m.verts[t[0]]).norm() * 0.5
+            (m.verts[t[1]] - m.verts[t[0]])
+                .cross(m.verts[t[2]] - m.verts[t[0]])
+                .norm()
+                * 0.5
         })
         .sum();
     let got: f64 = tris
@@ -238,7 +328,11 @@ fn retriangulate(m: &TriMesh, g: &[usize], n: Pnt, vuse: &[usize]) -> Option<Vec
             .map(|t| {
                 let (a, b, c) = (ids[t[0]], ids[t[1]], ids[t[2]]);
                 let nn = (m.verts[b] - m.verts[a]).cross(m.verts[c] - m.verts[a]);
-                if nn.dot(n) >= 0.0 { [a, b, c] } else { [a, c, b] }
+                if nn.dot(n) >= 0.0 {
+                    [a, b, c]
+                } else {
+                    [a, c, b]
+                }
             })
             .collect(),
     )
@@ -259,7 +353,10 @@ mod tests {
         let merged = merge_coplanar(&raw);
         assert!((merged.volume() - raw.volume()).abs() < 1e-6 * raw.volume());
         assert!(merged.tris.len() <= raw.tris.len());
-        let u = fuse(&cut(&a, &c), &make_box(Pnt::new(4.0, -1.0, 2.0), 3.0, 2.0, 2.0));
+        let u = fuse(
+            &cut(&a, &c),
+            &make_box(Pnt::new(4.0, -1.0, 2.0), 3.0, 2.0, 2.0),
+        );
         assert!(u.volume() > 0.0);
     }
 }

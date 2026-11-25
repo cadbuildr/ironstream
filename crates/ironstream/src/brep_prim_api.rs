@@ -17,10 +17,17 @@ use std::f64::consts::PI;
 /// Tessellation resolution knobs.
 #[derive(Clone, Copy, Debug)]
 pub struct MeshParams {
-    /// Facets around a full circle for cylinders/cones/spheres/revolutions.
+    /// Facets around a full circle for cylinders/cones/spheres/revolutions
+    /// (the most a circle ever gets).
     pub circle_segments: usize,
-    /// Latitude bands for spheres / tori minor circle.
+    /// Latitude bands for spheres / tori minor circle (the most).
     pub lat_segments: usize,
+    /// Shortest facet edge along a circle, in model units. Circles too small
+    /// for `circle_segments` edges of this length get fewer segments (never
+    /// below 8), as OCCT's mesher drops points closer than its minimum size:
+    /// a 0.1 mm bore gets 8 segments, a 0.5 mm bead 40, anything above
+    /// ~0.8 mm radius the full count. 0 disables it.
+    pub min_edge: f64,
 }
 
 impl Default for MeshParams {
@@ -28,14 +35,28 @@ impl Default for MeshParams {
         Self {
             circle_segments: 64,
             lat_segments: 32,
+            min_edge: 0.08,
         }
     }
 }
 
 impl MeshParams {
-    /// Segments for a circle of the given radius, never below the floor.
-    fn segs_for(&self, _radius: f64) -> usize {
-        self.circle_segments.max(8)
+    /// Segments for a full circle of the given radius: `circle_segments`,
+    /// reduced on small circles by `min_edge` (multiple of 4, at least 8).
+    pub fn segs_for(&self, radius: f64) -> usize {
+        let max = self.circle_segments.max(8);
+        if self.min_edge <= 0.0 || !(radius > 0.0) {
+            return max;
+        }
+        let n = (2.0 * PI * radius / self.min_edge).ceil() as usize;
+        (n.div_ceil(4) * 4).clamp(8, max)
+    }
+
+    /// Latitude bands for a sphere of the given radius.
+    pub fn lat_for(&self, radius: f64) -> usize {
+        (self.segs_for(radius) / 2)
+            .min(self.lat_segments.max(4))
+            .max(4)
     }
 }
 
@@ -134,7 +155,12 @@ pub fn make_cone(r1: f64, r2: f64, h: f64, mp: MeshParams) -> Solid {
     // oriented so the radius grows along +z_dir, as CONICAL_SURFACE expects.
     if (r1 - r2).abs() > 1e-9 && h.abs() > 1e-9 {
         let (loc, axis, r_ref, half_angle) = if r2 > r1 {
-            (Pnt::origin(), Pnt::new(0.0, 0.0, 1.0), r1, ((r2 - r1) / h).atan())
+            (
+                Pnt::origin(),
+                Pnt::new(0.0, 0.0, 1.0),
+                r1,
+                ((r2 - r1) / h).atan(),
+            )
         } else {
             (
                 Pnt::new(0.0, 0.0, h),
@@ -156,7 +182,7 @@ pub fn make_cone(r1: f64, r2: f64, h: f64, mp: MeshParams) -> Solid {
 // occt: BRepPrimAPI_MakeSphere
 pub fn make_sphere(r: f64, mp: MeshParams) -> Solid {
     let u_segs = mp.segs_for(r);
-    let v_segs = mp.lat_segments.max(4);
+    let v_segs = mp.lat_for(r);
     let p = |iu: usize, iv: usize| {
         let theta = 2.0 * PI * iu as f64 / u_segs as f64; // around Z
         let phi = PI * iv as f64 / v_segs as f64; // 0..PI from +Z to -Z

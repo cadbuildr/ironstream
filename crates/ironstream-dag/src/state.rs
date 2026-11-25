@@ -6,7 +6,7 @@
 //! direct Rust analogue of replicad's `parameterStore[node.id] = ...`.
 
 use ironstream::prelude::*;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 /// A sheet-metal body: the accumulated solid plus the original thickness and
 /// base plane (used by EdgeFlange to compute perpendicular flanges).
@@ -69,13 +69,61 @@ pub struct Helix {
 pub struct OpResult {
     pub solid: Solid,
     pub cut: bool,
+    /// How the solid was made, where a later step can use it exactly.
+    pub shape: OpShape,
+}
+
+/// Construction record of an operation solid.
+#[derive(Clone, Debug)]
+pub enum OpShape {
+    Other,
+    /// Full revolution of a planar profile (world points, one side of the
+    /// axis) about `axis`.
+    Revolve {
+        profile: Vec<Pnt>,
+        axis: Ax1,
+    },
+    /// Straight extrusion of one circle: base centre, full extrusion vector,
+    /// radius.
+    Cylinder {
+        base: Pnt,
+        vec: Pnt,
+        radius: f64,
+    },
+    /// Helical sweep of a planar section (no twist).
+    Helical(crate::thread::HelicalSweep),
 }
 
 /// A finished part: its combined solid and display name.
 #[derive(Clone, Debug)]
 pub struct PartResult {
     pub name: String,
+    /// The Part node's id in the DAG.
+    pub node_id: String,
     pub solid: Solid,
+    /// Parts with the same key are the same shape: `solid` equals the
+    /// part-local solid of the key moved by `placement`. Lets a viewer upload
+    /// one mesh per key and draw the rest as instances.
+    pub instance: Option<PartInstance>,
+}
+
+#[derive(Clone, Debug)]
+pub struct PartInstance {
+    /// Hex content key of the part's sub-DAG (frame excluded).
+    pub key: String,
+    /// Part-local -> world.
+    pub placement: Trsf,
+}
+
+/// What the walk built and what it reused (cache and instancing counters).
+#[derive(Clone, Debug, Default)]
+pub struct CompileStats {
+    pub parts_built: usize,
+    pub parts_instanced: usize,
+    pub parts_cached: usize,
+    pub ops_built: usize,
+    pub ops_cached: usize,
+    pub ops_skipped: usize,
 }
 
 #[derive(Default)]
@@ -113,6 +161,20 @@ pub struct State {
     pub owner_frame: HashMap<String, String>,
     /// sheet-metal body id -> accumulated SmBody
     pub sm_bodies: HashMap<String, SmBody>,
+    /// Instancing plan for this compile (see `instance`).
+    pub plan: crate::instance::Plan,
+    /// part key -> part-local solid, kept across compiles by `Compiler`.
+    pub part_cache: HashMap<crate::instance::Key, Solid>,
+    /// operation key -> operation result, kept across compiles by `Compiler`.
+    pub op_cache: HashMap<crate::instance::Key, OpResult>,
+    /// Keys this compile used (the rest are evicted afterwards).
+    pub used_parts: HashSet<crate::instance::Key>,
+    pub used_ops: HashSet<crate::instance::Key>,
+    /// Part keys that were already cached when this compile started.
+    pub preexisting_parts: HashSet<crate::instance::Key>,
+    pub stats: CompileStats,
+    /// node id -> type name (for error messages).
+    pub type_of: HashMap<String, String>,
 }
 
 impl State {
